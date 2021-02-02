@@ -1,0 +1,94 @@
+.file-input-container {
+
+    text-align: right;
+
+    input[type="file"] {
+        display: none;
+    }
+
+    label {
+        border: 1px solid #ccc;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+}
+
+.nv-file-over {
+    border: dotted 3px red;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.has-footer{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    left: 0px;
+    z-index: 99;
+    margin: 0px;
+}
+.add-product ion-item {
+    width: 100%;
+    --background: transparent;
+}
+.profile-img {
+    width: 100%;
+    margin-top: 20px;
+}
+.profile-img img {
+    width: 100%;
+    margin-bottom: -4px;
+}
+.upload-photo{
+    background-color: #ffc409;
+    padding: 8px;
+    color: #fff;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    display: block;
+}
+.remove-icon{
+    position: absolute;
+    right: 4px;
+    color: #000;
+    background-color: #fff;
+    border-radius: 100%;
+    font-size: 20px;
+    top: 0;
+}
+.upload-img{
+    cursor: pointer;
+    --background: var(--ion-feedback-button-background);
+}
+.add-detail-row{
+    width: 100%;
+    border-bottom: 1px solid var(--ion-border-color);
+    // margin-bottom: 1px;
+}
+.add-detail-row ion-label{
+    display: flex;
+    font-size: 16px;
+    color: #a8a7a7;
+    transform: inherit;
+    margin-top: 10px;
+}
+
+.isVeg{
+  padding: 2px 5px;
+  margin-top: -5px;
+  float: right;
+  margin-right: 10px;
+
+}
+
+
+::ng-deep .sc-ion-modal-md-h {
+  --width: 90%;
+  --height: 70%;
+   }
+
+
+

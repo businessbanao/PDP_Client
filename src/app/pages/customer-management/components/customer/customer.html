@@ -1,0 +1,137 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button *ngIf="!showSearchBox" style="color: white;"></ion-menu-button>
+      <!-- <ion-back-button *ngIf="showSearchBox" (click)="backToNormal()" defaultHref="customers" style="color:white"> -->
+        <ion-icon style="margin-left: 10px;font-size: 22px;" *ngIf="showSearchBox" (click)="backToNormal()" name="arrow-back-outline"></ion-icon>
+      <!-- </ion-back-button> -->
+    </ion-buttons>
+    <ion-title>
+      Customer Management
+    </ion-title>
+    <ion-buttons slot="end" style="margin-right: 20px;" (click)="enableSearch()">
+      <ion-button>
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+ <ion-searchbar #autofocus  *ngIf="showSearchBox"  spellcheck="true" placeholder="Search Customers" [(ngModel)]="searchWord" (ionChange)="search($event)"></ion-searchbar>
+
+</ion-header>
+<ion-content *ngIf="isDataLoaded; else skeleton">
+  <!-- <button (click)="presentActionSheet()">share</button> -->
+  <!-- <ion-list-header color="light"><span class="page_header">Customer Management</span></ion-list-header> -->
+  <ion-list *ngIf="customersList.length != 0">
+    <ion-item-sliding id="item100" *ngFor="let list of customersList">
+      <ion-item [routerLink]="['/tabs/customer/customer-details/'+ list._id ]">
+        <img style="width: 50px;" *ngIf="list.isLoyal"
+        src="https://badhaobusiness.s3.ap-south-1.amazonaws.com/101705760-royal-attribute-golden-crown-icon-queen-king-symbol-vector-illustration--removebg-preview.png" >
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="2">
+              <!-- {{list.label}} -->
+                <div [ngStyle]="{'opacity' : list.isAccountActive == false ? 0.4 : 1}" *ngIf="list.CustomerImage.length == 0" class="centered">{{list.label}}</div>
+                <img class="product-thumbnail" [ngStyle]="{'opacity' : list.isAccountActive == false ? 0.4 : 1}" *ngIf="list.CustomerImage.length !== 0" src="{{list.CustomerImage}}">
+                <!-- <img class="product-thumbnail"  *ngIf="list.CustomerImage.length == 0" src="../../../../../assets/img/profile-bg.jpg"> -->
+            </ion-col>
+            <ion-col size="9">
+              <h6 class="product-name" *ngIf="list.fullName">{{list.fullName}}</h6>
+              <h6 class="product-name grey-color" *ngIf="!list.fullName">N/A</h6>
+              <span class="tag-name">{{list.mobile}}</span>
+            </ion-col>
+            <ion-col size="1">
+              <ion-icon class="call-icon" name="call-outline"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+      <p *ngIf="customersList.length == 0" class="noRecordsFound">No Records Found</p>
+
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="!list.isAccountActive" color="success" (click)="deleteAlertConfirm(list._id,list.isAccountActive)">
+          <span >Enable</span>
+        </ion-item-option>
+        <ion-item-option *ngIf="list.isAccountActive" color="danger" (click)="deleteAlertConfirm(list._id,list.isAccountActive)">
+          <span >Disable</span>
+        </ion-item-option>
+
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+  <ion-row *ngIf="customersList.length == 0">
+    <img src="../../../../../assets/img/no_list/no category-found.jpg" >
+  </ion-row>
+
+  <!-- <ion-item lines="full" (click)="share()">Share</ion-item>
+    <ion-item lines="full" (click)="shareViaEmail()">Share Via Email</ion-item>
+    <ion-item lines="full" (click)="shareViaWhatsapp()">Share Via Whatsapp</ion-item>
+    <ion-item lines="full" (click)="shareViaFacebook()">Share Via Facebook</ion-item>
+    <ion-item lines="full" (click)="shareViaTwitter()">Share Via Twitter</ion-item>
+    <ion-item lines="full" (click)="shareViaInstagram()">Share Via Instagram</ion-item>
+    <ion-item lines="full" (click)="shareViaSMS()">Share Via SMS</ion-item> -->
+  <!-- <ion-fab vertical="bottom" style="margin-left: 23px;margin-top: 40px;">
+    <ion-fab-button>
+      <ion-icon name="share"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>
+        <ion-icon name="logo-whatsapp" (click)="shareViaFacebook()"></ion-icon>
+      </ion-fab-button>
+
+
+    </ion-fab-list>
+    <ion-fab-list side="bottom">
+      <ion-fab-button>
+        <ion-icon name="logo-facebook" (click)="shareViaSMS()"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="start">
+      <ion-fab-button>
+        <ion-icon name="logo-instagram" (click)="shareViaInstagram()"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="end">
+      <ion-fab-button>
+        <ion-icon name="logo-facebook" (click)="shareViaFacebook()"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab> -->
+
+  <ion-refresher slot="fixed" (ionRefresh)="refersh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ng-template #skeleton>
+  <ion-list>
+
+      <ion-item *ngFor="let item of [1, 2, 3, 4, 5,6,7,8,9]">
+          <ion-thumbnail slot="start">
+              <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label>
+              <h3>
+                  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </h3>
+              <p>
+                  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </p>
+              <p>
+                  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </p>
+          </ion-label>
+      </ion-item>
+
+
+  </ion-list>
+</ng-template>

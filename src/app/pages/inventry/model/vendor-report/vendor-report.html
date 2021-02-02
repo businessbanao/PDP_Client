@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/inventry"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title >Check Balance</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <br /><br />
+
+    <ion-list  style="margin-top: 21px;" *ngIf="entryList.length != 0">
+      <h5 class="add-pro-title list-header">{{depName}}
+        <span style="float: right;color: white;">Total : {{total}}</span>
+
+      </h5>
+
+      <ng-container>
+        <ion-item-sliding id="item100" *ngFor="let data of entryList">
+          <ion-item *ngIf="data.amount">
+
+            <ion-label >
+              <p  class="save-later-name" style="text-transform: capitalize;">
+
+                {{data.date | date:'medium'}}   <span style="float: right;color: red;">₹ -{{data.amount}}</span>
+              </p>
+
+            </ion-label>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option
+              color="danger"
+
+            >
+              <ion-icon slot="icon-only" name="create"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+
+      </ng-container>
+    </ion-list>
+
+
+
+</ion-content>

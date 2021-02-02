@@ -1,0 +1,481 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white;"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Handi Punjab Di
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button> </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-searchbar spellcheck="true" (ionChange)="search($event)"></ion-searchbar>
+</ion-header>
+
+  <ion-item *ngIf="!isSearchEnable">
+    <ion-label>Filters</ion-label>
+    <ion-select interface="popover" placeholder="Select Filter" [(ngModel)]="selectedFilter"
+    (ngModelChange)="onFilterChange($event)">
+      <ion-select-option value="order">Order Insights</ion-select-option>
+      <ion-select-option value="product">Product Insights</ion-select-option>
+      <ion-select-option value="customer">Customer Insights</ion-select-option>
+      <ion-select-option value="shop">Shop Insights</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+<ion-content *ngIf="!isSearchEnable && selectedFilter=='order'">
+
+  <ion-refresher slot="fixed" (ionRefresh)="getAnalyticalData($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header class="list-header">Order Insights</ion-list-header>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <!-- <ion-card-subtitle>Number of Orders per month for</ion-card-subtitle> -->
+      <ion-card-title *ngIf="orderData.TotalSales.length">Sales and Revenue &nbsp;   ₹ {{orderData.TotalSales[0].total}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas class="bar-chart" #barChart></canvas>
+    </ion-card-content>
+  </ion-card>
+
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-card class="card-box" style="background-color: #599efa;color: white;">
+        <ion-label> Total Orders</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+          {{orderData.TotalOrder}}
+        </p>
+      </ion-card>
+      <ion-card class="card-box" style="background-color: #6bdfc7;color: white;">
+        <ion-label>Total Sales</ion-label>
+        <p >
+          <ion-icon style="height: 20px;width: 20px;" name="cash-outline"></ion-icon>
+          <span *ngIf="orderData.TotalSales.length">₹ {{orderData.TotalSales[0].total}}</span>
+          <span *ngIf="!orderData.TotalSales.length"> ₹ 0</span>
+        </p>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+  <!-- <ion-row>
+    <label>{{orderData.Most_order_food[0].productData[0].productName}}</label>
+    <img src="{{orderData.Most_order_food[0].productData[0].imageVarients[0]}}">
+  </ion-row> -->
+
+  <!-- ok -->
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <!-- <ion-card-subtitle>Number of Orders per month for</ion-card-subtitle> -->
+      <ion-card-title>Order</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #pieChart></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-card class="card-box" style="background-color: #ffce55;color: white;">
+        <ion-label> Delivered Order</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+          {{orderData.DeliveedOrder}}
+        </p>
+      </ion-card>
+      <ion-card class="card-box" style="background-color: #87ceeb;color: white;">
+        <ion-label>Total Pendding Order</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="receipt-outline"></ion-icon>
+          {{orderData.PenddingOrder}}
+        </p>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+<ion-content *ngIf="!isSearchEnable && selectedFilter=='product'">
+  <ion-refresher slot="fixed" (ionRefresh)="getAnalyticalData($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card-content>
+    <canvas #ProductChart></canvas>
+  </ion-card-content>
+
+
+
+
+  <ion-list-header class="list-header">Product Insights</ion-list-header>
+  <ion-grid>
+    <ion-row>
+      <ion-card class="card-box" style="background-color: #599efa;color: white;">
+        <ion-label> Total Reviews Count</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+          {{productData.TotalReviewsCount}}
+        </p>
+      </ion-card>
+      <ion-card class="card-box" style="background-color: #6bdfc7;color: white;">
+        <ion-label>Total Products</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="cash-outline"></ion-icon>
+          {{productData.TotalProducts}}
+        </p>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+  <p *ngIf="false"  style="font-weight: 500;">&nbsp;&nbsp;Top 3 Products</p>
+<ion-row *ngIf="false" >
+  <ion-grid>
+    <ion-col *ngFor="let data of productData.Top3Products">
+        <img routerLink="/tabs/product/product-details/{{data._id}}" src="{{data.imageVarients[0]}}" style="height: 100px;width: 100px;">
+        <!-- <br>
+        <span>
+          {{data.productName}}
+        </span> -->
+    </ion-col>
+
+  </ion-grid>
+</ion-row>
+<br>
+<p style="font-weight: 500;" *ngIf="false" >&nbsp;&nbsp;Most Ordered Food</p>
+<ion-row *ngIf="false" >
+<ion-grid>
+<ion-row >
+  <ion-col *ngIf="productData.Most_order_food.length !== 0">
+    <img routerLink="/tabs/product/product-details/{{productData.Most_order_food[0]._id}}" src="{{productData.Most_order_food[0].productData[0].imageVarients[0]}}" style="height: 100px;width: 100px;">
+
+
+</ion-col>
+
+</ion-row>
+</ion-grid>
+</ion-row>
+
+<ion-grid>
+  <ion-row>
+    <ion-card class="card-box" style="background-color: #59fa97;color: white;">
+      <ion-label> Discount Running Products</ion-label>
+      <p>
+        <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+        {{productData.DiscountRunningProducts}}
+      </p>
+    </ion-card>
+    <ion-card class="card-box" style="background-color: #df966b;color: white;">
+      <ion-label>Total Available Products</ion-label>
+      <p>
+        <ion-icon style="height: 20px;width: 20px;" name="cash-outline"></ion-icon>
+        {{productData.TotalAvailableProducts}}
+      </p>
+    </ion-card>
+  </ion-row>
+</ion-grid>
+<ion-grid>
+  <ion-row>
+    <ion-card class="card-box" style="background-color: #4d5258;color: white;">
+      <ion-label> Total Veg Products</ion-label>
+      <p>
+        <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+        {{productData.TotalVegProducts}}
+      </p>
+    </ion-card>
+    <ion-card class="card-box" style="background-color: #5d9e91;color: white;">
+      <ion-label>Total NonVeg Products</ion-label>
+      <p>
+        <ion-icon style="height: 20px;width: 20px;" name="cash-outline"></ion-icon>
+        {{productData.TotalNonVegProducts}}
+      </p>
+    </ion-card>
+  </ion-row>
+</ion-grid>
+<ion-grid>
+  <ion-row>
+    <ion-card class="card-box" style="background-color: #a3b1c4;color: white;">
+      <ion-label> Total Available Products</ion-label>
+      <p>
+        <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+        {{productData.TotalAvailableProducts}}
+      </p>
+    </ion-card>
+    <ion-card class="card-box" style="background-color: #c46bdf;color: white;">
+      <ion-label>Total Out Of Stock Products</ion-label>
+      <p>
+        <ion-icon style="height: 20px;width: 20px;" name="cash-outline"></ion-icon>
+        {{productData.TotalOutOfStockProducts}}
+      </p>
+    </ion-card>
+  </ion-row>
+</ion-grid>
+
+
+</ion-content>
+
+
+<ion-content *ngIf="!isSearchEnable && selectedFilter=='customer'">
+  <ion-refresher slot="fixed" (ionRefresh)="getAnalyticalData($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header class="list-header">Customer Insights</ion-list-header>
+<!-- <highcharts-chart
+[Highcharts]="Highcharts"
+
+[constructorType]="chartConstructor"
+[options]="customerChartOptions"
+[callbackFunction]="chartCallback"
+
+[(update)]="updateFlag"
+[oneToOne]="oneToOneFlag"
+[runOutsideAngular]="runOutsideAngular"
+
+style="width: 100%; height: 400px; display: block;"
+></highcharts-chart> -->
+<ion-card class="welcome-card">
+  <ion-card-header>
+    <ion-card-title>Customer Analysis </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <canvas #customerPolarChart></canvas>
+  </ion-card-content>
+</ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-card class="card-box" style="background-color: #599efa;color: white;">
+      <ion-label>Total Customers</ion-label>
+      <p>
+        <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+        {{customerData.TotalCustomers}}
+      </p>
+    </ion-card>
+      <ion-card class="card-box" style="background-color: #faef59;color: white;">
+        <ion-label>Having Email</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+          {{customerData.Having_Email}}
+        </p>
+      </ion-card>
+      <!-- <ion-card class="card-box" style="background-color: #6bdfc7;color: white;">
+        <ion-label>Retention Count</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="cash-outline"></ion-icon>
+          {{customerData.Retention_Count.length}}
+        </p>
+      </ion-card> -->
+
+
+    </ion-row>
+  </ion-grid>
+
+
+
+  <ion-card-content>
+    <canvas #customerProfileChart></canvas>
+  </ion-card-content>
+  <ion-grid>
+    <ion-row>
+      <!-- <ion-card class="card-box" style="background-color: rgb(148, 126, 73);;color: white;">
+        <ion-label>Acquisition Count</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+          {{customerData.Acquisition_count}}
+        </p>
+      </ion-card> -->
+
+      <!-- <ion-card class="card-box" style="background-color: rgb(57, 88, 100);;color: white;">
+        <ion-label>Customer Satisfaction</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="receipt-outline"></ion-icon>
+          {{customerData.Customer_Satisfaction.length}}
+        </p>
+      </ion-card> -->
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-card class="card-box" style="background-color: rgba(37, 155, 160, 0.95);;color: white;">
+        <ion-label>Daily Signups</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+          {{customerData.Daily_Signups}}
+        </p>
+      </ion-card>
+
+      <ion-card class="card-box" style="background-color: rgb(85, 213, 148);color: white;">
+        <ion-label>Loyal Customers</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="receipt-outline"></ion-icon>
+          {{customerData.Loyal_Customers}}
+        </p>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-card class="card-box" style="background-color: rgb(232, 104, 92);;color: white;">
+        <ion-label>Complete Profile</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+          {{customerData.Complete_Profile}}
+        </p>
+      </ion-card>
+      <ion-card class="card-box" style="background-color: rgb(27, 160, 110);color: white;">
+        <ion-label>BY Referral</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="receipt-outline"></ion-icon>
+          {{customerData.BY_Referral}}
+        </p>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+  </ion-content>
+
+
+<ion-content *ngIf="!isSearchEnable && selectedFilter=='shop'">
+  <ion-refresher slot="fixed" (ionRefresh)="getAnalyticalData($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header class="list-header">Shop Insights</ion-list-header>
+  <ion-card-content>
+    <canvas #shopChart></canvas>
+  </ion-card-content>
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-card class="card-box" style="background-color: #599efa;color: white;">
+        <ion-label>Total Shops</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="people-outline"></ion-icon>
+          {{shopData.TotalShops}}
+        </p>
+      </ion-card>
+      <ion-card class="card-box" style="background-color: #6bdfc7;color: white;">
+        <ion-label>Total Category</ion-label>
+        <p>
+          <ion-icon style="height: 20px;width: 20px;" name="cash-outline"></ion-icon>
+          {{shopData.TotalCategory}}
+        </p>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+<!--
+  <ion-list style="margin-top: 21px;" >
+    <ion-list-header color="light"
+      >
+      <span class="page_header"> Products in Shops</span>
+      </ion-list-header
+    >
+    <ion-item *ngFor="let list of shopData.ProductCountagainstShop">
+      <ion-thumbnail slot="start">
+        <img
+          src="https://png.clipart.me/previews/3b6/small-store-icon-psd-45819.jpg"
+        />
+      </ion-thumbnail>
+      <ion-label>{{list.count}}<br />
+      </ion-label><br />
+    </ion-item>
+  </ion-list> -->
+
+  </ion-content>
+
+
+
+
+<ion-content *ngIf="isSearchEnable">
+
+  <ion-list style="margin-top: 21px;" *ngIf="customersList.length != 0">
+    <ion-list-header class="list-header">Customers</ion-list-header>
+    <ion-item *ngFor="let list of customersList">
+      <ion-thumbnail slot="start" routerLink="/customers/customer-details/{{list._id}}">
+        <img
+          *ngIf="list.CustomerImage.length !== 0"
+          src="{{list.CustomerImage}}"
+        />
+        <img
+          *ngIf="list.CustomerImage.length == 0"
+          src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
+        />
+      </ion-thumbnail>
+      <ion-label routerLink="/tabs/customer/customer-details/{{list._id}}">{{list.fullName}}<br />{{list.mobile}}</ion-label><br />
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="margin-top: 21px;" *ngIf="productList.length != 0">
+    <ion-list-header class="list-header">Products</ion-list-header>
+    <ion-item *ngFor="let list of productList">
+      <ion-thumbnail slot="start" routerLink="/tabs/product/product-details/{{list._id}}">
+        <img
+          *ngIf="list.productImage.length !== 0"
+          src="{{list.productImage}}"
+        />
+        <img
+          *ngIf="list.productImage.length == 0"
+          src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
+        />
+      </ion-thumbnail>
+      <ion-label routerLink="/tabs/product/product-details/{{list._id}}">{{list.title}}<br />{{list.price}}</ion-label><br />
+    </ion-item>
+  </ion-list>
+  <ion-list style="margin-top: 21px;" *ngIf="orderList.length != 0">
+    <ion-list-header class="list-header">Orders</ion-list-header>
+
+    <ion-item *ngFor="let list of orderList">
+      <ion-thumbnail slot="start" routerLink="/orders/order-details/{{list.orderId}}">
+        <img
+          *ngIf="list.productImage.length !== 0"
+          src="{{list.productImage}}"
+        />
+        <img
+          *ngIf="list.productImage.length == 0"
+          src="https://static05.cminds.com/wp-content/uploads/edd/MTrueEditOrderS.png"
+        />
+      </ion-thumbnail>
+      <ion-label routerLink="orders/order-details/{{list.orderId}}">{{list.productName}}<br />{{list.productPrice}}</ion-label
+      ><br />
+    </ion-item>
+  </ion-list>
+  <ion-list style="margin-top: 21px;" *ngIf="storeList.length != 0">
+    <ion-list-header class="list-header">Shops</ion-list-header>
+    <ion-item *ngFor="let list of storeList">
+      <ion-thumbnail slot="start" routerLink="/tabs/shop/details/{{list._id}}"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      >
+        <img *ngIf="list.storeLogo.length !== 0" src="{{list.storeLogo}}" />
+        <img
+          *ngIf="list.storeLogo.length == 0"
+          src="https://png.clipart.me/previews/3b6/small-store-icon-psd-45819.jpg"
+        />
+      </ion-thumbnail>
+      <ion-label routerLink="/tabs/shop/details/{{list._id}}">{{list.storeName}}<br />{{list.storeAddress}}</ion-label><br />
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,344 @@
+.header{
+  position: fixed;
+    width: 100%;
+    padding: 10px 0px;
+    background: linear-gradient(to top,rgba(6,0,0,0) 0, rgba(0,0,0,0.4) 50%, rgba(0,0,0,.7) 100%);
+    z-index: 99;
+}
+.top-left{
+  float: left;
+}
+.top-right{
+  float: right;
+}
+
+.noRecordsFound {
+  text-align: center;
+  margin-top: 67px;
+  font-weight: bolder;
+  font-family: fantasy;
+}
+
+.edit-icon {
+  color: #fff;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.slidetitle {
+  position: absolute;
+  bottom: 60px;
+  left: 18px;
+  color: white;
+  text-align: left;
+  font-family: "Libre Baskerville", serif;
+}
+
+.block {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 4px;
+}
+
+.author {
+  position: absolute;
+  bottom: 25px;
+  left: 20px;
+  color: rgb(240, 240, 240);
+  font-size: 15px !important;
+  font-weight: 300;
+  text-shadow: 1px 1px 3px #000000;
+}
+.p-body{
+  position: relative;
+  z-index: 1;
+  box-shadow: none;
+  padding: 0px 15px;
+  border-top: 1px solid var(--ion-border-color);
+  --background: transparent;
+  border-radius: 0px;
+}
+.p-body .row{
+  clear: both;
+  padding: 15px 0px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--ion-border-color);
+}
+.p-body ion-label{
+  color: var(--ion-small-color);
+  display: block;
+  font-size: 12px;
+}
+.p-body ion-text{
+  color: var(--ion-text-color);
+  font-size: 16px;
+}
+.float-left{
+  float: left;
+}
+.float-right{
+  float: right;
+}
+.sub-headers {
+  padding-left: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.see_more {
+  text-decoration: none;
+  color: var(--ion-color-tertiary);
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.bottom-left {
+  position: absolute;
+  top: 150px;
+  left: 19px;
+  color: white;
+  font-weight: bolder;
+  z-index: 1;
+  text-shadow: 0px 0px 10px #000;
+}
+.bottom-left img{
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+.select-size{
+  color: #000;
+  margin-left: 10px;
+}
+.select-size ion-col{
+  background-color: #f7f7f7;
+  margin-right: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+.select-size ion-col.active{
+  border: 1px solid #ff9901;
+  box-shadow: 0px 0px 10px #ccc;
+  background-color: #ff9901;
+  color: #fff;
+}
+.ratings-section{
+  border-top: 1px solid var(--ion-border-color);
+}
+.ratings-section ion-grid h5{
+  margin-top: 0px;
+  padding: 10px 15px 0px;
+  font-size: 18px;
+  color: var(--ion-text-color);
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.ratings-main{
+  color: var(--ion-text-color);
+}
+.rating-left{
+  text-align: center;
+  color: var(--ion-text-color);
+}
+.rating-left h2{
+  font-size: 24px;
+}
+.rating-left h2 span{
+  display: inline-block;
+  vertical-align: middle;
+}
+.rating-left h2 ion-icon{
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+.rating-left p{
+  color: var(--ion-text-color);
+  font-size: 12px;
+}
+.rating-right{
+  padding: 0px 15px;
+}
+.rating-right p{
+  margin-top: 0px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ion-text-color);
+}
+.rating-right p .star{
+  width: 24px;
+}
+.rating-right p .bar{
+  width: 47%;
+  height: 8px;
+  background-color: #ccc;
+  border-radius: 30px;
+  position: relative;
+  overflow: hidden;
+}
+.rating-right p .small{
+  width: 36px;
+}
+.rating-right p .bar::before{
+  content: '';
+  display: block;
+  position: relative;
+}
+.bg-success::before{
+  background-color: #28A542;
+}
+.bg-orange::before{
+  background-color: #FE9E04;
+}
+.bg-pink::before{
+  background-color: #FA4343;
+}
+.rating-right p .fivestar::before{
+  width:100%;
+  height: 100%;
+}
+.rating-right p .fourstar::before{
+  width:60%;
+  height: 100%;
+}
+.rating-right p .threestar::before{
+  width:40%;
+  height: 100%;
+}
+.rating-right p .twostar::before{
+  width:20%;
+  height: 100%;
+}
+.rating-right p .onestar::before{
+  width:10%;
+  height: 100%;
+}
+.ratting-list{
+  padding: 0px 15px;
+}
+.ratting-list .title{
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-top: 10px;
+}
+.ratting-list .title a{
+  float: right;
+  font-weight: bold;
+}
+.ratting-list ul{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+.ratting-list ul li h4{
+  font-size: 18px;
+}
+.ratting-list ul li h4 span{
+  background-color: #27A541;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  vertical-align: middle;
+  font-weight: normal;
+  display: inline-block;
+}
+.ratting-list ul li{
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+.ratting-list ul li p{
+  margin: 0px;
+}
+.ratting-list ul li p a{
+  color: #1190b5;
+}
+.ratting-list p.viwe-all a{
+  font-weight: bold;
+  text-decoration: none;
+}
+.ratting-list p.viwe-all a ion-icon,
+.ratting-list p.viwe-all a span{
+  vertical-align: middle;
+  display: inline-block;
+}
+.product-tabs{
+  padding: 15px 0px 5px;
+  margin: 0px 10px;
+}
+.item-box{
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: var(--ion-card-shadow);
+  padding: 10px;
+  border: 1px solid var(--ion-border-color);
+}
+.item-box h6{
+  font-size: 14px;
+  margin: 3px 0px;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.item-box p{
+  margin-bottom: 0px;
+  margin-top: 0px;
+  font-size: 12px;
+}
+.shop-name{
+  padding-top: 20px;
+  text-transform: capitalize;
+  width: 90%;
+  margin: 0 auto;
+}
+.vagnon-image-small{
+  width: 14px !important;
+  display: inline-block;
+  height: 14px !important;
+}
+.details-button {
+  text-align: center;
+  padding: 10px;
+}
+.details-button ion-label{
+  margin-top: 10px;
+  display: block;
+  font-size: 15px;
+  color: var(--ion-text-color);
+}
+.details-button ion-icon{
+  font-size: 42px;
+}
+.slide-padding ion-img{
+  height: 250px;
+  object-fit: cover;
+}
+.title-sm{
+  color: var(--ion-text-color);
+}
+.customer-reveiw-card{
+  height: auto;
+  padding: 10px 10px;
+  width: 100%;
+  margin-left: -1px;
+  color: var(--ion-text-color);
+}
+.status-yellow{
+  color: rgb(209, 142, 42) !important;
+  font-weight: 500;
+}
+.status-green{
+  color: green !important;
+  font-weight: 500;
+}
+.status-red{
+  color: red !important;
+  font-weight: 500;
+}

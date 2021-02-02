@@ -1,0 +1,138 @@
+.vagnon-image-small{
+  width: 14px !important;
+  display: inline-block;
+  vertical-align: middle;
+  height: 14px !important;
+}
+.success-icon{
+  height: 100px;
+  width: 100px;
+  margin-left: 30%;
+}
+
+.thanksTitle{
+  text-align: center;
+}
+
+.orderId{
+  color: black;
+  font-size: 16px;
+  // font-weight: bold;
+  text-align: center;
+}
+
+.orderPlace{
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.emailConfirmation{
+  color:black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.estimate{
+  color: green;
+  font-size: 24px;
+}
+
+.homeButton{
+  margin-left: 30%;
+}
+.order-details-heading{
+  padding: 15px 15px;
+  background: var(--ion-gray-backgorund);
+}
+.order-details-heading h5{
+  margin: 0px;
+}
+.order-detials .orderprice-detisl p.order-date{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 15px;
+}
+.order-detials .orderprice-detisl p span,
+.order-detials .orderprice-detisl p ion-label{
+  width: 50%;
+  color: var(--ion-text-color);
+}
+.order-detials .orderprice-detisl ion-card{
+  margin: 0px 15px;
+  box-shadow: none;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+} 
+.order-detials .orderprice-detisl ion-item-sliding h5{
+  padding: 0px 15px;
+}
+.order-ship-detisl p{
+  padding: 0px;
+}
+.shipment-details{
+  padding: 15px 15px 0px;
+}
+.shipment-details-title{
+  margin-top: 0px;
+  color: var(--ion-text-color);
+}
+.shipment-delivery-time,
+.shipment-time{
+  padding: 0px !important;
+  margin: 0px;
+  color: var(--ion-small-color);
+}
+.shipment-item{
+  padding: 0px 0 14px 15px;
+  display: flex;
+}
+.shipment-item ion-thumbnail{
+  width: 100px;
+  margin-right: 15px;
+}
+.shipment-item ion-label{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.content-left p{
+  padding: 0px !important;
+  font-weight: bold;
+}
+.payment-info-heading h5{
+  padding: 0px 15px;
+}
+.payment-methed,
+.billing-address{
+  padding: 15px;
+  border-bottom: 1px solid var(--ion-border-color);
+  color: var(--ion-small-color);
+}
+.payment-methed p,
+.billing-address p{
+  margin: 0px;
+}
+.order-summay-header h5 {
+  padding: 0px 15px;
+}
+.order-summery-contnet{
+  padding: 15px;
+}
+.order-summery-contnet p{
+  margin: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+.order-summery-contnet p + p{
+  margin-top: 10px;
+}
+.order-summery-contnet p span:last-child{
+  text-align: right;
+}
+.content-right{
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--ion-text-green-color);
+}

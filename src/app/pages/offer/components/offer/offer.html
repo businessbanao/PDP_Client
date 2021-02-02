@@ -1,0 +1,448 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white;"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Offer Management
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content >
+  <mat-tab-group
+  id="header"
+    class="offers-mat-tabs"
+    [selectedIndex]="selected.value"
+    animationDuration="0ms"
+    mat-align-tabs="center"
+    color="primary"
+    backgroundColor="black"
+    (selectedIndexChange)="selected.setValue($event)"
+  >
+    <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+      <div  *ngIf="index == 0">
+        <div  class="total-points-group">
+          <h5  class="create-title">Create Coupon</h5>
+          <div class="offer-create-box">
+            <div class="create-rotate-heading">
+              <span>CREATE COUPON</span>
+            </div>
+            <div class="offer-felds">
+              <div class="offer-feild-top">
+                <ion-thumbnail class="offer-feild-thumbnail">
+                  <!-- <svg style="enable-background:new 0 0 512.001 512.001;" id="fix_1" class="offer-img"  enable-background="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m20.5 13h-17c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h17c.276 0 .5.224.5.5s-.224.5-.5.5z"></path><path d="m19.5 24h-15c-.827 0-1.5-.673-1.5-1.5v-5c0-.276.224-.5.5-.5s.5.224.5.5v5c0 .275.224.5.5.5h15c.276 0 .5-.225.5-.5v-5c0-.276.224-.5.5-.5s.5.224.5.5v5c0 .827-.673 1.5-1.5 1.5z"></path><path d="m12 24c-.276 0-.5-.224-.5-.5v-11c0-.276.224-.5.5-.5s.5.224.5.5v11c0 .276-.224.5-.5.5z"></path><path d="m23.5 18h-7.934c-.523 0-1.016-.278-1.286-.728l-2.709-4.516c-.093-.154-.095-.347-.006-.503s.255-.253.435-.253h8.5c.176 0 .338.092.429.243l3 5c.093.154.095.347.006.503-.089.157-.255.254-.435.254zm-10.617-5 2.254 3.758c.09.149.255.242.429.242h7.05l-2.4-4z"></path><path d="m8.434 18h-7.934c-.18 0-.346-.097-.435-.254-.089-.156-.086-.349.006-.503l3-5c.091-.151.253-.243.429-.243h8.5c.18 0 .346.097.435.254.089.156.086.349-.006.503l-2.709 4.514c-.27.451-.763.729-1.286.729zm-7.051-1h7.05c.175 0 .339-.093.43-.243l2.254-3.757h-7.334z"></path><path d="m12 11c-3.033 0-5.5-2.468-5.5-5.5s2.467-5.5 5.5-5.5 5.5 2.468 5.5 5.5-2.467 5.5-5.5 5.5zm0-10c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="m12.25 8.5h-1.75c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1.75c.414 0 .75-.337.75-.75s-.336-.75-.75-.75h-.5c-.965 0-1.75-.785-1.75-1.75s.785-1.75 1.75-1.75h1.75c.276 0 .5.224.5.5s-.224.5-.5.5h-1.75c-.414 0-.75.337-.75.75s.336.75.75.75h.5c.965 0 1.75.785 1.75 1.75s-.785 1.75-1.75 1.75z"></path><path d="m12 9.4c-.276 0-.5-.224-.5-.5v-.9c0-.276.224-.5.5-.5s.5.224.5.5v.9c0 .277-.224.5-.5.5z"></path><path d="m12 3.5c-.276 0-.5-.224-.5-.5v-.9c0-.276.224-.5.5-.5s.5.224.5.5v.9c0 .276-.224.5-.5.5z"></path></svg> -->
+                  <!-- <img class="offer-img" *ngIf="list.isRewardSetting" src="../../../assets/img/default_reward.png"> -->
+                  <svg class="offer-img" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" id="Capa_1" style="enable-background:new 0 0 512.001 512.001;" version="1.1" viewBox="0 0 512.001 512.001" x="0px" xmlns="http://www.w3.org/2000/svg" y="0px"><g><g><path d="M507.606,4.394c-5.857-5.858-15.356-5.858-21.214,0l-43.69,43.69c-2.686-1.28-5.52-2.311-8.479-3.05L298.452,11.491 c-15.246-3.811-31.622,0.724-42.735,11.837L13.16,265.486c-17.545,17.546-17.545,46.096,0,63.643l169.713,169.712 c17.546,17.546,46.096,17.547,63.643,0l242.158-242.558c11.113-11.113,15.649-27.489,11.836-42.736l-33.542-135.77 c-0.74-2.958-1.77-5.793-3.05-8.479l43.69-43.69C513.464,19.75,513.464,10.252,507.606,4.394z M471.403,220.825 c1.271,5.082-0.241,10.54-3.945,14.245L225.3,477.627c-5.849,5.849-15.366,5.849-21.215,0L34.373,307.914 c-5.849-5.849-5.849-15.366,0-21.215L276.931,44.542c2.837-2.837,6.703-4.388,10.641-4.388c1.204,0,2.415,0.145,3.604,0.442 l127.53,31.483l-36.125,36.125c-16.725-7.966-37.384-5.044-51.21,8.782c-17.547,17.547-17.547,46.096,0,63.643 c8.772,8.773,20.297,13.16,31.821,13.16c11.523,0,23.048-4.386,31.82-13.16c13.829-13.828,16.75-34.486,8.782-51.211 l36.125-36.125L471.403,220.825z M373.799,159.416c-5.848,5.848-15.365,5.849-21.214,0c-5.848-5.848-5.848-15.366,0-21.214 c2.925-2.925,6.765-4.386,10.607-4.386c3.84,0,7.682,1.462,10.605,4.385l0.001,0.001l0.001,0.001 C379.648,144.051,379.647,153.568,373.799,159.416z"></path></g></g><g><g><path d="M246.514,180.63c-17.546-17.546-46.096-17.546-63.643,0c-17.545,17.546-17.545,46.096,0,63.643 c17.546,17.546,46.097,17.546,63.643,0C264.061,226.726,264.061,198.177,246.514,180.63z M225.301,223.058
+                    c-5.849,5.849-15.366,5.849-21.214,0c-5.848-5.849-5.85-15.366-0.001-21.214c5.849-5.848,15.365-5.849,21.215,0
+                    C231.149,207.692,231.149,217.209,225.301,223.058z"></path></g></g><g><g><path d="M267.728,329.128c-17.587-17.587-46.052-17.589-63.642,0c-17.547,17.547-17.547,46.096,0,63.643
+                    c17.588,17.587,46.053,17.59,63.642,0C285.275,375.224,285.275,346.675,267.728,329.128z M246.514,371.557
+                    c-5.861,5.862-15.352,5.863-21.214,0c-5.848-5.848-5.848-15.366,0-21.214c5.862-5.862,15.352-5.863,21.214,0
+                    C252.362,356.191,252.362,365.707,246.514,371.557z"></path></g></g><g><g><path d="M335.673,274.437c-0.915-8.234-8.333-14.168-16.566-13.253l-190.926,21.214c-8.234,0.915-14.168,8.331-13.253,16.566
+                    c0.853,7.671,7.347,13.346,14.891,13.346c0.553,0,1.113-0.031,1.675-0.093l190.927-21.214
+                    C330.655,290.087,336.589,282.671,335.673,274.437z"></path></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
+                </ion-thumbnail>
+                <span>₹</span
+                ><input
+                  class="discount-feild"
+                  type="number"
+                  [(ngModel)]="discountAmt"
+                  max="100"
+                  min="0"
+                  #autofocus
+                  placeholder="Enter Cashback Amount "
+                />
+                <!-- <ion-input  [(ngModel)]="couponName" clearInput placeholder="Example: Flat 50% Discount"></ion-input>  -->
+                <input
+                  class="flat-feild"
+                  type="text"
+                  placeholder="Choose Coupon Type"
+                  (change)="onChange($event.target.value,$event)"
+                  value="{{couponCode}}"
+                  [matAutocomplete]="auto"
+                />
+                <mat-autocomplete
+                  [(ngModel)]="couponCode"
+                  name="couponCode"
+                  ngDefaultControl
+                  #auto="matAutocomplete"
+                  [displayWith]="displayFn"
+                  (optionSelected)="onSelect($event.option.value)"
+                >
+                  <mat-option
+                    *ngFor="let option of filteredOptions"
+                    [value]="option"
+                  >
+                    {{option.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+              <ion-row class="offer-feild-bottom">
+                <ion-col>
+
+                </ion-col>
+                <ion-col *ngIf="couponCode">
+                  <div class="amount-feild">{{couponCode}}{{discountAmt}}</div>
+                </ion-col>
+              </ion-row>
+              <ion-row class="create-button">
+                <div>
+                  <span class="date-title">Expire Date</span>
+                  <ion-datetime
+                    [(ngModel)]="expireDate"
+                    displayFormat="DD MMM YYYY"
+                    placeholder="Select Date"
+                    min="2020-06-04"
+                    max="2030-08-23"
+                  ></ion-datetime>
+                </div>
+                <ion-col>
+                  <button
+                    class="coupon-btn"
+                    *ngIf="!isEditModeEnable"
+                    (click)="createOffer()"
+                  >
+                    Create
+                  </button>
+                  <button
+                    class="coupon-btn"
+                    *ngIf="isEditModeEnable"
+                    (click)="updateOffer()"
+                    color="warning"
+                  >
+                    Update
+                  </button>
+                </ion-col>
+              </ion-row>
+            </div>
+          </div>
+
+          <span class="saprator"></span>
+        </div>
+        <ion-list-header class="offer-title"
+          ><h5>All Coupons</h5></ion-list-header
+        >
+        <ion-list class="offer-list" *ngIf="_offerList.length != 0">
+          <ion-grid>
+            <ion-row>
+              <ng-container *ngFor="let list of _offerList">
+                <ion-card class="offer-card"  *ngIf="!list.isRewardSetting">
+                  <div class="rotate-heading" >
+                    <span >COUPON</span>
+                  </div>
+                  <div class="offer-content">
+                    <div class="offer-top">
+                      <ion-thumbnail>
+                        <svg style="enable-background:new 0 0 512.001 512.001;" id="fix_1" class="offer-img" *ngIf="list.isRewardSetting" enable-background="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m20.5 13h-17c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h17c.276 0 .5.224.5.5s-.224.5-.5.5z"></path><path d="m19.5 24h-15c-.827 0-1.5-.673-1.5-1.5v-5c0-.276.224-.5.5-.5s.5.224.5.5v5c0 .275.224.5.5.5h15c.276 0 .5-.225.5-.5v-5c0-.276.224-.5.5-.5s.5.224.5.5v5c0 .827-.673 1.5-1.5 1.5z"></path><path d="m12 24c-.276 0-.5-.224-.5-.5v-11c0-.276.224-.5.5-.5s.5.224.5.5v11c0 .276-.224.5-.5.5z"></path><path d="m23.5 18h-7.934c-.523 0-1.016-.278-1.286-.728l-2.709-4.516c-.093-.154-.095-.347-.006-.503s.255-.253.435-.253h8.5c.176 0 .338.092.429.243l3 5c.093.154.095.347.006.503-.089.157-.255.254-.435.254zm-10.617-5 2.254 3.758c.09.149.255.242.429.242h7.05l-2.4-4z"></path><path d="m8.434 18h-7.934c-.18 0-.346-.097-.435-.254-.089-.156-.086-.349.006-.503l3-5c.091-.151.253-.243.429-.243h8.5c.18 0 .346.097.435.254.089.156.086.349-.006.503l-2.709 4.514c-.27.451-.763.729-1.286.729zm-7.051-1h7.05c.175 0 .339-.093.43-.243l2.254-3.757h-7.334z"></path><path d="m12 11c-3.033 0-5.5-2.468-5.5-5.5s2.467-5.5 5.5-5.5 5.5 2.468 5.5 5.5-2.467 5.5-5.5 5.5zm0-10c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="m12.25 8.5h-1.75c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1.75c.414 0 .75-.337.75-.75s-.336-.75-.75-.75h-.5c-.965 0-1.75-.785-1.75-1.75s.785-1.75 1.75-1.75h1.75c.276 0 .5.224.5.5s-.224.5-.5.5h-1.75c-.414 0-.75.337-.75.75s.336.75.75.75h.5c.965 0 1.75.785 1.75 1.75s-.785 1.75-1.75 1.75z"></path><path d="m12 9.4c-.276 0-.5-.224-.5-.5v-.9c0-.276.224-.5.5-.5s.5.224.5.5v.9c0 .277-.224.5-.5.5z"></path><path d="m12 3.5c-.276 0-.5-.224-.5-.5v-.9c0-.276.224-.5.5-.5s.5.224.5.5v.9c0 .276-.224.5-.5.5z"></path></svg>
+                        <!-- <img class="offer-img" *ngIf="list.isRewardSetting" src="../../../assets/img/default_reward.png"> -->
+                        <svg *ngIf="!list.isRewardSetting" class="offer-img" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" id="Capa_1" style="enable-background:new 0 0 512.001 512.001;" version="1.1" viewBox="0 0 512.001 512.001" x="0px" xmlns="http://www.w3.org/2000/svg" y="0px"><g><g><path d="M507.606,4.394c-5.857-5.858-15.356-5.858-21.214,0l-43.69,43.69c-2.686-1.28-5.52-2.311-8.479-3.05L298.452,11.491 c-15.246-3.811-31.622,0.724-42.735,11.837L13.16,265.486c-17.545,17.546-17.545,46.096,0,63.643l169.713,169.712 c17.546,17.546,46.096,17.547,63.643,0l242.158-242.558c11.113-11.113,15.649-27.489,11.836-42.736l-33.542-135.77 c-0.74-2.958-1.77-5.793-3.05-8.479l43.69-43.69C513.464,19.75,513.464,10.252,507.606,4.394z M471.403,220.825 c1.271,5.082-0.241,10.54-3.945,14.245L225.3,477.627c-5.849,5.849-15.366,5.849-21.215,0L34.373,307.914 c-5.849-5.849-5.849-15.366,0-21.215L276.931,44.542c2.837-2.837,6.703-4.388,10.641-4.388c1.204,0,2.415,0.145,3.604,0.442 l127.53,31.483l-36.125,36.125c-16.725-7.966-37.384-5.044-51.21,8.782c-17.547,17.547-17.547,46.096,0,63.643 c8.772,8.773,20.297,13.16,31.821,13.16c11.523,0,23.048-4.386,31.82-13.16c13.829-13.828,16.75-34.486,8.782-51.211 l36.125-36.125L471.403,220.825z M373.799,159.416c-5.848,5.848-15.365,5.849-21.214,0c-5.848-5.848-5.848-15.366,0-21.214 c2.925-2.925,6.765-4.386,10.607-4.386c3.84,0,7.682,1.462,10.605,4.385l0.001,0.001l0.001,0.001 C379.648,144.051,379.647,153.568,373.799,159.416z"></path></g></g><g><g><path d="M246.514,180.63c-17.546-17.546-46.096-17.546-63.643,0c-17.545,17.546-17.545,46.096,0,63.643 c17.546,17.546,46.097,17.546,63.643,0C264.061,226.726,264.061,198.177,246.514,180.63z M225.301,223.058
+                          c-5.849,5.849-15.366,5.849-21.214,0c-5.848-5.849-5.85-15.366-0.001-21.214c5.849-5.848,15.365-5.849,21.215,0
+                          C231.149,207.692,231.149,217.209,225.301,223.058z"></path></g></g><g><g><path d="M267.728,329.128c-17.587-17.587-46.052-17.589-63.642,0c-17.547,17.547-17.547,46.096,0,63.643
+                          c17.588,17.587,46.053,17.59,63.642,0C285.275,375.224,285.275,346.675,267.728,329.128z M246.514,371.557
+                          c-5.861,5.862-15.352,5.863-21.214,0c-5.848-5.848-5.848-15.366,0-21.214c5.862-5.862,15.352-5.863,21.214,0
+                          C252.362,356.191,252.362,365.707,246.514,371.557z"></path></g></g><g><g><path d="M335.673,274.437c-0.915-8.234-8.333-14.168-16.566-13.253l-190.926,21.214c-8.234,0.915-14.168,8.331-13.253,16.566
+                          c0.853,7.671,7.347,13.346,14.891,13.346c0.553,0,1.113-0.031,1.675-0.093l190.927-21.214
+                          C330.655,290.087,336.589,282.671,335.673,274.437z"></path></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
+                      </ion-thumbnail>
+                      <span class="offer-discr"
+                        >Use
+                        <b style="text-transform: uppercase;"
+                          >{{list.couponCode}}</b
+                        >
+                        and, Get
+                        <b>Extra ₹&nbsp;{{list.discountedAmount}}</b> Cashback
+                        in your wallet. <br />cost<b style="color: #1691e7;">
+                          ₹&nbsp;{{list.discountedAmount}}</b
+                        ></span
+                      >
+                      <ion-icon
+                        (click)="openCouponOptions(list)"
+                        name="ellipsis-vertical-outline"
+                        style="font-size: 42px; margin-top: -10px;"
+                      ></ion-icon>
+                    </div>
+                    <ion-row class="offer-bottom">
+                      <ion-col>
+                        <span>Expire Date</span>
+                        <strong
+                          >{{list.expireDate | date:'dd MMM yyyy'}}</strong
+                        >
+                      </ion-col>
+                      <ion-col>
+                        <ion-button shape="round"
+                          >{{list.couponCode}}{{list.discountAmt}}</ion-button
+                        >
+                      </ion-col>
+                    </ion-row>
+                  </div>
+                </ion-card>
+              </ng-container>
+            </ion-row>
+          </ion-grid>
+        </ion-list>
+        <ion-row *ngIf="_offerList.length == 0">
+          <img class="no-list-found" src="../../../../../assets/img/no_list/no category-found.jpg" />
+        </ion-row>
+      </div>
+      <div *ngIf="index == 1">
+        <div class="discount-top">
+          <h5 class="create-title">Discount Offers</h5>
+          <ion-grid>
+            <ion-row>
+              <ion-col >
+                <!-- <mat-form-field class="select-box">
+                  <mat-label style="color: white;">Select Offers</mat-label>
+                  <mat-select
+                    style="color: white;"
+                    [(ngModel)]="selectedoffer"
+                    (ngModelChange)="changeOffer($event)"
+                  >
+                    <mat-option>None</mat-option>
+                    <mat-option
+                      *ngFor="let offer of offerList"
+                      [value]="offer._id"
+                      >{{offer.name}}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <ion-select style="    color: white;
+                border: 1px #c3c3c3 solid;
+                padding: 7px 8px;" interface="popover" [(ngModel)]="selectedoffer" placeholder="Select Discount Type"  (ngModelChange)="changeOffer($event)" >
+                  <ion-select-option  *ngFor="let offer of offerList"  [value]="offer._id">{{offer.name}}</ion-select-option>
+                </ion-select>
+              </ion-col>
+              <ion-col>
+                <div  class="input-group" *ngIf="isDiscountEnable">
+                  <div  class="input-group-area">
+                    <input
+                    style="width: 86px;"
+                      type="number"
+                      max="100"
+                      min="0"
+                      [(ngModel)]="discount"
+                      placeholder="Discount"
+                    />
+                  </div>
+                  <!-- <div class="input-group-icon">%</div> -->
+                </div>
+              </ion-col>
+              <ion-col>
+                <ion-button
+                  (click)="setOffer()"
+                  color="warning"
+                  class="select-box"
+                  >Apply
+                </ion-button>
+              </ion-col>
+              <!-- <ion-row> -->
+                <!-- <ion-button
+                  (click)="setOffer()"
+                  color="warning"
+                  class="select-box"
+                  >Apply Discount
+                </ion-button> -->
+              <!-- </ion-row> -->
+            </ion-row>
+          </ion-grid>
+        </div>
+        <ion-searchbar
+          class="discount-search"
+          spellcheck="true"
+          placeholder="Search Products"
+          (ionChange)="search($event)"
+        >
+        </ion-searchbar><br><br><br><br><br><br><br>
+        <ion-list *ngIf="productList.length != 0">
+          <ion-item-sliding id="item100" *ngFor="let item of productList">
+            <ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="4">
+                    <p class="product-thumb">
+                      <img
+                        class="product-thumbnail"
+                        *ngIf="item.imageVarients.length !== 0"
+                        src="{{item.imageVarients[0]}}"
+                      />
+                      <img
+                        class="product-thumbnail"
+                        *ngIf="item.imageVarients.length == 0"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT_i-qo_Z_MAZ_mWkIwrFnYj9lSrN-DgLirf8aV-TqY1UDlNwYG&usqp=CAU"
+                      />
+                      <span class="offer" *ngIf="item.discount && item.discount < 100"
+                        >{{item.discount}}% OFF</span
+                      >
+                      <span class="offer" *ngIf="item.discount && item.discount == 200"
+                      >Buy 1 Get 1 </span
+                    >
+
+                    </p>
+                  </ion-col>
+                  <ion-col size="8">
+                    <h6
+                      style="
+                        text-transform: capitalize;
+                        font-weight: 500;
+                        margin-bottom: 3px;
+                      "
+                    >
+                    <img *ngIf="item.isVeg" src="../../../../../assets/img/vag.png" class="vagnon-image-small">
+                    <img *ngIf="!item.isVeg" src="../../../../../assets/img/nonvag.png" class="vagnon-image-small">
+                      {{item.productName}}
+                    </h6>
+                    <p class="tranding-rating-star">
+                      <img src="../../../../../assets/img/star-full.png" />
+                      <img src="../../../../../assets/img/star-full.png" />
+                      <img src="../../../../../assets/img/star-full.png" />
+                      <img src="../../../../../assets/img/star-full.png" />
+                      <img src="../../../../../assets/img/star-full.png" />
+                      <strong>5</strong>
+                    </p>
+                    <p>₹ {{item.price}}</p>
+                    <!-- <span *ngIf="item.discount !== 0">{{item.discount}}% Discount </span> -->
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+              <ion-checkbox
+                class="product-checkbox"
+                slot="start"
+                [(ngModel)]="item.isChecked"
+                (ionChange)="checkEvent()"
+              >
+              </ion-checkbox>
+            </ion-item>
+
+            <p *ngIf="productList.length == 0" class="noRecordsFound">
+              No Records Found
+            </p>
+          </ion-item-sliding>
+          <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-list>
+        <ion-row *ngIf="productList.length == 0">
+          <img src="../../../../../assets/img/no_list/no category-found.jpg" />
+        </ion-row>
+      </div>
+      <div *ngIf="index == 2">
+        <div class="total-points-group">
+          <h5 class="create-title">Reward Offers</h5>
+          <div class="offer-create-box">
+            <div class="create-rotate-heading-reward">
+              <span>CREATE OFFER</span>
+            </div>
+            <div class="offer-felds">
+              <div class="offer-feild-top">
+                <ion-thumbnail class="offer-feild-thumbnail">
+                 <svg style="enable-background:new 0 0 512.001 512.001;" id="fix_1" class="offer-img"  enable-background="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m20.5 13h-17c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h17c.276 0 .5.224.5.5s-.224.5-.5.5z"></path><path d="m19.5 24h-15c-.827 0-1.5-.673-1.5-1.5v-5c0-.276.224-.5.5-.5s.5.224.5.5v5c0 .275.224.5.5.5h15c.276 0 .5-.225.5-.5v-5c0-.276.224-.5.5-.5s.5.224.5.5v5c0 .827-.673 1.5-1.5 1.5z"></path><path d="m12 24c-.276 0-.5-.224-.5-.5v-11c0-.276.224-.5.5-.5s.5.224.5.5v11c0 .276-.224.5-.5.5z"></path><path d="m23.5 18h-7.934c-.523 0-1.016-.278-1.286-.728l-2.709-4.516c-.093-.154-.095-.347-.006-.503s.255-.253.435-.253h8.5c.176 0 .338.092.429.243l3 5c.093.154.095.347.006.503-.089.157-.255.254-.435.254zm-10.617-5 2.254 3.758c.09.149.255.242.429.242h7.05l-2.4-4z"></path><path d="m8.434 18h-7.934c-.18 0-.346-.097-.435-.254-.089-.156-.086-.349.006-.503l3-5c.091-.151.253-.243.429-.243h8.5c.18 0 .346.097.435.254.089.156.086.349-.006.503l-2.709 4.514c-.27.451-.763.729-1.286.729zm-7.051-1h7.05c.175 0 .339-.093.43-.243l2.254-3.757h-7.334z"></path><path d="m12 11c-3.033 0-5.5-2.468-5.5-5.5s2.467-5.5 5.5-5.5 5.5 2.468 5.5 5.5-2.467 5.5-5.5 5.5zm0-10c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="m12.25 8.5h-1.75c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1.75c.414 0 .75-.337.75-.75s-.336-.75-.75-.75h-.5c-.965 0-1.75-.785-1.75-1.75s.785-1.75 1.75-1.75h1.75c.276 0 .5.224.5.5s-.224.5-.5.5h-1.75c-.414 0-.75.337-.75.75s.336.75.75.75h.5c.965 0 1.75.785 1.75 1.75s-.785 1.75-1.75 1.75z"></path><path d="m12 9.4c-.276 0-.5-.224-.5-.5v-.9c0-.276.224-.5.5-.5s.5.224.5.5v.9c0 .277-.224.5-.5.5z"></path><path d="m12 3.5c-.276 0-.5-.224-.5-.5v-.9c0-.276.224-.5.5-.5s.5.224.5.5v.9c0 .276-.224.5-.5.5z"></path></svg>
+                </ion-thumbnail>
+                <span>₹</span
+                  >
+                <input
+                  class="min-order-input"
+                  type="number"
+                  [(ngModel)]="minOrder"
+                  max="10000"
+                  min="0"
+                  placeholder="Min order amount"
+                /><br>
+                <span>₹</span
+                  >
+                <input
+                  class="min-order-input"
+                  style="margin-left: 12px;"
+                  type="number"
+                  [(ngModel)]="rewardDiscount"
+                  max="100"
+                  min="0"
+                  placeholder="Enter Cashback Amount "
+                />
+              </div>
+              <ion-row class="offer-feild-bottom" style="width: 100%;">
+                <ion-col>
+                  <span>Expire Date</span>
+                  <ion-datetime
+                  style="
+                  margin-top: 3px;
+              "
+                    [(ngModel)]="expireDate"
+                    displayFormat="DD MMM YYYY"
+                    placeholder="Select Date"
+                    min="2020-06-04"
+                    max="2030-08-23"
+                  ></ion-datetime>
+                </ion-col>
+                <ion-col class="create-button">
+                  <ion-button
+                    *ngIf="!isEditModeEnable"
+                    (click)="SaveSetting()"
+                    color="warning"
+                    class="select-box"
+                    >Create Offer
+                  </ion-button>
+                  <ion-button
+                    *ngIf="isEditModeEnable"
+                    (click)="updateOffer()"
+                    color="warning"
+                    >Update Offer
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+              <ion-row class="create-button">
+                <ion-col> </ion-col>
+              </ion-row>
+            </div>
+          </div>
+          <span class="saprator"></span>
+        </div>
+        <ion-list-header class="offer-title"
+          ><h5>All Rewards Offers</h5></ion-list-header
+        >
+        <ion-list class="offer-list">
+          <ion-grid>
+            <ng-container *ngFor="let list of _offerList">
+              <ion-card class="offer-card" *ngIf="list.isRewardSetting">
+                <div class="rotate-heading">
+                  <span>COUPON</span>
+                </div>
+                <div class="offer-content">
+                  <div class="offer-top">
+                    <ion-thumbnail>
+                     <svg style="enable-background:new 0 0 512.001 512.001;" id="fix_1" class="offer-img"  enable-background="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m20.5 13h-17c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h17c.276 0 .5.224.5.5s-.224.5-.5.5z"></path><path d="m19.5 24h-15c-.827 0-1.5-.673-1.5-1.5v-5c0-.276.224-.5.5-.5s.5.224.5.5v5c0 .275.224.5.5.5h15c.276 0 .5-.225.5-.5v-5c0-.276.224-.5.5-.5s.5.224.5.5v5c0 .827-.673 1.5-1.5 1.5z"></path><path d="m12 24c-.276 0-.5-.224-.5-.5v-11c0-.276.224-.5.5-.5s.5.224.5.5v11c0 .276-.224.5-.5.5z"></path><path d="m23.5 18h-7.934c-.523 0-1.016-.278-1.286-.728l-2.709-4.516c-.093-.154-.095-.347-.006-.503s.255-.253.435-.253h8.5c.176 0 .338.092.429.243l3 5c.093.154.095.347.006.503-.089.157-.255.254-.435.254zm-10.617-5 2.254 3.758c.09.149.255.242.429.242h7.05l-2.4-4z"></path><path d="m8.434 18h-7.934c-.18 0-.346-.097-.435-.254-.089-.156-.086-.349.006-.503l3-5c.091-.151.253-.243.429-.243h8.5c.18 0 .346.097.435.254.089.156.086.349-.006.503l-2.709 4.514c-.27.451-.763.729-1.286.729zm-7.051-1h7.05c.175 0 .339-.093.43-.243l2.254-3.757h-7.334z"></path><path d="m12 11c-3.033 0-5.5-2.468-5.5-5.5s2.467-5.5 5.5-5.5 5.5 2.468 5.5 5.5-2.467 5.5-5.5 5.5zm0-10c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="m12.25 8.5h-1.75c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1.75c.414 0 .75-.337.75-.75s-.336-.75-.75-.75h-.5c-.965 0-1.75-.785-1.75-1.75s.785-1.75 1.75-1.75h1.75c.276 0 .5.224.5.5s-.224.5-.5.5h-1.75c-.414 0-.75.337-.75.75s.336.75.75.75h.5c.965 0 1.75.785 1.75 1.75s-.785 1.75-1.75 1.75z"></path><path d="m12 9.4c-.276 0-.5-.224-.5-.5v-.9c0-.276.224-.5.5-.5s.5.224.5.5v.9c0 .277-.224.5-.5.5z"></path><path d="m12 3.5c-.276 0-.5-.224-.5-.5v-.9c0-.276.224-.5.5-.5s.5.224.5.5v.9c0 .276-.224.5-.5.5z"></path></svg>
+                    </ion-thumbnail>
+                    <span class="offer-discr"
+                      >Shop for <b>₹ {{list.minAmount}}</b> and, Get Extra
+                      <b> ₹ {{list.discountedAmount }}</b> Instant discount in
+                      your total bill. <br />cost
+                      <b>₹ {{list.discountedAmount }}</b></span
+                    >
+                    <ion-icon
+                      (click)="openRewardOptions(list)"
+                      name="ellipsis-vertical-outline"
+                      style="font-size: 42px; margin-top: -10px;"
+                    ></ion-icon>
+                  </div>
+                  <ion-row class="offer-bottom">
+                    <ion-col>
+                      <span>Expire Date</span>
+                      <strong>{{list.expireDate | date:'dd MMM yyyy'}}</strong>
+                    </ion-col>
+                    <ion-col>
+                      <ion-button shape="round"
+                        >{{list.couponCode}}{{list.discountAmt}}</ion-button
+                      >
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </ion-card>
+            </ng-container>
+          </ion-grid>
+        </ion-list>
+        <ion-row *ngIf="_offerList.length == 0">
+          <img src="../../../../../assets/img/no_list/no category-found.jpg" />
+        </ion-row>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</ion-content>

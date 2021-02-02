@@ -1,0 +1,293 @@
+/*
+ * Ionic Variables and Theming
+ * ----------------------------------------------------------------------------
+ * For more information, please see
+ * https://www.ionicframework.com/docs/theming/
+ */
+
+/*
+ * Ionic Colors
+ * ----------------------------------------------------------------------------
+ * Named colors make it easy to reuse colors on various components.
+ * It's highly recommended to change the default colors
+ * to match your app's branding. Ionic provides nine layered colors
+ * that can be changed to theme an app. Additional colors can be
+ * added as well (see below). For more information, please see
+ * https://www.ionicframework.com/docs/theming/colors
+ *
+ * To easily create custom color palettes for your app’s UI,
+ * check out our color generator:
+ * https://www.ionicframework.com/docs/theming/color-generator
+ */
+
+ :root {
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255,255,255;
+  --ion-background-addbutton-rgb: #F6EBEF;
+  --ion-card-background-color: #fff;
+  --ion-text-color: #000;
+  --ion-toolbar-background: #282c3f;
+  --ion-item-background: #fff;
+  --ion-border-color: #ccc;
+  --ion-background-color-rgba: rgba(255, 255, 255, 0.89);
+  --ion-select-size-bgcolor: #ff9901;
+  --ion-select-menu-bgcolor: #c5c5c5;
+  --ion-profile-bgcolor:#282C3F;
+  --ion-gray-backgorund: #f5f5f5;
+  --ion-feedback-button-background: #3171e0;
+  --ion-continue-background:#27a541;
+  --ion-text-green-color: #008000;
+  --ion-offer-bg-color: #1691E7;
+  --ion-gocart-bg-color: #151a30;
+  --ion-total-bg-color: #3f4765;
+  --ion-text-light-color: #5e5e5e;
+  --ion-info-tabs-bgcolor: #f5f5f5;
+  --ion-other-bgcolor: #e3e3e3;
+  --ion-card-shadow: 0px 0px 10px #ccc;
+
+
+
+  --ion-color-primary: #272c3f;;
+  --ion-color-secondary: #626262;
+  --ion-color-tertiary: #222B45;
+  --ion-color-success: #2dd36f;
+  --ion-color-warning: #ffc409;
+  --ion-color-danger: #eb445a;
+  --ion-color-dark: #222428;
+  --ion-color-medium: #92949c;
+  --ion-small-color: #545454cc;
+  --ion-color-favorite: #69bb7b;
+  --ion-headings-font-weight: 300;
+}
+
+/*
+ * Dark Theme
+ * ----------------------------------------------------------------------------
+ */
+
+.dark-theme {
+  --ion-background-color: #151A30;
+  --ion-background-color-rgb: 255,255,255;
+  --ion-background-addbutton-rgb: #151A30;
+  --ion-card-background-color: #222B45;
+  --ion-text-color: #fff;
+  --ion-toolbar-background: #222B45;
+  --ion-item-background: #222B45;
+  --ion-border-color: #000;
+  --ion-background-color-rgba: rgb(21 26 48 / 96%);
+  --ion-select-size-bgcolor: #222B45;
+  --ion-select-menu-bgcolor: #151A30;
+  --ion-profile-bgcolor:#222B45;
+  --ion-gray-backgorund: #151A30;
+  --ion-offer-backgorund: #151A30;
+  --ion-feedback-button-background: #222b45;
+  --ion-continue-background:#9a2736;
+  --ion-text-green-color: #9A2736;
+  --ion-offer-bg-color: #222B45;
+  --ion-gocart-bg-color: #9a2736;
+  --ion-total-bg-color: #151A30;
+  --ion-small-color: #cfcfcfcc;
+  --ion-info-tabs-bgcolor: #151a30;
+  --ion-other-bgcolor: #000;
+  --ion-card-shadow: 0px 0px 3px #ccc;
+
+
+
+  --ion-color-primary: #151A30;;
+  --ion-color-secondary: #ffffff;
+  --ion-color-tertiary: #9a2736;
+  --ion-color-success: #2dd36f;
+  --ion-color-warning: #9a2736;
+  --ion-color-danger: #eb445a;
+  --ion-color-dark: #222428;
+  --ion-color-medium: #92949c;
+  --ion-color-light: #151A30;
+  --ion-color-favorite: #69bb7b;
+  --ion-headings-font-weight: 300;
+}
+
+
+/*
+ * Cosmic Theme
+ * ----------------------------------------------------------------------------
+ */
+
+ .cosmic-theme {
+  --ion-background-color: #1B1B38;
+  --ion-background-color-rgb: 255,255,255;
+  --ion-background-addbutton-rgb: #1B1B38;
+  --ion-card-background-color: #323259;
+  --ion-text-color: #fff;
+  --ion-toolbar-background: #323259;
+  --ion-item-background: #323259;
+  --ion-border-color: #000;
+  --ion-background-color-rgba: rgb(50 50 89 / 96%);
+  --ion-select-size-bgcolor: #323259;
+  --ion-select-menu-bgcolor: #1B1B38;
+  --ion-profile-bgcolor:#323259;
+  --ion-gray-backgorund: #1B1B38;
+  --ion-offer-backgorund: #1B1B38;
+  --ion-feedback-button-background: #a16eff;
+  --ion-continue-background:#A16EFF;
+  --ion-text-green-color: #ff5c71;
+  --ion-offer-bg-color: #323259;
+  --ion-gocart-bg-color: #A16EFF;
+  --ion-total-bg-color: #1B1B38;
+  --ion-small-color: #cfcfcfcc;
+  --ion-info-tabs-bgcolor: #1B1B38;
+  --ion-other-bgcolor: #000;
+  --ion-card-shadow: 0px 0px 3px #ccc;
+
+
+
+  --ion-color-primary: #1B1B38;;
+  --ion-color-secondary: #ffffff;
+  --ion-color-tertiary: #9a2736;
+  --ion-color-success: #2dd36f;
+  --ion-color-warning: #9a2736;
+  --ion-color-danger: #eb445a;
+  --ion-color-dark: #f4f5f8;
+  --ion-color-medium: #989aa2;
+  --ion-color-light: #151A30;
+  --ion-color-favorite: #69bb7b;
+  --ion-headings-font-weight: 300;
+}
+
+
+
+/*
+ * Material Dark Theme
+ * ----------------------------------------------------------------------------
+ */
+
+ .material-dark-theme {
+  --ion-background-color: #171717;
+  --ion-background-color-rgb: 255,255,255;
+  --ion-background-addbutton-rgb: #171717;
+  --ion-card-background-color: #1F1F1F;
+  --ion-text-color: #fff;
+  --ion-toolbar-background: #1F1F1F;
+  --ion-item-background: #1F1F1F;
+  --ion-border-color: #000;
+  --ion-background-color-rgba: rgb(31 31 31 / 96%);
+  --ion-select-size-bgcolor: #1F1F1F;
+  --ion-select-menu-bgcolor: #171717;
+  --ion-profile-bgcolor:#1F1F1F;
+  --ion-gray-backgorund: #171717;
+  --ion-offer-backgorund: #171717;
+  --ion-feedback-button-background: #E91D63;
+  --ion-continue-background:#E91D63;
+  --ion-text-green-color: #ff5c71;
+  --ion-offer-bg-color: #1F1F1F;
+  --ion-gocart-bg-color: #E91D63;
+  --ion-total-bg-color: #171717;
+  --ion-small-color: #cfcfcfcc;
+  --ion-info-tabs-bgcolor: #171717;
+  --ion-other-bgcolor: #000;
+  --ion-card-shadow: 0px 0px 3px #ccc;
+
+
+
+  --ion-color-primary: #171717;;
+  --ion-color-secondary: #ffffff;
+  --ion-color-tertiary: #E91D63;
+  --ion-color-success: #008200;
+  --ion-color-warning: #E91D63;
+  --ion-color-danger: #eb445a;
+  --ion-color-dark: #f4f5f8;
+  --ion-color-medium: #989aa2;
+  --ion-color-light: #151A30;
+  --ion-color-favorite: #69bb7b;
+  --ion-headings-font-weight: 300;
+}
+
+
+
+/*
+ * Corporate Dark Theme
+ * ----------------------------------------------------------------------------
+ */
+
+ .corporate-dark-theme {
+  --ion-background-color: #2F353A;
+  --ion-background-color-rgb: 255,255,255;
+  --ion-background-addbutton-rgb: #2F353A;
+  --ion-card-background-color: #3A4149;
+  --ion-text-color: #fff;
+  --ion-toolbar-background: #3A4149;
+  --ion-item-background: #3A4149;
+  --ion-border-color: #000;
+  --ion-background-color-rgba: rgb(58 65 73 / 96%);
+  --ion-select-size-bgcolor: #3A4149;
+  --ion-select-menu-bgcolor: #2F353A;
+  --ion-profile-bgcolor:#3A4149;
+  --ion-gray-backgorund: #2F353A;
+  --ion-offer-backgorund: #2F353A;
+  --ion-feedback-button-background: #63C2DE;
+  --ion-continue-background:#63C2DE;
+  --ion-text-green-color: #ff5c71;
+  --ion-offer-bg-color: #3A4149;
+  --ion-gocart-bg-color: #63C2DE;
+  --ion-total-bg-color: #2F353A;
+  --ion-small-color: #cfcfcfcc;
+  --ion-info-tabs-bgcolor: #2F353A;
+  --ion-other-bgcolor: #000;
+  --ion-card-shadow: 0px 0px 3px #ccc;
+
+
+
+  --ion-color-primary: #2F353A;;
+  --ion-color-secondary: #ffffff;
+  --ion-color-tertiary: #63C2DE;
+  --ion-color-success: #008200;
+  --ion-color-warning: #63C2DE;
+  --ion-color-danger: #eb445a;
+  --ion-color-dark: #f4f5f8;
+  --ion-color-medium: #989aa2;
+  --ion-color-light: #151A30;
+  --ion-color-favorite: #69bb7b;
+  --ion-headings-font-weight: 300;
+}
+
+
+
+.sweggy-theme {
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255,255,255;
+  --ion-background-addbutton-rgb: #F6EBEF;
+  --ion-card-background-color: #fff;
+  --ion-text-color: #000;
+  --ion-text-color-rgb: 0,0,0;
+  --ion-toolbar-background: #278269;
+  --ion-item-background: #fff;
+  --ion-border-color: #ccc;
+  --ion-background-color-rgba: rgba(255, 255, 255, 0.89);
+  --ion-go-cart-color: #278269;
+  --ion-select-size-bgcolor: #ff9901;
+  --ion-select-menu-bgcolor: #c5c5c5;
+  --ion-profile-bgcolor:#fc813a;
+  --ion-gray-backgorund: #f5f5f5;
+  --ion-offer-backgorund: #E3F0F0;
+  --ion-feedback-button-background: #3171e0;
+  --ion-continue-background:#278269;
+  --ion-text-green-color: #008000;
+  --ion-offer-bg-color: #1691E7;
+  --ion-gocart-bg-color: #278269;
+  --ion-total-bg-color: #3f4765;
+  --ion-small-color: #cfcfcfcc;
+  --ion-card-shadow: 0px 0px 3px #ccc;
+
+
+
+  --ion-color-primary: #278269;;
+  --ion-color-secondary: #626262;
+  --ion-color-tertiary: #278269;
+  --ion-color-success: #2dd36f;
+  --ion-color-warning: #ffc409;
+  --ion-color-danger: #eb445a;
+  --ion-color-dark: #278269;
+  --ion-color-medium: #92949c;
+  --ion-color-light: #f4f5f8;
+  --ion-color-favorite: #69bb7b;
+  --ion-headings-font-weight: 300;
+}

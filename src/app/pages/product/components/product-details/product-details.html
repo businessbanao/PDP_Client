@@ -1,0 +1,360 @@
+<ion-header *ngIf="isHeaderShow" class="animate__animated animate__fadeInDown">
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+       <ion-back-button defaultHref="/tabs/product" style="color:white"></ion-back-button>
+     </ion-buttons>
+     <ion-title style="font-size: 18px;">
+      Product Details
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="deleteProductConfirm(productData._id)" >
+        <ion-icon  class="edit-icon" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <!-- <ion-searchbar spellcheck="true" routerLink="/search/home"></ion-searchbar> -->
+ </ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
+
+  <section class="header" *ngIf="!isHeaderShow">
+    <div class="top-left">
+      <ion-buttons slot="start" style="float:left">
+        <ion-button>
+          <ion-back-button defaultHref="/tabs/product" style="color:white"></ion-back-button>
+        </ion-button>
+      </ion-buttons>
+      <ion-title style="padding: 5px; color: #fff;">
+        Product Details
+      </ion-title>
+    </div>
+    <div class="top-right">
+      <ion-buttons slot="end">
+        <ion-button (click)="deleteProductConfirm(productData._id)" >
+          <ion-icon  class="edit-icon" name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </section>
+
+    <!-- <ion-icon (click)="openEditProductModal(productData._id)" class="edit-icon" name="create-outline"></ion-icon> -->
+    <ion-slides class="slide-padding" pager="true" *ngIf="productData.imageVarients.length !== 0">
+      <ion-slide *ngFor="let url of productData.imageVarients">
+        <div class="container">
+          <ion-img *ngIf="productData.imageVarients.length !== 0 " src="{{url}}"></ion-img>
+
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <img style="width:130%" *ngIf="productData.imageVarients.length == 0" src="https://bhmlib.org/wp-content/themes/cosimo-pro/images/no-image-box.png">
+    <h4 class="shop-name">
+      <img *ngIf="productData.isVeg" src="../../../../../assets/img/vag.png" class="vagnon-image-small">
+      <img *ngIf="!productData.isVeg" src="../../../../../assets/img/nonvag.png" class="vagnon-image-small">
+      {{productData.productName}}
+      <ion-icon (click)="share()" name="share-outline" style="float:right;"></ion-icon>
+    </h4>
+
+    <ion-grid class="product-tabs">
+      <ion-row>
+        <ion-col size="4">
+          <div class="item-box">
+            <h6>0.0</h6>
+            <p>Rating</p>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="item-box">
+            <h6>0</h6>
+            <p>Total Order</p>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="item-box">
+            <h6  *ngIf="isRecommanded">Yes</h6>
+            <h6  *ngIf="!isRecommanded">No</h6>
+            <p>Recommanded</p>
+          </div>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+    <ion-card class="p-body">
+      <div class="row">
+        <div class="float-left">
+          <ion-label>Title</ion-label>
+          <ion-text>{{productData.title}}</ion-text>
+        </div>
+      </div>
+      <div class="row">
+        <div class="float-left">
+          <ion-label>Name</ion-label>
+          <ion-text>{{productData.productName}}</ion-text>
+        </div>
+      </div>
+      <div class="row">
+        <div class="float-left">
+          <ion-label>Description</ion-label>
+          <ion-text *ngIf="productData.productDescription">{{productData.productDescription}}</ion-text>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- <div class="float-left">
+          <ion-label>Half Price</ion-label>
+          <ion-text *ngIf="productData.halfPrice">₹ {{productData.halfPrice}} /-</ion-text>
+        </div> -->
+        <div class="float-left">
+          <ion-label>Full Price</ion-label>
+          <ion-text>₹ {{productData.price}}</ion-text>
+        </div>
+      </div>
+      <div class="row">
+        <!-- <div class="float-left">
+          <ion-label>Half Price</ion-label>
+          <ion-text *ngIf="productData.halfPrice">₹ {{productData.halfPrice}} /-</ion-text>
+        </div> -->
+        <div class="float-left">
+          <ion-label>Half Price</ion-label>
+          <ion-text>₹ {{productData.halfPrice}}</ion-text>
+        </div>
+      </div>
+      <div class="row">
+        <!-- <div class="float-left">
+          <ion-label>Half Price</ion-label>
+          <ion-text *ngIf="productData.halfPrice">₹ {{productData.halfPrice}} /-</ion-text>
+        </div> -->
+        <div class="float-left">
+          <ion-label>Qtr Price</ion-label>
+          <ion-text>₹ {{productData.QtrPrice}}</ion-text>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="float-left">
+          <ion-label>Create Date</ion-label>
+          <ion-text>{{productData.createdAt}}</ion-text>
+        </div>
+        <div class="float-right">
+          <ion-label>Status</ion-label>
+          <ion-text class="status-yellow" *ngIf="productData.Status == 'OUT_OF_STOCK' ">OUT OF STOCK</ion-text>
+          <ion-text class="status-green" *ngIf="productData.Status == 'ACTIVE' ">AVAILABLE</ion-text>
+          <ion-text class="status-red" *ngIf="productData.Status !== 'ACTIVE' && productData.Status !== 'OUT_OF_STOCK' ">AVAILABLE</ion-text>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="productData.discount">
+
+        <div class="float-left" *ngIf="productData.discount == 50 ">
+          <ion-label>Offers</ion-label>
+          <ion-text>Buy 1 Get 1 Offer Available</ion-text>
+        </div>
+        <div *ngIf="productData.discount !== 50 ">
+          <ion-label>Create Date</ion-label>
+          <ion-text>{{productData.discount}} % Discount Available</ion-text>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="float-left">
+          <ion-label>Recommanded</ion-label>
+          <ion-text class="status-green" *ngIf="isRecommanded">YES</ion-text>
+          <ion-text class="status-red" *ngIf="!isRecommanded">NO</ion-text>
+        </div>
+        <div class="float-right">
+          <ion-label>Total Order</ion-label>
+          <ion-text> {{productData.totalOrder}}</ion-text>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="float-left">
+          <ion-label>Category</ion-label>
+          <ion-text *ngIf="productData.isVeg"> <img src="../../../../../assets/img/vag.png" style="width: 14px;"> Veg Food</ion-text>
+          <ion-text *ngIf="!productData.isVeg"><img src="../../../../../assets/img/nonvag.png" style="width: 14px;"> NonVeg Food</ion-text>
+        </div>
+        <div class="float-right">
+          <ion-label>Rating</ion-label>
+          <!-- <ion-icon style="font-size: 13px;" name="star" *ngFor="let num of [1]" [ngStyle]="{'fill':getColor(num,1)}"></ion-icon> -->
+          <ion-text> {{this.productData.rating | number : '1.2-2'}} <ion-icon name="star"></ion-icon></ion-text>
+        </div>
+      </div>
+      <ion-row>
+        <ion-col size="4" (click)="presentActionSheet()">
+          <div class="details-button">
+            <ion-icon name="create-outline"></ion-icon>
+            <ion-label>Update Product Availability</ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="4" (click)="updateRecommendedProduct()">
+          <div class="details-button">
+            <ion-icon name="star-outline"></ion-icon>
+            <ion-label *ngIf="!isRecommanded">Make this Recommanded</ion-label>
+            <ion-label *ngIf="isRecommanded">Make this UnRecommanded</ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="4" (click)="addProductToshop(productData._id)">
+          <div class="details-button">
+            <ion-icon  name="home-outline"></ion-icon>
+             <ion-icon style="font-size: 25px;" name="add-outline"></ion-icon>
+            <ion-label>Add to Shop</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row>
+        <ion-col size="6">
+          <div class="details-button">
+            <ion-icon name="create-outline"></ion-icon>
+            <ion-label>Similer Product</ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="details-button">
+            <ion-icon name="create-outline"></ion-icon>
+            <ion-label>Both Togther</ion-label>
+          </div>
+        </ion-col>
+      </ion-row> -->
+
+    </ion-card>
+    <!-- <img *ngIf="productData.imageVarients.length == 0 "
+            src="https://png.clipart.me/previews/3b6/small-store-icon-psd-45819.jpg" style="    height: 150px;
+            width: 143px;" alt="avatar"> -->
+            <!-- {{productData.title}} -->
+    <!-- <ion-list inset>
+      <ion-item>{{productData.category}}</ion-item>
+      <ion-item>Food</ion-item>
+      <ion-item>{{productData.subCategory}}</ion-item>
+      <ion-item>{{productData.productName}}</ion-item>
+
+
+
+      <ion-item *ngIf="productData.productDescription">N/A&nbsp;</ion-item>
+      <ion-item>{{productData.createdAt}}</ion-item>
+      <ion-item *ngIf="productData.Status == 'OUT_OF_STOCK' ">OUT OF STOCK</ion-item>
+       <ion-item *ngIf="productData.Status == 'ACTIVE' ">AVAILABLE</ion-item>
+      <ion-item *ngIf="productData.Status !== 'ACTIVE' && productData.Status !== 'OUT_OF_STOCK' ">AVAILABLE</ion-item>
+      <ion-item *ngIf="productData.discount">
+        <span *ngIf="productData.discount !== 50 ">{{productData.discount}} % Discount Available</span>
+      <span  *ngIf="productData.discount == 50 ">Buy 1 Get 1 Offer Available</span></ion-item>
+      <ion-item style="color: green;" *ngIf="isRecommanded">Recommanded : Yes</ion-item>
+      <ion-item style="color: indigo;" *ngIf="!isRecommanded">Recommanded : No</ion-item>
+      <ion-item>Total Order : {{productData.totalOrder}}</ion-item>
+      <ion-item *ngIf="productData.isVeg">Veg Food</ion-item>
+      <ion-item *ngIf="!productData.isVeg">NonVeg Food</ion-item>
+      <ion-item>Rating :&nbsp;
+        <ion-icon
+          style="font-size: 13px;"
+          name="star"
+          *ngFor="let num of [1]"
+          [ngStyle]="{'fill':getColor(num,1)}"
+        >
+
+      </ion-icon> &nbsp;({{productData.rating}})
+       </ion-item>
+    </ion-list> -->
+
+
+  <div class="ratings-section">
+    <ion-grid>
+      <h5>Ratings & Reviews</h5>
+      <ion-row style="color: black;">
+        <ion-col>
+          <div class="rating-left">
+            <h2>
+              {{this.productData.rating | number : '1.2-2'}} <ion-icon name="star"></ion-icon>
+            </h2>
+            <p>{{reviewList.length}} ratings an reviews</p>
+          </div>
+        </ion-col>
+
+
+        <ion-col style="border-left: 1px #dcdcdc solid;">
+          <div class="rating-right">
+            <p>
+              <span class="star">5 <ion-icon name="star"></ion-icon></span>
+              <span class="bar bg-success fivestar"></span>
+              <span class="small"> &nbsp;&nbsp;{{starRating[4]}}</span>
+            </p>
+            <p>
+              <span class="star">4 <ion-icon name="star"></ion-icon></span>
+              <span class="bar bg-success fourstar"></span>
+              <span class="small"> &nbsp;&nbsp;{{starRating[3]}}</span>
+            </p>
+            <p>
+              <span class="star">3 <ion-icon name="star"></ion-icon></span>
+              <span class="bar bg-success threestar"></span>
+              <span class="small">&nbsp;&nbsp;{{starRating[2]}}</span>
+            </p>
+            <p>
+              <span class="star">2 <ion-icon name="star"></ion-icon></span>
+              <span class="bar bg-orange twostar"></span>
+              <span class="small">&nbsp;&nbsp;{{starRating[1]}}</span>
+            </p>
+            <p>
+              <span class="star">1 <ion-icon name="star"></ion-icon></span>
+              <span class="bar bg-pink onestar"></span>
+              <span class="small">&nbsp;&nbsp;{{starRating[0]}}</span>
+            </p>
+          </div>
+        </ion-col>
+      </ion-row>
+      <div class="ratting-list">
+        <p class="title">
+          {{this.productData.rating | number : '1.2-2'}} user ratting
+          <span class="float-rigt">
+
+        </span>
+        </p>
+        <ul>
+          <li *ngFor="let rate of reviewList | slice:0:2">
+            <h4>
+              <span>{{rate.rating}} <ion-icon name="star"></ion-icon></span>
+              {{rate.review}}
+            </h4>
+            <p>
+              {{rate.review | slice :0:20}}<a *ngIf="rate.review.length > 20"
+                >...more</a
+              >
+            </p>
+          </li>
+        </ul>
+        <p class="viwe-all">
+          <a style="color: seagreen;" routerLink="/products/product-review/{{productData._id}}" class="see_more" *ngIf="reviewList.length != 0"
+            ><span>All {{reviewList.length}} reviews</span
+            ><ion-icon name="arrow-forward-outline"></ion-icon
+          ></a>
+        </p>
+      </div>
+    </ion-grid>
+  </div>
+
+  <ion-grid>
+
+    <ion-row *ngIf="reviewList.length == 0">
+      <img style="
+      height: 29px;
+      margin-left: 48%;
+  " src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSewipHQyiGNL2wASIpDP38vJTT158U7Mfc5z_KQm-QX9HxnA3S&usqp=CAU" >
+      <!-- <span *ngIf="productList.length == 0" class="noRecordsFound">No Records Found</span> -->
+    </ion-row>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col size="9">
+        <p style="margin-left: 10%;" *ngIf="reviewList.length == 0">No Reviews Found</p>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+  <ion-fab  vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openEditProductModal(productData._id)" color="warning"  style="height: 46px;
+    width: 46px;">
+        <ion-icon name="create-outline"></ion-icon>
+    </ion-fab-button>
+</ion-fab>
+
+
+
+  <br>
+</ion-content>

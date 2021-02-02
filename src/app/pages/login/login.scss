@@ -1,0 +1,64 @@
+.login-bg{
+  height: 100vh;
+  background-image: url(../../../assets/img/full-login-bg.jpg);
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+@media (max-width: 576px){
+  .login-bg{
+    background-image: url(../../../assets/img/login-bg.jpg);
+    background-size: cover;
+  }
+  .login-form{
+    width: 60%;
+  }  
+}
+.login-form{
+  position: absolute;
+  bottom: 20px;
+  width: 90%;
+  left: 50%;
+  transform: translate(-50%, 0px);
+}
+.login-title {
+  font-size: 32px;
+}
+
+.login-logo img {
+  max-width: 150px;
+}
+
+.list {
+  margin-bottom: 0;
+}
+
+
+.pane[state$="tabs.facts"]{
+  background: green;
+}
+
+.form-filds ion-input{
+  border-bottom: 1px solid #ccc;
+  padding: 15px 0px 5px !important;
+  font-size: 20px;
+  color: #000;
+}
+.login-form ion-button{
+  margin-top: 20px;
+  --background: #FEC748;
+  --box-shadow: none;
+  --border-radius: 20px;
+  color: #000;
+}
+
+.forgot-pass{
+  margin-bottom: 0px;
+  margin-top: 20px;
+  text-align: center;
+  color: #a7a7a7;
+  font-weight: bold;
+}
+.forgot-pass a{
+  color: #FEC748;
+}

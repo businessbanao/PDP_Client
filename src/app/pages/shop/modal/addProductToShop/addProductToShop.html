@@ -1,0 +1,84 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-buttons slot="start">
+            <!-- <ion-menu-button style="color: white;"></ion-menu-button> -->
+            <!-- <ion-back-button defaultHref=""  style="color:white"></ion-back-button> -->
+            <ion-icon style="    font-size: 30px;
+            margin-left: 10px;" (click)="cancelModel()" name="arrow-back-outline"></ion-icon>
+          </ion-buttons>
+        </ion-buttons>
+        <ion-title>
+            Add Product To <span style="text-transform: capitalize;">{{_shopName}}</span>
+        </ion-title>
+
+    </ion-toolbar>
+
+
+</ion-header>
+<ion-content>
+  <ion-searchbar   spellcheck="true" placeholder="Search Products" (ionChange)="search($event)">
+    </ion-searchbar>
+    <ion-list *ngIf="productList.length != 0">
+        <ion-item-sliding id="item100" *ngFor="let list of productList">
+            <ion-item *ngIf="!list.shouldShow" >
+                <ion-grid >
+
+                    <ion-row>
+                      <ion-col size="4">
+                          <p class="product-img">
+                              <img class="product-thumbnail" [ngStyle]="{'opacity' : list.Status == 'OUT_OF_STOCK' ? 0.4 : 1}"
+                              *ngIf="list.imageVarients.length !== 0" src="{{list.imageVarients[0]}}">
+                              <img class="product-thumbnail" [ngStyle]="{'opacity' : list.Status == 'OUT_OF_STOCK' ? 0.4 : 1}"
+                              *ngIf="list.imageVarients.length == 0"
+                              src="https://bhmlib.org/wp-content/themes/cosimo-pro/images/no-image-box.png">
+                              <span class="offer" *ngIf="list.discount > 0">{{list.discount}}% OFF</span>
+                              <span class="offer" *ngIf="list.discount && list.discount == 200"
+                              >Buy 1 Get 1 </span>
+                          </p>
+                      </ion-col>
+                      <ion-col size="8">
+                          <h6 class="product-name">
+                            <img *ngIf="list.isVeg" src="../../../../../assets/img/vag.png" class="vagnon-image-small">
+                            <img *ngIf="!list.isVeg" src="../../../../../assets/img/nonvag.png" class="vagnon-image-small">
+                            {{list.productName}}</h6>
+                          <p class="recently-view-star">
+                              <img src="../../../../../assets/img/star-full.png">
+                              <img src="../../../../../assets/img/star-full.png">
+                              <img src="../../../../../assets/img/star-full.png">
+                              <img src="../../../../../assets/img/star-full.png">
+                              <img src="../../../../../assets/img/star-full.png"> 4
+                            </p>
+                              <!-- <span>₹ {{list.price}}</span> -->
+                              <span  *ngIf="!list.discount">₹ {{list.price}}  </span>
+                              <span *ngIf="list.discount">₹ {{list.price * list.discount / 100 }} &nbsp;<s *ngIf="list.discount">₹ {{list.price}}</s> </span>
+                              <!-- {{list.rating}} -->
+
+                          <!-- <ion-col>
+                              <ion-icon style="font-size: 13px;" name="star" *ngFor="let num of [1,2,3,4,5]" [ngStyle]="{'fill':getColor(num,list.rating)}"></ion-icon>
+                              &nbsp;<span style="font-size: 12px;">({{list.rating}})</span>
+                          </ion-col> -->
+                      </ion-col>
+                  </ion-row>
+                </ion-grid>
+                <ion-checkbox slot="start" [(ngModel)]="list.isChecked" (ionChange)="checkEvent()" style="margin-right:5px;">
+                </ion-checkbox>
+            </ion-item>
+
+
+            <!-- <ion-item-options side="end"  *ngIf="!multiselect">
+              <ion-item-option color="yellow" (click)="presentActionSheet(item._id)">
+                <img src="https://static.thenounproject.com/png/347482-200.png" style="height:40px;width:40px">
+              </ion-item-option>
+
+            </ion-item-options> -->
+
+          </ion-item-sliding>
+        </ion-list>
+
+        <p *ngIf="totalunchekedCount == 0" class="noRecordsFound">All Products has been Already Added</p>
+</ion-content>
+<ion-footer>
+  <ion-button  style="width: 100%;"   (click)="assign()"  color="warning" >Add
+  </ion-button>
+</ion-footer>

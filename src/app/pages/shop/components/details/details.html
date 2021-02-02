@@ -1,0 +1,210 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- <ion-menu-button style="color: white;"></ion-menu-button> -->
+      <ion-back-button defaultHref="shop" style="color:white"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Shop Details
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="deleteProductConfirm(storeData)" >
+        <ion-icon  name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content>
+
+  <div>
+    <!-- <ion-icon (click)="openEditProfileModal(storeData._id)" class="edit-icon" name="create-outline"></ion-icon> -->
+    <!-- <div class="delete">
+      <ion-icon (click)="deleteAlertConfirm(storeData)" name="trash"></ion-icon>
+    </div> -->
+    <img class="product-img" *ngIf="storeData.storeLogo.length == 0 "
+      src="https://bhmlib.org/wp-content/themes/cosimo-pro/images/no-image-box.png" alt="avatar">
+    <img class="product-img" *ngIf="storeData.storeLogo.length !== 0 " src="{{storeData.storeLogo}}" alt="avatar">
+    <h2 class="shop-title" *ngIf="storeData.storeName">{{storeData.storeName}}</h2>
+    <ion-grid class="product-tabs">
+      <ion-row class="product-tabs-row">
+        <ion-col size="4">
+          <div class="item-box">
+            <h6>{{productList.length}}</h6>
+            <p>Products</p>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="item-box">
+            <h6>{{storeData.shopOwnerName}}</h6>
+            <p>Owner</p>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="item-box">
+            <h6>{{storeData.city}}</h6>
+            <p>Location</p>
+          </div>
+        </ion-col>
+        <!-- <ion-col size="3">
+          <div class="item-box">
+            <h6>3.5k</h6>
+            <p>Revanue</p>
+          </div>
+        </ion-col> -->
+      </ion-row>
+    </ion-grid>
+    <h4 class="details-title">Shop Details</h4>
+    <ion-list class="shop-listing">
+      <div class="row w-100">
+        <div class="float-left">
+          <ion-label class="shop-list-label">Website</ion-label>
+          <ion-text *ngIf="storeData.website"> {{storeData.website}}</ion-text>
+        </div>
+        <!-- <div class="float-right">
+          <ion-label class="shop-list-label">Email</ion-label>
+          <ion-text *ngIf="storeData.email">{{storeData.email}}</ion-text>
+        </div> -->
+      </div>
+
+      <div class="row w-100">
+        <div class="float-left">
+          <ion-label class="shop-list-label">Email</ion-label>
+          <ion-text *ngIf="storeData.email">{{storeData.email}}</ion-text>
+        </div>
+      </div>
+
+      <div class="row w-100">
+        <div class="float-left">
+          <ion-label class="shop-list-label">Pincode</ion-label>
+          <ion-text *ngIf="storeData.pincode">{{storeData.pincode}}</ion-text>
+        </div>
+      </div>
+
+      <div class="row w-100">
+        <div class="float-left">
+          <ion-label class="shop-list-label">Shop no / Floor / Building</ion-label>
+          <ion-text *ngIf="storeData.storeAddress1">{{storeData.storeAddress1}}</ion-text>
+        </div>
+      </div>
+
+      <div class="row w-100">
+        <div class="float-left">
+          <ion-label class="shop-list-label">Colony / Street / Locality</ion-label>
+          <ion-text *ngIf="storeData.storeAddress2">{{storeData.storeAddress2}}&nbsp;{{storeData.city}}&nbsp;{{storeData.state}} </ion-text>
+        </div>
+      </div>
+
+      <div class="row w-100">
+        <div class="float-left">
+          <ion-label class="shop-list-label">Landmark</ion-label>
+          <ion-text *ngIf="storeData.nearLandmark">{{storeData.nearLandmark}} </ion-text>
+        </div>
+      </div>
+      <div class="row w-100">
+        <div class="float-left">
+          <ion-label class="shop-list-label">City</ion-label>
+          <ion-text *ngIf="storeData.nearLandmark">{{storeData.city}} </ion-text>
+        </div>
+      </div>
+
+      <div class="row w-100">
+        <div class="float-left">
+          <ion-label class="shop-list-label">State</ion-label>
+          <ion-text *ngIf="storeData.nearLandmark">{{storeData.state}} </ion-text>
+        </div>
+      </div>
+    </ion-list>
+
+    <div class="others-info">
+      <ion-text *ngIf="storeData">
+        <strong>Created Date</strong>
+        <span>{{storeData.createdAt | date:'dd MMM yyyy'}}</span>
+      </ion-text>
+      <ion-text>
+        <strong>Owner Name</strong>
+        <span>{{storeData.shopOwnerName}}</span>
+      </ion-text>
+      <ion-text>
+        <strong>Owner Contact</strong>
+        <span>{{storeData.shopOwnerContact}}</span>
+      </ion-text>
+    </div>
+
+    <ion-list class="shop-product-listing">
+      <div class="shop-heading">
+        <h5>Shop Products</h5>
+        <a class="add-product" (click)="openAddProductToShopModal()" >
+          + Add Product</a>
+      </div>
+      <ion-searchbar class="search-product" #autofocus spellcheck="true" placeholder="Search Products" (ionChange)="searchProducts($event)">
+      </ion-searchbar>
+      <ng-container *ngIf="productList.length != 0" >
+      <ion-item-sliding id="item100" *ngFor="let list of productList"  >
+        <ion-item [routerLink]="['/tabs/product/product-details/'+ list._id ]">
+          <ion-col size="4">
+            <p class="product-thumb">
+              <img class="product-thumbnail" [ngStyle]="{'opacity' : list.Status == 'OUT_OF_STOCK' ? 0.4 : 1}"
+              *ngIf="list.imageVarients.length !== 0" src="{{list.imageVarients[0]}}">
+              <img class="product-thumbnail" [ngStyle]="{'opacity' : list.Status == 'OUT_OF_STOCK' ? 0.4 : 1}"
+                  *ngIf="list.imageVarients.length == 0"
+                  src="https://im.rediff.com/getahead/2015/jun/29chicken.jpg">
+              <span class="offer" *ngIf="list.discount > 0">{{list.discount}}% OFF</span>
+              <span class="offer" *ngIf="list.discount && list.discount == 200"
+                                >Buy 1 Get 1 </span>
+            </p>
+          </ion-col>
+          <ion-col size="8">
+            <h6 class="product-name">
+              <img *ngIf="list.isVeg" src="../../../../../assets/img/vag.png" class="vagnon-image-small">
+                      <img *ngIf="!list.isVeg" src="../../../../../assets/img/nonvag.png" class="vagnon-image-small">
+
+               {{list.productName}}</h6>
+              <p class="recently-view-star">
+                <img src="../../../../../assets/img/star-full.png">
+                <img src="../../../../../assets/img/star-full.png">
+                <img src="../../../../../assets/img/star-full.png">
+                <img src="../../../../../assets/img/star-full.png">
+                <img src="../../../../../assets/img/star-full.png">
+                <strong>{{list.rating}}</strong>
+              </p>
+              <span>₹ {{list.price}}</span>
+            <!-- <ion-label>
+                    <ion-col>
+                      <ion-icon style="font-size: 13px;" name="star" *ngFor="let num of [1,2,3,4,5]"
+                      [ngStyle]="{'fill':getColor(num,list.rating)}"
+                    >
+                    </ion-icon
+                    >&nbsp;<span style="font-size: 12px;"></span>
+                  </ion-col></ion-label> -->
+          </ion-col>
+      </ion-item>
+
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteProductConfirm(list._id)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ng-container>
+  <p *ngIf="productList.length == 0" class="noRecordsFound">No Products Found</p>
+
+    </ion-list>
+
+  </div>
+  <ion-fab  vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openEditProfileModal(storeData._id)" color="warning"  style="height: 46px;
+    width: 46px;">
+        <ion-icon name="create-outline"></ion-icon>
+    </ion-fab-button>
+</ion-fab>
+  <ion-refresher slot="fixed" (ionRefresh)="getProductList(storeData._id,$event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+</ion-content>

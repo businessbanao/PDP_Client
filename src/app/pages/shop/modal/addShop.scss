@@ -1,0 +1,55 @@
+.edit-model-header{
+    padding: 15px;
+}
+.edit-model-header .close-model{
+    width: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.edit-model-header ion-title{
+    display: inline-block;
+    vertical-align: middle;
+}
+.has-footer{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    left: 0px;
+    z-index: 99;
+    margin: 0px;
+}
+.profile-popup ion-item {
+    width: 100%;
+    --background: transparent;
+}
+.shop-profile-img {
+    width: 100%;
+    margin-top: 20px;
+}
+.shop-profile-img img {
+    width: 100%;
+    height: 200px;
+    margin-bottom: -4px;
+    object-fit: cover;
+}
+.upload-photo{
+    background-color: var(--ion-color-warning);
+    padding: 8px;
+    color: #fff;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    display: block;
+}
+.form-fild-row{
+    width: 100%;
+    border-bottom: 1px solid var(--ion-border-color);
+    margin-bottom: 10px;
+}
+.form-fild-row ion-label{
+    font-size: 16px;
+    color: var(--ion-small-color);
+    transform: inherit;
+    margin-top: 10px;
+    display: flex;
+}

@@ -1,0 +1,181 @@
+<ion-header>
+    <ion-toolbar text-center>
+      <ion-buttons slot="start">
+        <!-- <ion-menu-button style="color: white;"></ion-menu-button> -->
+        <!-- <ion-back-button defaultHref="{{backUrl}}" (click)="closeModal()" style="color:white"></ion-back-button> -->
+        <ion-icon style="font-size: 22px;
+        margin-left: 10px;" (click)="closeModal()" name="arrow-back-outline"></ion-icon>
+      </ion-buttons>
+
+        <ion-title *ngIf="!editData">Add New Product</ion-title>
+        <ion-title *ngIf="editData" >Edit Product</ion-title>
+    </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form class="add-product" [formGroup]="addProductForm" (ngSubmit)="submit(addProductForm)">
+        <!-- <ion-icon name="close-circle" (click)="closeModal()" style="height: 30px; width:50px;float: right;"></ion-icon> -->
+        <ion-grid>
+          <ion-row class="add-detail-row">
+            <ion-col size="6">
+              <ion-label position="floating">Product Title</ion-label>
+            </ion-col>
+            <ion-col size="6">
+              <ion-input formControlName="title" style="text-align: right;"></ion-input>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="add-detail-row">
+            <ion-col size="6">
+              <ion-label position="floating">Product Name</ion-label>
+            </ion-col>
+            <ion-col size="6">
+              <ion-input formControlName="productName" style="text-align: right;"></ion-input>
+            </ion-col>
+          </ion-row>
+
+          <!-- <ion-row style="width: 100%;">
+            <ion-col size="6">
+              <ion-label position="floating" style="font-size: 16px;color: #a8a7a7;transform: inherit;margin-top: 10px;">Half Price</ion-label>
+            </ion-col>
+            <ion-col size="6">
+              <ion-input type="number" formControlName="halfPrice" style="text-align: right;"></ion-input>
+            </ion-col>
+          </ion-row> -->
+
+          <ion-row class="add-detail-row">
+            <ion-col size="6">
+              <ion-label position="floating">Full Price</ion-label>
+            </ion-col>
+            <ion-col size="6">
+              <ion-input type="number" formControlName="price" style="text-align: right;"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row class="add-detail-row">
+            <ion-col size="6">
+              <ion-label position="floating">Half Price</ion-label>
+            </ion-col>
+            <ion-col size="6">
+              <ion-input type="number" formControlName="halfPrice" style="text-align: right;"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row class="add-detail-row">
+            <ion-col size="6">
+              <ion-label position="floating">Qtr Price</ion-label>
+            </ion-col>
+            <ion-col size="6">
+              <ion-input type="number" formControlName="QtrPrice" style="text-align: right;"></ion-input>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="add-detail-row">
+            <ion-col size="6">
+              <ion-label position="floating">Is Veg Product ?</ion-label>
+            </ion-col>
+            <ion-col size="6">
+              <!-- <span style="margin-left: 66px;line-height: 33px;" *ngIf="addProductForm.get('isVeg').value == true">Veg</span> -->
+              <!-- <span style="margin-left: 66px;line-height: 33px;" *ngIf="addProductForm.get('isVeg').value == false">Non Veg</span> -->
+
+              <select class="isVeg" formControlName="isVeg" >
+                <option [value]="true">Veg</option>
+                <option [value]="false">Non Veg</option>
+              </select><br>
+
+              <!-- <ion-toggle formControlName="isVeg" style="float: right;"></ion-toggle> -->
+            </ion-col>
+          </ion-row>
+
+          {{addProductForm.get('category_id').value}}
+          <ion-row class="add-detail-row">
+            <ion-col>
+              <ion-label position="floating">Choose Category</ion-label>
+              <select class="isVeg"  formControlName="category_id" >
+                <option value="">Select Category</option>
+                <option [value]="list._id" *ngFor="let list of SubCategoryList">{{list.subcategoryName}}</option>
+              </select><br>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="width: 100%;" class="add-detail-row">
+            <ion-col>
+              <ion-label position="floating">Product Description</ion-label>
+            <!-- </ion-col>
+          </ion-row>
+          <ion-row style="width:100%;">
+            <ion-col> -->
+              <ion-textarea formControlName="productDescription"></ion-textarea>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="add-detail-row" *ngIf="_editData.imageVarients !== 0">
+            <ion-col size="5" *ngFor="let url of _editData.imageVarients;index as i" style="position: relative;">
+              <img src="{{url}}" style="height: 70px; width: 100%; object-fit: cover;">
+              <ion-icon class="remove-icon" (click)="removeImage(i)" name="close-circle-outline"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row style="width:100%" style="justify-content: flex-end;padding: 10px 0px;">
+            <ion-button class="upload-img" (click)="selectImagefromMobille()">
+              Upload Image &nbsp;&nbsp;<ion-icon  name="cloud-upload-sharp"></ion-icon>
+            </ion-button>
+          </ion-row>
+            <!-- <ion-row>
+                <ion-item>
+                  <img *ngIf="_editData.imageVarients && images.length == 0" src="{{_editData.imageVarients}}" style="height: 50px; width: 50px;"><br>
+                  <ion-grid >
+                    <ion-row>
+
+                    </ion-row>
+                </ion-grid>
+                </ion-item>
+            </ion-row> -->
+        </ion-grid>
+        <ion-grid *ngIf="images.length !== 0">
+            <ion-row>
+                <ion-col  *ngFor="let url of images;index as i">
+                  <img src="{{url}}" style="height: 50px; width: 50px;" >
+                  <ion-icon (click)="removeUploadImage(i)" name="close-circle-outline"></ion-icon>
+
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-button class="has-footer" *ngIf="!editData" [disabled]="addProductForm.invalid"  expand="full" color="warning" type="submit">Add</ion-button>
+        <ion-button class="has-footer" *ngIf="editData" [disabled]="addProductForm.invalid"  expand="full" color="warning" type="submit">Save</ion-button>
+    </form>
+
+
+
+
+</ion-content>
+
+<!--
+<ion-content padding>
+  <h3 *ngIf="images.length == 0" text-center>Please Select Image!</h3>
+
+  <ion-list>
+    <ion-item *ngFor="let img of images; index as pos" text-wrap>
+      <ion-thumbnail slot="start">
+        <ion-img [src]="img.path"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        {{ img.name }}
+      </ion-label>
+      <ion-button slot="end" fill="clear" (click)="startUpload(img)">
+        <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" fill="clear" (click)="deleteImage(img, pos)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-button fill="clear" expand="full" color="light" (click)="selectImagefromMobille()">
+      <ion-icon slot="start" name="camera"></ion-icon>
+      Select Image</ion-button>
+  </ion-toolbar>
+</ion-footer> -->

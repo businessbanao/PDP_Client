@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/inventry"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title >Preview Inventry</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-list style="margin-top: 21px;" *ngIf="inventryList.length != 0">
+      <h5 class="list-header add-pro-title ">{{type}} Inventry Preview
+        <span style="float: right;color: white;">₹ {{total}}</span>
+      </h5>
+
+      <ng-container *ngIf="type == 'Incoming'">
+        <ion-item-sliding id="item100" *ngFor="let list of inventryList">
+          <ion-item >
+
+            <ion-label>
+              <p class="save-later-name" style="text-transform: capitalize;"
+              *ngIf="list.departmentName == 'Cancel Bill' || list.departmentName == 'Discount On  Sell' || list.departmentName == 'Short In Cash'">
+                {{list.departmentName}}  - <span style="float: right;color: red;"> - ₹ {{list.amount}}</span>
+              </p>
+              <p class="save-later-name" style="text-transform: capitalize;"
+              *ngIf="list.departmentName != 'Cancel Bill' && list.departmentName != 'Discount On  Sell' && list.departmentName != 'Short In Cash'">
+                {{list.departmentName}}  - <span style="float: right;color: green;">+ ₹ {{list.amount}}</span>
+              </p>
+
+            </ion-label>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option
+              color="danger"
+
+            >
+              <ion-icon slot="icon-only" name="create"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ng-container>
+      <ng-container *ngIf="type == 'Vendor Incoming'">
+        <ion-item-sliding id="item100" *ngFor="let list of inventryList">
+          <ion-item >
+
+            <ion-label>
+              <p class="save-later-name" style="text-transform: capitalize;"
+              *ngIf="list.departmentName == 'Cancel Discount' || list.departmentName == 'Discount' || list.departmentName == 'Short Cash'">
+                {{list.departmentName}}  - <span style="float: right;color: red;"> - ₹ {{list.amount}}</span>
+              </p>
+              <p class="save-later-name" style="text-transform: capitalize;"
+              *ngIf="list.departmentName != 'Cancel Discount' && list.departmentName != 'Discount' && list.departmentName != 'Short Cash'">
+                {{list.departmentName}}  - <span style="float: right;color: green;">+ ₹ {{list.amount}}</span>
+              </p>
+
+            </ion-label>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option
+              color="danger"
+
+            >
+              <ion-icon slot="icon-only" name="create"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ng-container>
+
+      <ng-container *ngIf="type == 'Outgoing'">
+        <ion-item-sliding id="item100" *ngFor="let list of inventryList">
+          <ion-item >
+
+            <ion-label>
+              <p class="save-later-name" style="text-transform: capitalize;"
+              >
+                {{list.departmentName}}  - <span style="float: right;color: red;"> - ₹ {{list.amount}}</span>
+              </p>
+
+
+            </ion-label>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option
+              color="danger"
+
+            >
+              <ion-icon slot="icon-only" name="create"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ng-container>
+    </ion-list>
+
+    <br><br><br><br>
+    <span *ngIf="inventryList.length == 0">
+      <h5 class="list-header add-pro-title "> Inventry
+        <span style="float: right;color: white;">₹ {{total}}</span>
+      </h5>
+      <br><br>
+      <ion-text style="margin-left: 23%;" >
+        No record Found
+      </ion-text>
+    </span>
+    <br /><br /><br />
+
+
+
+</ion-content>

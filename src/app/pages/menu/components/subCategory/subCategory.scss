@@ -1,0 +1,174 @@
+ion-fab-button {
+  --background: var(--ion-color-step-150, #fff);
+  --background-hover: var(--ion-color-step-200, #f2f2f2);
+  --background-focused: var(--ion-color-step-250, #d9d9d9);
+
+  --color: var(--ion-color-primary, #3880ff);
+}
+
+/*
+ * Material Design uses the ripple for activated
+ * so only style the iOS activated background
+ */
+.ios ion-fab-button {
+  --background-activated: var(--ion-color-step-250, #d9d9d9);
+}
+
+$categories: (
+  ionic: var(--ion-color-primary),
+  angular: #ac282b,
+  communication: #8e8d93,
+  tooling: #fe4c52,
+  services: #fd8b2d,
+  design: #fed035,
+  workshop: #69bb7b,
+  food: #3bc7c4,
+  documentation: #b16be3,
+  navigation: #6600cc
+);
+
+@each $track, $value in map-remove($categories) {
+  ion-item-sliding[track='#{$track}'] ion-label {
+    border-left: 2px solid $value;
+    padding-left: 10px;
+  }
+}
+
+
+// IF the browser does NOT support the  CSS Grid Layout specification
+// We rely on the use of the CSS Flexbox standard instead
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+// IF the browser DOES support the CSS Grid Layout specification
+// then the following rules are applied instead
+.wrapper {
+  display: grid;
+
+  // Define a 10 pixel gap between each grid track
+  grid-gap: 10px;
+
+  // Define a rule, that will be repeated for each grid column, where
+  // the grid track is set to a minimum width of 300 pixels and a maximum
+  // width of the available space within the grid container (via the fr or
+  // fraction unit)
+
+  // The auto-fill value allows as many grid tracks to be fitted into the
+  // width of the grid container as possible
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+  // Specify the height of the row - minimum value of 50 pixels and a maximum
+  // value set to auto
+  grid-auto-rows: minmax(150px, auto);
+
+}
+
+
+
+// Define the style rules for each panel within the grid
+// container
+.box {
+  border-radius: 5px;
+  padding: 3em;
+  margin-left: 5px;
+  margin-right: 5px;
+  // Add a flex rule for browsers not supporting the
+  // CSS Grid Layout spec
+  flex: 1 1 300px;
+
+  h2 {
+     font-weight: bold;
+ }
+}
+
+
+// We need to ensure that browsers that fall back to the
+// Flexbox rules add a bottom margin of 10 pixels to all
+// direct child elements within the grid container (to
+// emulate the grid gap)
+.wrapper > * {
+ margin-bottom: 10px;
+}
+
+
+// Use a feature query to determine if the browser supports
+// a specific CSS rule - in this case the display: grid property
+
+// If the rule is supported then we remove the flexbox fallback
+// rule of adding 10 pixels to the bottom margin of each child
+// decendent of the grid container (to emulate the grid gap)
+@supports (display: grid) {
+ .wrapper > * {
+   margin: 0;
+ }
+}
+
+
+
+// Add the necessary classes for styling the
+// background colours of each panel in the
+// project UI
+.red {
+ background-color: rgba(220, 83, 81, 1);
+}
+
+.green {
+ background-color: rgba(187, 225, 123, 1);
+}
+
+.blue {
+ background-color: rgba(131, 150, 225, 1);
+}
+
+.purple {
+ background-color: rgba(155, 121, 170, 1);
+}
+
+.yellow {
+   background-color: rgba(235, 229, 39, 1);
+}
+
+.violet {
+   background-color: rgba(213, 118, 211, 1);
+}
+
+.orange {
+ background-color: rgba(213, 151, 46, 1);
+}
+
+.turquoise {
+ background-color: rgba(105, 203, 217, 1);
+}
+.categroy-title{
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--ion-text-color);
+}
+ion-item-option{
+  color: var(--ion-text-color);
+}
+.categroy-thumb{
+  width: 100%;
+}
+.item-details{
+  padding-left: 10px;
+}
+.item-details h5{
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+.item-details p{
+  margin-top: 0px;
+}
+
+@media (min-width: 767.98px) { 
+  .categroy-thumb{
+    width: 80px;
+  }
+}
+.category-list-header{
+  background: var(--ion-gray-backgorund);
+}

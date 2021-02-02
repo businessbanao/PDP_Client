@@ -1,0 +1,128 @@
+<ion-header>
+    <ion-toolbar text-center>
+      <ion-buttons slot="start">
+        <!-- <ion-menu-button style="color: white;"></ion-menu-button> -->
+        <ion-back-button defaultHref="{{backUrl}}" (click)="closeModal()" style="color:white"></ion-back-button>
+      </ion-buttons>
+
+        <ion-title *ngIf="!editData" >Create New Shop</ion-title>
+        <ion-title *ngIf="editData" >Edit Shop Details</ion-title>
+    </ion-toolbar>
+
+
+</ion-header>
+
+<ion-content>
+
+    <div class="profile-popup"  >
+        <ion-grid style="padding: 0px 20px; margin-bottom: 30px;">
+            <ion-row>
+                <ion-item class="pb-40" style="--inner-border-width: 0 0 0px 0;">
+                    <div class="shop-profile-img">
+                        <img *ngIf="images.length == 0 && _editData.storeLogo" src="{{_editData.storeLogo}}">
+                        <img *ngIf="images.length !== 0"  src="{{images[0]}}">
+                        <a class="upload-photo" (click)="selectImagefromMobille()" name="cloud-upload-sharp"><strong>Upload Shop Image</strong>&nbsp;<ion-icon style="margin-bottom: -4px;"  name="camera"></ion-icon></a>
+                    </div>
+                  </ion-item>
+            </ion-row>
+
+
+                  <ion-row class="form-fild-row">
+                    <ion-col size="6"   (click)="setFocus('_storeName')">
+                        <ion-label position="floating">Shop Name</ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input #storeName style="text-align: right;" [(ngModel)]="addShopForm.storeName"></ion-input>
+                    </ion-col>
+                </ion-row>
+
+
+
+                <ion-row class="form-fild-row">
+                    <ion-col size="6" (click)="setFocus('_storeAddress1')">
+                        <ion-label position="floating">Shop no / Floor / Building</ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input #storeAddress1 [(ngModel)]="addShopForm.storeAddress1" style="text-align: right;"></ion-input>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row class="form-fild-row">
+                    <ion-col size="6" (click)="setFocus('_storeAddress2')">
+                        <ion-label position="floating">Colony / Street  / Locality</ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input #storeAddress2 [(ngModel)]="addShopForm.storeAddress2" style="text-align: right;"></ion-input>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row class="form-fild-row">
+                    <ion-col size="6" (click)="setFocus('_nearLandmark')">
+                        <ion-label position="floating">Near Landmark</ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input #nearLandmark [(ngModel)]="addShopForm.nearLandmark" style="text-align: right;"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="form-fild-row">
+                    <ion-col size="6" (click)="setFocus('_city')">
+                        <ion-label position="floating">city</ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input #city [(ngModel)]="addShopForm.city" style="text-align: right;"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="form-fild-row">
+                    <ion-col size="6" (click)="setFocus('_state')">
+                        <ion-label position="floating">State</ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input #state [(ngModel)]="addShopForm.state" style="text-align: right;"></ion-input>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row class="form-fild-row">
+                    <ion-col size="6" (click)="setFocus('_pincode')">
+                        <ion-label position="floating">Pincode</ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input #pincode type="number" [(ngModel)]="addShopForm.pincode" style="text-align: right;"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="form-fild-row">
+                    <ion-col size="6" (click)="setFocus('_shopOwnerName')">
+                        <ion-label position="floating">Shop Owner Name</ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input #shopOwnerName [(ngModel)]="addShopForm.shopOwnerName" style="text-align: right;"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="form-fild-row">
+                    <ion-col size="6" (click)="setFocus('_shopOwnerContact')">
+                        <ion-label position="floating">Shop Owner Contact</ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input #shopOwnerContact type="number" [(ngModel)]="addShopForm.shopOwnerContact" style="text-align: right;"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="form-fild-row">
+                    <ion-col size="6" (click)="setFocus('_website')">
+                        <ion-label position="floating">Website</ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input #website [(ngModel)]="addShopForm.website" style="text-align: right;"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="form-fild-row">
+                    <ion-col size="6" (click)="setFocus('_email')">
+                        <ion-label position="floating">Email</ion-label>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input #email [(ngModel)]="addShopForm.email" style="text-align: right;"></ion-input>
+                    </ion-col>
+                </ion-row>
+        </ion-grid>
+        <ion-button class="has-footer" (click)="submit()"  expand="full" color="warning" type="submit">Create</ion-button>
+        <ion-button class="has-footer" *ngIf="editData" (click)="submit()"  expand="full" color="warning" type="submit">Save Changes</ion-button>
+    </div>
+</ion-content>

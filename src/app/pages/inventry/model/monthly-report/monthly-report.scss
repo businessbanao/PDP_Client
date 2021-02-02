@@ -1,0 +1,157 @@
+.category-grid{
+  padding: 0px;
+  margin-left: 10px;
+}
+.category-grid .relative{
+  height: 120px;
+  width: 120px;
+  margin: 0 auto;
+  text-align: center;
+
+}
+.category-grid .relative img{
+  width: 70px;
+  height: 70px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 10px #ccc;
+}
+
+.category-grid .relative svg{
+  width: 70px;
+  height: 70px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 10px #ccc;
+}
+.category-grid .relative p{
+  margin-bottom: 0px;
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.input-text{
+  border-bottom: 1px solid #ccc;
+}
+.has-footer{
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  margin: 0px;
+}
+.chose-category-grid{
+  box-shadow: none;
+  margin: 0px;
+  .relative{
+    box-shadow: 0px 0px 10px #ccc;
+    display: inline-block;
+    width: 22%;
+    text-align: center;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 10px;
+    img{
+      width: 40px;
+      height: 40px;
+    }
+    p{
+      // font-weight: bold;
+      font-size: 11px;
+    }
+  }
+}
+.add-pro-title{
+  border-top: 1px solid #ccc;
+  margin: 0px;
+  padding: 10px 15px;
+}
+.add-pro-thumb{
+  width: 100px;
+  height: 80px;
+  position: relative;
+  img{
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+}
+.save-later-name{
+  font-size: 16px;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+  margin: 0px;
+  color: var(--ion-text-color);
+  text-transform: capitalize;
+}
+.vagnon-image-small{
+  width: 12px !important;
+  display: inline-block;
+  vertical-align: middle;
+  height: 12px !important;
+}
+.trading-price{
+  font-size: 14px;
+}
+.add-pro-thumb .offer{
+  position: absolute;
+  left: -7px;
+  background-color: rgba(0, 0, 0, 0.72);
+  z-index: 1;
+  color: #fff;
+  padding: 5px 7px;
+  top: 8px;
+  font-size: 10px;
+}
+.add-pro-thumb .offer:after{
+  content: "";
+  display: block;
+  left: 1px;
+  bottom: -4px;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.72);
+  transform: rotate(45deg);
+}
+
+.active{
+  background-color: sandybrown;
+  color: #fff;
+}
+
+
+.list-header{
+  background: black;
+    color: white;
+}
+
+
+.date-row {
+  margin-top: -3px;
+  position: fixed;
+  background: white;
+  z-index: 99999;
+  width: 100%;
+
+}
+
+.date-label{
+  margin-left: 21px;
+    display: -webkit-inline-box;
+    margin-top: 8px;
+}
+
+
+.business-acc-heading{
+  margin-left: 10px;
+
+}

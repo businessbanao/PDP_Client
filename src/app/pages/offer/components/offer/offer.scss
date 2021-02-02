@@ -1,0 +1,497 @@
+.noRecordsFound {
+  text-align: center;
+  margin-top: 67px;
+  font-weight: bolder;
+  font-family: fantasy;
+}
+.offer-create-box{
+  border-left: 50px solid #4E7C8F;
+  padding: 15px 15px;
+  overflow: revert;
+  border-radius: 10px;
+  -o-object-fit: inherit;
+  object-fit: inherit;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.16);
+  width: 95%;
+  margin: 0px 10px 10px 10px;
+  background-color: var(--ion-background-color);
+  position: relative;
+  min-height: 170px;
+  z-index: 1;
+}
+.create-rotate-heading{
+  letter-spacing: 3px;
+  position: absolute;
+  top: 44%;
+  left: -103px;
+  font-size: 15px;
+
+  -webkit-transform: rotate(270deg);
+  transform: rotate(270deg);
+  z-index: 999;
+  color: #fff;
+}
+
+.create-rotate-heading-reward{
+  letter-spacing: 3px;
+  position: absolute;
+  top: 44%;
+  left: -96px;
+  font-size: 15px;
+
+  -webkit-transform: rotate(270deg);
+  transform: rotate(270deg);
+  z-index: 999;
+  color: #fff;
+}
+.offer-feild-top .offer-feild-thumbnail{
+  width: 60px;
+  margin-right: 10px;
+  float: left;
+}
+.discount-feild{
+  color: var(--ion-text-color);
+  width: 170px;
+  border-bottom: 1px solid var(--ion-border-color);
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  outline: none;
+  margin-left: 8px;
+  background: transparent;
+}
+.flat-feild{
+  border: 0;
+  margin-left: 16px;
+  color: var(--ion-text-color);
+  border-bottom: 1px solid var(--ion-border-color);
+  margin-top: 7px;
+  outline: none;
+  width: 168px;
+  background: transparent;
+}
+.offer-feild-bottom{
+  color: var(--ion-text-color);
+}
+.offer-feild-bottom ion-datetime{
+  padding: 0px;
+  border-bottom: 1px solid var(--ion-border-color);
+  width: 100%;
+}
+.searchable-list {
+  width: 100%;
+  padding: 5px;
+  margin-top: 6px;
+
+}
+
+.valuePadding {
+  border: 1px inset #ccc;
+}
+.valuePadding input {
+  border: none;
+  padding:0px;
+  outline: none;
+}
+.amount-feild{
+  background-color: #3880ff;
+  border-radius: 30px;
+  margin-top: 8px;
+  width: 100% !important;
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+}
+.amount-feild input{
+  background: transparent;
+    border: 0px;
+    width: 100%;
+    padding: 0px;
+    text-align: center;
+    color: #fff;
+    outline: none;
+    border-bottom: 1px solid #ccc;
+}
+.amount-feild input::placeholder{
+  color: #fff;
+}
+.select-text {
+  margin-top: -36px;
+  margin-left: 47px;
+  position: absolute;
+}
+
+.cross {
+  margin-left: 10px;
+  float: right;
+  font-size: 35px;
+  margin-top: 10px;
+}
+
+
+
+*{margin:0;box-sizing:border-box;}
+html,body{height:100%;font:14px/1.4 sans-serif;}
+input, textarea{font:14px/1.4 sans-serif;}
+
+.input-group{
+  border-bottom: 1px solid #1486d5;
+  width: 100%;
+}
+.input-group > div{
+  display: table-cell;
+  border: 0px;
+  vertical-align: middle;  /* needed for Safari */
+  width: 100%;
+}
+.input-group-icon{
+  background:transparent;
+  color: #fff;
+  padding: 0 12px
+}
+.input-group-area{
+  width:100%;
+}
+.input-group input{
+  width: 127px;
+  padding: 8px;
+  color: black;
+}
+.coupon-code{
+  padding: 8px 10px;
+  text-align: right;
+}
+
+.ion-btn-box{
+  margin-left: 22px;
+  margin-top: 10px;
+  border: 1px #dad5d5 solid;
+  width: 90%;
+}
+
+.noRecordsFound {
+  margin-left: 31%;
+  margin-top: 30px;
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+
+.offer-card{
+  position: relative;
+  border-left: 50px solid #26566b;
+  padding: 15px 15px;
+  overflow: inherit;
+  border-radius: 10px;
+  object-fit: inherit;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.16);
+  width: 95%;
+  margin: 0px 10px 10px 10px;
+}
+.rotate-heading{
+  letter-spacing: 3px;
+  position: absolute;
+  top: 41%;
+  left: -71px;
+  font-size: 18px;
+  transform: rotate(270deg);
+  z-index: 999;
+  color: #fff;
+}
+.offer-content .offer-top{
+  display: flex;
+  margin-bottom: 10px;
+}
+.offer-content .offer-top ion-thumbnail{
+  width: 140px;
+  margin-right: 15px;
+}
+.offer-bottom span{
+  display: block;
+}
+.offer-bottom ion-button{
+  margin-bottom: 0px;
+}
+
+.offer-discr{
+  margin-right: 10px;
+  color: var(--ion-small-color);
+}
+.vagnon-image{
+  width: 16px !important;
+  display: inline-block;
+  vertical-align: middle;
+  height: 16px !important;
+  margin-right: 3px;
+}
+.discount-search{
+  --box-shadow: none;
+  border-bottom: 1px solid var(--ion-border-color);
+  color: var(--ion-text-color);
+  margin-bottom: 17%;
+  z-index: 9999;
+  position: fixed;
+}
+.total-points-group{
+  background-color: var(--ion-offer-bg-color);
+  color: var(--ion-text-color);
+  position: relative;
+  padding: 15px 0px 30px;
+  overflow: hidden;
+}
+.total-points-group::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -50px;
+  height: 250px;
+  width: 250px;
+  left: -80px;
+  border-radius: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.total-points-group::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -70px;
+  height: 200px;
+  width: 200px;
+  left: 100px;
+  border-radius: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.total-points-group ion-item,
+.total-points-group ion-item input{
+  --background: transparent;
+  background: transparent;
+}
+.total-points-group ion-item,
+.total-points-group ion-item input,
+.total-points-group ion-item ion-datetime{
+  color: #fff;
+}
+// .saprator{
+//   position: absolute;
+//   bottom: -1px;
+// }
+// .saprator:before{
+//   content: "";
+//   display: block;
+//   width: 0;
+//   height: 0;
+//   border-left: 500px solid transparent;
+//   border-right: 0px solid transparent;
+//   border-bottom: 75px solid #fff;
+// }
+
+.offer-list{
+  background: transparent;
+  padding-top: 0px;
+}
+
+.offer-card:nth-child(2n-5){
+  border-left-color: #4F7E91;
+}
+.offer-card:nth-child(3n-6){
+  border-left-color: #1288BB;
+}
+.offer-card:nth-child(4n-7){
+  border-left-color: #77B5CE;
+}
+.offer-bottom ion-button{
+  margin-bottom: 0px;
+  border-radius: 30px;
+  --background: #26566b
+}
+.offer-card:nth-child(1) .offer-bottom ion-button{
+  --background: #77b5ce !important;
+}
+.offer-card:nth-child(2n-5) .offer-bottom ion-button{
+  --background: #4F7E91;
+}
+.offer-card:nth-child(3n-6) .offer-bottom ion-button{
+  --background: #1288BB;
+}
+.offer-card:nth-child(4n-7) .offer-bottom ion-button{
+  --background: #77B5CE;
+}
+
+.min-order-input{
+  width: 180px;
+  border: 0px;
+  padding: 10px 0px;
+  color: var(--ion-text-color);
+  border-bottom: 1px solid var(--ion-border-color);
+  margin-left: 10px;
+  background: transparent;
+}
+.tranding-rating-star img{
+  margin-right: 5px;
+  width: 14px !important;
+  height: 14px !important;
+  vertical-align: middle;
+}
+.product-checkbox{
+  order: 1;
+  margin-right: 32px;
+  width: 24px;
+  height: 24px;
+}
+.product-checkbox.checkbox-checked{
+  animation: tick 150ms ease-in;
+}
+@keyframes tick{
+  0%{
+   transform: scale(0)
+  }
+  90%{
+    transform: scale(1.3)
+  }
+  100%{
+    transform: scale(1)
+  }
+}
+.discount-top{
+
+
+  margin-bottom: 99px;
+    width: 100%;
+    padding: 20px 15px;
+    background: var(--ion-offer-bg-color);
+    color: #fff;
+    position: fixed;
+    overflow: hidden;
+    z-index: 9999;
+    height: 128px;
+}
+.discount-top ion-searchbar{
+  --background: transparent;
+  padding: 0px;
+  margin-top: 50px;
+  background: transparent;
+  color: #fff;
+}
+.discount-top::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -50px;
+  height: 250px;
+  width: 250px;
+  left: -80px;
+  border-radius: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.discount-top::before::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -70px;
+  height: 200px;
+  width: 200px;
+  left: 100px;
+  border-radius: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.create-title{
+  color: #fff;
+  padding: 0px 20px 15px;
+}
+
+.coupon-btn{
+  color: var(--ion-text-color);
+  padding: 9px 18px;
+  cursor: pointer;
+  background: var(--ion-color-warning);
+  float: right;
+  margin-top: 8px;
+}
+
+.discount-img{
+  height: 80px;background-size: cover;width: 100px;
+}
+
+.top-left {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+}
+
+.product-thumbnail {
+  width: 100px;
+  margin-right: 15px;
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.product-thumb{
+  margin: 0px;
+}
+.product-thumb img{
+  border-radius: 5px;
+}
+.product-thumb span.offer{
+  position: absolute;
+  left: -2px;
+  background-color: rgba(0, 0, 0, 0.72);
+  z-index: 1;
+  color: #fff;
+  padding: 5px 7px;
+  top: 14px;
+  font-size: 10px;
+}
+.product-thumb span.offer:after {
+  content: "";
+  display: block;
+  left: 1px;
+  bottom: -4px;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.72);
+  transform: rotate(45deg);
+}
+.bg-red{
+  --background: #dd4646;
+}
+@media (min-width: 767.98px) {
+  .offer-content .offer-top{
+    justify-content: space-between;
+  }
+  .min-order-input{
+    margin-right: 15px;
+  }
+}
+.offer-bottom{
+  color: var(--ion-text-color);
+}
+
+ion-datetime{
+  margin-top: -7px;
+}
+
+.date-title{
+  margin-left: 16px;
+}
+
+
+.vagnon-image-small{
+  width: 14px !important;
+  display: inline-block;
+  vertical-align: middle;
+  height: 14px !important;
+}
+
+
+.offer-img{
+  width: 40px;
+  height: 60px;
+  margin: -1px 11px auto;
+  fill: var(--ion-text-color);
+}

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white;"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Badhao Business
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+       
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <div class="searchContainer">
+     <ion-searchbar   [(ngModel)]="searchWord" placeholder="Search food or Restaurant" color="light" animated>
+      </ion-searchbar>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding-top ion-text-center">
+    <img src="https://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
+    <!-- <h2 *ngIf="userData.fullName">{{userData.fullName}}</h2> -->
+    <h2 >Guest</h2>
+
+    <ion-list inset>
+      <!-- <ion-item (click)="updatePicture()">{{userData._id}}</ion-item> -->
+      <ion-item >{{userData.mobile}}</ion-item>
+      <ion-item  >{{userData.email}}</ion-item>
+      <ion-item  >Change Password</ion-item>
+      
+      <ion-item  >Logout</ion-item>
+    </ion-list>
+  </div>
+</ion-content>

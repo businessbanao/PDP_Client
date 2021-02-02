@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/inventry"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title >Manual Inventry</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row class="date-row">
+    <ion-col size="6">
+      <span class="date-label">Choose Date</span>
+    </ion-col>
+    <ion-col>
+      <ion-datetime
+        #changeTime
+        displayFormat="DD-MMM-YYYY"
+        [(ngModel)]="payload.date"
+        placeholder="Select Date"
+        (ionChange)="handleChangeDate(changeDate)"
+      ></ion-datetime>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+  <br><br><br>
+  <ion-row>
+    <ion-col class="col-box">Amount</ion-col>
+    <ion-col>
+      <input [(ngModel)]="payload.amount" class="input-type" type="number" placeholder="Enter Amount">
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="col-box">Inventry Type</ion-col>
+    <ion-col>
+        <ion-select [(ngModel)]="payload.inventryType"  (ngModelChange)="changeType(payload.inventryType)" placeholder="Select Type">
+          <ion-select-option value="Incoming">Incoming</ion-select-option>
+          <ion-select-option value="Outgoing">Outgoing</ion-select-option>
+          <ion-select-option value="Vendor_Incoming"
+              >Vendor Incoming</ion-select-option
+            >
+        </ion-select>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="col-box">Department</ion-col>
+    <ion-col>
+        <ion-select [(ngModel)]="payload.department" placeholder="Select Department"
+        >
+        <ng-container *ngFor="let list of Department">
+          <ion-select-option [value]="list">{{list.departmentName}}</ion-select-option>
+        </ng-container>
+        </ion-select>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="col-box">Description</ion-col>
+    <ion-col>
+      <ion-textarea [(ngModel)]="payload.description" placeholder="Enter more information here..."></ion-textarea>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="saveInventry()" expand="full">Save</ion-button>
+    </ion-col>
+  </ion-row>
+
+
+</ion-content>

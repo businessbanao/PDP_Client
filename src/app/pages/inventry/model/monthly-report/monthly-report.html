@@ -1,0 +1,366 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/inventry"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Monthly Report
+      <ion-button *ngIf="!isReportGenerated" [disabled]="isReportGenerated" color="success" (click)="saveReport()" style="float: right;">Save</ion-button>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content padding *ngIf="!isReportGenerated">
+  <ion-row class="date-row">
+    <ion-col size="6">
+      <span class="date-label">Choose Date</span>
+    </ion-col>
+    <ion-col>
+      <ion-datetime
+        #changeTime
+        displayFormat="DD-MMM-YYYY"
+        [(ngModel)]="changeDate"
+        placeholder="Select Date"
+        (ngModelChange)="handleChangeDate(changeDate)"
+      ></ion-datetime>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+
+  <br>
+  <h5 class="add-pro-title list-header">Net Cash</h5>
+
+  <br />
+
+  <ion-row>
+    <ion-col>Total Incoming</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: green">+{{zReportTotal + uddharJamaTotal + openBalanceTotal + sweggyAmount
+      +zamotoAmount }}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>Total Outgoing</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: red">-{{outgonigAmount}}</ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>Opening Balance</ion-col>
+    <ion-col></ion-col>
+    <ion-col
+      ><input
+        type="number"
+        [(ngModel)]="openBal"
+        placeholder="opening Balance Amount"
+    /></ion-col>
+  </ion-row>
+  <br>
+  <hr style="height: 2px;background-color: #DCDCDC;">
+  <ion-row>
+    <ion-col class="business-acc-heading">Net Cash </ion-col>
+    <ion-col></ion-col>
+    <ion-col>{{zReportTotal + uddharJamaTotal + openBalanceTotal + sweggyAmount
+      +zamotoAmount  - outgonigAmount - openBal }}</ion-col>
+  </ion-row>
+  <br>
+
+  <h5 class="add-pro-title list-header">Total Incoming</h5>
+
+  <br />
+
+  <ion-row>
+    <ion-col>Z-Report Total</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: green">+{{zReportTotal}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>uddhar Jama Total</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: green">+{{uddharJamaTotal}}</ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>Sweggy</ion-col>
+    <ion-col></ion-col>
+    <ion-col
+      ><input
+        type="number"
+        [(ngModel)]="sweggyAmount"
+        placeholder="sweggy Amount"
+    /></ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>zamoto</ion-col>
+    <ion-col></ion-col>
+    <ion-col
+      ><input
+        type="number"
+        [(ngModel)]="zamotoAmount"
+        placeholder="zamoto Amount"
+    /></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>Opening Balance</ion-col>
+    <ion-col></ion-col>
+    <ion-col
+      ><input
+        type="number"
+        [(ngModel)]="openBalanceAmount"
+        placeholder="opening Balance Amount"
+    /></ion-col>
+  </ion-row>
+
+  <br />
+
+  <ion-row>
+    <ion-col>uddhar Gya Total</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: red">-{{uddharGyaTotal}}</ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>HDFC Transaction</ion-col>
+    <ion-col></ion-col>
+    <ion-col
+      ><input
+        type="number"
+        [(ngModel)]="hdfcTransaction"
+        placeholder="Hdfc Transaction"
+    /></ion-col>
+  </ion-row>
+
+  <hr style="height: 1px; background-color: gray" />
+
+  <hr style="height: 2px;background-color: #DCDCDC;">
+  <ion-row>
+    <ion-col class="business-acc-heading">Incoming Total</ion-col>
+    <ion-col></ion-col>
+    <ion-col>+ {{zReportTotal + uddharJamaTotal + openBalanceTotal + sweggyAmount
+      +zamotoAmount}}</ion-col>
+  </ion-row>
+  <br />
+
+
+  <ion-list style="margin-top: 21px" *ngIf="OutgoinginventryList.length != 0">
+    <h5 class="add-pro-title list-header">
+      Outgoing Total Balance
+      <span style="float: right; color: white">₹ {{outgonigAmount}}</span>
+    </h5>
+
+    <ng-container>
+      <ion-item-sliding id="item100" *ngFor="let data of OutgoinginventryList">
+        <ion-item *ngIf="data.amount != null">
+          <ion-label (click)="openVendorDetailsModal(data.departmentID)">
+            <p class="save-later-name" style="text-transform: capitalize">
+              {{data.departmentName}} -
+              <span style="float: right; color: red">₹ {{data.amount}}</span>
+              <br /><i *ngIf="data.description">Description : </i
+              ><span style="color: brown; font-size: small">
+                {{data.description}}</span
+              >
+            </p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="enableUpdateAmountBox && updateId == data._id">
+          <input
+            type="number"
+            [(ngModel)]="updatedOutoingAmount"
+            placeholder=" Enter Amount"
+          />
+          <br />
+          <textarea
+            [(ngModel)]="updatedOutoingDescription"
+            placeholder=" Enter Description"
+          ></textarea>
+          <ion-button color="primary" (click)="editOutgoingInventry(data._id)"
+            >Update</ion-button
+          >
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option color="danger">
+            <ion-icon
+              slot="icon-only"
+              (click)="enableUpdate(data._id)"
+              name="create"
+            ></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ng-container>
+  </ion-list>
+
+  <h5 class="add-pro-title list-header">Business Contributors</h5>
+
+  <h4 class="business-acc-heading">Dhama Ji Account</h4>
+  <br />
+  <ion-row>
+    <ion-col class="business-acc-heading">Dhama Ji Received</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: green">+{{dhamaJiReceived}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="business-acc-heading">Dhama Ji Paid</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: red">-{{dhamaJiPaid}}</ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="business-acc-heading">HDFC Account</ion-col>
+    <ion-col></ion-col>
+    <ion-col
+      ><input type="number" [(ngModel)]="hdfcAccount" placeholder="HDFC Amount"
+    /></ion-col>
+  </ion-row>
+  <br>
+  <hr style="height: 2px;background-color: #DCDCDC;">
+  <ion-row>
+    <ion-col class="business-acc-heading">Dhama Ji Total</ion-col>
+    <ion-col></ion-col>
+    <ion-col>{{dhamaJiReceived + hdfcAccount - dhamaJiPaid }}</ion-col>
+  </ion-row>
+
+  <hr style="height: 5px; background-color: black" />
+  <br />
+  <h4 class="business-acc-heading">Rahul Account</h4>
+  <br />
+  <ion-row>
+    <ion-col class="business-acc-heading">Rahul Received</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: green">+{{rahulReceived}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="business-acc-heading">Rahul Paid</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: red">-{{rahulPaid}}</ion-col>
+  </ion-row>
+  <br>
+  <hr style="height: 2px;background-color: #DCDCDC;">
+  <ion-row>
+    <ion-col class="business-acc-heading">Rahul Total</ion-col>
+    <ion-col></ion-col>
+    <ion-col>{{rahulReceived  - rahulPaid }}</ion-col>
+  </ion-row>
+
+  <br />
+  <hr style="height: 5px; background-color: black" />
+  <br />
+  <h4 class="business-acc-heading">Manoj Account</h4>
+  <br />
+  <ion-row>
+    <ion-col class="business-acc-heading">Manoj Received</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: green">+{{manojReceived}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="business-acc-heading">Manoj Paid</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: red">-{{manojPaid}}</ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="business-acc-heading">Sweggy </ion-col>
+    <ion-col></ion-col>
+    <ion-col
+      ><input
+        type="number"
+        [disabled]="true"
+        [(ngModel)]="sweggyAmount"
+        placeholder="Sweggy "
+    /></ion-col>
+  </ion-row>
+  <br>
+  <hr style="height: 2px;background-color: #DCDCDC;">
+  <ion-row>
+    <ion-col class="business-acc-heading">Manoj Total</ion-col>
+    <ion-col></ion-col>
+    <ion-col>{{manojReceived + sweggyAmount - manojPaid }}</ion-col>
+  </ion-row>
+
+  <br />
+  <hr style="height: 5px; background-color: black" />
+  <br />
+  <h4 class="business-acc-heading">HDFC Account</h4>
+  <br />
+  <ion-row>
+    <ion-col class="business-acc-heading">HDFC Received</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: green">+{{hdfcReceived}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="business-acc-heading">HDFC Paid</ion-col>
+    <ion-col></ion-col>
+    <ion-col style="color: red">-{{hdfcPaid}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="business-acc-heading">Zomato </ion-col>
+    <ion-col></ion-col>
+    <ion-col
+      ><input
+        type="number"
+        [disabled]="true"
+        [(ngModel)]="zamotoAmount"
+        placeholder="zomato "
+    /></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="business-acc-heading">HDFC Transction Charges</ion-col>
+    <ion-col></ion-col>
+    <ion-col
+      ><input
+        type="number"
+        [(ngModel)]="hdfcTransactionCharges"
+        placeholder="HDFC Transction Charges"
+    /></ion-col>
+  </ion-row>
+  <br>
+  <hr style="height: 2px;background-color: #DCDCDC;">
+  <ion-row>
+    <ion-col class="business-acc-heading">HDFC Total</ion-col>
+    <ion-col></ion-col>
+    <ion-col>{{hdfcReceived + hdfcTransactionCharges + zamotoAmount - hdfcPaid }}</ion-col>
+  </ion-row>
+  <br /><br /><br /><br /><br />
+</ion-content>
+
+<ion-content padding *ngIf="isReportGenerated">
+  <ion-row class="date-row">
+    <ion-col size="6">
+      <span class="date-label">Choose Date</span>
+    </ion-col>
+    <ion-col>
+      <ion-datetime
+        #changeTime
+        displayFormat="DD-MMM-YYYY"
+        [(ngModel)]="changeDate"
+        placeholder="Select Date"
+        (ngModelChange)="handleChangeDate(changeDate)"
+      ></ion-datetime>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+  <br>
+  <h5 class="add-pro-title list-header">{{this.savedReport.reportName}}</h5>
+
+  <br />
+
+  <ion-row *ngFor="let item of savedReport.account_balances | keyvalue">
+    <ion-col class="business-acc-heading">{{item.key}}</ion-col>
+    <ion-col></ion-col>
+    <ion-col class="business-acc-heading" >{{item.value}}</ion-col>
+  </ion-row>
+
+
+
+  <br /><br /><br /><br /><br />
+</ion-content>

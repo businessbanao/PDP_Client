@@ -1,0 +1,202 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white;"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Account
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+<ion-content class="content-main" *ngIf="isDataLoaded; else skeleton">
+  <div class="viewProfile">
+    <ion-card color="warning">
+      <ion-card-header style="margin: 0px 15px">
+        <div class="pers-info">
+          <div>
+            <div class="top-left">
+              <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+              </ion-buttons>
+            </div>
+            <!-- <ion-icon (click)="openEditProfileModal()" style="float: right;margin-top: -30px;font-size: 30px;"
+              name="create-outline"></ion-icon> -->
+            <ion-card-title class="text-capital">
+              {{AdminProfile.fullName}}</ion-card-title
+            >
+            <div class="prof-cd">
+              <p>{{AdminProfile.mobile}}</p>
+            </div>
+          </div>
+          <ion-thumbnail>
+            <img
+              *ngIf="!AdminProfile.Image"
+              src="https://cdn.icon-icons.com/icons2/1879/PNG/512/iconfinder-3-avatar-2754579_120516.png"
+            />
+            <img *ngIf="AdminProfile.Image" [src]="AdminProfile.Image" />
+          </ion-thumbnail>
+        </div>
+        <div class="profile-info-tebs">
+          <ul class="clearfix">
+            <li [ngClass]="{  'active' : enableProfileOption }">
+              <a (click)="enableProfile('login')">Profile</a>
+            </li>
+            <li [ngClass]="{  'active' : !enableProfileOption }">
+              <a (click)="enableProfile('profile')">Login & Security</a>
+            </li>
+          </ul>
+        </div>
+      </ion-card-header>
+    </ion-card>
+  </div>
+
+  <div class="sm-list" *ngIf="enableProfileOption">
+    <ion-list>
+      <div class="user-name">
+        <h4 class="font-cool">Personal Details</h4>
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </div>
+      <div class="user-other-info">
+        <div class="user-other-item clearfix">
+          <div class="section-left">
+            <span>ID</span>
+            <p>
+              {{AdminProfile._id}}&nbsp;
+              <ion-icon (click)="copy(AdminProfile._id)" name="copy-outline"
+              ></ion-icon>
+            </p>
+          </div>
+        </div>
+        <div class="user-other-item clearfix">
+          <div class="section-left">
+            <span >Full Name</span>
+            <p class="text-capital">{{AdminProfile.fullName}}</p>
+          </div>
+        </div>
+        <div class="user-other-item clearfix">
+          <div class="section-left">
+            <span>City</span>
+            <p class="text-capital">{{AdminProfile.city}}</p>
+          </div>
+          <div class="section-right">
+            <span>Date of Birth</span>
+            <p>{{AdminProfile.dob | date : 'dd MMM yyyy'}}</p>
+          </div>
+        </div>
+        <div class="user-other-item clearfix">
+          <div class="section-left">
+            <span>Email</span>
+            <p>{{AdminProfile.email}}</p>
+          </div>
+          <div class="section-right">
+            <span>Gender</span>
+            <p>{{AdminProfile.gender}}</p>
+          </div>
+        </div>
+        <div class="user-other-item clearfix">
+          <div class="section-left">
+            <span>Address</span>
+            <p>{{AdminProfile.address}}</p>
+          </div>
+
+        </div>
+      </div>
+    </ion-list>
+  </div>
+  <div class="sm-list sml-2" *ngIf="enableProfileOption">
+    <ion-list>
+      <div class="user-name">
+        <h4 class="font-cool">Business Banao</h4>
+        <ion-icon name="calendar-outline"></ion-icon>
+      </div>
+      <div class="user-info-profile">
+        <div class="img">
+          <img
+            src="https://image.freepik.com/free-vector/good-food-logo-template_79169-17.jpg"
+          />
+        </div>
+        <div class="user-detial">
+          <h6 class="text-capital">{{AdminProfile.fullName}}</h6>
+          <p>
+            <a (click)="editProfile()"
+              >Edit Profile&nbsp;<span
+                ><ion-icon name="create-outline"></ion-icon></span
+            ></a>
+          </p>
+        </div>
+      </div>
+    </ion-list>
+  </div>
+  <div class="sm-list sml-2" *ngIf="!enableProfileOption">
+    <ion-list>
+      <div class="user-name">
+        <h4>Login & Security</h4>
+        <ion-icon name="calendar-outline"></ion-icon>
+      </div>
+      <div class="change-password-form">
+        <form [formGroup]="changePsswordForm">
+          <ion-grid>
+            <ion-row>
+              <ion-item class="item-ch">
+                <ion-label position="floating">Current Password</ion-label>
+                <ion-input
+                  placeholder="Enter Current Password"
+                  formControlName="oldPassword"
+                ></ion-input>
+              </ion-item>
+              <ion-item class="item-ch">
+                <ion-label position="floating">New Password</ion-label>
+                <ion-input
+                  type="password"
+                  placeholder="Enter New Password"
+                  formControlName="newPassword"
+                ></ion-input>
+              </ion-item>
+              <ion-item class="item-ch">
+                <ion-label position="floating">Confirm Password</ion-label>
+                <ion-input
+                  type="password"
+                  placeholder="Enter Confirm Password"
+                  formControlName="confirmPassword"
+                ></ion-input>
+              </ion-item>
+            </ion-row>
+          </ion-grid>
+          <ion-button
+            class="btn-ch"
+            (click)="submit(changePsswordForm)"
+            color="warning"
+            type="submit"
+            >Change Password</ion-button
+          >
+        </form>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ng-template #skeleton>
+  <ion-item *ngFor="let item of [1, 2, 3, 4, 5,6,7,8,9]">
+    <ion-thumbnail slot="start">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-thumbnail>
+
+    <ion-label>
+      <h3>
+        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+      </h3>
+      <p>
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+      </p>
+      <p>
+        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      </p>
+    </ion-label>
+  </ion-item>
+
+  <!-- </ion-list> -->
+</ng-template>

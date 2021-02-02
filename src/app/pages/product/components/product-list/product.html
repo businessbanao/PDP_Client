@@ -1,0 +1,137 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button *ngIf="!showSearchBox" style="color: white;"></ion-menu-button>
+            <!-- <ion-back-button *ngIf="showSearchBox" (click)="backToNormal()" defaultHref="/products" style="color:white"></ion-back-button> -->
+            <ion-icon style="margin-left: 10px;font-size: 22px;" *ngIf="showSearchBox" (click)="backToNormal()"
+                name="arrow-back-outline"></ion-icon>
+        </ion-buttons>
+        <ion-title>
+            Product Management
+            <!-- <ion-skeleton-text animated></ion-skeleton-text> -->
+        </ion-title>
+        <ion-buttons slot="end" style="margin-right: 20px;" (click)="enableSearch()">
+            <ion-button>
+                <ion-icon name="search"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+   <ion-searchbar #autofocus   spellcheck="true" *ngIf="showSearchBox" placeholder="Search Products" [(ngModel)]="searchQuery" (ionChange)="search($event)">
+    </ion-searchbar>
+</ion-header>
+
+<ion-content *ngIf="isDataLoaded; else skeleton"  >
+  <div class="toggle-box">
+      <span>
+      <!-- <ion-icon style="float: right;" name="funnel-sharp" (click)="presentFilterSheet()"></ion-icon> -->
+      Show Recommded Products</span>
+      <ion-toggle [(ngModel)]="isToggled" (ionChange)="showRecommendedProducts()"></ion-toggle>
+  </div>
+
+
+    <!-- <ion-list-header color="light"><span class="page_header">Product Management</span></ion-list-header> -->
+    <ion-list  *ngIf="productList.length != 0">
+        <ion-item-sliding id="item100" *ngFor="let list of productList">
+            <ion-item [routerLink]="['/tabs/product/product-details/'+ list._id ]">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="4">
+                            <p class="product-img">
+                                <img class="product-thumbnail" [ngStyle]="{'opacity' : list.Status == 'OUT_OF_STOCK' ? 0.4 : 1}"
+                                *ngIf="list.imageVarients.length !== 0" src="{{list.imageVarients[0]}}">
+                                <img class="product-thumbnail" [ngStyle]="{'opacity' : list.Status == 'OUT_OF_STOCK' ? 0.4 : 1}"
+                                *ngIf="list.imageVarients.length == 0"
+                                src="https://bhmlib.org/wp-content/themes/cosimo-pro/images/no-image-box.png">
+                                <span class="offer" *ngIf="list.discount > 0">{{list.discount}}% OFF</span>
+                                <span class="offer" *ngIf="list.discount && list.discount == 200"
+                                >Buy 1 Get 1 </span>
+                            </p>
+                        </ion-col>
+                        <ion-col size="8">
+                            <h6 class="product-name">
+                              <img *ngIf="list.isVeg" src="../../../../../assets/img/vag.png" class="vagnon-image-small">
+                              <img *ngIf="!list.isVeg" src="../../../../../assets/img/nonvag.png" class="vagnon-image-small">
+                              {{list.productName}}</h6>
+                            <p class="recently-view-star">
+                                <img src="../../../../../assets/img/star-full.png">
+                                <img src="../../../../../assets/img/star-full.png">
+                                <img src="../../../../../assets/img/star-full.png">
+                                <img src="../../../../../assets/img/star-full.png">
+                                <img src="../../../../../assets/img/star-full.png"> 4
+                              </p>
+                                <!-- <span>₹ {{list.price}}</span> -->
+                                <span  *ngIf="!list.discount">₹ {{list.price}}  </span>
+                                <span *ngIf="list.discount">₹ {{list.price - list.discount }} &nbsp;<s *ngIf="list.discount">₹ {{list.price}}</s> </span>
+                                <!-- {{list.rating}} -->
+
+                            <!-- <ion-col>
+                                <ion-icon style="font-size: 13px;" name="star" *ngFor="let num of [1,2,3,4,5]" [ngStyle]="{'fill':getColor(num,list.rating)}"></ion-icon>
+                                &nbsp;<span style="font-size: 12px;">({{list.rating}})</span>
+                            </ion-col> -->
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option color="warning" (click)="addProductToshop(list._id)">
+                  <ion-icon style="font-size: 21px;
+                  margin-left: 6px;" name="home-outline"></ion-icon>
+                    <ion-icon name="add-outline"></ion-icon>
+
+                </ion-item-option>
+                <ion-item-option color="primary" (click)="presentActionSheet(list)">
+                    <ion-icon slot="icon-only" name="create"></ion-icon>
+                </ion-item-option>
+                <!-- <ion-item-option color="danger" (click)="deleteProductConfirm(list._id)">
+                    <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-item-option> -->
+
+            </ion-item-options>
+
+        </ion-item-sliding>
+    </ion-list>
+    <ion-row *ngIf="productList.length == 0">
+      <img class="no-list-found" src="../../../../../assets/img/no_list/no category-found.jpg" >
+      <!-- <span *ngIf="productList.length == 0" class="noRecordsFound">No Records Found</span> -->
+    </ion-row>
+
+
+    <ion-fab *ngIf="selected.value == 0" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="openAddProductModal()" color="warning"  style="height: 34px;
+        width: 36px;">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+    <ion-refresher slot="fixed" (ionRefresh)="refershProductList($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+            refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+
+<ng-template #skeleton>
+    <ion-list>
+        <ion-item *ngFor="let item of [1, 2, 3, 4, 5,6,7,8,9]">
+            <ion-thumbnail slot="start">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+                <h3>
+                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                </h3>
+                <p>
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                </p>
+                <p>
+                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                </p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ng-template>

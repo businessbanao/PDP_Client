@@ -1,0 +1,141 @@
+<!-- <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+      </ion-buttons>
+      <ion-title>
+        Customer Profile
+      </ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+<ion-content>
+  <section class="header">
+    <div class="top-left">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="customers"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Customer Details</ion-title>
+    </div>
+  </section>
+  <ion-card class="grid-box">
+    <img
+      class="loyal-img"
+      *ngIf="customerData.isLoyal"
+      src="https://badhaobusiness.s3.ap-south-1.amazonaws.com/101705760-royal-attribute-golden-crown-icon-queen-king-symbol-vector-illustration--removebg-preview.png"
+    />
+
+    <ion-col class="profile-img-box">
+      <img
+        class="user-img"
+        *ngIf="customerData.CustomerImage.length !== 0"
+        src="{{customerData.CustomerImage}}"
+      />
+
+      <div
+        *ngIf="customerData.CustomerImage.length == 0"
+        [ngStyle]="{'opacity' : customerData.isAccountActive == false ? 0.4 : 1}"
+        class="centered"
+      >
+        {{customerData.label}}
+      </div>
+
+      <h6 *ngIf="customerData.fullName">{{customerData.fullName }}</h6>
+    </ion-col>
+  </ion-card>
+  <ion-grid class="member-info-tab">
+    <ion-row>
+      <ion-col size="6">
+        <div class="text-center wallet-amount">
+          <span>₹ {{customerData.balance}}</span>
+          <ion-label>Wallet Balance</ion-label>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="text-center toggle-button">
+          <ion-toggle
+            [(ngModel)]="isToggled"
+            (click)="updateStatus()"
+          ></ion-toggle>
+          <ion-label *ngIf="isToggled">Activated</ion-label>
+          <ion-label *ngIf="!isToggled">Deactivated</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card class="card-box">
+    <div class="row">
+      <div class="float-left">
+        <ion-label>Email Id</ion-label>
+        <ion-text *ngIf="customerData.email">{{customerData.email}}</ion-text>
+        <ion-text *ngIf="!customerData.email">-</ion-text>
+      </div>
+    </div>
+    <div class="row">
+      <div class="float-left">
+        <ion-label>Phone Number</ion-label>
+        <ion-text *ngIf="customerData.mobile"
+          >+91&nbsp;{{customerData.mobile}}</ion-text
+        >
+        <ion-text *ngIf="!customerData.mobile"
+        >-</ion-text
+      >
+      </div>
+    </div>
+    <div class="row">
+      <div class="float-left">
+        <ion-label>City</ion-label>
+        <ion-text *ngIf="customerData.city">{{customerData.city}}</ion-text>
+        <ion-text *ngIf="!customerData.city">-</ion-text>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="float-left">
+        <ion-label>Gender</ion-label>
+        <ion-text *ngIf="customerData.gender">{{customerData.gender}}</ion-text>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="float-left">
+        <ion-label>DOB</ion-label>
+        <ion-text *ngIf="customerData.dob"
+          >{{customerData.dob | date :'dd MMM yyyy'}}</ion-text
+        >
+        <ion-text *ngIf="!customerData.dob">-</ion-text>
+      </div>
+    </div>
+    <div class="row">
+      <div class="float-left">
+        <ion-label>Register From</ion-label>
+        <ion-text *ngIf="customerData.isSocialLogin"
+          >Social Media</ion-text
+        >
+        <ion-text *ngIf="!customerData.isSocialLogin"
+        >Mobile</ion-text
+      >
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="float-left">
+        <ion-label>Refer Code</ion-label>
+        <ion-text *ngIf="customerData.referCode"
+          >{{customerData.referCode}}</ion-text
+        >
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="float-left">
+        <ion-label>Registeration Date</ion-label>
+        <ion-text *ngIf="customerData.createdAt"
+          >{{customerData.createdAt | date: 'dd MMM yyyy'}}</ion-text
+        >
+
+      </div>
+    </div>
+
+
+  </ion-card>
+</ion-content>

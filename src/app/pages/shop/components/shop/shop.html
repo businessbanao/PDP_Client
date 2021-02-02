@@ -1,0 +1,107 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button *ngIf="!showSearchBox"  style="color: white;"></ion-menu-button>
+            <!-- <ion-back-button  ></ion-back-button> -->
+            <!-- <ion-back-button *ngIf="showSearchBox" (click)="backToNormal()" defaultHref="shop" style="color:white"></ion-back-button> -->
+            <ion-icon style="margin-left: 10px;font-size: 22px;" *ngIf="showSearchBox" (click)="backToNormal()" name="arrow-back-outline"></ion-icon>
+        </ion-buttons>
+        <ion-title>
+            Shop Management
+        </ion-title>
+        <ion-buttons slot="end" style="margin-right: 20px;" (click)="enableSearch()">
+            <ion-button>
+                <ion-icon name="search"></ion-icon>
+              </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+   <ion-searchbar #autofocus   *ngIf="showSearchBox" [(ngModel)]="searchWord" placeholder="Search Shops" (ionChange)="search($event)"></ion-searchbar>
+</ion-header>
+<ion-content *ngIf="isDataLoaded; else skeleton">
+    <!-- <ion-list-header color="light"><span class="page_header">Shop Management</span></ion-list-header> -->
+    <ion-fab  vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="openAddShopModal()" color="warning"  style="height: 34px;
+        width: 36px;">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+    <section class="shop-grid"  *ngIf="storeList.length != 0">
+        <ion-card  [ngClass]="{ 'active-card' : selectetobj.selected && selectetobj.id == list._id}"  *ngFor="let list of storeList">
+            <ion-thumbnail [routerLink]="['/tabs/shop/details/'+ list._id ]">
+                <img *ngIf="list.storeLogo.length !== 0" src="{{list.storeLogo}}">
+                <img *ngIf="list.storeLogo.length == 0 " src="https://bhmlib.org/wp-content/themes/cosimo-pro/images/no-image-box.png" alt="shop img">
+            </ion-thumbnail>
+            <h5>
+                <span style="text-transform: capitalize;" [routerLink]="['/tabs/shop/details/'+ list._id ]">{{list.storeName}}</span>
+                <ion-icon (click)="presentActionSheet(list)" name="ellipsis-vertical-outline"></ion-icon>
+            </h5>
+            <!-- <p>+91 9821008428</p> -->
+        </ion-card>
+
+    </section>
+
+    <!-- <ion-list  *ngIf="storeList.length != 0">
+        <ion-item-sliding id="item100" *ngFor="let list of storeList">
+            <ion-item [routerLink]="['/tabs/shop/details/'+ list._id ]" >
+                <ion-thumbnail slot="start">
+                    <img *ngIf="list.storeLogo.length !== 0" src="{{list.storeLogo}}">
+                    <img *ngIf="list.storeLogo.length == 0"
+                        src="https://png.clipart.me/previews/3b6/small-store-icon-psd-45819.jpg">
+                </ion-thumbnail>
+                <ion-label>{{list.storeName}}<br>{{list.city}}</ion-label><br>
+
+            </ion-item>
+
+            <p *ngIf="storeList.length == 0" class="noRecordsFound">No Records Found</p>
+
+            <ion-item-options side="end">
+                <ion-item-option color="tertiary" (click)="openAddProductToShopModal(list._id)">
+                    <ion-icon slot="icon-only" name="add"></ion-icon>
+                </ion-item-option>
+                <ion-item-option color="danger" (click)="deleteAlertConfirm(list)">
+                    <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-item-option>
+
+            </ion-item-options>
+
+        </ion-item-sliding>
+    </ion-list> -->
+    <ion-row *ngIf="storeList.length == 0">
+        <!-- <span *ngIf="storeList.length == 0" class="noRecordsFound">No Records Found</span> -->
+        <img src="../../../../../assets/img/no_list/no category-found.jpg" >
+      </ion-row>
+
+        <ion-refresher slot="fixed" (ionRefresh)="getStoreList($event)">
+          <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Pull to refresh"
+            refreshingSpinner="circles"
+            refreshingText="Refreshing...">
+          </ion-refresher-content>
+        </ion-refresher>
+</ion-content>
+
+<ng-template #skeleton>
+  <ion-list>
+
+      <ion-item *ngFor="let item of [1, 2, 3, 4, 5,6,7,8,9]">
+          <ion-thumbnail slot="start">
+              <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label>
+              <h3>
+                  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </h3>
+              <p>
+                  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </p>
+              <p>
+                  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </p>
+          </ion-label>
+      </ion-item>
+
+
+  </ion-list>
+</ng-template>

@@ -1,0 +1,79 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button style="color: white;"></ion-menu-button>
+            <!-- <ion-back-button *ngIf="showSearchBox" (click)="backToNormal()" defaultHref="/products" style="color:white"></ion-back-button> -->
+            <!-- <ion-icon style="margin-left: 10px;"  (click)="backToNormal()" name="arrow-back-outline"></ion-icon> -->
+        </ion-buttons>
+        <ion-title>
+            Customers Reviews
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!-- <ion-list-header color="light"><span class="page_header">Customer Reviews</span></ion-list-header> -->
+    <ion-list style="margin-top: 21px;" *ngIf="reviewList.length != 0">
+        <ion-item *ngFor="let list of reviewList">
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-thumbnail>
+                            <img src="https://www.arthasarathi.com/arthasarthi/images/user-img.png">
+                        </ion-thumbnail>
+                    </ion-col>
+
+                    <ion-col  size="4">
+                        Customer<br>
+                        {{list.createdAt  | slice : 0:10}}
+                    </ion-col>
+                    <ion-col>
+
+                    </ion-col>
+                    <ion-col>
+
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+
+                    <ion-col>
+                        <ion-card style="height: auto;padding: 10px 10px; width: 100%;    margin-left: -1px;">
+                            <span style="text-transform: capitalize;">
+                            </span>
+                            <br><span style="font-weight: 700;">
+                                <ion-row>
+                                    <div class="rating-align">
+                                        <ion-icon name="star" *ngFor="let num of [1,2,3,4,5]; index as i"
+                                            [ngStyle]="{'fill':getColor(i+1,list.rating)}">
+                                        </ion-icon>
+                                    </div><br>
+                                </ion-row>
+                                <ion-row>
+                                    {{list.review}}
+                                </ion-row>
+                                &nbsp;
+                            </span><br>
+                            <!-- <a routerLink="/products/product-review/{{productData._id}}" class="see_more">See More </a> -->
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+    <ion-row *ngIf="reviewList.length == 0">
+        <span *ngIf="reviewList.length == 0" class="noRecordsFound">No Records Found</span>
+        <img src="../../../assets/img/noRecordsFound.jpg" style="margin-left: 50px;">
+    </ion-row>
+
+
+
+    <ion-refresher slot="fixed" (ionRefresh)="fetchProductDetails($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+            refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+
+</ion-content>

@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/inventry"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="!editData">Account Management</ion-title>
+    <ion-title style="text-transform: capitalize;" *ngIf="editData"
+      >Edit Category - {{editData.subcategoryName}}</ion-title
+    >
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="addAccountForm" (ngSubmit)="submit(addAccountForm)">
+
+    <hr style="border : 1px #e6e6e6 solid">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label position="floating">Account Name</ion-label>
+          <ion-input
+            class="input-text"
+            formControlName="departmentName"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label position="floating">Description</ion-label>
+          <ion-textarea
+            class="input-text"
+            formControlName="description"
+          ></ion-textarea>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+
+        <ion-col >
+          <label>Choose Type</label>
+          <ion-select
+            class="payment-method"
+            interface="popover"
+            placeholder="Select Filter"
+            formControlName="type"
+            (ngModelChange)="onChangeType($event)"
+          >
+            <ion-select-option value="Incoming">Incoming</ion-select-option>
+            <ion-select-option value="Outgoing">Outgoing</ion-select-option>
+            <ion-select-option value="Vendor_Incoming">Vendor Incoming</ion-select-option>
+          </ion-select>
+        </ion-col>
+
+      </ion-row>
+      <ion-row>
+
+        <ion-col>
+          <label>Choose operator</label>
+          <ion-select
+            class="payment-method"
+            interface="popover"
+            placeholder="Select Filter"
+            formControlName="operator"
+            (ngModelChange)="onOperatorChange($event)"
+          >
+            <ion-select-option value="+">+ (Add)</ion-select-option>
+            <ion-select-option value="-">- (Subtract)</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+
+      </ion-row>
+    </ion-grid>
+    <ion-button  expand="full" color="warning" type="submit"
+      >Add</ion-button
+    >
+
+    <br>
+    <br>
+    <ion-list style="margin-top: 21px;" *ngIf="Department.length != 0">
+      <h5 class="add-pro-title">Added Accounts</h5>
+
+      <ng-container>
+        <ion-item-sliding id="item100" *ngFor="let list of Department">
+          <ion-item >
+
+            <ion-label>
+              <p class="save-later-name" style="text-transform: capitalize;">
+
+                {{list.departmentName}}  - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{list.type}}
+              </p>
+              <span class="trading-price" style="text-transform: capitalize;"> {{list.description}}</span>
+
+            </ion-label>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option
+              color="danger"
+              (click)="deleteProductConfirm(list._id)"
+            >
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ng-container>
+    </ion-list>
+    <br />
+
+  </form>
+</ion-content>

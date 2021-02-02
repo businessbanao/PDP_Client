@@ -1,0 +1,94 @@
+
+<ion-content>
+  <ion-list-header class="category-list-header">
+    <span class="categroy-title">All Category List</span>
+  </ion-list-header>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="openAddShopModal()"  color="warning"  style="height: 34px;
+      width: 36px;">
+          <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+      <ion-item-sliding id="item100" *ngFor="let list of SubCategoryList">
+          <ion-item [routerLink]="['/menu/viewMenu/' + list._id ]">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="2">
+                      <img class="categroy-thumb"  *ngIf="list.logo.length !== 0" src="{{list.logo}}">
+                      <img class="categroy-thumb"  *ngIf="list.logo.length == 0"
+                          src="https://image.flaticon.com/icons/png/512/55/55267.png">
+                </ion-col>
+                <ion-col size="10">
+                  <div class="item-details">
+                    <h5 style="text-transform: capitalize;">{{list.subcategoryName}}</h5>
+                    <p>{{list.description}}</p>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option (click)="openAddProductToCategory(list._id)" color="medium">
+              <ion-icon slot="icon-only" name="add"></ion-icon>
+          </ion-item-option>
+            <ion-item-option color="warning" (click)="openEditProductModal(list)">
+                  <ion-icon slot="icon-only" name="create"></ion-icon>
+              </ion-item-option>
+              <ion-item-option color="danger" (click)="deleteAlertConfirm(list._id)">
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+
+          </ion-item-options>
+
+      </ion-item-sliding>
+      <!-- <p *ngIf="SubCategoryList.length == 0" class="noRecordsFound">No Records Found</p> -->
+      <ion-row *ngIf="SubCategoryList.length == 0">
+        <img class="no-list-found" src="../../../../../assets/img/no_list/no category-found.jpg" >
+        </ion-row>
+
+  </ion-list>
+
+  <ion-refresher slot="fixed" (ionRefresh)="getSubCategoryList($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+<!--
+   <div class="wrapper">
+
+
+      <div class="box green" *ngFor="let list of SubCategoryList">
+        <ion-item-sliding>
+              <ion-thumbnail slot="start">
+                  <img *ngIf="list.logo.length !== 0" src="{{list.logo}}">
+                  <img *ngIf="list.logo.length == 0"
+                      src="https://image.flaticon.com/icons/png/512/55/55267.png">
+              </ion-thumbnail>
+              <h2>{{list.subcategoryName}}</h2><br>
+          <ion-item-options side="end">
+            <ion-item-option (click)="getSubCategoryList()" color="secondary" routerLink="/menu/mainMenu/{{list._id}}">
+              <ion-icon slot="icon-only" name="add"></ion-icon>
+          </ion-item-option>
+            <ion-item-option color="tertiary" (click)="openEditProductModal(list)">
+                  <ion-icon slot="icon-only" name="create"></ion-icon>
+              </ion-item-option>
+              <ion-item-option color="danger" (click)="deleteAlertConfirm(list._id)">
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+
+          </ion-item-options>
+
+      </ion-item-sliding>
+      <p *ngIf="SubCategoryList.length == 0" class="noRecordsFound">No Records Found</p>
+      </div>
+
+   </div> -->
+
+</ion-content>

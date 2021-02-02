@@ -1,0 +1,169 @@
+ion-list-header{
+  border-bottom: 1px solid var(--ion-border-color);
+  background: var(--ion-background-color);
+}
+
+.order-item{
+  background-color: var(--ion-item-background);
+  margin: 0px 0px 10px 0px;
+  padding: 15px 0px;
+  border: 0px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 11%);
+}
+.noRecordsFound {
+  margin-left: 31%;
+  margin-top: 30px;
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.select-text {
+  margin-top: -36px;
+  margin-left: 47px;
+  position: absolute;
+}
+
+.cross {
+  margin-left: 10px;
+  float: right;
+  font-size: 35px;
+  margin-top: 10px;
+}
+
+
+.filter-header{
+  float: right;
+  margin-bottom: -46px;
+  z-index: 99;
+  margin-top: 12px;
+  margin-right: 22px;
+  cursor: pointer;
+}
+
+.order_status{
+  color: var(--ion-text-green-color);
+  white-space: nowrap;
+}
+.order-status span{
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+}
+.order-status span.order-place{
+  background-color: rgb(236, 179, 73);
+}
+.order-status span.out-delivery{
+  background-color: rgb(226, 131, 52);
+}
+.order-status span.Deliverd{
+  background-color: green;
+}
+.order-status span.on-hold{
+  background-color: rgb(91, 199, 241);
+}
+.order-status span.packed{
+  background-color: rgb(91, 199, 241);
+}
+
+.order-status span.cancel{
+  background-color: red
+}
+
+
+
+.filter{
+  background: transparent;
+  color: var(--ion-text-color);
+  text-transform: capitalize;
+  font-weight: 500;
+  border: 1px solid var(--ion-text-color);
+  margin-left: 10px;
+  font-size: 15px;
+  padding: 5px 10px;
+  box-shadow: 0px 0px 5px #0000002b;
+}
+.filter ion-icon{
+  color: red;
+  font-size: 16px;
+  margin-bottom: -3px;
+  background-color: #ffe2e2;
+  margin-left: 5px;
+}
+
+.order-info{
+  display: block;
+  width: 100%;
+}
+img.order-img{
+  height: 60px;
+  width: 100px;
+  object-fit: cover;
+}
+.order-info h6{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 18px;
+  text-transform: capitalize;
+}
+.order-info span img{
+  width: 12px;
+}
+.vagnon-image{
+  width: 12px !important;
+  display: inline-block;
+  vertical-align: middle;
+  height: 12px !important;
+  margin-right: 5px;
+}
+.user-name{
+  margin: 4px 0px;
+  font-weight: normal !important;
+  text-transform: capitalize;
+}
+.filter-option{
+    border: 0px;
+    border-radius: 0;
+    font-size: 18px;
+    width: 28%;
+    text-align: left;
+}
+ion-searchbar{
+  --box-shadow:none;
+  padding: 0px;
+  color: var(--ion-text-color);
+}
+.delivery-icon{
+  position: absolute;
+  right: 10px;
+  margin-top: 10px;
+}
+.delivery-icon svg,
+.order-track svg{
+  width: 32px;
+  fill: var(--ion-text-color);
+}
+.order-track{
+  background: var(--ion-background-color);
+}
+.order-list-row{
+  background: var(--ion-background-color);
+}
+
+.clear-row{
+  width: 100%;
+  background-color: white;
+  height: 32px;
+  margin-bottom: 2px;
+
+}
+.clearFilter{
+  font-size: 14px;
+  padding: 6px;
+  // border: 1px brown solid;
+  color: brown;
+  float: right;
+  margin-right: 10px;
+}

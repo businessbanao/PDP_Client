@@ -1,0 +1,1564 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Inventry Management </ion-title>
+    <ion-buttons slot="end">
+      <ion-icon
+        class="right-menu"
+        name="ellipsis-vertical-outline"
+        (click)="presentActionSheet()"
+      ></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div
+    style="
+      position: fixed;
+      width: 100%;
+      background: white;
+      color: #0e0d0d;
+      border-top: 1px white solid;
+      z-index: 99999;
+    "
+  >
+    <ion-row>
+      <ion-col size="2">
+        <ion-icon name="card-outline" class="icon"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <label>Choose Type</label>
+        <ion-select
+          class="payment-method"
+          interface="popover"
+          placeholder="Select Filter"
+          [(ngModel)]="type"
+          (ngModelChange)="onselectMethod($event)"
+        >
+          <ng-container>
+            <ion-select-option value="Incoming">Incoming</ion-select-option>
+            <ion-select-option value="Outgoing">Outgoing</ion-select-option>
+            <ion-select-option value="Vendor_Incoming"
+              >Vendor Incoming</ion-select-option
+            >
+          </ng-container>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row class="date-row">
+      <ion-col size="6">
+        <span class="date-label">Choose Date</span>
+      </ion-col>
+      <ion-col>
+        <ion-datetime
+          #changeTime
+          displayFormat="DD-MMM-YYYY"
+          [(ngModel)]="changeDate"
+          placeholder="Select Date"
+          (ngModelChange)="handleChangeDate(changeDate)"
+        ></ion-datetime>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </div>
+  <br />
+
+  <section name="incoming" *ngIf="isIncomingBtn">
+    <!-- <div class="saved-entry-label" *ngIf="incomingAmount != 0">You have already saved Todays Inventry and Total cash saved is ₹ {{incomingAmount}} </div>
+    <div class="saved-entry-label" style="    background: #e8e8e8;" *ngIf="incomingAmount == 0"> </div> -->
+    <div
+      style="
+        padding: 3px;
+        position: fixed;
+        width: 100%;
+        height: 33px;
+        margin-top: -13px;
+        background: white;
+        z-index: 9999;
+      "
+    >
+      <h5 style="margin-left: 22px; padding-top: 5px">
+        NetSale : ₹ {{zIndexFormGroup.get('amount').value +
+        exeesFormGroup.get('amount').value -
+        cancelDiscountFormGroup.get('amount').value}}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; Total Cash
+        :- ₹ {{total}}
+      </h5>
+    </div>
+    <br />
+
+    <br /><br /><br /><br />
+    <mat-vertical-stepper [linear]="isLinear" #stepper *ngIf="changeDate != ''">
+      <mat-step [stepControl]="openingBalenceFormGroup">
+        <form
+          [formGroup]="openingBalenceFormGroup"
+          (ngSubmit)="submit(openingBalenceFormGroup,'5ff012d259a8e08e4b397dd7','Open Balance')"
+        >
+          <ng-template matStepLabel>Open Balance</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="zIndexFormGroup">
+        <form
+          [formGroup]="zIndexFormGroup"
+          (ngSubmit)="submit(zIndexFormGroup,'5ff0130959a8e08e4b397dd8','Z-Report')"
+        >
+          <ng-template matStepLabel>Z-Report</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="cancelDiscountFormGroup">
+        <form
+          [formGroup]="cancelDiscountFormGroup"
+          (ngSubmit)="submit(cancelDiscountFormGroup,'5ff013bf59a8e08e4b397dda','Cancel Bill')"
+        >
+          <ng-template matStepLabel>Cancel Bills</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="DiscountFormGroup">
+        <form
+          [formGroup]="DiscountFormGroup"
+          (ngSubmit)="submit(DiscountFormGroup,'5ff013d459a8e08e4b397ddb','Discount On  Sell')"
+        >
+          <ng-template matStepLabel>Discount On Sell</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="exeesFormGroup">
+        <form
+          [formGroup]="exeesFormGroup"
+          (ngSubmit)="submit(exeesFormGroup,'5ff013fb59a8e08e4b397ddc','Short In Cash')"
+        >
+          <ng-template matStepLabel>Short In Cash</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="excessinCashFormGroup">
+        <form
+          [formGroup]="excessinCashFormGroup"
+          (ngSubmit)="submit(excessinCashFormGroup,'5ff0143059a8e08e4b397ddd','Excess In Cash')"
+        >
+          <ng-template matStepLabel>Excess In Cash</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="PartySellFormGroup">
+        <form
+          [formGroup]="PartySellFormGroup"
+          (ngSubmit)="submit(PartySellFormGroup,'5ff0147e59a8e08e4b397dde','Party Sell')"
+        >
+          <ng-template matStepLabel>Party Sell</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="netSaleFormGroup">
+        <form
+          [formGroup]="netSaleFormGroup"
+          (ngSubmit)="submit(netSaleFormGroup)"
+        >
+          <ng-template matStepLabel>Net Sell</ng-template>
+          <!-- <mat-form-field> -->
+          <br />
+          <mat-label
+            >₹ {{zIndexFormGroup.get('amount').value +
+            PartySellFormGroup.get('amount').value +
+            excessinCashFormGroup.get('amount').value -
+            cancelDiscountFormGroup.get('amount').value
+          - DiscountFormGroup.get('amount').value
+        - exeesFormGroup.get('amount').value}}
+          </mat-label>
+          <br />
+
+          <!-- </mat-form-field> -->
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="leftCashFormGroup">
+        <form
+          [formGroup]="leftCashFormGroup"
+          (ngSubmit)="submit(leftCashFormGroup,'5ff014ee59a8e08e4b397ddf','Dhama Ji Paid')"
+        >
+          <ng-template matStepLabel>Dhama Ji Paid</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="rahulSeJmaFormGroup">
+        <form
+          [formGroup]="rahulSeJmaFormGroup"
+          (ngSubmit)="submit(rahulSeJmaFormGroup,'5ff0150359a8e08e4b397de0','Rahul Paid')"
+        >
+          <ng-template matStepLabel>Rahul Paid</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="manojSeJmaFormGroup">
+        <form
+          [formGroup]="manojSeJmaFormGroup"
+          (ngSubmit)="submit(manojSeJmaFormGroup,'5ff0154e59a8e08e4b397de2','Manoj Paid')"
+        >
+          <ng-template matStepLabel>Manoj Paid</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="hdfcSeJmaFormGroup">
+        <form
+          [formGroup]="hdfcSeJmaFormGroup"
+          (ngSubmit)="submit(hdfcSeJmaFormGroup,'5ff0156659a8e08e4b397de3','HDFC Paid')"
+        >
+          <ng-template matStepLabel>HDFC Paid</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="uddarJamaFormGroup">
+        <form
+          [formGroup]="uddarJamaFormGroup"
+          (ngSubmit)="submit(uddarJamaFormGroup,'5ff0159059a8e08e4b397de4','Udhaar Received')"
+        >
+          <ng-template matStepLabel>Udhaar Received</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="totalCashFormGroup">
+        <form
+          [formGroup]="totalCashFormGroup"
+          (ngSubmit)="finalIncomingSubmit()"
+        >
+          <ng-template matStepLabel>Total Cash</ng-template>
+          <br />
+          <mat-label>₹ {{total}} </mat-label>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Save</button>
+          </div>
+        </form>
+        <br />
+        <button (click)="openPreviewModel(IncomingValues,'Incoming')">
+          Preview
+        </button>
+      </mat-step>
+    </mat-vertical-stepper>
+  </section>
+
+  <section name="outGoing" *ngIf="isOutgoingBtn">
+    <div
+      style="
+        padding: 3px;
+        position: fixed;
+        width: 100%;
+        height: 33px;
+        margin-top: -13px;
+        background: white;
+        z-index: 9999;
+      "
+    >
+      <h5 style="margin-left: 22px; padding-top: 5px">
+        Net Expense : ₹ {{-outGoingTotal}}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; Total :- ₹
+        {{incomingAmount + outGoingTotal }}
+      </h5>
+    </div>
+    <br /><br /><br /><br /><br />
+    <mat-vertical-stepper [linear]="isLinear" #stepper *ngIf="changeDate != ''">
+      <mat-step [stepControl]="ManojParGyaFormGroup">
+        <form
+          [formGroup]="ManojParGyaFormGroup"
+          (ngSubmit)="submitOutgoing(ManojParGyaFormGroup,'5ff0246759a8e08e4b397de6','Manoj Received')"
+        >
+          <ng-template matStepLabel>Manoj Received</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="RahulParGyaFormGroup">
+        <form
+          [formGroup]="RahulParGyaFormGroup"
+          (ngSubmit)="submitOutgoing(RahulParGyaFormGroup,'5ff0248159a8e08e4b397de7','Rahul Received')"
+        >
+          <ng-template matStepLabel>Rahul Received</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="BechaCashFormGroup">
+        <form
+          [formGroup]="BechaCashFormGroup"
+          (ngSubmit)="submitOutgoing(BechaCashFormGroup,'5fdddea84bffe93a67885ed0','Dhama Ji Received')"
+        >
+          <ng-template matStepLabel>Dhama Ji Received</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="hdfcParGyaFormGroup">
+        <form
+          [formGroup]="hdfcParGyaFormGroup"
+          (ngSubmit)="submitOutgoing(hdfcParGyaFormGroup,'5ff024fa59a8e08e4b397de9','HDFC Received')"
+        >
+          <ng-template matStepLabel>HDFC Received</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- check account -->
+      <mat-step [stepControl]="uddarGyaFormGroup">
+        <form
+          [formGroup]="uddarGyaFormGroup"
+          (ngSubmit)="submitOutgoing(uddarGyaFormGroup,'5ff1551559a8e08e4b397e07','Udhaar')"
+        >
+          <ng-template matStepLabel>Udhaar</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Save</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="extraSpentFormGroup">
+        <form
+          [formGroup]="extraSpentFormGroup"
+          (ngSubmit)="submitOutgoing(extraSpentFormGroup,'5ff0253659a8e08e4b397dea','Other Bills')"
+        >
+          <ng-template matStepLabel>Other Bills</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="bikeFormGroup">
+        <form
+          [formGroup]="bikeFormGroup"
+          (ngSubmit)="submitOutgoing(bikeFormGroup,'5ff0258859a8e08e4b397deb','Bike')"
+        >
+          <ng-template matStepLabel>Bike</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="rumaliFormGroup">
+        <form
+          [formGroup]="rumaliFormGroup"
+          (ngSubmit)="submitOutgoing(rumaliFormGroup,'5ff0259a59a8e08e4b397dec','Rumali')"
+        >
+          <ng-template matStepLabel>Rumali</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="milkFormGroup">
+        <form
+          [formGroup]="milkFormGroup"
+          (ngSubmit)="submitOutgoing(milkFormGroup,'5ff0398859a8e08e4b397e00','Milk')"
+        >
+          <ng-template matStepLabel>Milk</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="koylaFormGroup">
+        <form
+          [formGroup]="koylaFormGroup"
+          (ngSubmit)="submitOutgoing(koylaFormGroup,'5ff025ad59a8e08e4b397ded','Coal')"
+        >
+          <ng-template matStepLabel>Coal</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="silenderFormGroup">
+        <form
+          [formGroup]="silenderFormGroup"
+          (ngSubmit)="submitOutgoing(silenderFormGroup,'5ff025c059a8e08e4b397dee','Gas Cylinder')"
+        >
+          <ng-template matStepLabel>Gas Cylinder</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="electricityFormGroup">
+        <form
+          [formGroup]="electricityFormGroup"
+          (ngSubmit)="submitOutgoing(electricityFormGroup,'5ff025dc59a8e08e4b397def','Electricity')"
+        >
+          <ng-template matStepLabel>Electricity</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="kirayaFormGroup">
+        <form
+          [formGroup]="kirayaFormGroup"
+          (ngSubmit)="submitOutgoing(kirayaFormGroup,'5ff025e859a8e08e4b397df0','Rent')"
+        >
+          <ng-template matStepLabel>Rent</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="kushiKiranaFormGroup">
+        <form
+          [formGroup]="kushiKiranaFormGroup"
+          (ngSubmit)="submitOutgoing(kushiKiranaFormGroup,'5ff0269259a8e08e4b397df2','Khusi Kirana')"
+        >
+          <ng-template matStepLabel>Khusi Kirana</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="MoKiranaFormGroup">
+        <form
+          [formGroup]="MoKiranaFormGroup"
+          (ngSubmit)="submitOutgoing(MoKiranaFormGroup,'5ff026cd59a8e08e4b397df3','Ghaziabad Kirana')"
+        >
+          <ng-template matStepLabel>Ghaziabad Kirana</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="bharatDeyriFormGroup">
+        <form
+          [formGroup]="bharatDeyriFormGroup"
+          (ngSubmit)="submitOutgoing(bharatDeyriFormGroup,'5ff026ea59a8e08e4b397df4','Bharat Dairy')"
+        >
+          <ng-template matStepLabel>Bharat Dairy</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="GarhwalFormGroup">
+        <form
+          [formGroup]="GarhwalFormGroup"
+          (ngSubmit)="submitOutgoing(GarhwalFormGroup,'5ff0271a59a8e08e4b397df5','Garhwal Dairy')"
+        >
+          <ng-template matStepLabel>Garhwal Dairy</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="ZeesuVegFormGroup">
+        <form
+          [formGroup]="ZeesuVegFormGroup"
+          (ngSubmit)="submitOutgoing(ZeesuVegFormGroup,'5ff0274459a8e08e4b397df6','Zeshu Veg')"
+        >
+          <ng-template matStepLabel>Zeshu Veg</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="abdulaChikenFormGroup">
+        <form
+          [formGroup]="abdulaChikenFormGroup"
+          (ngSubmit)="submitOutgoing(abdulaChikenFormGroup,'5ff0277959a8e08e4b397df7','Abdullah Chicken')"
+        >
+          <ng-template matStepLabel>Abdullah Chicken</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="chikenMuttonCashFormGroup">
+        <form
+          [formGroup]="chikenMuttonCashFormGroup"
+          (ngSubmit)="submitOutgoing(chikenMuttonCashFormGroup,'5ff027b059a8e08e4b397df8','Chiken Mutton Cash')"
+        >
+          <ng-template matStepLabel>Chiken Mutton Cash</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="vickyFormGroup">
+        <form
+          [formGroup]="vickyFormGroup"
+          (ngSubmit)="submitOutgoing(vickyFormGroup,'5ff027e259a8e08e4b397df9','Vicky')"
+        >
+          <ng-template matStepLabel>Vicky</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="vikramFormGroup">
+        <form
+          [formGroup]="vikramFormGroup"
+          (ngSubmit)="submitOutgoing(vikramFormGroup,'5ff027fc59a8e08e4b397dfa','Vikram')"
+        >
+          <ng-template matStepLabel>Vikram</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="ajayFormGroup">
+        <form
+          [formGroup]="ajayFormGroup"
+          (ngSubmit)="submitOutgoing(ajayFormGroup,'5ff0280859a8e08e4b397dfb','Ajay')"
+        >
+          <ng-template matStepLabel>Ajay</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="govindFormGroup">
+        <form
+          [formGroup]="govindFormGroup"
+          (ngSubmit)="submitOutgoing(govindFormGroup,'5ff0281859a8e08e4b397dfc','Govind')"
+        >
+          <ng-template matStepLabel>Govind</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="neerajDeliveryFormGroup">
+        <form
+          [formGroup]="neerajDeliveryFormGroup"
+          (ngSubmit)="submitOutgoing(neerajDeliveryFormGroup,'5ff0283359a8e08e4b397dfd','Neeraj')"
+        >
+          <ng-template matStepLabel>Neeraj</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="AnilSaifFormGroup">
+        <form
+          [formGroup]="AnilSaifFormGroup"
+          (ngSubmit)="submitOutgoing(AnilSaifFormGroup,'5ff0285c59a8e08e4b397dfe','Anil')"
+        >
+          <ng-template matStepLabel>Anil</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="DineshSaifFormGroup">
+        <form
+          [formGroup]="DineshSaifFormGroup"
+          (ngSubmit)="submitOutgoing(DineshSaifFormGroup,'5ff0287559a8e08e4b397dff','Dinesh')"
+        >
+          <ng-template matStepLabel>Dinesh</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="totalCashFormGroup">
+        <form
+          [formGroup]="totalCashFormGroup"
+          (ngSubmit)="finalOutgoingSubmit()"
+        >
+          <ng-template matStepLabel>Total Expense</ng-template>
+          <br />
+          <mat-label>₹ {{-outGoingTotal}} </mat-label>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Save</button>
+          </div>
+        </form>
+
+        <button (click)="openPreviewModel(OutgoingValues,'Outgoing')">
+          Preview
+        </button>
+      </mat-step>
+    </mat-vertical-stepper>
+  </section>
+
+  <section name="outGoing" *ngIf="isVendorIncomingBtn">
+    <br /><br /><br /><br />
+    <mat-vertical-stepper [linear]="isLinear" #stepper *ngIf="changeDate != ''">
+      <mat-step [stepControl]="VI_Bharat_Dairy_Group">
+        <form
+          [formGroup]="VI_Bharat_Dairy_Group"
+          (ngSubmit)="submitVendorIncoming(VI_Bharat_Dairy_Group,'5fc3354eb26bcf837a82b14f',' Bharat Dairy')"
+        >
+          <ng-template matStepLabel> Bharat Dairy</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="VI_Abdullah_Chicken_Group">
+        <form
+          [formGroup]="VI_Abdullah_Chicken_Group"
+          (ngSubmit)="submitVendorIncoming(VI_Abdullah_Chicken_Group,'5fc335b6b26bcf837a82b150','Abdullah Chicken')"
+        >
+          <ng-template matStepLabel>Abdullah Chicken</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="VI_Chicken_Mutton_Cash">
+        <form
+          [formGroup]="VI_Chicken_Mutton_Cash"
+          (ngSubmit)="submitVendorIncoming(VI_Chicken_Mutton_Cash,'5fc335d9b26bcf837a82b151','Chicken Mutton Cash')"
+        >
+          <ng-template matStepLabel>Chicken Mutton Cash</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="VI_Zeshu_Veg_Group">
+        <form
+          [formGroup]="VI_Zeshu_Veg_Group"
+          (ngSubmit)="submitVendorIncoming(VI_Zeshu_Veg_Group,'5fc335ebb26bcf837a82b152','Zeshu Veg')"
+        >
+          <ng-template matStepLabel>Zeshu Veg</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="VI_Garhwal_Group">
+        <form
+          [formGroup]="VI_Garhwal_Group"
+          (ngSubmit)="submitVendorIncoming(VI_Garhwal_Group,'5fc33636b26bcf837a82b153','Garhwal dairy / Paneer')"
+        >
+          <ng-template matStepLabel>Garhwal dairy / Paneer</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="VI_Gas_Cylinder_Group">
+        <form
+          [formGroup]="VI_Gas_Cylinder_Group"
+          (ngSubmit)="submitVendorIncoming(VI_Gas_Cylinder_Group,'5fc3365eb26bcf837a82b154','Gas Cylinder')"
+        >
+          <ng-template matStepLabel>Gas Cylinder</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="VI_Coal_Group">
+        <form
+          [formGroup]="VI_Coal_Group"
+          (ngSubmit)="submitVendorIncoming(VI_Coal_Group,'5fc33679b26bcf837a82b155','Coal / Koyla')"
+        >
+          <ng-template matStepLabel>Coal / Koyla</ng-template>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="amount"
+              formControlName="amount"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <textarea
+            placeholder="Description"
+            formControlName="description"
+          ></textarea>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="totalCashFormGroup">
+        <form
+          [formGroup]="totalCashFormGroup"
+          (ngSubmit)="finalVendorIncomingSubmit()"
+        >
+          <ng-template matStepLabel>Total Cash</ng-template>
+          <br />
+          <mat-label>₹ {{+ VI_Total}} </mat-label>
+          <br />
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Save</button>
+          </div>
+        </form>
+
+        <button (click)="openPreviewModel(ViIncomngValues,'Vendor Incoming')">
+          Preview
+        </button>
+      </mat-step>
+    </mat-vertical-stepper>
+  </section>
+
+  <br /><br /><br /><br /><br /><br /><br /><br />
+  <section *ngIf="changeDate == ''">
+    <span style="margin-left: 12%">Choose Date to Generate Inventry Flow</span>
+  </section>
+</ion-content>

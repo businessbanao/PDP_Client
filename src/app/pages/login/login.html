@@ -1,0 +1,73 @@
+
+
+<ion-content *ngIf="!enableForgotPasswordScreen && !enableResetPasswordScreen">
+  <div class="login-bg">
+  </div>
+
+  <form class="login-form" #form="ngForm" (ngSubmit)="onLogin()">
+    <ion-grid >
+      <ion-row  justify-content-center>
+        <ion-col>
+          <h3 class="login-title">Login</h3>
+          <div class="form-filds">
+            <ion-input name="email" [(ngModel)]="loginData.email" type="email" #email="ngModel" placeholder="your@email.com" ngModel ></ion-input>
+            <ion-input name="password" [(ngModel)]="loginData.password" type="password" #password="ngModel" placeholder="Password" ngModel ></ion-input>
+          </div>
+          <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Login</ion-button>
+          <p class="forgot-pass">
+            Dont't have account ? <a (click)="enableForgotPass()">Forgot Password</a>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+
+
+<ion-content *ngIf="enableForgotPasswordScreen">
+  <div class="login-bg">
+  </div>
+
+  <form class="login-form" #form="ngForm" (ngSubmit)="sendCode()">
+    <ion-grid >
+      <ion-row  justify-content-center>
+        <ion-col>
+          <h3 class="login-title">Forgot Password</h3>
+          <div class="form-filds">
+            <ion-input name="email"*ngIf="!enableEntercode" [(ngModel)]="FPData.email" type="email" #email="ngModel" placeholder="your@email.com" ngModel ></ion-input>
+            <ion-input name="code"*ngIf="enableEntercode" [(ngModel)]="FPData.code" type="number" maxlength="4" #code="ngModel" placeholder="Enter Code" ngModel ></ion-input>
+          </div>
+          <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Submit</ion-button>
+          <p class="forgot-pass">
+            Already have account ? <a (click)="enableLogin()">Login</a>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+
+<ion-content *ngIf="enableResetPasswordScreen">
+  <div class="login-bg">
+  </div>
+
+  <form  class="login-form" [formGroup]="changePsswordForm">
+    <ion-grid>
+        <ion-row  justify-content-center>
+          <ion-col>
+            <h3 class="login-title">Reset Password</h3>
+            <div class="form-filds">
+              <ion-input type="password" placeholder="Enter New Password" formControlName="newPassword"></ion-input>
+              <ion-input type="password" placeholder="Enter Confirm Password" formControlName="confirmPassword"></ion-input>
+            </div>
+            <ion-button size="large" (click)="submit(changePsswordForm)" type="submit"  expand="block">Change Password</ion-button>
+            <p class="forgot-pass">
+              Already have account ? <a (click)="enableLogin()">Login</a>
+            </p>
+          </ion-col>
+            </ion-row>
+    </ion-grid>
+    <!-- <ion-button class="btn-ch" (click)="submit(changePsswordForm)" color="warning" type="submit">Change Password</ion-button> -->
+</form>
+
+</ion-content>

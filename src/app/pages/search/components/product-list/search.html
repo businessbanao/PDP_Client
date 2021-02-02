@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button style="color: white;"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Badhao Business
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button>
+               
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <div class="searchContainer">
+           <ion-searchbar   [(ngModel)]="searchWord" placeholder="Search food or Restaurant" color="light" animated>
+            </ion-searchbar>
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list style="margin-top: 21px;" *ngIf="productList.length != 0">
+        <ion-item-sliding id="item100" *ngFor="let list of productList">
+            <ion-item [routerLink]="['/products/product-details/'+ list._id ]">
+                <ion-thumbnail slot="start">
+                    <img *ngIf="list.productImage.length !== 0" src="{{list.productImage}}">
+                    <img *ngIf="list.productImage.length == 0"
+                        src="https://png.clipart.me/previews/3b6/small-store-icon-psd-45819.jpg">
+                </ion-thumbnail>
+                <ion-label><span style="text-transform: capitalize;">{{list.productName}}</span><br><span
+                        style="font-weight: 700;">{{list.price}}&nbsp;/-</span></ion-label><br>
+            </ion-item>
+
+            <p *ngIf="productList.length == 0" class="noRecordsFound">No Records Found</p>
+
+            
+
+        </ion-item-sliding>
+    </ion-list>
+
+    
+</ion-content>

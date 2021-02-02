@@ -1,0 +1,219 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="orders"
+        style="color: white"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title> Order Details </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-list-header color="light"><span class="page_header"> View Order Details</span></ion-list-header> -->
+<ion-content>
+  <section>
+    <div class="order-details-heading">
+      <h5>View Order Details</h5>
+    </div>
+    <div class="order-detials">
+      <ion-list class="orderprice-detisl" *ngIf="orderList.length != 0">
+        <ion-card>
+          <p class="order-date">
+            <span>Customer Name</span>
+            <ion-label
+              style="text-transform: capitalize"
+              *ngIf="orderList[0].UserId"
+              >{{orderList[0].UserId.fullName }}</ion-label
+            >
+            <ion-label
+              style="text-transform: capitalize"
+              *ngIf="!orderList[0].UserId"
+              >-</ion-label
+            >
+          </p>
+
+          <p class="order-date">
+            <span>Customer Mobile </span>
+            <ion-label
+              style="text-transform: capitalize"
+              *ngIf="orderList[0].UserId"
+              >{{orderList[0].UserId.mobile }}</ion-label
+            >
+            <ion-label
+              style="text-transform: capitalize"
+              *ngIf="!orderList[0].UserId"
+              >-</ion-label
+            >
+          </p>
+          <p class="order-date">
+            <span>Order Date</span>
+            <ion-label>{{orderList[0].createdAt | date : 'medium'}}</ion-label>
+          </p>
+          <p class="order-date">
+            <span>Order Id #</span>
+            <ion-label
+              >{{paymentData.trackingId}}&nbsp;
+              <ion-icon
+                (click)="copy(paymentData.trackingId)"
+                name="copy-outline"
+              ></ion-icon
+            ></ion-label>
+          </p>
+          <p class="order-date">
+            <span>Order Status</span>
+            <ion-label *ngIf="orderList[0].orderStatus == 'CREATED'"
+              >Order Placed</ion-label
+            >
+            <ion-label *ngIf="orderList[0].orderStatus == 'OUT_FOR_DELIVERY'"
+              >Out For Delivery</ion-label
+            >
+            <ion-label *ngIf="orderList[0].orderStatus == 'DELIVERED'"
+              >Delivered</ion-label
+            >
+            <ion-label *ngIf="orderList[0].orderStatus == 'ON_HOLD'"
+              >On Hold</ion-label
+            >
+            <ion-label *ngIf="orderList[0].orderStatus == 'PACKED'"
+              >Packed</ion-label
+            >
+            <ion-label *ngIf="orderList[0].orderStatus == 'CANCELED'"
+              >Canceled</ion-label
+            >
+          </p>
+          <p class="order-date">
+            <span>Delivery Estimate</span>
+            <ion-label
+              class="shipment-time"
+              style="color: var(--ion-text-green-color); font-weight: 500"
+            >
+              {{orderList[0].deliveryEstimateDate | slice : 0:16}}</ion-label
+            >
+          </p>
+          <p class="order-date" style="font-size: 18px">
+            <span>Order Total</span>
+            <ion-label
+              style="color: var(--ion-text-green-color); font-weight: bolder"
+              >{{ paymentData.totalItemsCost }}&nbsp; /-</ion-label
+            >
+          </p>
+        </ion-card>
+
+        <ion-item-sliding
+          id="item100"
+          *ngFor="let list of orderList; index as i"
+        >
+          <h5>Shipment {{i+1}}&nbsp;of&nbsp;{{orderList.length}}</h5>
+          <ion-card>
+            <div class="shipment-item">
+              <ion-item
+                style="margin-left: -16px; width: 100%"
+                routerLink="/tabs/product/product-details/{{list.productId._id}}"
+              >
+                <ion-thumbnail slot="start" *ngIf="list.productId">
+                  <img
+                    *ngIf="list.productId.imageVarients.length !== 0"
+                    src="{{list.productId.imageVarients[0]}}"
+                  />
+                </ion-thumbnail>
+                <ion-thumbnail slot="start" *ngIf="!list.productId">
+                  <img
+                    *ngIf="list.productImage == ''"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT_i-qo_Z_MAZ_mWkIwrFnYj9lSrN-DgLirf8aV-TqY1UDlNwYG&usqp=CAU"
+                  />
+                </ion-thumbnail>
+                <ion-label style="cursor: pointer">
+                  <div class="content-left">
+                    <p class="product-name" style="text-transform: capitalize">
+                      <img
+                        *ngIf="list.productId.isVeg"
+                        src="../../../../../assets/img/vag.png"
+                        class="vagnon-image-small"
+                      />
+                      <img
+                        *ngIf="!list.productId.isVeg"
+                        src="../../../../../assets/img/nonvag.png"
+                        class="vagnon-image-small"
+                      />
+
+                      {{list.productName}}
+                    </p>
+                    <span>QTY:{{list.QTY}}</span><br />
+                    <span style="text-transform: capitalize"
+                    >Quantity : {{list.foodQuantity}}</span
+                    >
+                    <br />
+                    <span>Price : &nbsp;₹ {{list.productPrice}}</span>
+                  </div>
+                  <div class="content-right">
+                    &nbsp;₹ {{list.productPrice * list.QTY}}
+                  </div> </ion-label
+                ><br />
+              </ion-item>
+            </div>
+          </ion-card>
+        </ion-item-sliding>
+        <div class="payment-info-heading">
+          <h5>Payment Information</h5>
+        </div>
+        <ion-card class="payment-info-card">
+          <div class="payment-methed">
+            <p><strong>Payment Method</strong></p>
+            <span>{{paymentData.paymentMethod}}</span>
+          </div>
+          <div class="billing-address">
+            <p><strong>Address</strong></p>
+            <span style="text-transform: capitalize">
+              <!-- {{val.houseNo}}, {{val.street}}, {{val.address}},{{val.area}},<span style="text-transform: capitalize;">{{val.city}}, {{val.state}}, {{val.pincode}} , {{val.country}}</span> -->
+              {{paymentData.billing_house_address}}
+              &nbsp;{{paymentData.billing_Location_Area}}&nbsp;
+              ,{{paymentData.billing_NearBy}}
+              <br />{{paymentData.billing_City}}&nbsp;{{paymentData.billing_State}},&nbsp;{{paymentData.billing_Pincode}},
+              India
+            </span>
+          </div>
+        </ion-card>
+        <div class="order-summay-header">
+          <h5>Order Summary</h5>
+        </div>
+        <ion-card>
+          <div class="order-summery-contnet">
+            <p>
+              <span>items</span> :
+              <span>₹ &nbsp;{{itemValue}}.00</span>
+            </p>
+            <p>
+              <span>Delivery Charges</span> :
+              <span>₹ &nbsp;{{paymentData.deliveryCharges}}</span>
+            </p>
+            <p>
+              <span>Reward</span> :
+              <span>₹ &nbsp;{{orderList[0].rewardAmount}}.00</span>
+            </p>
+            <p>
+              <span>Tax</span> :
+              <span>₹ &nbsp;0.00</span>
+            </p>
+            <!-- <p>
+                        <span>Total</span> :
+                        <span>₹ &nbsp;{{paymentData.totalItemsCost  }}.00</span>
+                    </p> -->
+            <p>
+              <span style="font-size: 16px; font-weight: 700">Order Total</span>
+              :
+              <span
+                style="
+                  color: var(--ion-text-green-color);
+                  font-size: 20px;
+                  font-weight: 500;
+                "
+              >
+                ₹ &nbsp;{{paymentData.FinalTotal}}.00
+              </span>
+            </p>
+          </div>
+        </ion-card>
+      </ion-list>
+    </div>
+  </section>
+</ion-content>

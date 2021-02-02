@@ -1,0 +1,84 @@
+
+
+<ion-content>
+  <ion-toolbar color="light" style="position: fixed;">
+    <ion-segment scrollable (ionchange)="updateTab($event)" >
+      <ion-segment-button   value="{{i}}" *ngFor="let category of subcategoryList;  index as i">
+        <ion-label >{{category.subcategoryName}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <ion-content>
+    <br><br><br>
+    <ion-slides>
+      <ion-slide *ngFor="let category of subcategoryList">
+        <ion-list *ngIf="subcategoryList.length != 0">
+          <ion-item-sliding id="item100" *ngFor="let list of category.products">
+
+            <ion-grid class="horizontalPadding">
+              <ion-row style="left: 0;">
+                <ion-col size="4" [routerLink]="['/productDetails/'+ list.id ]">
+                  <div class="product-img">
+                  <img class="product-thumbnail"  [ngStyle]="{'opacity' : list.Status == 'OUT_OF_STOCK' ? 0.4 : 1}"
+                    *ngIf="list.imageVarients.length !== 0" src="{{list.imageVarients[0]}}">
+                  <img class="product-thumbnail" [ngStyle]="{'opacity' : list.Status == 'OUT_OF_STOCK' ? 0.4 : 1}"
+                    *ngIf="list.imageVarients.length == 0" src="https://im.rediff.com/getahead/2015/jun/29chicken.jpg">
+
+                    <span class="offer" *ngIf="list.discount">{{list.discount}}% OFF</span>
+                  </div>
+                </ion-col>
+
+                <ion-col size="4" [routerLink]="['/tabs/product/product-details/'+ list.id ]">
+                  <div class="text-left">
+                    <h6 class="product-name">
+                      <img *ngIf="list.isVeg" src="../../../../../assets/img/vag.png" class="vagnon-image-small">
+                      <img *ngIf="!list.isVeg" src="../../../../../assets/img/nonvag.png" class="vagnon-image-small">
+                      {{list.productName}}
+                    </h6>
+                      <p class="recently-view-star">
+                        <img src="../../../../../assets/img/star-full.png">
+                        <img src="../../../../../assets/img/star-full.png">
+                        <img src="../../../../../assets/img/star-full.png">
+                        <img src="../../../../../assets/img/star-full.png">
+                        <img src="../../../../../assets/img/star-full.png">
+                      </p>
+                      <span  *ngIf="!list.discount">₹ {{list.price}}  </span>
+                      <span *ngIf="list.discount">₹ {{list.price * list.discount / 100 }} &nbsp;<s *ngIf="list.discount">₹ {{list.price}}</s> </span>
+                      <!-- <div class="rating-align" style="margin-top: 4px;">
+                        <ion-icon name="star" *ngFor="let num of [1,2,3,4,5]" [ngStyle]="{'fill':getColor(num,list.rating)}">
+
+                        </ion-icon>  &nbsp;<span style="    font-size: 12px;
+                        position: absolute;
+                        ">({{list.rating}})</span>
+                      </div> -->
+                      <!-- <ion-button color="success" style="    height: 26px;
+                      width: 75px;">
+                        {{list.rating}}.0&nbsp;<ion-icon
+                          style="font-size: 13px;"
+                          name="star"
+                          *ngFor="let num of [1]"
+                        ></ion-icon></ion-button> -->
+                  </div>
+                </ion-col>
+                <ion-col size="4">
+
+
+                </ion-col>
+
+              </ion-row>
+            </ion-grid>
+          </ion-item-sliding>
+
+        </ion-list>
+        <ion-refresher slot="fixed" (ionRefresh)="refesh($event)">
+          <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+            refreshingText="Refreshing...">
+          </ion-refresher-content>
+        </ion-refresher>
+
+      </ion-slide>
+    </ion-slides>
+
+  </ion-content>
+</ion-content>

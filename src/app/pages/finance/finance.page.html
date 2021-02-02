@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Inventry Management </ion-title>
+    <ion-buttons slot="end">
+      <ion-icon
+        class="right-menu"
+        name="ellipsis-vertical-outline"
+        (click)="presentActionSheet()"
+      ></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-segment [(ngModel)]="tabName" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="mannual_entry">
+      <ion-label>Save Record</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="inventory_list">
+      <ion-label>Transactions</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div id="container">
+    <!-- <h1>Finance Page</h1>   -->
+
+    <section *ngIf="tabName == 'mannual_entry'">
+    <div class="container">
+      <div class="row">
+          <div class="form-bg">
+               <form [formGroup]="inventoryForm" (ngSubmit)="createInventory(inventoryForm)">
+                <ion-item>
+                  <ion-label>Account : </ion-label>
+                  <ion-select placeholder="account id" formControlName="account_id">
+                    <section  *ngFor="let account of accounts">
+                      <ion-select-option value="{{ account._id }}">{{ account.account_name }}</ion-select-option>
+                  </section>
+                  </ion-select>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Inventory Type: </ion-label>
+                  <ion-select placeholder="inventry type" formControlName="inventryType">
+                    <ion-select-option value="credit">Credit</ion-select-option>
+                    <ion-select-option value="debit">Debit</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                 
+                <ion-item>
+                  <ion-label>Amount : </ion-label>
+                  <ion-input type="text" placeholder="amount" formControlName="amount"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Description : </ion-label>
+                  <ion-input type="text" placeholder="description" formControlName="description"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Date : </ion-label>
+                  <input type="date" formControlName="date" id="">
+
+                  <!-- <ion-datetime placeholder="date" [(ngModel)]="selectedDate" [max]="today" formControlName="date"></ion-datetime> -->
+                </ion-item>
+                  <br>
+                  <ion-button *ngIf='!isEditMode' color="primary" type="submit" value="Save">Save</ion-button>
+                  <ion-button *ngIf='isEditMode' color="secondary"  type="button" value="Update" (click)="updateInventory(inventoryForm)">Update</ion-button>
+                </form>
+          </div>
+      </div>
+  </div>
+  </section>
+
+ 
+    <ng-container *ngIf="tabName == 'inventory_list'">
+      <ion-item-sliding id="item100" *ngFor="let inventory of inventoryList">
+        <ion-item >
+          <ion-label>
+             
+            <p  *ngIf="inventory.inventryType == 'debit'" class="save-later-name" style="text-transform: capitalize;color: red;">
+              <br> Amount : - {{inventory.amount}}
+            </p>
+            <p  *ngIf="inventory.inventryType == 'credit'" class="save-later-name" style="text-transform: capitalize;color: green">
+              <br> Amount : + {{inventory.amount}}
+            </p>
+            <span class="trading-price" style="text-transform: capitalize;">Description : {{inventory.description}}</span><br>
+            <span class="trading-price" style="text-transform: capitalize;color: blue;">Date : {{inventory.date | date: 'dd-MMM-yyyy'}}</span>
+          </ion-label>
+        </ion-item>
+       <ion-item-options side="end">
+          <ion-item-option color="warning" (click)="editInventory(inventory)">
+            <ion-icon slot="icon-only" name="create"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="deleteInventory(inventory._id)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ng-container>
+
+  </div>
+</ion-content>

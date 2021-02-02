@@ -1,0 +1,511 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button
+        *ngIf="!showSearchBox"
+        style="color: white;"
+      ></ion-menu-button>
+      <ion-icon
+        style="margin-left: 10px;    font-size: 22px;"
+        *ngIf="showSearchBox"
+        (click)="backToNormal()"
+        name="arrow-back-outline"
+      >
+      </ion-icon>
+    </ion-buttons>
+    <ion-title>
+      Order Management
+    </ion-title>
+    <ion-buttons
+      slot="end"
+      style="margin-right: 20px;"
+      (click)="enableSearch()"
+    >
+      <ion-icon name="search"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-searchbar
+    #autofocus
+    *ngIf="showSearchBox"
+    [(ngModel)]="searchWord"
+    spellcheck="true"
+    placeholder="Search Orders"
+    (ionChange)="search($event)"
+  >
+  </ion-searchbar>
+</ion-header>
+
+<ion-content color="light" *ngIf="isDataLoaded">
+  <ion-list-header >
+    <span
+      (click)="presentFilterSheet()"
+      class="filter-option"
+      style="border-right: 1px solid #ccc;"
+    >
+      Filters <ion-icon name="funnel-sharp"></ion-icon>
+    </span>
+    <ion-badge class="filter" *ngIf="filterBy !== 'none'  && filterBy !== 'all' ">
+      {{filterBy}} Filter
+      <ion-icon
+        (click)="clearFilter()"
+        class="close"
+        name="close-outline"
+      ></ion-icon>
+    </ion-badge>
+
+  </ion-list-header>
+  <div class="clear-row">
+    <span
+      (click)="clearFilter()"
+      style="float: left; padding: 8px;"
+      class="clearFilter"
+      >Reset</span
+    >
+    <span (click)="MultipleOrder()" class="clearFilter"
+      >Multiple Order Update</span
+    >
+  </div>
+  <ion-item *ngIf="multiselect">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="8">
+          <ion-label>
+            <ion-checkbox slot="start" [(ngModel)]="masterCheck" [indeterminate]="isIndeterminate"
+            (click)="checkMaster($event)"></ion-checkbox><strong class="select-text">Select All</strong>
+          </ion-label>
+
+        </ion-col>
+        <ion-col>
+          <!-- <img  (click)="presentActionSheet('multiple')" src="https://static.thenounproject.com/png/347482-200.png" style="height: 40px;
+          margin-top: 6px; width: 40px;"> -->
+          <div (click)="presentActionSheet('multiple')" class="delivery-icon">
+            <svg
+              version="1.1"
+              id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 512 512"
+              style="enable-background: new 0 0 512 512;"
+              xml:space="preserve"
+            >
+              <g>
+                <g>
+                  <path
+                    d="M386.689,304.403c-35.587,0-64.538,28.951-64.538,64.538s28.951,64.538,64.538,64.538
+                c35.593,0,64.538-28.951,64.538-64.538S422.276,304.403,386.689,304.403z M386.689,401.21c-17.796,0-32.269-14.473-32.269-32.269
+                c0-17.796,14.473-32.269,32.269-32.269c17.796,0,32.269,14.473,32.269,32.269C418.958,386.738,404.485,401.21,386.689,401.21z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M166.185,304.403c-35.587,0-64.538,28.951-64.538,64.538s28.951,64.538,64.538,64.538s64.538-28.951,64.538-64.538 S201.772,304.403,166.185,304.403z M166.185,401.21c-17.796,0-32.269-14.473-32.269-32.269c0-17.796,14.473-32.269,32.269-32.269 c17.791,0,32.269,14.473,32.269,32.269C198.454,386.738,183.981,401.21,166.185,401.21z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M430.15,119.675c-2.743-5.448-8.32-8.885-14.419-8.885h-84.975v32.269h75.025l43.934,87.384l28.838-14.5L430.15,119.675z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <rect x="216.202" y="353.345" width="122.084" height="32.269" />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M117.781,353.345H61.849c-8.912,0-16.134,7.223-16.134,16.134c0,8.912,7.223,16.134,16.134,16.134h55.933
+                c8.912,0,16.134-7.223,16.134-16.134C133.916,360.567,126.693,353.345,117.781,353.345z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M508.612,254.709l-31.736-40.874c-3.049-3.937-7.755-6.239-12.741-6.239H346.891V94.655 c0-8.912-7.223-16.134-16.134-16.134H61.849c-8.912,0-16.134,7.223-16.134,16.134s7.223,16.134,16.134,16.134h252.773v112.941
+                c0,8.912,7.223,16.134,16.134,16.134h125.478l23.497,30.268v83.211h-44.639c-8.912,0-16.134,7.223-16.134,16.134
+                c0,8.912,7.223,16.134,16.134,16.134h60.773c8.912,0,16.134-7.223,16.135-16.134V264.605
+                C512,261.023,510.806,257.538,508.612,254.709z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M116.706,271.597H42.487c-8.912,0-16.134,7.223-16.134,16.134c0,8.912,7.223,16.134,16.134,16.134h74.218
+                c8.912,0,16.134-7.223,16.134-16.134C132.84,278.82,125.617,271.597,116.706,271.597z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M153.815,208.134H16.134C7.223,208.134,0,215.357,0,224.269s7.223,16.134,16.134,16.134h137.681
+                c8.912,0,16.134-7.223,16.134-16.134S162.727,208.134,153.815,208.134z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M180.168,144.672H42.487c-8.912,0-16.134,7.223-16.134,16.134c0,8.912,7.223,16.134,16.134,16.134h137.681
+                c8.912,0,16.134-7.223,16.134-16.134C196.303,151.895,189.08,144.672,180.168,144.672z"
+                  />
+                </g>
+              </g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+            </svg>
+          </div>
+        </ion-col>
+        <ion-col>
+          <ion-icon class="cross" (click)="cancelSelect()" name="close"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-item>
+  <ion-row class="order-list-row">
+    <ion-list
+      no-lines
+      style="width: 100%; background: transparent;"
+      *ngIf="orderList.length != 0"
+    >
+      <ion-item-sliding id="item100" *ngFor="let list of orderList">
+        <ion-item
+          class="order-item"
+          (click)="navigateToorderDetail(list)"
+          style="--inner-border-width: 0 0 0px 0;"
+        >
+          <!-- <ion-thumbnail >
+                  <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS77ZRMZpuDJ00nrqsIXzfNi3Yqr1w_R84Jyw&usqp=CAU">
+              </ion-thumbnail>
+              &nbsp; &nbsp;<ion-label >{{list.paymentMethod}} <span style="float: right;">{{list.createdAt}}</span>
+              <br> <span style="color: green;" *ngIf="list">Incoming <ion-icon name="arrow-down-outline"></ion-icon></span> &nbsp;&nbsp;&nbsp;&nbsp;{{list.FinalTotal}}&nbsp;₹ &nbsp;</ion-label> -->
+          <!-- {{list.orderStatus}}
+              <br>
+              {{list.UserId.fullName }} -->
+          <div class="order-info">
+            <h6><ion-icon name="receipt-outline"></ion-icon> {{list.productName}} &nbsp;<span *ngIf="list.orderCount !== '1'">+{{list.orderCount-1}} more</span> </h6>
+
+            <p class="user-name" *ngIf="list.userIdExists">
+              <span *ngIf="list.UserId.fullName"> <ion-icon name="person-outline"></ion-icon> {{list.UserId.fullName
+              }} <br> </span>
+
+              <ion-icon name="call-outline"></ion-icon> {{list.UserId.mobile}}
+            </p>
+            <p class="user-name" *ngIf="list.userDataExists">
+             <span *ngIf="list.userData[0].fullName"> <ion-icon name="person-outline"></ion-icon> {{list.userData[0].fullName
+             }} <br>
+             </span>
+              <ion-icon name="call-outline"></ion-icon> {{list.userData[0].mobile}}
+            </p>
+            <!-- <p style="text-transform: capitalize;" *ngIf="list.userData">
+              {{list.userData[0].fullName }} - {{list.UserId.mobile}}
+            </p> -->
+
+            <div class="order-status">
+              <span class="order_status" *ngIf="list.orderStatus == 'PACKED'"
+                ><span class="packed"></span> Prepared
+              </span>
+              <span class="order_status" *ngIf="list.orderStatus == 'CREATED'"
+                ><span class="out-delivery"></span> New Order
+              </span>
+              <span
+                class="order_status"
+                *ngIf="list.orderStatus == 'OUT_FOR_DELIVERY'"
+              >
+                <span class="out-delivery"></span> Out For Delivery
+              </span>
+              <span
+                class="order_status"
+                *ngIf="list.orderStatus == 'DELIVERED'"
+              >
+                <span class="Deliverd"></span> Delivered
+              </span>
+              <span class="order_status" *ngIf="list.orderStatus == 'ON_HOLD'">
+                <span class="on-hold"></span> On Hold
+              </span>
+              <span class="order_status" *ngIf="list.orderStatus == 'CANCEL_ORDER'">
+                <span class="cancel"></span> Canceled
+              </span>
+            </div>
+          </div>
+
+          <!-- <ion-checkbox
+            *ngIf="enableMultipleOrder"
+            slot="start"
+            (ionChange)="checkEvent()"
+          >
+          </ion-checkbox> -->
+          <ion-checkbox *ngIf="multiselect" slot="start" [(ngModel)]="list.isChecked" (ionChange)="checkEvent()">
+          </ion-checkbox>
+
+
+          <img
+            class="order-img"
+            *ngIf="list.productImage"
+            src="{{list.productImage}}"
+          />
+          <img
+            class="order-img"
+            *ngIf="!list.productImage"
+            src="https://bhmlib.org/wp-content/themes/cosimo-pro/images/no-image-box.png"
+          />
+        </ion-item>
+
+        <!-- <p *ngIf="orderList.length == 0" class="noRecordsFound">No Records Found</p> -->
+
+        <ion-item-options side="end" *ngIf="!multiselect">
+          <ion-item-option
+            class="order-track"
+            (click)="presentActionSheet(list._id,list.UserId._id)"
+          >
+            <svg
+              version="1.1"
+              id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 512 512"
+              style="enable-background: new 0 0 512 512;"
+              xml:space="preserve"
+            >
+              <g>
+                <g>
+                  <path
+                    d="M386.689,304.403c-35.587,0-64.538,28.951-64.538,64.538s28.951,64.538,64.538,64.538
+                c35.593,0,64.538-28.951,64.538-64.538S422.276,304.403,386.689,304.403z M386.689,401.21c-17.796,0-32.269-14.473-32.269-32.269
+                c0-17.796,14.473-32.269,32.269-32.269c17.796,0,32.269,14.473,32.269,32.269C418.958,386.738,404.485,401.21,386.689,401.21z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M166.185,304.403c-35.587,0-64.538,28.951-64.538,64.538s28.951,64.538,64.538,64.538s64.538-28.951,64.538-64.538 S201.772,304.403,166.185,304.403z M166.185,401.21c-17.796,0-32.269-14.473-32.269-32.269c0-17.796,14.473-32.269,32.269-32.269 c17.791,0,32.269,14.473,32.269,32.269C198.454,386.738,183.981,401.21,166.185,401.21z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M430.15,119.675c-2.743-5.448-8.32-8.885-14.419-8.885h-84.975v32.269h75.025l43.934,87.384l28.838-14.5L430.15,119.675z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <rect
+                    x="216.202"
+                    y="353.345"
+                    width="122.084"
+                    height="32.269"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M117.781,353.345H61.849c-8.912,0-16.134,7.223-16.134,16.134c0,8.912,7.223,16.134,16.134,16.134h55.933
+                c8.912,0,16.134-7.223,16.134-16.134C133.916,360.567,126.693,353.345,117.781,353.345z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M508.612,254.709l-31.736-40.874c-3.049-3.937-7.755-6.239-12.741-6.239H346.891V94.655 c0-8.912-7.223-16.134-16.134-16.134H61.849c-8.912,0-16.134,7.223-16.134,16.134s7.223,16.134,16.134,16.134h252.773v112.941
+                c0,8.912,7.223,16.134,16.134,16.134h125.478l23.497,30.268v83.211h-44.639c-8.912,0-16.134,7.223-16.134,16.134
+                c0,8.912,7.223,16.134,16.134,16.134h60.773c8.912,0,16.134-7.223,16.135-16.134V264.605
+                C512,261.023,510.806,257.538,508.612,254.709z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M116.706,271.597H42.487c-8.912,0-16.134,7.223-16.134,16.134c0,8.912,7.223,16.134,16.134,16.134h74.218
+                c8.912,0,16.134-7.223,16.134-16.134C132.84,278.82,125.617,271.597,116.706,271.597z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M153.815,208.134H16.134C7.223,208.134,0,215.357,0,224.269s7.223,16.134,16.134,16.134h137.681
+                c8.912,0,16.134-7.223,16.134-16.134S162.727,208.134,153.815,208.134z"
+                  />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path
+                    d="M180.168,144.672H42.487c-8.912,0-16.134,7.223-16.134,16.134c0,8.912,7.223,16.134,16.134,16.134h137.681
+                c8.912,0,16.134-7.223,16.134-16.134C196.303,151.895,189.08,144.672,180.168,144.672z"
+                  />
+                </g>
+              </g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+            </svg>
+            <!-- <img src="https://static.thenounproject.com/png/347482-200.png" style="height:40px;width:40px"> -->
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-row *ngIf="orderList.length == 0">
+      <img class="no-list-found" src="../../../../../assets/img/no_list/no category-found.jpg" />
+    </ion-row>
+  </ion-row>
+
+  <!-- <ion-list-header *ngIf="!multiselect" color="light">  &nbsp; &nbsp;
+    <span>
+      <ion-icon style="float: right;" name="funnel-sharp" (click)="presentFilterSheet()"></ion-icon>
+      &nbsp; &nbsp;Filters&nbsp;</span>&nbsp; <ion-badge class="filter" *ngIf="filterBy !== 'none'">{{filterBy}} Filter</ion-badge>
+  </ion-list-header>
+  <ion-item *ngIf="multiselect">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="8">
+          <ion-label>
+            <ion-checkbox slot="start" [(ngModel)]="masterCheck" [indeterminate]="isIndeterminate"
+            (click)="checkMaster($event)"></ion-checkbox><strong class="select-text">Select All</strong>
+          </ion-label>
+
+        </ion-col>
+        <ion-col>
+          <img  (click)="presentActionSheet('multiple')" src="https://static.thenounproject.com/png/347482-200.png" style="height: 40px;
+          margin-top: 6px; width: 40px;">
+        </ion-col>
+        <ion-col>
+          <ion-icon class="cross" (click)="cancelSelect()" name="close"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-item>
+
+   <ion-list style="margin-top: 21px;scroll-behavior: initial;overflow: scroll;" >
+    <ion-item-sliding  *ngFor="let item of orderList">
+      <ion-item>
+        <ion-grid>
+          <ion-row (press)="onHold(item._id)" [routerLink]="['/orders/order-details/'+ item.orderId ]">
+
+            <ion-col>
+              <img *ngIf="item.productImage" src="{{item.productImage}}">
+                  <img *ngIf="!item.productImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT_i-qo_Z_MAZ_mWkIwrFnYj9lSrN-DgLirf8aV-TqY1UDlNwYG&usqp=CAU">
+
+            </ion-col>
+            <ion-col size="4">
+              <span style="text-transform: capitalize;" *ngIf="item.UserId">{{item.UserId.fullName }}</span>
+              <span style="text-transform: capitalize;"*ngIf="item.userData">{{item.userData[0].fullName }}</span><br>
+
+              <span> {{item.productName}}</span><br>
+              <span class="order_status" *ngIf="item.orderStatus == 'PACKED'">Packed </span>
+              <span class="order_status"*ngIf="item.orderStatus == 'CREATED'">Order Placed </span>
+              <span class="order_status"*ngIf="item.orderStatus == 'OUT_FOR_DELIVERY'">Out For Delivery </span>
+              <span class="order_status"*ngIf="item.orderStatus == 'DELIVERED'">Delivered </span>
+              <span class="order_status"*ngIf="item.orderStatus == 'ON_HOLD'">On Hold </span>
+
+
+            </ion-col>
+            <ion-col>
+            </ion-col>
+
+
+            <ion-col>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-checkbox *ngIf="multiselect" slot="start" [(ngModel)]="item.isChecked" (ionChange)="checkEvent()">
+        </ion-checkbox>
+      </ion-item>
+
+      <p *ngIf="orderList.length == 0" class="noRecordsFound">No Records Found</p>
+
+      <ion-item-options side="end"  *ngIf="!multiselect">
+        <ion-item-option color="yellow" (click)="presentActionSheet(item._id)">
+          <img src="https://static.thenounproject.com/png/347482-200.png" style="height:40px;width:40px">
+        </ion-item-option>
+
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list> -->
+
+  <ion-refresher slot="fixed" (ionRefresh)="getorderList($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadOrderData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ng-template #skeleton>
+  <ion-list>
+    <ion-item *ngFor="let item of [1, 2, 3, 4, 5,6,7,8,9]">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ng-template>

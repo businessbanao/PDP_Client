@@ -1,0 +1,86 @@
+.welcome-card ion-img {
+    max-height: 35vh;
+    overflow: hidden;
+  }
+  ion-toolbar {
+    --background: var(--ion-toolbar-background);
+    color: white;
+  }
+
+  .ion-color-primary {
+    --ion-color-base: #f3f4f6 !
+  }
+
+
+  .searchContainer {
+    padding: 0px 16px;
+    background: var(--ion-toolbar-background);
+  }
+  .smallPara {
+    color: white;
+    padding-top: 10px;
+  }
+  .swiperImage {
+    border-radius: 5px;
+  }
+  ion-img {
+    img {
+      border-radius: 5px;
+    }
+  }
+  .imageTitle {
+    position: absolute;
+    bottom: 2px;
+    width: 100%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.1);
+    text-align: center;
+    span {
+      color: white;
+      font-weight: bold;
+    }
+  }
+
+  .ng-tns-c6-1{
+    color: white !important;
+  }
+.edit-model-header{
+  display: flex;
+}
+  .profile-popup ion-item {
+    width: 100%;
+    margin-bottom: 10px;
+    --background: transparent;
+  }
+  .profile-popup ion-item .profile-img{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .profile-popup ion-item .profile-img img {
+    max-width: 120px;
+    width: 100%;
+    border-radius: 100%;
+    height: 120px;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+.pb-40 {
+  padding-bottom: 40px;
+}
+.has-footer{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  left: 0px;
+  z-index: 99;
+  margin: 0px;
+}
+
+
+.no-list-found{
+  margin-left: 77%;
+}

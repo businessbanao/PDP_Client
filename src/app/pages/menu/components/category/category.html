@@ -1,0 +1,52 @@
+ 
+<ion-content>
+  <ion-list-header color="light"><span class="page_header">All Category List</span></ion-list-header>
+
+
+
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="openAddShopModal()">
+          <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+  </ion-fab>
+  
+
+  <ion-list style="margin-top: 21px;">
+      <ion-item-sliding id="item100" *ngFor="let list of categoryList">
+          <ion-item >
+              <ion-thumbnail slot="start">
+                  <img *ngIf="list.logo.length !== 0" src="{{list.logo}}">
+                  <img *ngIf="list.logo.length == 0"
+                      src="https://image.flaticon.com/icons/png/512/55/55267.png">
+              </ion-thumbnail>
+              <ion-label>{{list.categoryName}}<br>{{list.description}}</ion-label><br>
+             
+          </ion-item>
+
+          
+
+          <ion-item-options side="end">
+  
+            <ion-item-option color="tertiary" (click)="openEditProductModal(list)">
+                  <ion-icon slot="icon-only" name="create"></ion-icon>
+              </ion-item-option>
+              <ion-item-option color="danger" (click)="deleteAlertConfirm(list._id)">
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+
+          </ion-item-options>
+
+      </ion-item-sliding>
+      <p *ngIf="categoryList.length == 0" class="noRecordsFound">No Records Found</p>
+  </ion-list>
+
+  <ion-refresher slot="fixed" (ionRefresh)="getCategoryList($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+</ion-content>
