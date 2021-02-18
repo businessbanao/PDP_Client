@@ -27,7 +27,7 @@ export class ManualInventryPage implements OnInit {
     departmentID: '',
     description: "",
     inventryType: "Incoming",
-    ownerId: "5fdddea84bffe93a67885ed0",
+    ownerId: "601870f796b9f2834f045d1a",
     date: this.changeDate,
     amount:'',
     department:null

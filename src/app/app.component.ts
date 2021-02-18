@@ -386,15 +386,15 @@ public newTotalCount =0;
       this.statusBar.styleLightContent()
       // this.statusBar.overlaysWebView(true);
       this.splashScreen.hide();
-      this._userService.getAdminProfile(localStorage.getItem('adminId')).subscribe(async (data: any) => {
-        console.log("data", data);
-         let AdminProfile = data.data;
-         this.AdminName = AdminProfile.fullName;
-         this.userName = AdminProfile.fullName;
-         this.userImage = AdminProfile.Image;
+      // this._userService.getAdminProfile(localStorage.getItem('adminId')).subscribe(async (data: any) => {
+      //   console.log("data", data);
+      //    let AdminProfile = data.data;
+      //    this.AdminName = AdminProfile.fullName;
+      //    this.userName = AdminProfile.fullName;
+      //    this.userImage = AdminProfile.Image;
         //  alsert("called "+ this.userName)
         //  alert("AdminName"+this.AdminName)public modalController: ModalController,
-      });
+      // });
 
       // this.pushsetup();
     });

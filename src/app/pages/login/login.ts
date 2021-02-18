@@ -65,7 +65,7 @@ export class LoginPage {
 
       localStorage.setItem("AuthToken", result.authToken)
       localStorage.setItem("adminId", result.AdminDetails._id);
-      // localStorage.setItem("adminId", "5fdddea84bffe93a67885ed0");
+      // localStorage.setItem("adminId", "601870f796b9f2834f045d1a");
       this.loginData = { email: '', password: '' };
       this.router.navigateByUrl('/finance')
     });

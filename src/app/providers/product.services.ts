@@ -12,7 +12,7 @@ export class ProductService {
     // public baseUrl: String = "//localhost:3000"
     // public baseUrl: string = "http://5afcaa1d.ngrok.io";
     public baseUrl: String = environment.baseUrl
-    public ownerId = "5fdddea84bffe93a67885ed0"
+    public ownerId = "601870f796b9f2834f045d1a"
     // public ownerId = "5e9aa109812172ce284f5a1a";
     // public shopId =  localStorage.getItem("shopID") ||  "5e683e91ec56557a4c2fdf62"
     public shopId =   "5e683e91ec56557a4c2fdf62"

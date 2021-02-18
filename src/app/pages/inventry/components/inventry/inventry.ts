@@ -406,7 +406,7 @@ export class InventryPage implements OnInit {
           departmentID: depId,
           description: "",
           inventryType: "Incoming",
-          ownerId: "5fdddea84bffe93a67885ed0",
+          ownerId: "601870f796b9f2834f045d1a",
           date: this.changeDate,
           ..._formName.value,
         };
@@ -461,7 +461,7 @@ export class InventryPage implements OnInit {
           departmentID: depId,
           description: "",
           inventryType: "Outgoing",
-          ownerId: "5fdddea84bffe93a67885ed0",
+          ownerId: "601870f796b9f2834f045d1a",
           date: this.changeDate,
           ..._formName.value,
         };
@@ -500,7 +500,7 @@ export class InventryPage implements OnInit {
           departmentID: depId,
           description: "",
           inventryType: "Vendor_Incoming",
-          ownerId: "5fdddea84bffe93a67885ed0",
+          ownerId: "601870f796b9f2834f045d1a",
           date: this.changeDate,
           ..._formName.value,
         };

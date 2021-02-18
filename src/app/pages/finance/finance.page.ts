@@ -19,7 +19,7 @@ export class FinancePage implements OnInit {
   selectedDate:any;
   public dateFilter;
   public accountFilter = "";
-  public inventryTypeFilter=""
+  public inventryTypeFilter="all"
   prevInventoryList:any = [];
 
   public isEditMode: boolean;
@@ -114,7 +114,7 @@ export class FinancePage implements OnInit {
   }
 
   getInventory() {
-    this._financeService.getInventory(localStorage.getItem('adminId')).subscribe((resp) => {
+    this._financeService.getInventory(this.page).subscribe((resp) => {
       this.inventoryList = resp.response;
     });
   }
@@ -132,7 +132,7 @@ export class FinancePage implements OnInit {
     let month = (tempDate.getMonth() + 1) ? "0" + (tempDate.getMonth() + 1) : tempDate.getMonth() + 1;
     let year = tempDate.getFullYear();
     if (!isNaN(tempDate.getTime())) {
-        return date + '-' + month + '-' + year;
+        return month + '-' + date + '-' + year;
     } else {
       return "";
     }
@@ -203,6 +203,29 @@ export class FinancePage implements OnInit {
     this._accountService.getAccount(localStorage.getItem('adminId')).subscribe((resp) => {
       this.accounts = resp.response;
     });
+  }
+
+
+  public page = {
+    limit: 5,
+    skip: 0,
+  };
+
+  loadData(event) {
+    this.page.limit = this.page.limit;
+    this.page.skip = this.page.skip + 5;
+    this._financeService.getInventory(this.page).subscribe((resp) => {
+      // this.inventoryList = resp.response;
+    
+        if (event) {
+          setTimeout(() => {
+            console.log("Done");
+            event.target.complete();
+            this.inventoryList = this.inventoryList.concat(resp.response);
+            // this.getAvgReview();
+          }, 1800);
+        }
+      });
   }
   
 }

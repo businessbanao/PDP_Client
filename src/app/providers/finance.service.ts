@@ -35,8 +35,8 @@ export class FinanceService {
         );
       }
 
-      getInventory(userId): Observable<any> {
-        return this._http.get(`http://13.127.184.151:5000/api/v1/GetInventryDetails/${userId}`).pipe(
+      getInventory(page): Observable<any> {
+        return this._http.get(`http://13.127.184.151:5000/api/v1/inventrylist?&limit=${page.limit}&skip=${page.skip}`).pipe(
           tap(
             response => {},
             error => {}
@@ -58,7 +58,14 @@ export class FinanceService {
       }
 
   filterInventory(startDate:String, endDate:String, accountId:String, inventoType:String){
-    return this._http.get(`http://13.127.184.151:5000/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate+`&account_id=`+accountId).pipe(
+    let url;
+
+    if(accountId){
+      url = `http://13.127.184.151:5000/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate+`&account_id=${accountId}`
+    }else{
+      url = `http://13.127.184.151:5000/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate
+    }
+    return this._http.get(url).pipe(
       tap(
         response => {
           console.log("filter inventory success");

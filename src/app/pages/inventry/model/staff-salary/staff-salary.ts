@@ -35,7 +35,7 @@ export class StaffSalaryPage implements OnInit {
   public staffIds = [
    {
      name: 'Vickey',
-     id: "5fdddea84bffe93a67885ed0",
+     id: "601870f796b9f2834f045d1a",
      salary:9000,
      initBalance:4092,
      calculatedSalary:0

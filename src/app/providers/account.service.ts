@@ -84,7 +84,6 @@ export class AccountService {
   }
 
   searchAccout(acc_name: String, adminId: String): Observable<any>{
-    debugger
     return this._http.get(`http://13.127.184.151:5000/api/v1/searchaccount/`+ acc_name + `/` + adminId).pipe(
       tap(
         response => {

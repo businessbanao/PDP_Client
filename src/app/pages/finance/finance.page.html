@@ -91,15 +91,14 @@
         </section>
       </ion-select>
     </ion-item>
-    
-    <ion-item *ngIf="inventoryList.length == 0">
+
+    <!-- <ion-item>
       <img src="../../../assets/img/no-record.gif" alt="">
       <br><br><br>
-      <h2><p>Oops, No Record Found!</p></h2>
-    </ion-item>
-    
-    <section *ngIf="inventoryList.length != 0">
-    <ion-item-sliding  id="item100" *ngFor="let inventory of inventoryList">
+      <span>Oops, No Record Found!</span>
+    </ion-item> 
+     -->
+    <ion-item-sliding id="item100" *ngFor="let inventory of inventoryList">
       <ion-item >
         <ion-label>
           <p  *ngIf="inventory.inventryType == 'debit'" class="save-later-name" style="text-transform: capitalize;color: red;">
@@ -121,7 +120,13 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-    </section>
+    
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ng-container>
 
   </div>
