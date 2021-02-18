@@ -133,6 +133,8 @@ export class FinancePage implements OnInit {
     let year = tempDate.getFullYear();
     if (!isNaN(tempDate.getTime())) {
         return date + '-' + month + '-' + year;
+    } else {
+      return "";
     }
   }
 

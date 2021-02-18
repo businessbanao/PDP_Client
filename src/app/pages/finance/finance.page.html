@@ -92,29 +92,35 @@
       </ion-select>
     </ion-item>
 
-      <ion-item-sliding id="item100" *ngFor="let inventory of inventoryList">
-        <ion-item >
-          <ion-label>
-            <p  *ngIf="inventory.inventryType == 'debit'" class="save-later-name" style="text-transform: capitalize;color: red;">
-              <br> Amount : - {{inventory.amount}}
-            </p>
-            <p  *ngIf="inventory.inventryType == 'credit'" class="save-later-name" style="text-transform: capitalize;color: green">
-              <br> Amount : + {{inventory.amount}}
-            </p>
-            <span class="trading-price" style="text-transform: capitalize;">Description : {{inventory.description}}</span><br>
-            <span class="trading-price" style="text-transform: capitalize;color: blue;">Date : {{inventory.date | date: 'dd-MMM-yyyy'}}</span>
-          </ion-label>
-        </ion-item>
-       <ion-item-options side="end">
-          <ion-item-option color="warning" (click)="editInventory(inventory)">
-            <ion-icon slot="icon-only" name="create"></ion-icon>
-          </ion-item-option>
-          <ion-item-option color="danger" (click)="deleteInventory(inventory._id)">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-  </ng-container>
+    <ion-item>
+      <img src="../../../assets/img/no-record.gif" alt="">
+      <br><br><br>
+      <span>Oops, No Record Found!</span>
+    </ion-item> 
+    
+    <!-- <ion-item-sliding id="item100" *ngFor="let inventory of inventoryList">
+      <ion-item >
+        <ion-label>
+          <p  *ngIf="inventory.inventryType == 'debit'" class="save-later-name" style="text-transform: capitalize;color: red;">
+            <br> Amount : - {{inventory.amount}}
+          </p>
+          <p  *ngIf="inventory.inventryType == 'credit'" class="save-later-name" style="text-transform: capitalize;color: green">
+            <br> Amount : + {{inventory.amount}}
+          </p>
+          <span class="trading-price" style="text-transform: capitalize;">Description : {{inventory.description}}</span><br>
+          <span class="trading-price" style="text-transform: capitalize;color: blue;">Date : {{inventory.date | date: 'dd-MMM-yyyy'}}</span>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="warning" (click)="editInventory(inventory)">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="deleteInventory(inventory._id)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding> -->
+</ng-container>
 
   </div>
 </ion-content>

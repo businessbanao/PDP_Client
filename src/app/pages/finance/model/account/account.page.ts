@@ -109,4 +109,8 @@ export class AccountPageModel implements OnInit {
     });
   }
 
+  searchAccount(){
+    alert(account);
+  }
+
 }
