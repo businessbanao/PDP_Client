@@ -27,7 +27,6 @@ export class FinanceService {
     }
 
       updateInventory(id, payload): Observable<any> {
-        debugger;
         return this._http.put(`http://13.127.184.151:5000/api/v1/InventryUpdate/` + id, payload).pipe(
           tap(
             response => {},
@@ -57,5 +56,18 @@ export class FinanceService {
           )
         );
       }
+
+  filterInventory(startDate:String, endDate:String, accountId:String, inventoType:String){
+    return this._http.get(`http://13.127.184.151:5000/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate+`&account_id=`+accountId).pipe(
+      tap(
+        response => {
+          console.log("filter inventory success");
+        },
+        error => {
+          console.log("Eror in filterInventory.");
+        }
+      )
+    );
+  }    
 
 }

@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormControl, NgForm } from '@angular/forms';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { AccountPageModel } from "./model/account/account.page";
 import { AccountService } from '../../providers/account.service';
+import { LedgerPageModel } from './model/ledger/ledger.page';
 
 @Component({
   selector: 'app-finance',
@@ -16,6 +17,10 @@ export class FinancePage implements OnInit {
 
   today:any;
   selectedDate:any;
+  public dateFilter;
+  public accountFilter = "all";
+  public inventryTypeFilter="all"
+  prevInventoryList:any = [];
 
   public isEditMode: boolean;
   public finance: string;
@@ -85,6 +90,7 @@ export class FinancePage implements OnInit {
     this.isEditMode = true;
     this.inventoryForm.patchValue(data);
     this.inventoryForm.get('id').setValue(data._id);
+    this.inventoryForm.get('date').setValue(data.date.slice(0,10));
   }
 
   updateInventory(payload: FormGroup) {
@@ -113,6 +119,23 @@ export class FinancePage implements OnInit {
     });
   }
 
+  applyFilter(){
+    let date = this.dateFormater(this.dateFilter);
+    this._financeService.filterInventory(date, date, this.accountFilter, this.inventryTypeFilter).subscribe((resp:any) => {
+      this.inventoryList = resp.response;
+    });
+  }
+
+  dateFormater(inputDate) {
+    let tempDate = new Date(inputDate);
+    let date = tempDate.getDate() < 10 ? "0" + tempDate.getDate() : tempDate.getDate();
+    let month = (tempDate.getMonth() + 1) ? "0" + (tempDate.getMonth() + 1) : tempDate.getMonth() + 1;
+    let year = tempDate.getFullYear();
+    if (!isNaN(tempDate.getTime())) {
+        return date + '-' + month + '-' + year;
+    }
+  }
+
   async presentActionSheet() {
    this.isEditMode = false;
    const actionSheet = await this.actionSheetController.create({
@@ -125,6 +148,14 @@ export class FinancePage implements OnInit {
           icon: "key-outline",
           handler: () => {
             this.openAaccountsModal();
+          },
+        },
+        {
+          text: "Ledger",
+          role: "destructive",
+          icon: "key-outline",
+          handler: () => {
+            this.openLedgerModal();
           },
         },
         {
@@ -148,6 +179,14 @@ export class FinancePage implements OnInit {
     return await modal.present();
   }
 
+  async openLedgerModal() {
+    const modal = await this.modalController.create({
+      component: LedgerPageModel,
+    });
+    modal.onDidDismiss().then((dataReturned) => {});
+    return await modal.present();
+  }
+
   segmentChanged(tabData: any) {
     if(this.tabName == 'mannual_entry' && this.isEditMode){
       this.isEditMode = true;
@@ -159,11 +198,9 @@ export class FinancePage implements OnInit {
   }
 
   getAccounts(){
-    // debugger;
     this._accountService.getAccount(localStorage.getItem('adminId')).subscribe((resp) => {
       this.accounts = resp.response;
     });
   }
-
   
 }

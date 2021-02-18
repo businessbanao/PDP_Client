@@ -15,7 +15,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <ion-segment [(ngModel)]="tabName" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="mannual_entry">
       <ion-label>Save Record</ion-label>
@@ -28,7 +27,7 @@
   <div id="container">
     <!-- <h1>Finance Page</h1>   -->
 
-    <section *ngIf="tabName == 'mannual_entry'">
+  <section *ngIf="tabName == 'mannual_entry'">
     <div class="container">
       <div class="row">
           <div class="form-bg">
@@ -47,8 +46,7 @@
                     <ion-select-option value="credit">Credit</ion-select-option>
                     <ion-select-option value="debit">Debit</ion-select-option>
                   </ion-select>
-                </ion-item>
-                 
+                </ion-item>  
                 <ion-item>
                   <ion-label>Amount : </ion-label>
                   <ion-input type="text" placeholder="amount" formControlName="amount"></ion-input>
@@ -59,8 +57,7 @@
                 </ion-item>
                 <ion-item>
                   <ion-label>Date : </ion-label>
-                  <input type="date" formControlName="date" id="">
-
+                  <ion-input type="date" formControlName="date"></ion-input>
                   <!-- <ion-datetime placeholder="date" [(ngModel)]="selectedDate" [max]="today" formControlName="date"></ion-datetime> -->
                 </ion-item>
                   <br>
@@ -72,12 +69,32 @@
   </div>
   </section>
 
- 
-    <ng-container *ngIf="tabName == 'inventory_list'">
+  <ng-container *ngIf="tabName == 'inventory_list'">
+    <ion-item>
+      <ion-label>Date : </ion-label>
+      <ion-input type="date" [(ngModel)]="dateFilter" (ionChange)='applyFilter()'></ion-input>
+    </ion-item> 
+    <ion-item>
+      <ion-label>Inventory Type: </ion-label>
+      <ion-select [(ngModel)]="inventryTypeFilter" (ionChange)='applyFilter()'>
+        <ion-select-option value="">All</ion-select-option>
+        <ion-select-option value="debit">Debit</ion-select-option>
+        <ion-select-option value="credit">Credit</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Account : </ion-label>
+      <ion-select [(ngModel)]="accountFilter" (ionChange)='applyFilter()'>
+        <ion-select-option value="">All</ion-select-option>
+        <section *ngFor="let account of accounts">
+          <ion-select-option value="{{ account._id }}">{{ account.account_name }}</ion-select-option>
+        </section>
+      </ion-select>
+    </ion-item>
+
       <ion-item-sliding id="item100" *ngFor="let inventory of inventoryList">
         <ion-item >
           <ion-label>
-             
             <p  *ngIf="inventory.inventryType == 'debit'" class="save-later-name" style="text-transform: capitalize;color: red;">
               <br> Amount : - {{inventory.amount}}
             </p>
@@ -97,7 +114,7 @@
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
-    </ng-container>
+  </ng-container>
 
   </div>
 </ion-content>

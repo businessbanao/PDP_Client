@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../../../providers/account.service';
 import { FormBuilder, FormGroup, FormControl, NgForm } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { AccountLedgerPageModel } from '../account_ledger/account_ledger.page';
 
 @Component({
   selector: 'app-account',
@@ -15,7 +16,9 @@ export class AccountPageModel implements OnInit {
   public finance: string;
   public responseStr: string;
   accounts:any = [];
+  accountsInventory:any = [];
   accountForm: FormGroup;
+  public isEditMode: boolean;
 
   constructor(private activatedRoute: ActivatedRoute, 
     private _accountService: AccountService, 
@@ -44,9 +47,10 @@ export class AccountPageModel implements OnInit {
    }
 
    editAccount(data){
-    debugger;
+     debugger;
     this.accountForm.patchValue(data);
     this.accountForm.get('id').setValue(data._id);
+    this.isEditMode = true;
   }
 
   createAccount(payload: FormGroup){
@@ -67,13 +71,36 @@ export class AccountPageModel implements OnInit {
       this.accountForm.reset();
       this.getAccounts();
     });
+    this.isEditMode = false;
   }
 
   deleteAccount(id){
     this._accountService.deleteAccount(id).subscribe((resp) => {
       this.responseStr = resp.response;
+      this.accountForm.reset();
       this.getAccounts();
     });
+    this.isEditMode = false;
+  }
+
+  getAccountInventory(accountId){
+    // show model and pass Id here instead of below code
+    this._accountService.getAccountInventory(accountId).subscribe((resp) => {
+      this.accountsInventory = resp.response;
+      debugger;
+    });
+  } 
+
+  async openLedgerModal(id) {
+    const modal = await this.modalController.create({
+      component: AccountLedgerPageModel,
+      componentProps: {
+        'id': id
+      }
+      
+    });
+    modal.onDidDismiss().then((dataReturned) => {});
+    return await modal.present();
   }
 
   getAccounts(){
