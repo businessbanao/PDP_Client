@@ -43,10 +43,14 @@
       </div>
   </div>
   
-  <ion-input  type="text" (ionChange)='searchAccount()'></ion-input>
+  
+  <h1>
+    <ion-searchbar (ionChange)='searchAccount()' [(ngModel)]="acc_search"></ion-searchbar>
+  </h1>
 
   <!--sg-->
     <ng-container>
+      
       <ion-item-sliding id="item100" *ngFor="let list of accounts">
         <ion-item (click)="openLedgerModal(list._id)">
           <ion-label>

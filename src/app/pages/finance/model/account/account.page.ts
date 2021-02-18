@@ -15,6 +15,7 @@ export class AccountPageModel implements OnInit {
 
   public finance: string;
   public responseStr: string;
+  public acc_search;
   accounts:any = [];
   accountsInventory:any = [];
   accountForm: FormGroup;
@@ -109,8 +110,19 @@ export class AccountPageModel implements OnInit {
     });
   }
 
+  /*searchAccount(evnt){
+    alert(evnt.target.value);
+  }*/
+
   searchAccount(){
-    alert(account);
+    if(this.acc_search.length > 2){
+      this._accountService.searchAccout(this.acc_search, localStorage.getItem('adminId')).subscribe((resp) => {
+        this.accounts = resp.response;
+      });
+    } else if(this.acc_search.length == 0){
+      this.getAccounts();
+    }
+     
   }
 
 }

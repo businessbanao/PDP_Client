@@ -18,8 +18,8 @@ export class FinancePage implements OnInit {
   today:any;
   selectedDate:any;
   public dateFilter;
-  public accountFilter = "all";
-  public inventryTypeFilter="all"
+  public accountFilter = "";
+  public inventryTypeFilter=""
   prevInventoryList:any = [];
 
   public isEditMode: boolean;
