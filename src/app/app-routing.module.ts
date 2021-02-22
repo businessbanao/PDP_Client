@@ -5,14 +5,25 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'finance',
+    redirectTo: 'emimgnt',
     pathMatch: 'full'
+  },
+  {
+    path: 'emimgnt',
+    loadChildren: () => import('./pages/emi-management/emi-management.module').then(m => m.EMIManagementPageModule)
+  },
+  {
+    path: 'goalmgnt',
+    loadChildren: () => import('./pages/goal-management/goal-management.module').then(m => m.GoalManagementPageModule)
+  },
+  {
+    path: 'daymgnt',
+    loadChildren: () => import('./pages/day-management/day-management.module').then(m => m.DayManagementPageModule)
   },
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
-
   {
     path: 'customers',
     loadChildren: () => import('./pages/customer-management/customer-management.module').then(m => m.CustomerManagementPageModule)
@@ -94,9 +105,6 @@ const routes: Routes = [
     path: 'routine',
     loadChildren: () => import('./pages/routine/routine.module').then( m => m.RoutinePageModule)
   }
-
-
-
 ];
 
 @NgModule({

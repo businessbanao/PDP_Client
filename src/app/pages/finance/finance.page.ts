@@ -30,14 +30,6 @@ export class FinancePage implements OnInit {
   inventoryForm: FormGroup;
   tabName:string = "mannual_entry";
   accounts: any;
- /**
-  accounts: any =  [
-    { name: "Food",   id :'6018524ed041c31c261227cd'},
-    { name: 'Travel', id :'6011524ed041c31c561227cd'},
-    { name: "Social", id :'6018564ed041c31c261227cd' },
-    { name: "Other",  id :'6018524ed071c31c261227cd' }
-  ]
-  */
 
   Users: any =  [
     { name: "Shashwat",   id :'6018524ed041c31c261227cd'},

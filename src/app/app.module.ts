@@ -25,6 +25,8 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { Push, PushObject } from '@ionic-native/push/ngx';
 import { AccountService } from './providers/account.service';
 import { FinanceService } from './providers/finance.service';
+import { GoalManagementService } from './providers/goal-management.service';
+import { EMIManagementService } from './providers/emi-management.service';
 
 @NgModule({
   imports: [
@@ -54,7 +56,9 @@ import { FinanceService } from './providers/finance.service';
     NotificationsService,BackgroundMode,Vibration,
     Push,
     AccountService,
-    FinanceService
+    FinanceService,
+    GoalManagementService,
+    EMIManagementService
 
   ],
   bootstrap: [AppComponent],

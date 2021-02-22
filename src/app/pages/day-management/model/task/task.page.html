@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/daymgnt"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title id="top">Task</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="row">
+        <div class="form-bg">
+             <form [formGroup]="taskForm" (ngSubmit)="createTask(taskForm)">
+              <ion-item>
+                <ion-label>Task Name : </ion-label>
+                <ion-input type="text" placeholder="Task Name" formControlName="task_name"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Priority : </ion-label>
+                <ion-select placeholder="Priority" formControlName="priority">
+                  <ion-select-option value="HIGH">HIGH</ion-select-option>
+                  <ion-select-option value="MED">MED</ion-select-option>
+                  <ion-select-option value="LOW">LOW</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label>Date : </ion-label>
+                <ion-input type="date" formControlName="date"></ion-input>
+              </ion-item>
+                <br>
+                <ion-button color="primary" type="submit" value="Save">Save</ion-button>
+                <ion-button *ngIf='!isEditMode' color="secondary"  type="button" value="Update" (click)="updateTask(taskForm)">Update</ion-button>
+              </form>
+        </div>
+    </div>
+</div>
+</ion-content>

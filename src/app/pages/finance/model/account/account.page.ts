@@ -48,16 +48,12 @@ export class AccountPageModel implements OnInit {
   }
 
   editAccount(data) {
-   
-
     this.accountForm.patchValue(data);
     this.accountForm.get("id").setValue(data._id);
     this.isEditMode = true;
-
-     var elmntToView = document.getElementById("top");
+    var elmntToView = document.getElementById("top");
     console.log(elmntToView)
     elmntToView.scrollIntoView();
-    
   }
 
   cancelUpdate(){
@@ -65,7 +61,6 @@ export class AccountPageModel implements OnInit {
     this.isEditMode = false;
   }
    
-
   createAccount(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId");
