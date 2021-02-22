@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { EMIPageModel } from './model/emi/emi.page';
 import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
+import { PopoverController, ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class EMIManagementPage implements OnInit {
     private _emiManagementService: EMIManagementService, 
     private datePipe: DatePipe, 
     public actionSheetController: ActionSheetController,
+    public toastController: ToastController,
     public modalController: ModalController) {
   }
 
@@ -37,12 +39,29 @@ export class EMIManagementPage implements OnInit {
     });
   }
 
-  deleteEmi(taskId){
+  deleteEmi(emiId){
+    debugger;
     let responseMsg:String;
-    this._emiManagementService.deleteEmi(taskId).subscribe(resp => {
-      responseMsg = resp.error?"Task Deletion Failed":"Task Deleted Succesfully";
-      // toster this msg
+    this._emiManagementService.deleteEmi(emiId).subscribe(async resp => {
+      this.presentToast("Emi deleted successfully.");
+      this.getEmi();
     });
+  }
+
+  async presentToast(msg){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000,
+      position: "bottom",
+      color:'success',
+      animated: true,
+    });
+    toast.present();
+  }
+
+  editEmi(data) {
+    this.isEditMode = true;
+    this.editEmiModal(data);
   }
 
   dateFormater(inputDate) {
@@ -71,10 +90,5 @@ export class EMIManagementPage implements OnInit {
     });
     modal.onDidDismiss().then((dataReturned) => {});
     return await modal.present();
-  }
-
-  editEmi(data) {
-    this.isEditMode = true;
-    this.editEmiModal(data);
   }
 }

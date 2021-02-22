@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button
-        defaultHref="/daymgnt"
+        defaultHref="/emimgnt"
         (click)="closeModal()"
       ></ion-back-button>
     </ion-buttons>
@@ -14,26 +14,40 @@
   <div class="container">
     <div class="row">
         <div class="form-bg">
-             <form [formGroup]="taskForm" (ngSubmit)="createTask(taskForm)">
+             <form [formGroup]="emiForm" (ngSubmit)="createEmi(emiForm)">
               <ion-item>
-                <ion-label>EMI Name : </ion-label>
-                <ion-input type="text" placeholder="Task Name" formControlName="task_name"></ion-input>
+                <ion-label>Loan Name : </ion-label>
+                <ion-input type="text" placeholder="Task Name" formControlName="loan_name"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label>Priority : </ion-label>
-                <ion-select placeholder="Priority" formControlName="priority">
-                  <ion-select-option value="HIGH">HIGH</ion-select-option>
-                  <ion-select-option value="MED">MED</ion-select-option>
-                  <ion-select-option value="LOW">LOW</ion-select-option>
-                </ion-select>
+                <ion-label>Emi Ammount : </ion-label>
+                <ion-input type="text" placeholder="Emi Ammount" formControlName="emi_ammount"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label>Date : </ion-label>
-                <ion-input type="date" formControlName="date"></ion-input>
+                <ion-label>Loan Ammount : </ion-label>
+                <ion-input type="text" placeholder="Loan Ammount" formControlName="loan_ammount"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>ROI : </ion-label>
+                <ion-input type="text" placeholder="Rate Of Interest" formControlName="percentage"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Description : </ion-label>
+                <ion-input type="text" placeholder="Description" formControlName="description"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Tenure In Month : </ion-label>
+                <ion-input type="text" placeholder="Tenure In Month" formControlName="tenureIn_months"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Last Date : </ion-label>
+                <ion-input type="date" formControlName="lastdate"></ion-input>
               </ion-item>
                 <br>
                 <ion-button color="primary" type="submit" value="Save">Save</ion-button>
-                <ion-button *ngIf='!isEditMode' color="secondary"  type="button" value="Update" (click)="updateTask(taskForm)">Update</ion-button>
+                <ion-button *ngIf='!isEditMode' color="secondary"  type="button" value="Update" (click)="updateEmi(emiForm)">Update</ion-button>
               </form>
         </div>
     </div>

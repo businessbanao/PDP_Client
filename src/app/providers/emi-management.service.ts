@@ -12,7 +12,7 @@ export class EMIManagementService {
     constructor(private _http: HttpClient){}
 
     getEmi(adminId: String): Observable<any> {
-      return this._http.get(`http://13.127.184.151:5000/api/v1/GetAllGoals/`+adminId).pipe(
+      return this._http.get('http://13.127.184.151:5000/api/v1/AllEmiRecord').pipe(
         tap(
           response => { console.log("get goal management Goal : successfull"); },
           error => { console.log("get goal management task : failed"); }
@@ -20,37 +20,37 @@ export class EMIManagementService {
       );
     }
     
-    deleteEmi(goalId:String): Observable<any> {
-      return this._http.delete(`http://13.127.184.151:5000/api/v1/deletegoals/`+goalId).pipe(
+    deleteEmi(emiId:String): Observable<any> {
+      return this._http.delete(`http://13.127.184.151:5000/api/v1/DeleteEmiRecord/`+emiId).pipe(
         tap(
           response => { 
-            console.log("delete goal id : " + goalId + "success"); 
+            console.log("delete emi id : " + emiId + "success"); 
             true;
           },
           error => { 
-            console.log("delete goal id : " + goalId + "failed"); 
+            console.log("delete emi id : " + emiId + "failed"); 
             false;
           }
         )
       );
     }
-    
-    updateEmi(goalId, payload): Observable<any> {
-      return this._http.put(`http://13.127.184.151:5000/api/v1/editgoals/` + goalId, payload).pipe(
-        tap(
-          response => { console.log("update goal : successfull"); },
-          error => { console.log("update goal : failed"); }
-        )
-      );
-    }
-    
+
     createEmi(payload): Observable<any> {
-      return this._http.post(`http://13.127.184.151:5000/api/v1/creategoals`, payload).pipe(
+      return this._http.post(`http://13.127.184.151:5000/api/v1/createemirecord`, payload).pipe(
         tap(
           response => { console.log("create goal : successfull"); },
           error => { console.log("create goal : failed"); }
         )
       );
-    }    
+    }
+
+    updateEmi(emiId, payload): Observable<any> {
+      return this._http.put(`http://13.127.184.151:5000/api/v1/editemirecord/` + emiId, payload).pipe(
+        tap(
+          response => { console.log("update emi : successfull"); },
+          error => { console.log("update emi : failed"); }
+        )
+      );
+    }
 
 }

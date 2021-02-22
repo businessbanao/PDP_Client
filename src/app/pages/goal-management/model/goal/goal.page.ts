@@ -74,13 +74,14 @@ export class GoalPageModel implements OnInit {
     let date = tempDate.getDate() < 10 ? "0" + tempDate.getDate() : tempDate.getDate();
     let month = (tempDate.getMonth() + 1) ? "0" + (tempDate.getMonth() + 1) : tempDate.getMonth() + 1;
     let year = tempDate.getFullYear();
-    return isNaN(tempDate.getTime()) ? "" : date + '-' + month + '-' + year; 
+    return isNaN(tempDate.getTime()) ? "" : month + '-' + date + '-' + year; 
   }
 
   createGoal(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId");
     formData["expectedCompleteddate"] = this.dateFormater(formData.expectedCompleteddate); 
+    formData["completeddate"] = this.dateFormater(formData.completeddate); 
     this._goalManagementService.createGoal(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({

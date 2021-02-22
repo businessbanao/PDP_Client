@@ -29,7 +29,7 @@ export class EMIPageModel implements OnInit {
     if(undefined != this.data){
       this.emiForm.patchValue(this.data);
       this.emiForm.get('id').setValue(this.data._id);
-      this.emiForm.get('date').setValue(this.data.date.slice(0,10));
+      this.emiForm.get('lastdate').setValue(this.data.lastdate.slice(0,10));
     }
 
   }
@@ -42,6 +42,7 @@ export class EMIPageModel implements OnInit {
   updateEmi(payload) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     let id = this.emiForm.get("id").value;
+    formData["lastdate"] = this.dateFormater(formData.lastdate); 
     this._emiManagementService.updateEmi(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
@@ -58,11 +59,14 @@ export class EMIPageModel implements OnInit {
 
   initEmiForm() {
     this.emiForm = this._formBuilder.group({
-      task_name: new FormControl(),
+      loan_name: new FormControl(),
       userId: new FormControl(),
-      incompleted_task: new FormControl(),
-      priority: new FormControl(),
-      date: new FormControl(), 
+      emi_ammount: new FormControl(),
+      tenureIn_months: new FormControl(),
+      loan_ammount: new FormControl(), 
+      lastdate: new FormControl(), 
+      percentage: new FormControl(), 
+      description: new FormControl(), 
       id: new FormControl(""),
     });
   }
@@ -70,7 +74,7 @@ export class EMIPageModel implements OnInit {
   createEmi(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId");
-    formData["incompleted_task"] = "NO";
+    formData["lastdate"] = this.dateFormater(formData.lastdate); 
     this._emiManagementService.createEmi(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
@@ -82,6 +86,14 @@ export class EMIPageModel implements OnInit {
       this.emiForm.reset();
       this.closeModal();
     });
+  }
+
+  dateFormater(inputDate) {
+    let tempDate = new Date(inputDate);
+    let date = tempDate.getDate() < 10 ? "0" + tempDate.getDate() : tempDate.getDate();
+    let month = (tempDate.getMonth() + 1) ? "0" + (tempDate.getMonth() + 1) : tempDate.getMonth() + 1;
+    let year = tempDate.getFullYear();
+    return isNaN(tempDate.getTime()) ? "" : month + '-' + date + '-' + year; 
   }
 
 }
