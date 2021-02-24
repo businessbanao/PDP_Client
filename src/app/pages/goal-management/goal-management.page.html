@@ -17,6 +17,17 @@
 
 <ng-container >  
 
+  <ion-item>
+    <ion-label>Goal Type : </ion-label>
+    <ion-select placeholder="Type" (ionChange)="filterGoal($event)">
+      <ion-select-option value="short_term">SHORT TERM</ion-select-option>
+      <ion-select-option value="long_term">LONG TERM</ion-select-option>
+      <ion-select-option value="med_term">MED TERM</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+<hr>
+
     <ion-item-sliding *ngFor="let goal of goalList">
       <ion-item>
         <ion-label>

@@ -27,6 +27,7 @@ import { AccountService } from './providers/account.service';
 import { FinanceService } from './providers/finance.service';
 import { GoalManagementService } from './providers/goal-management.service';
 import { EMIManagementService } from './providers/emi-management.service';
+import { NoteManagementService } from './providers/note-management.service';
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import { EMIManagementService } from './providers/emi-management.service';
     AccountService,
     FinanceService,
     GoalManagementService,
-    EMIManagementService
+    EMIManagementService,
+    NoteManagementService
 
   ],
   bootstrap: [AppComponent],

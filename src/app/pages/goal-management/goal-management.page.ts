@@ -79,4 +79,8 @@ export class GoalManagementPage implements OnInit {
     this.isEditMode = true;
     this.editGoalModal(data);
   }
+
+  filterGoal(){
+    alert("goal filter called.");
+  }
 }

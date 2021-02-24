@@ -5,8 +5,12 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'emimgnt',
+    redirectTo: 'notemgnt',
     pathMatch: 'full'
+  },
+  {
+    path: 'notemgnt',
+    loadChildren: () => import('./pages/note-management/note-management.module').then(m => m.NoteManagementPageModule)
   },
   {
     path: 'emimgnt',
