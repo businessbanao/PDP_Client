@@ -26,7 +26,7 @@ export class NotePageModel implements OnInit {
 
   ngOnInit() {
     this.initNoteForm();
-    if(undefined != this.data){
+    if(this.data){
       this.noteForm.patchValue(this.data);
       this.noteForm.get('id').setValue(this.data._id);
       this.noteForm.get('date').setValue(this.data.date.slice(0,10));
@@ -34,8 +34,11 @@ export class NotePageModel implements OnInit {
 
   }
   
+
+  
+
   async closeModal() {
-    const onClosedData: string = "Address Added";
+    const onClosedData: string = "Added";
     await this.modalController.dismiss(onClosedData);
   }
 
@@ -70,7 +73,6 @@ export class NotePageModel implements OnInit {
   }
 
   createNote(payload: FormGroup) {
-    debugger
     let formData = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId");
     formData["date"] = this.dateFormater(formData.date); 
@@ -97,3 +99,5 @@ export class NotePageModel implements OnInit {
   }
 
 }
+
+

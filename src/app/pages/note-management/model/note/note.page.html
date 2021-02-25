@@ -6,7 +6,8 @@
         (click)="closeModal()"
       ></ion-back-button>
     </ion-buttons>
-    <ion-title id="top">NOTE</ion-title>
+    <ion-title  *ngIf="!data" id="top">Add Note</ion-title>
+    <ion-title  *ngIf="data" id="top">Update Note</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -32,8 +33,8 @@
                 <ion-input type="date" formControlName="date"></ion-input>
               </ion-item>
                 <br>
-                <ion-button color="primary" type="submit" value="Save">Save</ion-button>
-                <ion-button *ngIf='!isEditMode' color="secondary"  type="button" value="Update" (click)="updateNote(noteForm)">Update</ion-button>
+                <ion-button *ngIf='!data' color="primary" type="submit" value="Save">Save</ion-button>
+                <ion-button *ngIf='data'  color="secondary"  type="button" value="Update" (click)="updateNote(noteForm)">Update</ion-button>
               </form>
         </div>
     </div>

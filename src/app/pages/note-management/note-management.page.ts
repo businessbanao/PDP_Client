@@ -76,7 +76,9 @@ export class NoteManagementPage implements OnInit {
     const modal = await this.modalController.create({
       component: NotePageModel
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getNotes();
+    });
     return await modal.present();
   }
   
@@ -84,11 +86,12 @@ export class NoteManagementPage implements OnInit {
     const modal = await this.modalController.create({
       component: NotePageModel,
       componentProps:{
-        editMode : this.isEditMode,
         data : data
       }
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getNotes();
+    });
     return await modal.present();
   }
 }
