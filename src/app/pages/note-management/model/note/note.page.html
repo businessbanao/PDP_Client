@@ -6,8 +6,13 @@
         (click)="closeModal()"
       ></ion-back-button>
     </ion-buttons>
+<<<<<<< HEAD
     <ion-title *ngIf="!data" id="top">Create NOTE</ion-title>
     <ion-title *ngIf="data" id="top">Update NOTE</ion-title>
+=======
+    <ion-title  *ngIf="!data" id="top">Add Note</ion-title>
+    <ion-title  *ngIf="data" id="top">Update Note</ion-title>
+>>>>>>> 60c07ac1ef05ff3a2b6b6bde18f2379c6802b2d0
   </ion-toolbar>
 </ion-header>
 
@@ -41,8 +46,13 @@
                 </ion-select>
               </ion-item>
                 <br>
+<<<<<<< HEAD
                 <ion-button *ngIf="!data" color="primary" type="submit" value="Save">Save</ion-button>
                 <ion-button *ngIf="data" color="secondary"  type="button" value="Update" (click)="updateNote(noteForm)">Update</ion-button>
+=======
+                <ion-button *ngIf='!data' color="primary" type="submit" value="Save">Save</ion-button>
+                <ion-button *ngIf='data'  color="secondary"  type="button" value="Update" (click)="updateNote(noteForm)">Update</ion-button>
+>>>>>>> 60c07ac1ef05ff3a2b6b6bde18f2379c6802b2d0
               </form>
         </div>
     </div>

@@ -102,7 +102,9 @@ export class NoteManagementPage implements OnInit {
         filder_list : this.folderList
       }
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getNotes();
+    });
     return await modal.present();
   }
   
@@ -122,11 +124,11 @@ export class NoteManagementPage implements OnInit {
     const modal = await this.modalController.create({
       component: AddEditFolderPageModel,
       componentProps:{
-        editMode : this.isEditMode,
         data : data
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
+<<<<<<< HEAD
       this.getFolders();
     });
     return await modal.present();
@@ -142,6 +144,10 @@ export class NoteManagementPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {});
+=======
+      this.getNotes();
+    });
+>>>>>>> 60c07ac1ef05ff3a2b6b6bde18f2379c6802b2d0
     return await modal.present();
   }
 }
