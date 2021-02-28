@@ -15,7 +15,8 @@ export class NotePageModel implements OnInit {
   public isEditMode: boolean = false;
   public data:any;
   public responseStr: string;
-  
+  public filder_list:any;
+
   constructor(
     public modalController: ModalController,
     public toast:ToastController,
@@ -74,7 +75,6 @@ export class NotePageModel implements OnInit {
     let formData = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId");
     formData["date"] = this.dateFormater(formData.date); 
-    formData["folder_id"] = "60295dc7e076708e77600c7t"; 
     this._noteManagementService.createNote(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({

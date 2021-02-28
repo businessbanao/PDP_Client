@@ -8,7 +8,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NoteManagementPageRoutingModule } from './note-management-routing.module';
 import { NoteManagementPage } from './note-management.page';
 
+import { AddEditFolderPageModel } from './model/folder/add-edit-folder.page';
 import { NotePageModel } from './model/note/note.page';
+import { NoteListPageModel } from './model/note-list/note-list.page';
+import { NoteDetailPageModel } from './model/note-details/note-detail.page';
 import { DayManagementService } from '../../providers/day-management.service';
 
 @NgModule({
@@ -21,8 +24,8 @@ import { DayManagementService } from '../../providers/day-management.service';
     MatNativeDateModule,
     NoteManagementPageRoutingModule
   ],
-  declarations: [NoteManagementPage, NotePageModel],
+  declarations: [NoteManagementPage, NotePageModel, AddEditFolderPageModel, NoteListPageModel, NoteDetailPageModel],
   providers:[DayManagementService],
-  entryComponents:[NotePageModel]
+  entryComponents:[NotePageModel, AddEditFolderPageModel, NoteListPageModel, NoteDetailPageModel]
 })
 export class NoteManagementPageModule {}

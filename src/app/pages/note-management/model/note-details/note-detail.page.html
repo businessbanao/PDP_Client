@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/notemgnt"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title id="top"> 
+      <ion-icon name="folder-open-outline" style="color: white;"></ion-icon>
+      &nbsp; {{ folderName }} 
+      <ion-icon name="chevron-forward-outline" style="color: white;"></ion-icon>
+      {{note.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-item>
+      <ion-label>
+        <h1>Title : - {{note.title}}</h1>
+        <p>Content : - {{note.content}}</p>
+        <p>Folder Id : {{note.folder_id}}</p>
+        <p>Images : {{note.images}}</p>
+        <p>Date : {{note.date | date: 'dd-MMM-yyyy'}}</p>
+      </ion-label>
+    </ion-item>
+  </div>
+  <ion-button color="secondary"  type="button" value="edit" (click)="editNote(note)">Edit</ion-button>
+</ion-content>
