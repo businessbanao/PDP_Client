@@ -15,15 +15,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openNoteModal()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 
 
-<ng-container >  
-    <div *ngIf="folderList.length != 0">
+
+ 
+ 
     <div *ngFor='let folder of folderList ' class="folder" (click)="openNoteListModal(folder._id, folder.name)">
       <img src="../../../assets/img/folder-icon.png" alt="">
       <br>
@@ -31,7 +27,7 @@
         {{ folder.name }}
       </p>
     </div>
-    </div>
+    
   <!-- <div *ngIf="notesList.length != 0">
     <ion-item-sliding *ngFor="let note of notesList">
       <ion-item>
@@ -54,5 +50,9 @@
     </ion-item-sliding>
   </div> -->
 
-</ng-container>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openNoteModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

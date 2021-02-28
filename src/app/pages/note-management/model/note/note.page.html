@@ -6,18 +6,20 @@
         (click)="closeModal()"
       ></ion-back-button>
     </ion-buttons>
-<<<<<<< HEAD
-    <ion-title *ngIf="!data" id="top">Create NOTE</ion-title>
-    <ion-title *ngIf="data" id="top">Update NOTE</ion-title>
-=======
     <ion-title  *ngIf="!data" id="top">Add Note</ion-title>
     <ion-title  *ngIf="data" id="top">Update Note</ion-title>
->>>>>>> 60c07ac1ef05ff3a2b6b6bde18f2379c6802b2d0
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="container">
+
+    <ion-row style="width:100%" style="justify-content: flex-end;padding: 10px 0px;">
+      <ion-button class="upload-img" (click)="selectImagefromMobille()">
+        Upload Image &nbsp;&nbsp;<ion-icon  name="cloud-upload-sharp"></ion-icon>
+      </ion-button>
+    </ion-row>
+    
     <div class="row">
         <div class="form-bg">
              <form [formGroup]="noteForm" (ngSubmit)="createNote(noteForm)">
@@ -29,10 +31,7 @@
                 <ion-label>Content : </ion-label>
                 <ion-input type="text" placeholder="Content" formControlName="content"></ion-input>
               </ion-item>
-              <ion-item>
-                <ion-label>Images : </ion-label>
-                <ion-input type="text" placeholder="Images" formControlName="images"></ion-input>
-              </ion-item>
+             
               <ion-item>
                 <ion-label>Date : </ion-label>
                 <ion-input type="date" formControlName="date"></ion-input>
@@ -46,13 +45,8 @@
                 </ion-select>
               </ion-item>
                 <br>
-<<<<<<< HEAD
-                <ion-button *ngIf="!data" color="primary" type="submit" value="Save">Save</ion-button>
-                <ion-button *ngIf="data" color="secondary"  type="button" value="Update" (click)="updateNote(noteForm)">Update</ion-button>
-=======
                 <ion-button *ngIf='!data' color="primary" type="submit" value="Save">Save</ion-button>
                 <ion-button *ngIf='data'  color="secondary"  type="button" value="Update" (click)="updateNote(noteForm)">Update</ion-button>
->>>>>>> 60c07ac1ef05ff3a2b6b6bde18f2379c6802b2d0
               </form>
         </div>
     </div>

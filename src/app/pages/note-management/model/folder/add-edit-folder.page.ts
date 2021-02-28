@@ -30,7 +30,6 @@ export class AddEditFolderPageModel implements OnInit {
       this.folderForm.patchValue(this.data);
       this.folderForm.get('id').setValue(this.data._id);
     }
-
   }
   
   async closeModal() {
@@ -41,6 +40,7 @@ export class AddEditFolderPageModel implements OnInit {
     this.folderForm = this._formBuilder.group({
       name: new FormControl(),
       description: new FormControl(),
+      type:new FormControl("NOTES"),
       id: new FormControl(""),
     });
   }

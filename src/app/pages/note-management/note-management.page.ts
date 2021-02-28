@@ -103,7 +103,7 @@ export class NoteManagementPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-      this.getNotes();
+      this.getFolders();
     });
     return await modal.present();
   }
@@ -128,7 +128,6 @@ export class NoteManagementPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-<<<<<<< HEAD
       this.getFolders();
     });
     return await modal.present();
@@ -143,11 +142,11 @@ export class NoteManagementPage implements OnInit {
         folderName : folder_name
       }
     });
-    modal.onDidDismiss().then((dataReturned) => {});
-=======
-      this.getNotes();
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getFolders();
     });
->>>>>>> 60c07ac1ef05ff3a2b6b6bde18f2379c6802b2d0
+      
+    // });
     return await modal.present();
   }
 }
