@@ -45,21 +45,21 @@ public newTotalCount =0;
   public AdminName:String;
   public selectedTheme = 'light'
   appPages = [
-    // {
-    //   title: "Dashboard",
-    //   url: "/tabs/analytics",
-    //   icon: "bar-chart-outline",
-    // },
-    // {
-    //   title: "Customer Management",
-    //   url: "/tabs/customer",
-    //   icon: "people-outline",
-    // },
-    // {
-    //   title: "Order Management",
-    //   url: "/tabs/order",
-    //   icon: "receipt-outline",
-    // },
+    {
+      title: "Notes",
+      url: "/notemgnt",
+      icon: "create-outline",
+    },
+    {
+      title: "My Goals",
+      url: "/goalmgnt",
+      icon: "golf-outline",
+    },
+    {
+      title: "EMI Manager",
+      url: "/emimgnt",
+      icon: "receipt-outline",
+    },
   ];
   loggedIn = false;
   dark = false;
@@ -351,7 +351,7 @@ public newTotalCount =0;
 
 
 
-  public userName = 'Admin';
+  public userName = 'Shashwat Gupta';
   public userImage = '';
 
 
