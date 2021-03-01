@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController, ToastController } from "@ionic/angular";
 import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
-import { NoteManagementService } from '../../../../providers/note-management.service';
+import { DocManagementService } from '../../../../providers/doc-management.service';
 import { ActivatedRoute } from "@angular/router";
 import { DocDetailPageModel } from '../doc-details/doc-detail.page';
 import { AddEditDocPageModel } from "../doc/add-edit-doc.page";
@@ -15,26 +15,26 @@ export class DocListPageModel implements OnInit {
   
   public folderId;
   public folderName;
-  public notesList:any = [];
+  public docList:any = [];
   
   constructor(
     public modalController: ModalController,
     public toastController: ToastController,
     private _formBuilder: FormBuilder,
-    private _noteManagementService:NoteManagementService,
+    private _docManagementService:DocManagementService,
     private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    this.getFolderNotes(this.folderId);
+    this.getFolderDocs(this.folderId);
   }
   
   async closeModal() {
     await this.modalController.dismiss();
   }
 
-  // add notes model
-  async openNoteModal() {
+  // open add edit docs model
+  async openAddEditDocModal() {
     const modal = await this.modalController.create({
       component: AddEditDocPageModel
     });
@@ -42,24 +42,22 @@ export class DocListPageModel implements OnInit {
     return await modal.present();
   }
 
-  // get notes of provided folder_id
-  getFolderNotes(folder_id: String) {
-    this._noteManagementService.getFolderNotes(folder_id).subscribe(async (resp) => {
-      this.notesList = resp.response;
+  // get docs of provided folder_id
+  getFolderDocs(folder_id: String) {
+    this._docManagementService.getFolderDocs(folder_id).subscribe(async (resp) => {
+      this.docList = resp.response;
     });
   }
 
-  // delete note with provided note_id
-  deleteNote(noteId){
-    let responseMsg:String;
-    this._noteManagementService.deleteNote(noteId).subscribe(async resp => {
+  // delete doc with provided doc_id
+  deleteDoc(docId){
+    this._docManagementService.deleteDoc(docId).subscribe(async resp => {
       if(!resp.error){
-        this.getFolderNotes(this.folderId);
+        this.getFolderDocs(this.folderId);
       }
       this.presentToast(resp.message);
         
     });
-    
   }
 
   // show notification msg
@@ -74,8 +72,8 @@ export class DocListPageModel implements OnInit {
     toast.present();
   }
 
-  // open edit note model
-  async editNote(data: any) {
+  // open edit doc model
+  async editDoc(data: any) {
     const modal = await this.modalController.create({
       component: AddEditDocPageModel,
       componentProps:{
@@ -86,17 +84,17 @@ export class DocListPageModel implements OnInit {
     return await modal.present();
   }
 
-  // open note detail model
-  async openNoteDetailModal(data:any) {
+  // open doc detail model
+  async openDocDetailModal(data:any) {
     const modal = await this.modalController.create({
       component: DocDetailPageModel,
       componentProps:{
-        note : data,
+        doc : data,
         folderName : this.folderName
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-      this.getFolderNotes(this.folderId);
+      this.getFolderDocs(this.folderId);
     });
     return await modal.present();
   }

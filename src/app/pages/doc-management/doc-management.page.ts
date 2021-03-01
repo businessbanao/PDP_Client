@@ -18,9 +18,7 @@ import { DocManagementService } from '../../providers/doc-management.service';
 export class DocManagementPage implements OnInit {
 
   public folderList:any = [];
-  public notesList:any = [];
   respMsg:String;
-  public isEditMode: boolean;
 
   constructor(
     private _docManagementService: DocManagementService, 
@@ -31,12 +29,12 @@ export class DocManagementPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getFolders();
+    this.getDocFolders();
   }
 
   // get folders
-  getFolders(){
-    this._docManagementService.getFolders().subscribe((resp) => {
+  getDocFolders(){
+    this._docManagementService.getDocFolders().subscribe((resp) => {
       this.folderList = resp.response;
       console.log(this.folderList);
     });
@@ -53,7 +51,6 @@ export class DocManagementPage implements OnInit {
 
   // show action options/sheet
   async presentActionSheet() {
-    this.isEditMode = false;
     const actionSheet = await this.actionSheetController.create({
        header: "",
        cssClass: "my-custom-class",
@@ -91,8 +88,8 @@ export class DocManagementPage implements OnInit {
     toast.present();
   }
 
-  // add notes model
-  async openNoteModal() {
+  // add doc model
+  async openAddEditDocModal() {
     const modal = await this.modalController.create({
       component: AddEditDocPageModel,
       componentProps:{
@@ -100,23 +97,23 @@ export class DocManagementPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-      this.getFolders();
-    });
-    return await modal.present();
-  }
-  
-  // edit folder model
-  async openAddEditFolderModal() {
-    const modal = await this.modalController.create({
-      component: AddEditFolderPageModel
-    });
-    modal.onDidDismiss().then((dataReturned) => {
-      this.getFolders();
+      this.getDocFolders();
     });
     return await modal.present();
   }
   
   // open folder model
+  async openAddEditFolderModal() {
+    const modal = await this.modalController.create({
+      component: AddEditFolderPageModel
+    });
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getDocFolders();
+    });
+    return await modal.present();
+  }
+  
+  // edit folder model
   async editAddEditFolderModal(data: any) {
     const modal = await this.modalController.create({
       component: AddEditFolderPageModel,
@@ -125,13 +122,13 @@ export class DocManagementPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-      this.getFolders();
+      this.getDocFolders();
     });
     return await modal.present();
   }
 
-  // open notes list model
-  async openNoteListModal(folder_id:String, folder_name: String) {
+  // open doc list model
+  async openDocListModal(folder_id:String, folder_name: String) {
     const modal = await this.modalController.create({
       component: DocListPageModel,
       componentProps:{
@@ -140,7 +137,7 @@ export class DocManagementPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-      this.getFolders();
+      this.getDocFolders();
     });
       
     // });

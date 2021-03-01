@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController, ToastController } from "@ionic/angular";
 import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
-import { NoteManagementService } from '../../../../providers/note-management.service';
+import { DocManagementService } from '../../../../providers/doc-management.service';
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -20,7 +20,7 @@ export class AddEditFolderPageModel implements OnInit {
     public modalController: ModalController,
     public toast:ToastController,
     private _formBuilder: FormBuilder,
-    private _noteManagementService:NoteManagementService,
+    private _docManagementService:DocManagementService,
     private activatedRoute: ActivatedRoute,
   ) {}
 
@@ -40,7 +40,7 @@ export class AddEditFolderPageModel implements OnInit {
     this.folderForm = this._formBuilder.group({
       name: new FormControl(),
       description: new FormControl(),
-      type:new FormControl("NOTES"),
+      type:new FormControl("DOCS"),
       id: new FormControl(""),
     });
   }
@@ -48,7 +48,7 @@ export class AddEditFolderPageModel implements OnInit {
   updateFolder(payload) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     let id = this.folderForm.get("id").value;
-    this._noteManagementService.updateFolder(id, formData).subscribe(async (resp) => {
+    this._docManagementService.updateFolder(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
         message:"Updated Successfully",
@@ -64,7 +64,8 @@ export class AddEditFolderPageModel implements OnInit {
 
   createFolder(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
-    this._noteManagementService.createFolder(formData).subscribe(async (resp) => {
+    formData["type"] = "DOCS"; 
+    this._docManagementService.createDocFolder(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
         message:resp.message,

@@ -64,6 +64,7 @@ export class AddEditFolderPageModel implements OnInit {
 
   createFolder(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
+    formData["type"] = "NOTES";
     this._noteManagementService.createFolder(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({

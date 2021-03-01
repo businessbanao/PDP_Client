@@ -12,7 +12,7 @@ import { AddEditDocPageModel } from "../doc/add-edit-doc.page";
 })
 export class DocDetailPageModel implements OnInit {
   
-  public note;
+  public doc;
   public folderName;
   
   constructor(
@@ -29,8 +29,8 @@ export class DocDetailPageModel implements OnInit {
     await this.modalController.dismiss();
   }
 
-  // open edit note model
-  async editNote(data: any) {
+  // open edit doc model
+  async editDoc(data: any) {
     const modal = await this.modalController.create({
       component: AddEditDocPageModel,
       componentProps:{

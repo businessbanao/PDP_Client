@@ -11,8 +11,8 @@ export class DocManagementService {
 
     constructor(private _http: HttpClient){}
 
-    getFolders(): Observable<any> {
-      return this._http.get('http://13.127.184.151:5000/api/v1/getallfolder?type=NOTES').pipe(
+    getDocFolders(): Observable<any> {
+      return this._http.get('http://13.127.184.151:5000/api/v1/getallfolder?type=DOCS').pipe(
         tap(
           response => { console.log("get folder management : successfull"); },
           error => { console.log("get folder management : failed"); }
@@ -20,17 +20,19 @@ export class DocManagementService {
       );
     }
     
-    getFolderNotes(folderId: String): Observable<any> {
-      return this._http.get('http://13.127.184.151:5000/api/v1/allnotes?&folder_id=' + folderId).pipe(
+    // need to change api
+    getFolderDocs(folderId: String): Observable<any> {
+      return this._http.get('http://13.127.184.151:5000/api/v1/docRecords').pipe(
         tap(
-          response => { console.log("get notes management : successfull"); },
-          error => { console.log("get notes management : failed"); }
+          response => { console.log("get docs management : successfull"); },
+          error => { console.log("get docs management : failed"); }
         )
       );
     }
     
-    deleteNote(noteId:String): Observable<any> {
-      return this._http.delete(`http://13.127.184.151:5000/api/v1/deletenotes/` + noteId).pipe(
+    // api is not there
+    deleteDoc(docId:String): Observable<any> {
+      return this._http.delete(`` + docId).pipe(
         tap(
           response => { 
             console.log("delete note id : " + noteId + "success"); 
@@ -44,7 +46,7 @@ export class DocManagementService {
       );
     }
 
-    createFolder(payload): Observable<any> {
+    createDocFolder(payload): Observable<any> {
       return this._http.post(`http://13.127.184.151:5000/api/v1/createfolder`, payload).pipe(
         tap(
           response => { console.log("create folder : successfull"); },
@@ -53,11 +55,11 @@ export class DocManagementService {
       );
     }
 
-    createNote(payload): Observable<any> {
-      return this._http.post(`http://13.127.184.151:5000/api/v1/createnotes`, payload).pipe(
+    createDoc(payload): Observable<any> {
+      return this._http.post(`http://13.127.184.151:5000/api/v1/createdoc`, payload).pipe(
         tap(
-          response => { console.log("create note : successfull"); },
-          error => { console.log("create note : failed"); }
+          response => { console.log("create doc : successfull"); },
+          error => { console.log("create doc : failed"); }
         )
       );
     }
@@ -71,11 +73,12 @@ export class DocManagementService {
       );
     }
 
-    updateNote(noteId, payload): Observable<any> {
-      return this._http.put(`http://13.127.184.151:5000/api/v1/editnotes/` + noteId, payload).pipe(
+    // api is not there
+    updateDoc(docId, payload): Observable<any> {
+      return this._http.put(`` + docId, payload).pipe(
         tap(
-          response => { console.log("update note : successfull"); },
-          error => { console.log("update note : failed"); }
+          response => { console.log("update doc : successfull"); },
+          error => { console.log("update doc : failed"); }
         )
       );
     }

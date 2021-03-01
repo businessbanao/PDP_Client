@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActionSheetController, ModalController, ToastController } from "@ionic/angular";
 import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
-import { NoteManagementService } from '../../../../providers/note-management.service';
 import { ActivatedRoute } from "@angular/router";
 import {
   Camera,
@@ -14,6 +13,7 @@ import {
   FileUploadOptions,
   FileTransferObject,
 } from "@ionic-native/file-transfer/ngx";
+import { DocManagementService } from "../../../../providers/doc-management.service";
 
 
 @Component({
@@ -24,7 +24,7 @@ import {
 export class AddEditDocPageModel implements OnInit {
   
   public baseUrl: String = environment.baseUrl + "/";
-  noteForm: FormGroup;
+  docForm: FormGroup;
   public isEditMode: boolean = false;
   public data:any;
   public responseStr: string;
@@ -34,7 +34,7 @@ export class AddEditDocPageModel implements OnInit {
     public modalController: ModalController,
     public toast:ToastController,
     private _formBuilder: FormBuilder,
-    private _noteManagementService:NoteManagementService,
+    private _docManagementService:DocManagementService,
     private activatedRoute: ActivatedRoute,
     private toastController: ToastController,
     private camera: Camera,
@@ -42,32 +42,22 @@ export class AddEditDocPageModel implements OnInit {
     private actionSheetController: ActionSheetController
   ) {}
 
-
   images = [];
   public myphoto: any;
 
-  
-
   ngOnInit() {
-    this.initNoteForm();
+    this.initDocForm();
     if(this.data){
-      this.noteForm.patchValue(this.data);
-      this.noteForm.get('id').setValue(this.data._id);
-      this.noteForm.get('date').setValue(this.data.date.slice(0,10));
+      this.docForm.patchValue(this.data);
+      this.docForm.get('folder_id').setValue(this.data.folder_id);
     }
 
   }
-  
 
-  
-
-  
-
-  updateNote(payload) {
+  updateDoc(payload) {
     let formData = JSON.parse(JSON.stringify(payload.value));
-    let id = this.noteForm.get("id").value;
-    formData["date"] = this.dateFormater(formData.date); 
-    this._noteManagementService.updateNote(id, formData).subscribe(async (resp) => {
+    let id = this.docForm.get("id").value;
+    this._docManagementService.updateDoc(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
         message:"Updated Successfully",
@@ -75,29 +65,29 @@ export class AddEditDocPageModel implements OnInit {
         duration:2000
       })
       toast.present();
-      this.noteForm.reset();
+      this.docForm.reset();
       this.closeModal();
     });
     this.isEditMode = false;
   }
 
-  initNoteForm() {
-    this.noteForm = this._formBuilder.group({
-      title: new FormControl(),
+  initDocForm() {
+    this.docForm = this._formBuilder.group({
+      doc_name: new FormControl(),
       userId: new FormControl(),
-      content: new FormControl(),
-      images: new FormControl(),
+      doc_image: new FormControl(),
       folder_id: new FormControl(), 
       date: new FormControl(), 
+      owner_id : new FormControl(),
       id: new FormControl(""),
     });
   }
 
-  createNote(payload: FormGroup) {
+  createDoc(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId");
-    formData["date"] = this.dateFormater(formData.date); 
-    this._noteManagementService.createNote(formData).subscribe(async (resp) => {
+    formData["owner_id"] = localStorage.getItem("adminId");
+    this._docManagementService.createDoc(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
         message:"Note created Successfully",
@@ -105,7 +95,7 @@ export class AddEditDocPageModel implements OnInit {
         duration:2000
       })
       toast.present();
-      this.noteForm.reset();
+      this.docForm.reset();
       this.closeModal();
     });
   }
@@ -219,5 +209,3 @@ export class AddEditDocPageModel implements OnInit {
   }
 
 }
-
-
