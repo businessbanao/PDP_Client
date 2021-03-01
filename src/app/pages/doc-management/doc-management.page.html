@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Doc Management </ion-title>
+    <ion-buttons slot="end">
+      <ion-icon
+        class="right-menu"
+        name="ellipsis-vertical-outline"
+        (click)="presentActionSheet()"
+      ></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+ 
+ 
+    <div *ngFor='let folder of folderList ' class="folder" (click)="openNoteListModal(folder._id, folder.name)">
+      <img src="../../../assets/img/folder-icon.png" alt="">
+      <br>
+      <p class="folder-name">
+        {{ folder.name }}
+      </p>
+    </div>
+    
+  <!-- <div *ngIf="notesList.length != 0">
+    <ion-item-sliding *ngFor="let note of notesList">
+      <ion-item>
+        <ion-label>
+          <h1>Title : - {{note.title}}</h1>
+          <p>Content : - {{note.content}}</p>
+          <p>Folder Id : {{note.folder_id}}</p>
+          <p>Images : {{note.images}}</p>
+          <p>Date : {{note.date | date: 'dd-MMM-yyyy'}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="warning" (click)="editNote(note)">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="deleteNote(note._id)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </div> -->
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openNoteModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
