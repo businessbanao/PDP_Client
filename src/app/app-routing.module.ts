@@ -9,6 +9,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'docmgnt',
+    loadChildren: () => import('./pages/doc-management/doc-management.module').then(m => m.DocManagementPageModule)
+  },
+  {
     path: 'notemgnt',
     loadChildren: () => import('./pages/note-management/note-management.module').then(m => m.NoteManagementPageModule)
   },
@@ -28,6 +32,7 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
+  //dummy links
   {
     path: 'customers',
     loadChildren: () => import('./pages/customer-management/customer-management.module').then(m => m.CustomerManagementPageModule)

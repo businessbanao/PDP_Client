@@ -28,6 +28,7 @@ import { FinanceService } from './providers/finance.service';
 import { GoalManagementService } from './providers/goal-management.service';
 import { EMIManagementService } from './providers/emi-management.service';
 import { NoteManagementService } from './providers/note-management.service';
+import { DocManagementService } from './providers/doc-management.service';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import { NoteManagementService } from './providers/note-management.service';
     FinanceService,
     GoalManagementService,
     EMIManagementService,
-    NoteManagementService
+    NoteManagementService,
+    DocManagementService
 
   ],
   bootstrap: [AppComponent],

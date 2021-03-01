@@ -1,0 +1,149 @@
+import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ActionSheetController, ModalController } from '@ionic/angular';
+import { AddEditDocPageModel } from './model/doc/add-edit-doc.page';
+import { DocListPageModel } from './model/doc-list/doc-list.page';
+import { AddEditFolderPageModel } from './model/folder/add-edit-folder.page';
+import { ToastController } from '@ionic/angular';
+import { DocManagementService } from '../../providers/doc-management.service';
+
+
+@Component({
+  selector: 'app-docManagement',
+  templateUrl: './doc-management.page.html',
+  styleUrls: ['./doc-management.page.scss'],
+  providers: [DatePipe]
+})
+
+export class DocManagementPage implements OnInit {
+
+  public folderList:any = [];
+  public notesList:any = [];
+  respMsg:String;
+  public isEditMode: boolean;
+
+  constructor(
+    private _docManagementService: DocManagementService, 
+    private datePipe: DatePipe, 
+    public actionSheetController: ActionSheetController,
+    public toastController: ToastController,
+    public modalController: ModalController) {
+  }
+
+  ngOnInit() {
+    this.getFolders();
+  }
+
+  // get folders
+  getFolders(){
+    this._docManagementService.getFolders().subscribe((resp) => {
+      this.folderList = resp.response;
+      console.log(this.folderList);
+    });
+  }
+
+  // format date
+  dateFormater(inputDate) {
+    let tempDate = new Date(inputDate);
+    let date = tempDate.getDate() < 10 ? "0" + tempDate.getDate() : tempDate.getDate();
+    let month = (tempDate.getMonth() + 1) ? "0" + (tempDate.getMonth() + 1) : tempDate.getMonth() + 1;
+    let year = tempDate.getFullYear();
+    return isNaN(tempDate.getTime()) ? "" : year + '-' + month + '-' + date; 
+  }
+
+  // show action options/sheet
+  async presentActionSheet() {
+    this.isEditMode = false;
+    const actionSheet = await this.actionSheetController.create({
+       header: "",
+       cssClass: "my-custom-class",
+       buttons: [
+         {
+           text: "Create Folder",
+           role: "destructive",
+           icon: "key-outline",
+           handler: () => {
+             this.openAddEditFolderModal();
+           },
+         },
+         {
+           text: "Cancel",
+           icon: "close",
+           role: "cancel",
+           handler: () => {
+             console.log("Cancel clicked");
+           },
+         },
+       ],
+     });
+     await actionSheet.present();
+   }
+
+  // notification msg
+  async presentToast(msg){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000,
+      position: "bottom",
+      color:'success',
+      animated: true,
+    });
+    toast.present();
+  }
+
+  // add notes model
+  async openNoteModal() {
+    const modal = await this.modalController.create({
+      component: AddEditDocPageModel,
+      componentProps:{
+        filder_list : this.folderList
+      }
+    });
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getFolders();
+    });
+    return await modal.present();
+  }
+  
+  // edit folder model
+  async openAddEditFolderModal() {
+    const modal = await this.modalController.create({
+      component: AddEditFolderPageModel
+    });
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getFolders();
+    });
+    return await modal.present();
+  }
+  
+  // open folder model
+  async editAddEditFolderModal(data: any) {
+    const modal = await this.modalController.create({
+      component: AddEditFolderPageModel,
+      componentProps:{
+        data : data
+      }
+    });
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getFolders();
+    });
+    return await modal.present();
+  }
+
+  // open notes list model
+  async openNoteListModal(folder_id:String, folder_name: String) {
+    const modal = await this.modalController.create({
+      component: DocListPageModel,
+      componentProps:{
+        folderId : folder_id,
+        folderName : folder_name
+      }
+    });
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getFolders();
+    });
+      
+    // });
+    return await modal.present();
+  }
+}
