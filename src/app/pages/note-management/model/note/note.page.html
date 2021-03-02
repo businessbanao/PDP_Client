@@ -27,11 +27,11 @@
                 <ion-label>Title : </ion-label>
                 <ion-input type="text" placeholder="Title" formControlName="title"></ion-input>
               </ion-item>
-              <ion-item>
+              <!-- <ion-item>
                 <ion-label>Content : </ion-label>
                 <ion-input type="text" placeholder="Content" formControlName="content"></ion-input>
-              </ion-item>
-             
+              </ion-item> -->
+
               <ion-item>
                 <ion-label>Date : </ion-label>
                 <ion-input type="date" formControlName="date"></ion-input>
@@ -49,6 +49,18 @@
                 <ion-button *ngIf='data'  color="secondary"  type="button" value="Update" (click)="updateNote(noteForm)">Update</ion-button>
               </form>
         </div>
+        <ion-item>
+          <ckeditor [(ngModel)]="noteContent" 
+          [(ngModel)]="ckeditorContent">
+            <ckbutton [name]="'saveButton'"
+              [command]="'saveCmd'"
+              (click)="save($event)"
+              [icon]="'save.png'"
+              [label]="'Save Document'"
+              [toolbar]="'clipboard,1'">
+            </ckbutton>
+        </ckeditor> 
+      </ion-item>
     </div>
 </div>
 </ion-content>

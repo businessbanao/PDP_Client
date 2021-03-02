@@ -5,7 +5,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'docmgnt',
+    redirectTo: 'notemgnt',
     pathMatch: 'full'
   },
   {

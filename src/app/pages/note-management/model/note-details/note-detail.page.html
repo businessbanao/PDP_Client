@@ -19,7 +19,9 @@
     <ion-item>
       <ion-label>
         <h1>Title : - {{note.title}}</h1>
-        <p>Content : - {{note.content}}</p>
+        <br>
+        <div>Content : - <div innerHtml="{{ note.content }}"></div></div>
+        <br>
         <p>Folder Id : {{note.folder_id}}</p>
         <p>Images : {{note.images}}</p>
         <p>Date : {{note.date | date: 'dd-MMM-yyyy'}}</p>

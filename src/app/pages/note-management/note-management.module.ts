@@ -17,7 +17,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
-
+import { CKEditorModule } from 'ng2-ckeditor';
 
 @NgModule({
   imports: [
@@ -27,7 +27,9 @@ import { FilePath } from '@ionic-native/file-path/ngx';
     HttpClientModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-    NoteManagementPageRoutingModule
+    NoteManagementPageRoutingModule,
+    CKEditorModule
+    
   ],
   declarations: [NoteManagementPage, NotePageModel, AddEditFolderPageModel, NoteListPageModel, NoteDetailPageModel],
   providers:[DayManagementService,Camera,File, WebView,

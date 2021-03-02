@@ -45,6 +45,7 @@ export class NotePageModel implements OnInit {
 
   images = [];
   public myphoto: any;
+  noteContent;
 
   
 
@@ -54,19 +55,16 @@ export class NotePageModel implements OnInit {
       this.noteForm.patchValue(this.data);
       this.noteForm.get('id').setValue(this.data._id);
       this.noteForm.get('date').setValue(this.data.date.slice(0,10));
+      this.noteContent = this.data.content;
     }
 
   }
   
-
-  
-
-  
-
   updateNote(payload) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     let id = this.noteForm.get("id").value;
     formData["date"] = this.dateFormater(formData.date); 
+    formData["content"] = this.noteContent;
     this._noteManagementService.updateNote(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
@@ -97,6 +95,8 @@ export class NotePageModel implements OnInit {
     let formData = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId");
     formData["date"] = this.dateFormater(formData.date); 
+    formData["content"] = this.noteContent;
+    // formData["images"] = "xfgxgfb.jpg";
     this._noteManagementService.createNote(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({

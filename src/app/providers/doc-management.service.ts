@@ -35,11 +35,11 @@ export class DocManagementService {
       return this._http.delete(`` + docId).pipe(
         tap(
           response => { 
-            console.log("delete note id : " + noteId + "success"); 
+            console.log("delete note id : " + docId + "success"); 
             true;
           },
           error => { 
-            console.log("delete note id : " + noteId + "failed"); 
+            console.log("delete note id : " + docId + "failed"); 
             false;
           }
         )
