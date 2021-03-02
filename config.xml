@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.admin.punjabihandi" version="0.0.14" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Admin Management</name>
-    <description>Handi Punajb di</description>
+<widget id="com.businessbanao.shashwat" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Personal Manager</name>
+    <description>Personal Management Application</description>
     <author email="contact@badhaobusiness.in" href="http://badhaobusiness.in/">Shashwat Gupta</author>
     <content src="index.html" />
     <access origin="*" />

@@ -80,7 +80,7 @@ export class GoalManagementPage implements OnInit {
     this.editGoalModal(data);
   }
 
-  filterGoal(){
+  filterGoal(event){
     alert("goal filter called.");
   }
 }
