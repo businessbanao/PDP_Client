@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button
-        defaultHref="/notemgnt"
+        defaultHref="/docmgnt"
         (click)="closeModal()"
       ></ion-back-button>
     </ion-buttons>
@@ -17,25 +17,25 @@
 <ion-content [fullscreen]="true">
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openNoteModal()">
+    <ion-fab-button (click)="openAddEditDocModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <div class="container">
-    <div *ngIf="notesList.length != 0">
-    <ion-item-sliding *ngFor="let note of notesList">
-      <ion-item (click)="openNoteDetailModal(note)">
+    <div *ngIf="docList.length != 0">
+    <ion-item-sliding *ngFor="let doc of docList">
+      <ion-item (click)="openDocDetailModal(doc)">
         <ion-label>
-          <h1>Title : - {{note.title}}</h1>
-          <p>Date : {{note.date | date: 'dd-MMM-yyyy'}}</p>
+          <h1>Title : - {{doc.doc_name}}</h1>
+          <p>Date : {{doc.createdAt | date: 'dd-MMM-yyyy'}}</p>
         </ion-label>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="warning" (click)="editNote(note)">
+        <ion-item-option color="warning" (click)="editDoc(doc)">
           <ion-icon slot="icon-only" name="create"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="danger" (click)="deleteNote(note._id)">
+        <ion-item-option color="danger" (click)="deleteDoc(doc._id)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>

@@ -2,12 +2,12 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button
-        defaultHref="/notemgnt"
+        defaultHref="/docemgnt"
         (click)="closeModal()"
       ></ion-back-button>
     </ion-buttons>
-    <ion-title  *ngIf="!data" id="top">Add Note</ion-title>
-    <ion-title  *ngIf="data" id="top">Update Note</ion-title>
+    <ion-title  *ngIf="!data" id="top">Add Doc</ion-title>
+    <ion-title  *ngIf="data" id="top">Update Doc</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,20 +22,16 @@
     
     <div class="row">
         <div class="form-bg">
-             <form [formGroup]="noteForm" (ngSubmit)="createNote(noteForm)">
+             <form [formGroup]="docForm" (ngSubmit)="createDoc(docForm)">
               <ion-item>
-                <ion-label>Title : </ion-label>
-                <ion-input type="text" placeholder="Title" formControlName="title"></ion-input>
+                <ion-label>Doc Name : </ion-label>
+                <ion-input type="text" placeholder="Title" formControlName="doc_name"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label>Content : </ion-label>
-                <ion-input type="text" placeholder="Content" formControlName="content"></ion-input>
+                <ion-label>Image : </ion-label>
+                <ion-input type="text" placeholder="Content" formControlName="doc_image"></ion-input>
               </ion-item>
              
-              <ion-item>
-                <ion-label>Date : </ion-label>
-                <ion-input type="date" formControlName="date"></ion-input>
-              </ion-item>
               <ion-item>
                 <ion-label>Folder : </ion-label>
                 <ion-select placeholder="Folder" formControlName="folder_id">
@@ -46,7 +42,7 @@
               </ion-item>
                 <br>
                 <ion-button *ngIf='!data' color="primary" type="submit" value="Save">Save</ion-button>
-                <ion-button *ngIf='data'  color="secondary"  type="button" value="Update" (click)="updateNote(noteForm)">Update</ion-button>
+                <ion-button *ngIf='data'  color="secondary"  type="button" value="Update" (click)="updateDoc(docForm)">Update</ion-button>
               </form>
         </div>
     </div>

@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button
-        defaultHref="/notemgnt"
+        defaultHref="/docmgnt"
         (click)="closeModal()"
       ></ion-back-button>
     </ion-buttons>
@@ -10,7 +10,7 @@
       <ion-icon name="folder-open-outline" style="color: white;"></ion-icon>
       &nbsp; {{ folderName }} 
       <ion-icon name="chevron-forward-outline" style="color: white;"></ion-icon>
-      {{note.title}}</ion-title>
+      {{doc.doc_name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -18,13 +18,12 @@
   <div class="container">
     <ion-item>
       <ion-label>
-        <h1>Title : - {{note.title}}</h1>
-        <p>Content : - {{note.content}}</p>
-        <p>Folder Id : {{note.folder_id}}</p>
-        <p>Images : {{note.images}}</p>
-        <p>Date : {{note.date | date: 'dd-MMM-yyyy'}}</p>
+        <h1>Title : - {{doc.doc_name}}</h1>
+        <p>Images : - {{doc.doc_image}}</p>
+        <p>Folder Id : {{doc.folder_id}}</p>
+        <p>Created Date : {{doc.createdAt | date: 'dd-MMM-yyyy'}}</p>
       </ion-label>
     </ion-item>
   </div>
-  <ion-button color="secondary"  type="button" value="edit" (click)="editNote(note)">Edit</ion-button>
+  <ion-button color="secondary"  type="button" value="edit" (click)="editDoc(doc)">Edit</ion-button>
 </ion-content>
