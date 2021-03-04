@@ -30,6 +30,11 @@ export class NotePageModel implements OnInit {
   public responseStr: string;
   public filder_list:any;
 
+  images = [];
+  public myphoto: any;
+  public url;
+  noteContent;
+  
   constructor(
     public modalController: ModalController,
     public toast:ToastController,
@@ -41,13 +46,6 @@ export class NotePageModel implements OnInit {
     private transfer: FileTransfer,
     private actionSheetController: ActionSheetController
   ) {}
-
-
-  images = [];
-  public myphoto: any;
-  noteContent;
-
-  
 
   ngOnInit() {
     this.initNoteForm();
@@ -82,7 +80,7 @@ export class NotePageModel implements OnInit {
   initNoteForm() {
     this.noteForm = this._formBuilder.group({
       title: new FormControl(),
-      userId: new FormControl(),
+      userId: new FormControl(localStorage.getItem('adminId')),
       content: new FormControl(),
       images: new FormControl(),
       folder_id: new FormControl(), 
@@ -93,10 +91,11 @@ export class NotePageModel implements OnInit {
 
   createNote(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
-    formData["userId"] = localStorage.getItem("adminId");
+    formData["userId"] = localStorage.getItem("adminId") || "601870f796b9f2834f045d1a"
     formData["date"] = this.dateFormater(formData.date); 
     formData["content"] = this.noteContent;
     // formData["images"] = "xfgxgfb.jpg";
+    console.log("create payload",formData);
     this._noteManagementService.createNote(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
@@ -205,8 +204,13 @@ export class NotePageModel implements OnInit {
         async (data) => {
           result = data;
           console.log(result,"success")
+          let _data = JSON.parse(result.response);
+          console.log(data);
+          this.url = _data.response.s3Url
+          
+          console.log(this.url,"url")
+          this.noteForm.get('images').setValue(this.url);
           alert("data "+JSON.stringify(result)+  JSON.parse(result.response).object)
-          this.images.push(JSON.parse(result.response).object.s3Url);
 
           console.log(this.images,"this.images");
         },

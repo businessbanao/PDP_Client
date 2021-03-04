@@ -87,7 +87,10 @@
 
     <!--sg-->
     <ng-container>
-      
+      <div class="NoRecordFound" *ngIf="accounts?.length == 0">
+        <img src="../../../../../assets/img/no-record.gif" alt="no record found">
+        <p>No Record Found</p>
+      </div>
       <ion-item-sliding id="item100" *ngFor="let list of accounts">
         <ion-item (click)="openLedgerModal(list._id)">
           <ion-label>

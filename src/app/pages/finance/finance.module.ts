@@ -13,6 +13,7 @@ import { FinanceService } from '../../providers/finance.service';
 import { AccountPageModel } from "./model/account/account.page";
 import { LedgerPageModel } from './model/ledger/ledger.page';
 import { AccountLedgerPageModel } from './model/account_ledger/account_ledger.page';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { AccountLedgerPageModel } from './model/account_ledger/account_ledger.pa
     MatNativeDateModule
   ],
   declarations: [FinancePage, AccountPageModel, LedgerPageModel, AccountLedgerPageModel],
-  providers:[AccountService, FinanceService],
+  providers:[AccountService, FinanceService, Camera],
   entryComponents:[AccountPageModel, LedgerPageModel, AccountLedgerPageModel]
 })
 export class FinancePageModule {}

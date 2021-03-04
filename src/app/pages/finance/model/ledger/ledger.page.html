@@ -20,12 +20,16 @@
   <ng-container>
     <ion-item>
       <ion-label>Date : </ion-label>
-      <ion-input type="date" [(ngModel)]="date"></ion-input>
+      <ion-input type="month" [(ngModel)]="monthYear" (ionChange)='getInventory()'></ion-input>
     </ion-item>
 
     <hr>
 
-    <table>
+    <div class="NoRecordFound" *ngIf="inventory?.length == 0">
+      <img src="../../../../../assets/img/no-record.gif" alt="no record found">
+      <p>No Record Found</p>
+    </div>
+    <table *ngIf="inventory?.length != 0">
       <tr>
         <th>Account</th>
         <th>Credit</th>

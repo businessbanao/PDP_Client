@@ -49,21 +49,28 @@
                 </ion-item>  
                 <ion-item>
                   <ion-label>Amount : </ion-label>
-                  <ion-input type="text" placeholder="amount" formControlName="amount"></ion-input>
+                  <ion-input class="alignRight" type="number" placeholder="amount" formControlName="amount"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label>Description : </ion-label>
-                  <ion-input type="text" placeholder="description" formControlName="description"></ion-input>
+                  <ion-input class="alignRight" type="text" placeholder="description" formControlName="description"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label>Date : </ion-label>
-                  <ion-input type="date" formControlName="date"></ion-input>
+                  <ion-input class="alignRight" type="date" formControlName="date"></ion-input>
                   <!-- <ion-datetime placeholder="date" [(ngModel)]="selectedDate" [max]="today" formControlName="date"></ion-datetime> -->
                 </ion-item>
                   <br>
                   <ion-button *ngIf='!isEditMode' color="primary" type="submit" value="Save">Save</ion-button>
                   <ion-button *ngIf='isEditMode' color="secondary"  type="button" value="Update" (click)="updateInventory(inventoryForm)">Update</ion-button>
                 </form>
+
+                <ion-row style="width:100%" style="justify-content: flex-end;padding: 10px 0px;">
+                  <ion-button class="upload-img" (click)="selectImagefromMobille()">
+                    Upload Image  &nbsp;&nbsp;<ion-icon  name="cloud-upload-sharp"></ion-icon>
+                  </ion-button>
+                </ion-row>
+
           </div>
       </div>
   </div>
@@ -98,6 +105,11 @@
       <span>Oops, No Record Found!</span>
     </ion-item> 
      -->
+    
+    <div class="NoRecordFound" *ngIf="inventoryList?.length == 0">
+      <img src="../../../assets/img/no-record.gif" alt="no record found">
+      <p>No Record Found</p>
+    </div>
     <ion-item-sliding id="item100" *ngFor="let inventory of inventoryList">
       <ion-item >
         <ion-label>

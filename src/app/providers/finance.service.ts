@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {tap} from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+
 
 @Injectable()
 
@@ -18,7 +20,7 @@ export class FinanceService {
     }
 
     createInventory(payload): Observable<any> {
-      return this._http.post(`http://13.127.184.151:5000/api/v1/CreateInventry`, payload).pipe(
+      return this._http.post(environment.baseUrl+`/api/v1/CreateInventry`, payload).pipe(
         tap(
           response => {},
           error => {}
@@ -27,7 +29,7 @@ export class FinanceService {
     }
 
       updateInventory(id, payload): Observable<any> {
-        return this._http.put(`http://13.127.184.151:5000/api/v1/InventryUpdate/` + id, payload).pipe(
+        return this._http.put(environment.baseUrl+`/api/v1/InventryUpdate/` + id, payload).pipe(
           tap(
             response => {},
             error => {}
@@ -36,7 +38,7 @@ export class FinanceService {
       }
 
       getInventory(page): Observable<any> {
-        return this._http.get(`http://13.127.184.151:5000/api/v1/inventrylist?&limit=${page.limit}&skip=${page.skip}`).pipe(
+        return this._http.get(environment.baseUrl+`/api/v1/inventrylist?&limit=${page.limit}&skip=${page.skip}`).pipe(
           tap(
             response => {},
             error => {}
@@ -45,7 +47,7 @@ export class FinanceService {
       }
   
       deleteInventory(id:String): Observable<any> {
-        return this._http.delete(`http://13.127.184.151:5000/api/v1/InventryDelete/`+id).pipe(
+        return this._http.delete(environment.baseUrl+`/api/v1/InventryDelete/`+id).pipe(
           tap(
             response => {
               console.log("delete account id : " + id + "success");
@@ -61,9 +63,9 @@ export class FinanceService {
     let url;
 
     if(accountId){
-      url = `http://13.127.184.151:5000/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate+`&account_id=${accountId}`
+      url = environment.baseUrl+`/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate+`&account_id=${accountId}`
     }else{
-      url = `http://13.127.184.151:5000/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate
+      url = environment.baseUrl+`/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate
     }
     return this._http.get(url).pipe(
       tap(

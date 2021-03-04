@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {tap} from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 
@@ -12,7 +13,7 @@ export class GoalManagementService {
     constructor(private _http: HttpClient){}
 
     getGoal(adminId: String): Observable<any> {
-      return this._http.get(`http://13.127.184.151:5000/api/v1/GetAllGoals/`+adminId).pipe(
+      return this._http.get(environment.baseUrl+`/api/v1/GetAllGoals/`+adminId).pipe(
         tap(
           response => { console.log("get goal management Goal : successfull"); },
           error => { console.log("get goal management task : failed"); }
@@ -21,7 +22,7 @@ export class GoalManagementService {
     }
     
     deleteGoal(goalId:String): Observable<any> {
-      return this._http.delete(`http://13.127.184.151:5000/api/v1/deletegoals/`+goalId).pipe(
+      return this._http.delete(environment.baseUrl+`/api/v1/deletegoals/`+goalId).pipe(
         tap(
           response => { 
             console.log("delete goal id : " + goalId + "success"); 
@@ -36,7 +37,7 @@ export class GoalManagementService {
     }
     
     updateGoal(goalId, payload): Observable<any> {
-      return this._http.put(`http://13.127.184.151:5000/api/v1/editgoals/` + goalId, payload).pipe(
+      return this._http.put(environment.baseUrl+`/api/v1/editgoals/` + goalId, payload).pipe(
         tap(
           response => { console.log("update goal : successfull"); },
           error => { console.log("update goal : failed"); }
@@ -45,7 +46,7 @@ export class GoalManagementService {
     }
     
     createGoal(payload): Observable<any> {
-      return this._http.post(`http://13.127.184.151:5000/api/v1/creategoals`, payload).pipe(
+      return this._http.post(environment.baseUrl+`/api/v1/creategoals`, payload).pipe(
         tap(
           response => { console.log("create goal : successfull"); },
           error => { console.log("create goal : failed"); }

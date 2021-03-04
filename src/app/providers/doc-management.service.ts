@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {tap} from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 
@@ -12,7 +13,7 @@ export class DocManagementService {
     constructor(private _http: HttpClient){}
 
     getDocFolders(): Observable<any> {
-      return this._http.get('http://13.127.184.151:5000/api/v1/getallfolder?type=DOCS').pipe(
+      return this._http.get(environment.baseUrl+'/api/v1/getallfolder?type=DOCS').pipe(
         tap(
           response => { console.log("get folder management : successfull"); },
           error => { console.log("get folder management : failed"); }
@@ -22,7 +23,7 @@ export class DocManagementService {
     
     // need to change api
     getFolderDocs(folderId: String): Observable<any> {
-      return this._http.get('http://13.127.184.151:5000/api/v1/docRecords').pipe(
+      return this._http.get(environment.baseUrl+'/api/v1/docRecords').pipe(
         tap(
           response => { console.log("get docs management : successfull"); },
           error => { console.log("get docs management : failed"); }

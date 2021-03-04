@@ -6,15 +6,32 @@ import { ActionSheetController, ModalController } from '@ionic/angular';
 import { AccountPageModel } from "./model/account/account.page";
 import { AccountService } from '../../providers/account.service';
 import { LedgerPageModel } from './model/ledger/ledger.page';
+import { DatePipe } from '@angular/common';
+import { environment } from '../../../environments/environment';
+import {
+  Camera,
+  CameraOptions,
+  PictureSourceType,
+} from "@ionic-native/camera/ngx";
+import {
+  FileTransfer,
+  FileUploadOptions,
+  FileTransferObject,
+} from "@ionic-native/file-transfer/ngx";
 
 @Component({
   selector: 'app-finance',
   templateUrl: './finance.page.html',
   styleUrls: ['./finance.page.scss'],
+  providers:[DatePipe]
 })
 
 export class FinancePage implements OnInit {
 
+  images = [];
+  public myphoto: any;
+  public baseUrl: String = environment.baseUrl + "/";
+  public url;
   today:any;
   selectedDate:any;
   public dateFilter;
@@ -37,13 +54,18 @@ export class FinancePage implements OnInit {
     { name: "Sandip", id :'6018564ed041c31c261227cd' }
   ]  
 
-  constructor(private activatedRoute: ActivatedRoute, 
+  constructor(private _datePipe: DatePipe,
+      private activatedRoute: ActivatedRoute, 
       private _financeService: FinanceService,
       private _accountService: AccountService, 
       private _formBuilder: FormBuilder, 
       public actionSheetController: ActionSheetController,
       public modalController: ModalController,
+      private camera: Camera,
+      private transfer: FileTransfer,
       ) { 
+        this.dateFilter = this._datePipe.transform(new Date(), 'dd-MM-yyyy');
+    console.log("date : "+this.dateFilter);
         this.today = new Date().toISOString();
   }
 
@@ -218,6 +240,98 @@ export class FinancePage implements OnInit {
           }, 1800);
         }
       });
+  }
+
+  async selectImagefromMobille() {
+    const actionSheet = await this.actionSheetController.create({
+      header: "Select Image source",
+      buttons: [
+        {
+          text: "Load from Library",
+          handler: () => {
+            this.pickImage(this.camera.PictureSourceType.PHOTOLIBRARY);
+          },
+        },
+        {
+          text: "Use Camera",
+          handler: () => {
+            this.pickImage(this.camera.PictureSourceType.CAMERA);
+          },
+        },
+        {
+          text: "Cancel",
+          role: "cancel",
+        },
+      ],
+    });
+    await actionSheet.present();
+  }
+
+  pickImage(sourceType) {
+    const options: CameraOptions = {
+      quality: 100,
+      sourceType: sourceType,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+    };
+
+    this.camera.getPicture(options).then(
+      (imageData) => {
+        this.myphoto = "data:image/jpeg;base64," + imageData;
+        this.uploadImage();
+      },
+      (err) => {
+        console.log("err: ", err);
+      }
+    );
+  }
+
+  uploadImage() {
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    var random = Math.floor(Math.random() * 100);
+    let options: FileUploadOptions = {
+      fileKey: "photo",
+      fileName: "myImage_" + random + ".jpg",
+      chunkedMode: false,
+      httpMethod: "post",
+      mimeType: "image/jpeg",
+      headers: {
+        __authorization_x_token: localStorage.getItem("AuthToken") || "",
+      },
+    };
+
+    let result;
+
+    console.log("this.baseUrl",this.baseUrl)
+
+    fileTransfer
+      .upload(
+        this.myphoto,
+        `${this.baseUrl}api/v1/Admin/saveAllImages`,
+        options
+      )
+      .then(
+        async (data) => {
+          result = data;
+          console.log(result,"success")
+          let _data = JSON.parse(result.response);
+          console.log(data);
+          this.url = _data.response.s3Url
+          
+          console.log(this.url,"url")
+          this.inventoryForm.get('images').setValue(this.url);
+          alert("data "+JSON.stringify(result)+  JSON.parse(result.response).object)
+
+          console.log(this.images,"this.images");
+        },
+        (err) => {
+          console.log(err);
+          alert("Error" + err + JSON.stringify(err));
+          // loader.dismiss();
+        }
+      );
   }
   
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {tap} from 'rxjs/operators';
+import { environment } from "../../environments/environment";
 
 @Injectable()
 
@@ -18,7 +19,7 @@ export class AccountService {
   }
 
   createAccount(payload): Observable<any> {
-    return this._http.post(`http://13.127.184.151:5000/api/v1/CreateAccount`, payload).pipe(
+    return this._http.post(environment.baseUrl+`/api/v1/CreateAccount`, payload).pipe(
       tap(
         response => {},
         error => {}
@@ -27,7 +28,7 @@ export class AccountService {
   }
 
   updateAccount(id, payload): Observable<any> {
-    return this._http.put(`http://13.127.184.151:5000/api/v1/accountUpdate/` + id, payload).pipe(
+    return this._http.put(environment.baseUrl+`/api/v1/accountUpdate/` + id, payload).pipe(
       tap(
         response => {},
         error => {}
@@ -36,7 +37,7 @@ export class AccountService {
   }
 
   getAccount(userId): Observable<any> {
-    return this._http.get(`http://13.127.184.151:5000/api/v1/GetAccountDetails/${userId}`).pipe(
+    return this._http.get(environment.baseUrl+`/api/v1/GetAccountDetails/${userId}`).pipe(
       tap(
         response => {},
         error => {}
@@ -45,7 +46,7 @@ export class AccountService {
   }
   
   getAccountInventory(accountId: String): Observable<any>{
-    return this._http.get(`http://13.127.184.151:5000/api/v1/inventrylist?&account_id=`+accountId).pipe(
+    return this._http.get(environment.baseUrl+`/api/v1/inventrylist?&account_id=`+accountId).pipe(
       tap(
         response => {
           console.log("Get account inventory : success");
@@ -58,7 +59,7 @@ export class AccountService {
   }
 
   deleteAccount(id:String): Observable<any> {
-    return this._http.delete(`http://13.127.184.151:5000/api/v1/accountDelete/`+id).pipe(
+    return this._http.delete(environment.baseUrl+`/api/v1/accountDelete/`+id).pipe(
       tap(
         response => {
           console.log("delete account id : " + id + "success");
@@ -71,7 +72,7 @@ export class AccountService {
   }
 
   getDateInventory(startDate: String, endDate: String): Observable<any>{
-    return this._http.get(`http://13.127.184.151:5000/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate).pipe(
+    return this._http.get(environment.baseUrl+`/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate).pipe(
       tap(
         response => {
           console.log("Get date inventory : success");
@@ -84,7 +85,7 @@ export class AccountService {
   }
 
   searchAccout(acc_name: String, adminId: String): Observable<any>{
-    return this._http.get(`http://13.127.184.151:5000/api/v1/searchaccount/`+ acc_name + `/` + adminId).pipe(
+    return this._http.get(environment.baseUrl+`/api/v1/searchaccount/`+ acc_name + `/` + adminId).pipe(
       tap(
         response => {
           console.log("search account : success");
