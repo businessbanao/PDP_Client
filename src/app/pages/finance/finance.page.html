@@ -79,7 +79,7 @@
   <ng-container *ngIf="tabName == 'inventory_list'">
     <ion-item>
       <ion-label>Date : </ion-label>
-      <ion-input type="date" [(ngModel)]="dateFilter" (ionChange)='applyFilter()'></ion-input>
+      <input type="date" [(ngModel)]="dateFilter" (ngModelChange)='applyFilter()'>
     </ion-item> 
     <ion-item>
       <ion-label>Inventory Type: </ion-label>
