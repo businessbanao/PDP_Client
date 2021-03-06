@@ -23,31 +23,27 @@
       <ion-input type="month" [(ngModel)]="monthYear" (ionChange)='getInventory()'></ion-input>
     </ion-item>
 
+    <ion-item>
+      <ion-label class="crAmmount">Total Incoming : {{ totalIncoming }}</ion-label>
+      <ion-label class="drAmmount">Total Outgoing : {{ totalOutgoing }}</ion-label>
+    </ion-item>
+
     <hr>
 
-    <div class="NoRecordFound" *ngIf="inventory?.length == 0">
+    <div class="NoRecordFound" *ngIf="inventoryList?.length == 0">
       <img src="../../../../../assets/img/no-record.gif" alt="no record found">
       <p>No Record Found</p>
     </div>
-    <table *ngIf="inventory?.length != 0">
-      <tr>
-        <th>Account</th>
-        <th>Credit</th>
-        <th>Debit</th>
-      </tr>
-      <tr *ngFor="let invtry of inventory">
-        <td>{{ invtry.account_id }}</td>
-        <td>{{ invtry.inventryType }}</td>
-        <td>{{ invtry.amount }}</td>
-      </tr>
-      <hr>
-      <tr>
-        <th>Total</th>
-        <th>cr. total</th>
-        <th>dr. total</th>
-      </tr>
-      <hr>
-    </table>
+
+    <div *ngIf="inventoryList?.length != 0">
+      <div *ngFor="let invtry of inventoryList" class="trList">
+        <p>Account -{{ invtry.account_id }}</p>
+        <p>Type - {{ invtry.inventryType }}</p>
+        <p *ngIf="invtry.inventryType == 'credit'" class="crAmmount">Ammount - {{ invtry.amount | currency:'INR' }}</p>
+        <p *ngIf="invtry.inventryType != 'credit'" class="drAmmount">Ammount - {{ invtry.amount | currency:'INR' }}</p>
+        <p>Date - {{ invtry.date | date  }}</p>
+      </div>
+    </div>
 
   </ng-container>
   

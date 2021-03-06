@@ -13,16 +13,20 @@ import { DatePipe } from '@angular/common';
 
 export class LedgerPageModel implements OnInit {
 
-  inventory:any = [];
+  inventoryList:any = [];
   public monthYear;
-  incomingTotal;
-  outgoingTotal;
+  totalIncoming: number = 0;
+  totalOutgoing: number = 0;
+  newInventoryList:any = [];
 
   constructor(
     private _datePipe: DatePipe,
     private _accountService: AccountService, 
     public modalController: ModalController
-  ) {}
+  ) {
+    this.monthYear = this._datePipe.transform(new Date(),  'yyyy-MM');
+    // console.log(this._datePipe.transform(new Date(),  'yyyy-MM'));
+  }
 
   ngOnInit() {
     this.getInventory();
@@ -37,11 +41,14 @@ export class LedgerPageModel implements OnInit {
     let startDate =  this.monthYear.split("-")[1]+"-01-"+this.monthYear.split("-")[0], 
         endDate = this.monthYear.split("-")[1]+"-31-"+this.monthYear.split("-")[0];
     this._accountService.getDateInventory(startDate, endDate).subscribe((resp) => {
-      this.inventory = resp.response;
-      // resp.response.filter(invntry => invntry.inventryType == "credit");
-      // resp.response.array.forEach(element => {
-      //   this.inventory[""] = element.amount
-      // });
+      this.inventoryList = resp.response;
+      this.inventoryList.filter(invntry => invntry.inventryType == "credit").forEach(element => {
+        this.totalIncoming += Number(element.amount);
+      });
+      this.inventoryList.filter(invntry => invntry.inventryType == "debit").forEach(element => {
+        this.totalOutgoing += Number(element.amount);
+      });
+      
     });
   }
 

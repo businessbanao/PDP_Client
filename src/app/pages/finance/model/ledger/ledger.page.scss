@@ -26,42 +26,12 @@ ion-menu-button {
 #container a {
   text-decoration: none;
 }
-
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+.crAmmount{
+  color: rgb(50, 173, 50);
 }
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-td:nth-child(2) {
-  color: green;
-}
-
-td:nth-child(3) {
+.drAmmount{
   color: red;
 }
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-.NoRecordFound {
-  margin-left: 22%;
-  margin-top: -4%;
-}
-
-.NoRecordFound img {
-  height: 270px;
-}
-
-.NoRecordFound p {
-  margin-top: -10%;
-  margin-left: 15%;
-  font-size: 26px;
+.trList {
+  border-bottom: ridge;
 }

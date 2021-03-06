@@ -47,6 +47,9 @@ export class FinancePage implements OnInit {
   tabName: string = "mannual_entry";
   accounts: any;
 
+  totalIncoming: number = 0;
+  totalOutgoing: number = 0;
+
   Users: any = [
     { name: "Shashwat", id: "6018524ed041c31c261227cd" },
     { name: "Shivam", id: "6011524ed041c31c561227cd" },
@@ -63,10 +66,7 @@ export class FinancePage implements OnInit {
     public modalController: ModalController,
     private camera: Camera,
     private transfer: FileTransfer
-  ) {
-    
-    console.log("cons")
-  }
+  ) {}
 
   ngOnInit() {
     this.finance = this.activatedRoute.snapshot.paramMap.get("id");
@@ -74,7 +74,6 @@ export class FinancePage implements OnInit {
     this.getAccounts();
     this.dateFilter =this._datePipe.transform(new Date(),  'yyyy-MM-dd');
     this.applyFilter()
-    console.log("init")
   }
 
    
@@ -98,7 +97,7 @@ export class FinancePage implements OnInit {
       this.responseStr = resp.response;
       this.tabName = "inventory_list";
       this.isEditMode = false;
-      this.getInventory();
+      this.applyFilter(); 
     });
   }
 
@@ -117,7 +116,7 @@ export class FinancePage implements OnInit {
       this.responseStr = resp.response;
       this.tabName = "inventory_list";
       this.isEditMode = false;
-      this.getInventory();
+      this.applyFilter();
     });
   }
 
@@ -126,22 +125,29 @@ export class FinancePage implements OnInit {
       this.responseStr = resp.response;
       this.tabName = "inventory_list";
       this.isEditMode = false;
-      this.getInventory();
+      this.applyFilter();
     });
   }
 
-  getInventory() {
-    this._financeService.getInventory(this.page).subscribe((resp) => {
-      this.inventoryList = resp.response;
-    });
-  }
+  // getInventory() {
+  //   this._financeService.getInventory(this.page).subscribe((resp) => {
+  //     this.inventoryList = resp.response;
+  //   });
+  // }
 
   applyFilter() {
     let date = this.dateFormater(this.dateFilter);
     this._financeService
-      .filterInventory(date, date, this.accountFilter, this.inventryTypeFilter)
+      .filterInventory(date, date, this.accountFilter, this.inventryTypeFilter, this.page)
       .subscribe((resp: any) => {
         this.inventoryList = resp.response;
+
+        this.inventoryList.filter(invntry => invntry.inventryType == "credit").forEach(element => {
+          this.totalIncoming += Number(element.amount);
+        });
+        this.inventoryList.filter(invntry => invntry.inventryType == "debit").forEach(element => {
+          this.totalOutgoing += Number(element.amount);
+        });
       });
   }
 
@@ -243,7 +249,6 @@ export class FinancePage implements OnInit {
 
       if (event) {
         setTimeout(() => {
-          console.log("Done");
           event.target.complete();
           this.inventoryList = this.inventoryList.concat(resp.response);
           // this.getAvgReview();

@@ -59,7 +59,7 @@ export class FinanceService {
         );
       }
 
-  filterInventory(startDate:String, endDate:String, accountId:String, inventoType:String){
+  filterInventory(startDate:String, endDate:String, accountId:String, inventoType:String, page){
     let url;
 
     if(accountId){
@@ -67,6 +67,7 @@ export class FinanceService {
     }else{
       url = environment.baseUrl+`/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate
     }
+    url += `&limit=${page.limit}&skip=${page.skip}`;
     return this._http.get(url).pipe(
       tap(
         response => {
