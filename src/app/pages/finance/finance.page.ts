@@ -246,7 +246,7 @@ export class FinancePage implements OnInit {
     this.page.limit = this.page.limit;
     this.page.skip = this.page.skip + 5;
 
-    this._financeService.filterInventory(date, date, this.accountFilter, this.inventryTypeFilter, this.page).subscribe((resp) => {
+    this._financeService.filterInventory(date, date, this.accountFilter, this.inventryTypeFilter, this.page).subscribe((resp:any) => {
       if (event) {
         setTimeout(() => {
           event.target.complete();

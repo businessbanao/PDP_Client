@@ -20,6 +20,7 @@ export class LedgerPageModel implements OnInit {
   totalOutgoing: number = 0;
   newInventoryList:any = [];
 
+
   constructor(
     private _datePipe: DatePipe,
     private _accountService: AccountService, 
@@ -38,6 +39,7 @@ export class LedgerPageModel implements OnInit {
     await this.modalController.dismiss(onClosedData);
   }
 
+  // public 
   getInventory(){
     let startDate =  this.monthYear.split("-")[1]+"-01-"+this.monthYear.split("-")[0], 
         endDate = this.monthYear.split("-")[1]+"-31-"+this.monthYear.split("-")[0];
@@ -50,8 +52,62 @@ export class LedgerPageModel implements OnInit {
       this.inventoryList.filter(invntry => invntry.inventryType == "debit").forEach(element => {
         this.totalOutgoing += Number(element.amount);
       });
+
+      let groupResult = this.inventoryList.reduce(function (r, a) {
+        r[a.account_id.account_name] = r[a.account_id.account_name] || [];
+        r[a.account_id.account_name].push(a);
+        return r;
+      }, Object.create(null));
+
+
+      console.log(groupResult, "group result");
+
+      
+
+      // let arr1=[]
+      // groupResult.Petrol.forEach(data => {
+      //   console.log(data,"pert data");
+      //   arr1.push(data);
+      // });
+
+      // console.log(arr1,"arr1")
+
+
+
+      let self = this;
+      this.inventoryList.forEach(element => {
+        self.monthlyInventoryList.push(element.account_id.account_name);
+      });
+
+
+      let finalArr = [];
+      for (const [key, value] of Object.entries(groupResult)) {
+        console.log(`${key}: ${value}`);
+
+        let total = this.sum(value, "amount");
+        finalArr.push({
+          accountName: value[0].account_id.account_name,
+          amount: total,
+          
+        });
+      }
+
+      this.newInventoryList = finalArr;
       
     });
   }
+
+  sum(items, prop) {
+    let total_value = 0;
+    items.forEach(function (val) {
+       
+        total_value = total_value + parseInt(val.amount);
+      
+    });
+    return total_value;
+  }
+
+
+
 
 }
