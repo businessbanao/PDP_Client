@@ -35,7 +35,7 @@
             <ion-item>
                 <ion-label>Folder : </ion-label>
                 <ion-select placeholder="Folder" formControlName="folder_id">
-                  <section  *ngFor="let folder of filder_list">
+                  <section  *ngFor="let folder of folder_list">
                     <ion-select-option value="{{ folder._id }}">{{ folder.name }}</ion-select-option>
                 </section>
                 </ion-select>

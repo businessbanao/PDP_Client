@@ -14,6 +14,7 @@ import { DatePipe } from '@angular/common';
 export class LedgerPageModel implements OnInit {
 
   inventoryList:any = [];
+  monthlyInventoryList:any[];
   public monthYear;
   totalIncoming: number = 0;
   totalOutgoing: number = 0;
@@ -42,6 +43,7 @@ export class LedgerPageModel implements OnInit {
         endDate = this.monthYear.split("-")[1]+"-31-"+this.monthYear.split("-")[0];
     this._accountService.getDateInventory(startDate, endDate).subscribe((resp) => {
       this.inventoryList = resp.response;
+
       this.inventoryList.filter(invntry => invntry.inventryType == "credit").forEach(element => {
         this.totalIncoming += Number(element.amount);
       });

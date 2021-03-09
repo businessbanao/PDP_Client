@@ -31,9 +31,8 @@ export class TaskPageModel implements OnInit {
     this.taskForm.get('date').setValue(this.data.date.slice(0,10));
   }
   
-  async closeModal() {
-    const onClosedData: string = "Address Added";
-    await this.modalController.dismiss(onClosedData);
+  async closeModal(isCreated: boolean) {
+    await this.modalController.dismiss(isCreated);
   }
 
   updateTask(payload) {
@@ -41,14 +40,18 @@ export class TaskPageModel implements OnInit {
     let id = this.taskForm.get("id").value;
     this._dayManagementService.updateTask(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
-      let toast = await this.toast.create({
-        message:"Updated Successfully",
-        color:'success',
-        duration:2000
-      })
-      toast.present();
+      if(!resp.error){
+        let toast = await this.toast.create({
+          message:"Updated Successfully",
+          color:'success',
+          duration:2000
+        })
+        toast.present();
+        this.closeModal(true);
+      } else {
+        this.closeModal(false);
+      }
       this.taskForm.reset();
-      this.closeModal();
     });
     this.isEditMode = false;
   }
@@ -70,14 +73,18 @@ export class TaskPageModel implements OnInit {
     formData["incompleted_task"] = "NO";
     this._dayManagementService.createTask(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
-      let toast = await this.toast.create({
-        message:"created Successfully",
-        color:'success',
-        duration:2000
-      })
-      toast.present();
+      if(!resp.error){
+        let toast = await this.toast.create({
+          message:"created Successfully",
+          color:'success',
+          duration:2000
+        })
+        toast.present();
+        this.closeModal(true);
+      } else {
+        this.closeModal(false);
+      }
       this.taskForm.reset();
-      this.closeModal();
     });
   }
 

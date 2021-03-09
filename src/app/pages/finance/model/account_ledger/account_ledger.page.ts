@@ -39,17 +39,13 @@ export class AccountLedgerPageModel implements OnInit {
       this.accountsInventory = resp.response;
       this.creditInventory = this.accountsInventory.filter(inventory => inventory.inventryType == "credit");
       this.debitInventory = this.accountsInventory.filter(inventory => inventory.inventryType == "debit");
-      this.crTotal = this.getInventoryTotal(this.creditInventory);
-      this.dbtTotal = this.getInventoryTotal(this.debitInventory); 
+      this.creditInventory.forEach(element => {
+        this.crTotal += Number(element.amount);
+      });
+      this.debitInventory.forEach(element => {
+        this.dbtTotal += Number(element.amount);
+      });
     });
-  }
-
-  getInventoryTotal(inventory: any){
-    let total = 0;
-    for(let i = 0; i<inventory.length; i++ ){
-      total+= parseInt(inventory[i].amount);
-    }
-    return total;
   }
 
 }

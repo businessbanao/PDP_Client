@@ -63,11 +63,10 @@ export class FinanceService {
     let url;
 
     if(accountId){
-      url = environment.baseUrl+`/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate+`&account_id=${accountId}`
+      url = environment.baseUrl+`/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate+`&account_id=${accountId}&limit=${page.limit}&skip=${page.skip}`
     }else{
-      url = environment.baseUrl+`/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate
+      url = environment.baseUrl+`/api/v1/inventrylist?&startDate=`+startDate+`&endDate=`+endDate+`&limit=${page.limit}&skip=${page.skip}`
     }
-    url += `&limit=${page.limit}&skip=${page.skip}`;
     return this._http.get(url).pipe(
       tap(
         response => {

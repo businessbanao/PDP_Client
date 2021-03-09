@@ -41,7 +41,6 @@ export class NoteManagementPage implements OnInit {
   getFolders(){
     this._noteManagementService.getFolders().subscribe((resp) => {
       this.folderList = resp.response;
-      console.log(this.folderList);
     });
   }
 
@@ -139,7 +138,8 @@ export class NoteManagementPage implements OnInit {
       component: NoteListPageModel,
       componentProps:{
         folderId : folder_id,
-        folderName : folder_name
+        folderName : folder_name,
+        folderList : this.folderList
       }
     });
     modal.onDidDismiss().then((dataReturned) => {

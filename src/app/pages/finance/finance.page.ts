@@ -242,19 +242,32 @@ export class FinancePage implements OnInit {
   };
 
   loadData(event) {
+    let date = this.dateFormater(this.dateFilter);
     this.page.limit = this.page.limit;
     this.page.skip = this.page.skip + 5;
-    this._financeService.getInventory(this.page).subscribe((resp) => {
-      // this.inventoryList = resp.response;
 
+    this._financeService.filterInventory(date, date, this.accountFilter, this.inventryTypeFilter, this.page).subscribe((resp) => {
       if (event) {
         setTimeout(() => {
           event.target.complete();
+          debugger
           this.inventoryList = this.inventoryList.concat(resp.response);
           // this.getAvgReview();
         }, 1800);
       }
     });
+
+    // this._financeService.getInventory(this.page).subscribe((resp) => {
+    //   // this.inventoryList = resp.response;
+
+    //   if (event) {
+    //     setTimeout(() => {
+    //       event.target.complete();
+    //       this.inventoryList = this.inventoryList.concat(resp.response);
+    //       // this.getAvgReview();
+    //     }, 1800);
+    //   }
+    // });
   }
 
   async selectImagefromMobille() {

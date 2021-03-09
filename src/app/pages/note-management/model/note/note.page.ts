@@ -21,6 +21,7 @@ import {
   templateUrl: "./note.page.html",
   styleUrls: ["./note.page.scss"],
 })
+
 export class NotePageModel implements OnInit {
   
   public baseUrl: String = environment.baseUrl + "/";
@@ -28,7 +29,7 @@ export class NotePageModel implements OnInit {
   public isEditMode: boolean = false;
   public data:any;
   public responseStr: string;
-  public filder_list:any;
+  public folder_list:any;
 
   images = [];
   public myphoto: any;

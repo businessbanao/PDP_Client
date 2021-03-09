@@ -16,6 +16,7 @@ export class NoteListPageModel implements OnInit {
   public folderId;
   public folderName;
   public notesList:any = [];
+  public folderList:any[];
   
   constructor(
     public modalController: ModalController,
@@ -36,7 +37,10 @@ export class NoteListPageModel implements OnInit {
   // add notes model
   async openNoteModal() {
     const modal = await this.modalController.create({
-      component: NotePageModel
+      component: NotePageModel,
+      componentProps:{
+        folder_list : this.folderList
+      }
     });
     modal.onDidDismiss().then((dataReturned) => {});
     return await modal.present();
@@ -79,8 +83,10 @@ export class NoteListPageModel implements OnInit {
     const modal = await this.modalController.create({
       component: NotePageModel,
       componentProps:{
-        data : data
+        data : data,
+        folder_list : this.folderList
       }
+
     });
     modal.onDidDismiss().then((dataReturned) => {});
     return await modal.present();

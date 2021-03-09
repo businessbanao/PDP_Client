@@ -51,7 +51,9 @@ export class DayManagementPage implements OnInit {
     let responseMsg:String;
     this._dayManagementService.deleteTask(taskId).subscribe(resp => {
       responseMsg = resp.error?"Task Deletion Failed":"Task Deleted Succesfully";
-      // toster this msg
+      if(!resp.error){
+        this.getTask();
+      }
     });
   }
 
@@ -72,7 +74,11 @@ export class DayManagementPage implements OnInit {
     const modal = await this.modalController.create({
       component: TaskPageModel
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => {
+      if(dataReturned){
+        this.getTask();
+      }
+    });
     return await modal.present();
   }
   
@@ -84,7 +90,11 @@ export class DayManagementPage implements OnInit {
         data : data
       }
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => {
+      if(dataReturned){
+        this.getTask();
+      }
+    });
     return await modal.present();
   }
 

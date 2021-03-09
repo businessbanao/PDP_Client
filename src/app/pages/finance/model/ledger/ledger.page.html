@@ -37,11 +37,12 @@
 
     <div *ngIf="inventoryList?.length != 0">
       <div *ngFor="let invtry of inventoryList" class="trList">
-        <p>Account -{{ invtry.account_id }}</p>
-        <p>Type - {{ invtry.inventryType }}</p>
-        <p *ngIf="invtry.inventryType == 'credit'" class="crAmmount">Ammount - {{ invtry.amount | currency:'INR' }}</p>
-        <p *ngIf="invtry.inventryType != 'credit'" class="drAmmount">Ammount - {{ invtry.amount | currency:'INR' }}</p>
-        <p>Date - {{ invtry.date | date  }}</p>
+        
+        <p class="save-later-name" style="text-transform: capitalize;">
+          {{invtry.account_id.account_name}}  - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span *ngIf="invtry.inventryType == 'credit'" class="crAmmount"> {{ invtry.amount | currency:'INR' }}</span>
+          <span *ngIf="invtry.inventryType != 'credit'" class="drAmmount"> {{ invtry.amount | currency:'INR' }}</span>
+        </p>
       </div>
     </div>
 
