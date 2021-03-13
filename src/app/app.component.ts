@@ -51,7 +51,7 @@ public newTotalCount =0;
       icon: "create-outline",
     },
     {
-      title: "My Goals",
+      title: "Goals",
       url: "/goalmgnt",
       icon: "golf-outline",
     },

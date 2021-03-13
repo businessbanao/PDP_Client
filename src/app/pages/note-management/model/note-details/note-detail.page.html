@@ -7,27 +7,31 @@
       ></ion-back-button>
     </ion-buttons>
     <ion-title id="top"> 
-      <ion-icon name="folder-open-outline" style="color: white;"></ion-icon>
-      &nbsp; {{ folderName }} 
-      <ion-icon name="chevron-forward-outline" style="color: white;"></ion-icon>
-      {{note.title}}</ion-title>
+      {{note.title}}
+      </ion-title>
   </ion-toolbar>
 </ion-header>
 
+ 
+
+ 
+
 <ion-content [fullscreen]="true">
-  <div class="container">
-    <ion-item>
-      <ion-label>
-        <h1>Title : - {{note.title}}</h1>
-        <br>
-        <div>Content : - <div innerHtml="{{ note.content }}"></div></div>
-        <br>
-        <p>Folder Id : {{note.folder_id}}</p>
-        <p>Images : {{note.images}}</p>
-        <p>Date : {{note.date | date: 'dd-MMM-yyyy'}}</p>
-      </ion-label>
-    </ion-item>
-  </div>
-  <img src="{{note.images}}">
+  <ion-card>
+    <ion-card-header>
+      <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/Project-Scope-Management-Cover.jpg"/>
+      <ion-card-subtitle>Date :  {{note.date | date: 'dd-MMM-yyyy'}}</ion-card-subtitle>
+      <ion-card-title>{{note.title}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <div innerHtml="{{ note.content }}"></div>
+    </ion-card-content>
+  </ion-card>
+  
+  
+  
+  
+  
   <ion-button color="secondary"  type="button" value="edit" (click)="editNote(note)">Edit</ion-button>
 </ion-content>

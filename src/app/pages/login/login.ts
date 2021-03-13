@@ -40,7 +40,7 @@ export class LoginPage {
 
     console.log("localStorage.getItem('AuthToken')",localStorage.getItem('AuthToken'))
     if (localStorage.getItem('AuthToken')) {
-      this.router.navigateByUrl('/tabs/analytics')
+      this.router.navigateByUrl('/finance')
     }
 
   }

@@ -31,10 +31,12 @@
     <ion-item-sliding *ngFor="let goal of goalList">
       <ion-item>
         <ion-label>
-          <h1>Name : - {{goal.title}}</h1>
-          <p>Priority : - {{goal.type}}</p>
-          <p>Completion Date : {{goal.expectedCompleteddate | date: 'dd-MMM-yyyy'}}</p>
-          <p>Expected Complete Date : {{goal.expectedCompleteddate | date: 'dd-MMM-yyyy'}}</p>
+          <h5>{{goal.title}} &nbsp;
+          <span style="color: blue;" *ngIf="goal.type == 'short_term'">( Short term )</span>
+          <span  style="color: blue;" *ngIf="goal.type == 'long_term'"> ( Long term )</span>
+          <span  style="color: blue;" *ngIf="goal.type == 'med_term'">( Med term )</span>
+        </h5>
+          <p>Date - {{goal.expectedCompleteddate | date: 'dd-MMM-yyyy'}}</p>
         </ion-label>
       </ion-item>
       <ion-item-options side="end">

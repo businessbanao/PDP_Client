@@ -26,9 +26,11 @@ export class TaskPageModel implements OnInit {
 
   ngOnInit() {
     this.initTaskForm();
+   if(this.data){
     this.taskForm.patchValue(this.data);
     this.taskForm.get('id').setValue(this.data._id);
     this.taskForm.get('date').setValue(this.data.date.slice(0,10));
+   }
   }
   
   async closeModal(isCreated: boolean) {

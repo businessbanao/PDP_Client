@@ -1,13 +1,14 @@
 .login-bg{
   height: 100vh;
-  background-image: url(../../../assets/img/full-login-bg.jpg);
+  // background-image: url(../../../assets/img/full-login-bg.jpg);
   width: 100%;
   background-repeat: no-repeat;
   background-size: cover;
 }
 @media (max-width: 576px){
   .login-bg{
-    background-image: url(../../../assets/img/login-bg.jpg);
+    // background-image: url(../../../assets/img/login-bg.jpg);
+    background-image: url(https://www.crystallegal.com/wp-content/uploads/2018/08/626.jpg);
     background-size: cover;
   }
   .login-form{

@@ -20,13 +20,12 @@
     <ion-item-sliding *ngFor="let emi of emiList">
       <ion-item>
         <ion-label>
-          <h1>Name : - {{emi.loan_name}}</h1>
-          <p>Priority : - {{emi.emi_ammount}}</p>
-          <p>Completed : {{emi.percentage}}</p>
-          <p>Completed : {{emi.tenureIn_months}}</p>
+          <h5 style="text-transform: capitalize;">{{emi.loan_name}} - <span style="color: blue;">{{emi.emi_ammount}} ₹ /- month</span></h5>
+          <!-- <p>Completed : {{emi.percentage}}</p>
+          <p>Completed : {{emi.tenureIn_months}}</p> -->
           <p>Date : {{emi.lastdate | date: 'dd-MMM-yyyy'}}</p>
-          <p>Completed : {{emi.description}}</p>
-          <p>Date : {{emi.createdAt | date: 'dd-MMM-yyyy'}}</p>
+          <!-- <p>Completed : {{emi.description}}</p> -->
+          <!-- <p>Date : {{emi.createdAt | date: 'dd-MMM-yyyy'}}</p> -->
         </ion-label>
       </ion-item>
       <ion-item-options side="end">
