@@ -14,7 +14,8 @@ export class UserServices {
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
   // public baseUrl: String = "//localhost:3000"
   // public baseUrl: string = "http://5afcaa1d.ngrok.io";
-  public baseUrl: String = environment.baseUrl
+  public baseUrl: String = environment.baseUrl;
+  public baseUrl2 = environment.baseUrl2;
   public ownerId = "601870f796b9f2834f045d1a"
   public _ownerId = "601870f796b9f2834f045d1a";
 
@@ -144,9 +145,32 @@ export class UserServices {
     );
 
   }
+  saveStock(body)
+  {
+    let url=this.baseUrl2 + "/api/v1/createstock"
+    return this.http.post(url,body);
+  }
+  editStock(body,id)
+  {
+    let url=this.baseUrl2 + "/api/v1/editstock/"+id
+    return this.http.put(url,body);
+  }
+  getStock()
+  {
+    let url=this.baseUrl2 + "/api/v1/getallstock"
+    return this.http.get(url);
+  }
+  deleteStock(id)
+  {
+    let url=this.baseUrl2 + "/api/v1/deletestock/"+id
+    return this.http.delete(url);
+  }
 
-
-
+  saveStockTransection(body)
+  {
+    let url=this.baseUrl2 + "/api/v1/createstocktransection"
+    return this.http.post(url,body);
+  }
 
 
   //
