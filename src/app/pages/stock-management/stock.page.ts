@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { ModalController, ToastController } from "@ionic/angular";
 import { AlertController } from "@ionic/angular";
 import { UserServices } from '../../providers/user.services'
+import { TransectionDetailsPage } from "./components/transection-details/transection-details";
 import { AddEditStockPageModel } from "./model/stock/add-edit-stock.page";
 
 @Component({
@@ -18,6 +19,10 @@ export class StockPage implements OnInit {
   isOn: boolean;
   editUserId;
   formData;
+  public available:any;
+   public id;
+  public transectionData: any;
+
   public show: boolean = false;
   list: any;
   // public del: string;
@@ -135,6 +140,39 @@ export class StockPage implements OnInit {
     return await modal.present();
   }
 
+
+  //transectiondetails
+  async openDetailsStockModal(body) {
+    const modal = await this.modalController.create({
+      component: TransectionDetailsPage,
+      componentProps: {
+        data:body
+      }
+    });
+    // debugger
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getStockManagement();
+    });
+    return await modal.present();
+  }
+  fetchTransectionDetails(data) {
+    this.id = this.user.getStockTransectionDetails(data)
+    debugger
+    this.user.getStockTransectionDetails(data).subscribe((result: any) => {
+        this.transectionData = result.response[0];
+        // debugger
+        console.log("itemName", this.transectionData.itemName);
+
+        console.log("useItem_count", this.transectionData.useItem_count);
+
+        console.log("date", this.transectionData.date);
+
+        console.log("quantityType", this.transectionData.quantityType);
+      });
+  }
+
+
+
   async openEditStockModal(body) {
     const modal = await this.modalController.create({
       component: AddEditStockPageModel,
@@ -154,25 +192,26 @@ export class StockPage implements OnInit {
   //alert
 
   async updateUseItemCount(stockData) {
+   
     let self = this;
+    
     const alert = await this.alertController.create({
+      
       cssClass: 'my-custom-class',
-      header: 'Prompt!',
+      header: '',
       inputs: [
         {
           name: 'date',
           type: 'date',
           placeholder: 'Enter Date'
         },
-        {
+        { 
+         
           name: 'used_count',
           type: 'number',
-
-
-          placeholder: 'Enter Value'
+          placeholder: 'Enter Value(Use-Items)'
         },
         // multiline input.
-
       ],
       buttons: [
         {
@@ -186,37 +225,36 @@ export class StockPage implements OnInit {
           text: 'Ok',
           handler: (data) => {
             console.log('Confirm Ok', data);
-            self.updateUsedCount(data,stockData)
+            self.updateUsedCount(data, stockData)
           }
         }
       ]
     });
     await alert.present();
   }
-  updateUsedCount(data,stockData) {
+  updateUsedCount(data, stockData) {
     this.user.editStock({
-      useItem_count:parseInt(data.used_count)+stockData.useItem_count
-    },stockData._id).subscribe((res) => {
-
-    this.saveStockTransection({
-      rawMeterial_id:stockData._id,
-      date:data['date'],
-      useItem_count:parseInt(data['used_count']),
-      itemName:stockData.name,
-      quantityType:stockData.quantity
+      useItem_count: parseInt(data.used_count) + stockData.useItem_count
+    }, stockData._id).subscribe((res) => {
+      this.saveStockTransection({
+        rawMeterial_id: stockData._id,
+        date: data['date'],
+        useItem_count: parseInt(data['used_count']),
+        totalItem_count:stockData.totalItem_count,
+        itemName: stockData.name,
+        quantityType: stockData.quantity
+      });
+    
+// debugger
     });
-
-      
-    });
+  
   }
-
-  saveStockTransection(data){
+  saveStockTransection(data) {
     this.user.saveStockTransection(data).subscribe((data) => {
       this.getStockManagement();
-
       alert('success');
-      });
+    });
   }
-
+ 
 
 }

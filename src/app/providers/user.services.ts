@@ -171,8 +171,13 @@ export class UserServices {
     let url=this.baseUrl2 + "/api/v1/createstocktransection"
     return this.http.post(url,body);
   }
+  getStockTransectionDetails(id)
+  {
+    let url=this.baseUrl2 + `/api/v1/getstocktransectionbyid/${id}`
+    return this.http.get(url);
+  }
 
-
+ 
   //
 
 

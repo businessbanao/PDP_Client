@@ -79,7 +79,6 @@ export class AddEditStockPageModel implements OnInit {
   updateStockManagement(body) {
     //get value from form
     let id = this.myReactiveForm.get("id").value;
-
     this.user.editStock(body.value, id).subscribe((data) => {
       this.myReactiveForm.reset();
       this.isShow = false;

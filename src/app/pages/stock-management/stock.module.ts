@@ -11,6 +11,8 @@ import { StockPage } from './stock.page';
 import { AccountService } from '../../providers/account.service';
 import { FinanceService } from '../../providers/finance.service';
 import { AddEditStockPageModel } from "./model/stock/add-edit-stock.page";
+import { TransectionDetailsPage  } from "./components/transection-details/transection-details";
+
 
 
 @NgModule({
@@ -23,8 +25,8 @@ import { AddEditStockPageModel } from "./model/stock/add-edit-stock.page";
     ReactiveFormsModule,
     MatNativeDateModule
   ],
-  declarations: [StockPage, AddEditStockPageModel],
+  declarations: [StockPage, AddEditStockPageModel,TransectionDetailsPage],
   providers:[AccountService, FinanceService],
-  entryComponents:[AddEditStockPageModel]
+  entryComponents:[AddEditStockPageModel,TransectionDetailsPage]
 })
 export class GitPageModule {}
