@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> developers Management </ion-title>
+    <ion-buttons slot="end">
+      <ion-icon
+        class="right-menu"
+        name="ellipsis-vertical-outline"
+        (click)="presentActionSheet()"
+      >
+      </ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        ><ion-button (click)="openAddEditDeveloperModal('parent')"
+          >+ Add Module</ion-button
+        ></ion-col
+      >
+      <ion-col
+        ><ion-button (click)="openAddEditDeveloperModal('child')"
+          >+ Add SubModule</ion-button
+        ></ion-col
+      >
+    </ion-row>
+  </ion-grid>
+
+  <br />
+  <ion-label
+    style="margin-left: 20px;font-size: larger;text-decoration: underline;"
+    >Modules</ion-label
+  >
+  <br /><br />
+
+  <mat-accordion
+    [displayMode]="displayMode"
+    [multi]="multi"
+    class="mat-expansion-demo-width"
+  >
+   
+
+  <mat-expansion-panel
+    (opened)="getChildModulesList(module._id)"
+    (closed)="panelOpenState = false"
+    
+    *ngFor="let module of parentModuleList "
+  >
+    <!-- getState(module._id) -->
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ module.name }}
+      </mat-panel-title>
+      <mat-panel-description>
+        <ion-icon
+          (click)="openAddEditDeveloperModal('parent',module)"
+          name="create-outline"
+        ></ion-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-accordion>
+    <mat-expansion-panel
+      (opened)="getFeaturesList(childmodule._id);panelOpenState = true"
+      (closed)="panelOpenState = false"
+      *ngFor="let childmodule of childModulesList "
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ childmodule.name }}
+        </mat-panel-title>
+        <mat-panel-description>
+          <ion-icon
+            (click)="openAddEditDeveloperModal('child',childmodule)"
+            name="create-outline"
+          ></ion-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <br />
+      <ion-button (click)="openAddFeatureModel(childmodule._id)" color="primary"
+        >+ Add Features</ion-button
+      >
+      <ion-list>
+        <ion-item *ngFor="let entry of featuresList">
+          <ion-label>{{entry.name}}</ion-label>
+          <ion-checkbox
+            (click)="updateActive(entry._id,entry.isActive,childmodule._id)"
+            color="danger"
+            slot="end"
+            [(ngModel)]="entry.isActive"
+          ></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+  </mat-expansion-panel>
+</mat-accordion>
+</ion-content>

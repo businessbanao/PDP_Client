@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/developers"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ng-container *ngIf="moduleType == 'parent'">
+      <ion-title *ngIf="!data" id="top">Add Module</ion-title>
+      <ion-title *ngIf="data" id="top">Update Module</ion-title>
+    </ng-container>
+
+    <ng-container *ngIf="moduleType == 'child'">
+      <ion-title *ngIf="!data" id="top">Add Sub Module</ion-title>
+      <ion-title *ngIf="data" id="top">Update Sub Module</ion-title>
+    </ng-container>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="row">
+      <div class="form-bg">
+        <form [formGroup]="moduleForm" (ngSubmit)="createModule(moduleForm)">
+          <ion-item>
+            <ion-label>Module Name </ion-label>
+            <ion-input
+              type="text"
+              placeholder="Module Name"
+              formControlName="name"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="moduleType !== 'parent'">
+            <ion-label>Parent </ion-label>
+            <ion-select placeholder="Parent" formControlName="parentId">
+              <section *ngFor="let list of ParentModuleList">
+                <ion-select-option [value]="list._id"
+                  >{{ list.name }}</ion-select-option
+                >
+              </section>
+            </ion-select>
+          </ion-item>
+
+          <br />
+          <ion-button *ngIf="!data" color="primary" type="submit" value="Save"
+            >Save</ion-button
+          >
+          <ion-button
+            *ngIf="data"
+            color="secondary"
+            type="button"
+            value="Update"
+            (click)="updateModule(moduleForm,moduleForm.get('id').value)"
+            >Update</ion-button
+          >
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>
