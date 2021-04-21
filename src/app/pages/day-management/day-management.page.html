@@ -17,7 +17,7 @@
   <ng-container>
     <ion-item>
       <ion-label>Date : </ion-label>
-      <ion-input type="date" (ionChange)="getDateTask($event)"></ion-input>
+      <ion-input type="date" [(ngModel)]="dateFilter" (ionChange)="getDateTask($event)"></ion-input>
     </ion-item>
 
 
@@ -42,12 +42,13 @@
 </ion-item>
 
 
+
     <ion-item-sliding *ngFor="let task of detailsList">
       <ion-item>
         <ion-label>
           <h5
             style="color: rgb(90, 141, 13);"
-            *ngIf="task.isCompleted == 'true'"
+            *ngIf="task.isCompleted == true"
           >
             <s style="text-transform: capitalize;">{{task.task_name}}</s
             >&nbsp;&nbsp;( Done )&nbsp;
@@ -57,7 +58,7 @@
           </h5>
           <h5
             style="text-transform: capitalize;"
-            *ngIf="task.isCompleted == 'false'"
+            *ngIf="task.isCompleted == false"
           >
             {{task.task_name}}&nbsp;
 
@@ -76,7 +77,7 @@
           </h5>
         </ion-label>
         <ion-button
-          *ngIf="task.isCompleted == 'false'"
+          *ngIf="task.isCompleted == false"
           (click)="taskCompleted(task)"
           class="button"
           type="submit"

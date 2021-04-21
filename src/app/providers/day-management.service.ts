@@ -12,46 +12,30 @@ export class DayManagementService {
 
     constructor(private _http: HttpClient){}
 
-    getTask(startDate:String, endDate:String): Observable<any> {
-      return this._http.get(environment.baseUrl2+`/api/v1/AllDaymanagement?&startDate=`+startDate+`&endDate=`+endDate).pipe(
+
+  serializer( obj ) {
+      let str = '?' + Object.keys(obj).reduce(function(a, k){
+          a.push(k + '=' + encodeURIComponent(obj[k]));
+          return a;
+      }, []).join('&');
+      return str;
+  }
+
+    getTask(payload:any): Observable<any> {
+      // ?&startDate=`+startDate+`&endDate=`+endDate
+      let queryParams = this.serializer(payload);
+      console.log(queryParams,"queryParams");
+      return this._http.get(environment.baseUrl2+`/api/v1/AllDaymanagement${queryParams}`).pipe(
         tap(
           response => { console.log("get day management task : successfull"); },
           error => { console.log("get day management task : failed"); }
         )
       );
     }
-    getTaskdetails(): Observable<any> {
-      return this._http.get(environment.baseUrl2+'/api/v1/AllDaymanagement').pipe(
-        tap(
-          response => { console.log("get day management task : successfull"); },
-          error => { console.log("get day management task : failed"); }
-        )
-      );
-    }
-    getDateTask(date:string): Observable<any> {
-      return this._http.get(environment.baseUrl2+'/api/v1/searchDay/'+date).pipe(
-        tap(
-          response => { console.log("get day management task : successfull"); },
-          error => { console.log("get day management task : failed"); }
-        )
-      );
-    }
-    getTaskPriority(priority:string): Observable<any> {
-      return this._http.get(environment.baseUrl2+'/api/v1/taskbypriority/'+priority).pipe(
-        tap(
-          response => { console.log("get day management task : successfull"); },
-          error => { console.log("get day management task : failed"); }
-        )
-      );
-    }
-    getTaskStatus(status:string): Observable<any> {
-      return this._http.get(environment.baseUrl2+'/api/v1/taskbystatus/'+status).pipe(
-        tap(
-          response => { console.log("get day management task : successfull"); },
-          error => { console.log("get day management task : failed"); }
-        )
-      );
-    }
+     
+     
+     
+     
     
     deleteTask(taskId:String): Observable<any> {
       return this._http.delete(environment.baseUrl2+`/api/v1/deletedayman/`+taskId).pipe(
