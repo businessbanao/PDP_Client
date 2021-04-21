@@ -1,106 +1,3 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button style="color: white"></ion-menu-button>
-    </ion-buttons>
-    <ion-title> Day Management </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openTaskModal()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
-
-<ng-container >  
-  <ion-item>
-    <ion-label>Date : </ion-label>
-    <ion-input type="date" [(ngModel)]="dateFilter" (ionChange)='getTask()'></ion-input>
-  </ion-item>
-  <hr>
-
-  <div *ngIf="highPrioritytaskList.length != 0">
-    <strong style="margin-left: 20px;text-decoration: underline;">High Priority Tasks</strong>
-    <ion-item-sliding *ngFor="let task of highPrioritytaskList">
-      <ion-item>
-        <ion-label>
-          <h5 style="text-transform: capitalize;color: rgb(15, 148, 59);">{{task.task_name}} -
-             <span style="color: blue !important;" *ngIf="task.priority == 'MED'">( Medium )</span>
-             <span style="color: blue !important;" *ngIf="task.priority == 'HIGH'">( High )</span>
-             <span style="color: blue !important;" *ngIf="task.priority == 'LOW'">( Low )</span>
-            </h5>
-          <h5>Date : {{task.date | date: 'dd-MMM-yyyy'}}</h5>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="warning" (click)="editTask(task)">
-          <ion-icon slot="icon-only" name="create"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" (click)="deleteTask(task._id)">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </div>
-  <br><br>
-  <div *ngIf="medPrioritytaskList.length != 0">
-    <strong style="margin-left: 20px;text-decoration: underline;">Med Priority Tasks</strong>
-    <ion-item-sliding *ngFor="let task of medPrioritytaskList">
-      <ion-item>
-        <ion-label>
-          <h5 style="text-transform: capitalize;color: rgb(15, 148, 59);">{{task.task_name}} -
-             <span style="color: blue !important;" *ngIf="task.priority == 'MED'">( Medium )</span>
-             <span style="color: blue !important;" *ngIf="task.priority == 'HIGH'">( High )</span>
-             <span style="color: blue !important;" *ngIf="task.priority == 'LOW'">( Low )</span>
-            </h5>
-          <h5>Date : {{task.date | date: 'dd-MMM-yyyy'}}</h5>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="warning" (click)="editTask(task)">
-          <ion-icon slot="icon-only" name="create"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" (click)="deleteTask(task._id)">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </div>
-
-  <br><br>
-  <div *ngIf="lowPrioritytaskList.length != 0">
-    <strong style="margin-left: 20px;text-decoration: underline;">Low Priority Tasks</strong>
-    <ion-item-sliding *ngFor="let task of lowPrioritytaskList">
-      <ion-item>
-        <ion-label>
-          <h5 style="text-transform: capitalize;color: rgb(15, 148, 59);">{{task.task_name}} -
-             <span style="color: blue !important;" *ngIf="task.priority == 'MED'">( Medium )</span>
-             <span style="color: blue !important;" *ngIf="task.priority == 'HIGH'">( High )</span>
-             <span style="color: blue !important;" *ngIf="task.priority == 'LOW'">( Low )</span>
-            </h5>
-          <h5>Date : {{task.date | date: 'dd-MMM-yyyy'}}</h5>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="warning" (click)="editTask(task)">
-          <ion-icon slot="icon-only" name="create"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" (click)="deleteTask(task._id)">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </div>
-
-</ng-container>
-</ion-content> -->
-
-
-
-
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -117,46 +14,53 @@
     </ion-fab-button>
   </ion-fab>
 
-
   <ng-container>
-
-    <ion-item >
+    <ion-item>
       <ion-label>Date : </ion-label>
-      <ion-input type="date"  (ionChange)='getDateTask($event)'></ion-input>
-
-      <!-- <ion-input type="date"  (ionChange)='getDateTask($event)'>NotAsk</ion-input> -->
-
+      <ion-input type="date" (ionChange)="getDateTask($event)"></ion-input>
     </ion-item>
 
-
     <ion-item-sliding *ngFor="let task of detailsList">
-      <p *ngIf="detailsList.length==0">No Task</p>
-
       <ion-item>
-        <ion-label >
+        <ion-label>
+          <h5
+            style="color: rgb(90, 141, 13);"
+            *ngIf="task.isCompleted == 'true'"
+          >
+            <s style="text-transform: capitalize;">{{task.task_name}}</s
+            >&nbsp;&nbsp;( Done )&nbsp;
+            <h5 style="color:brown !important">
+              Date : {{task.date | date: 'dd-MMM-yyyy'}}
+            </h5>
+          </h5>
+          <h5
+            style="text-transform: capitalize;"
+            *ngIf="task.isCompleted == 'false'"
+          >
+            {{task.task_name}}&nbsp;
 
-          <h5 style="color: rgb(90, 141, 13);" *ngIf="task.isCompleted == 'true'"><s>{{task.task_name}}</s>(Task is Completed)&nbsp;
-            <h5>Date : {{task.date | date: 'dd-MMM-yyyy'}}</h5></h5>
-          <h5 *ngIf="task.isCompleted == 'false'">{{task.task_name}}&nbsp;
-
-          <span style="color: blue !important;" *ngIf="task.priority == 'MED'">( Medium )</span>
-          <span style="color: blue !important;" *ngIf="task.priority == 'HIGH'">( High )</span>
-          <span style="color: blue !important;" *ngIf="task.priority == 'LOW'">( Low )</span>
-          <!-- <ion-button  class="button" type="submit"   (click)="taskCompleted(task)" color="primary">Mark As Done</ion-button> -->
-          <h5>Date : {{task.date | date: 'dd-MMM-yyyy'}}</h5>
-
-        </h5>
-
-
-          <!-- </h5> -->
-
-
-          <!-- <p>Date - {{task.expectedCompleteddate | date: 'dd-MMM-yyyy'}}</p> -->
+            <span style="color: blue !important;" *ngIf="task.priority == 'MED'"
+              >( Medium )</span
+            >
+            <span
+              style="color: blue !important;"
+              *ngIf="task.priority == 'HIGH'"
+              >( High )</span
+            >
+            <span style="color: blue !important;" *ngIf="task.priority == 'LOW'"
+              >( Low )</span
+            >
+            <h5>Date : {{task.date | date: 'dd-MMM-yyyy'}}</h5>
+          </h5>
         </ion-label>
-        <ion-button *ngIf="task.isCompleted == 'false'" (click)="taskCompleted(task)" class="button" type="submit"
-        color="success">Mark As Done</ion-button>
-    
-
+        <ion-button
+          *ngIf="task.isCompleted == 'false'"
+          (click)="taskCompleted(task)"
+          class="button"
+          type="submit"
+          color="success"
+          >Mark As Done</ion-button
+        >
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option color="warning" (click)="editTask(task)">
@@ -168,5 +72,9 @@
       </ion-item-options>
     </ion-item-sliding>
 
+    <br />
+    <p style="text-align:center" *ngIf="detailsList.length==0">
+      No Tasks Found
+    </p>
   </ng-container>
 </ion-content>

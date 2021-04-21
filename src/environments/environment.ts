@@ -5,9 +5,10 @@
 export const environment = {
   production: false,
   // baseUrl:"//localhost:4000"
-  baseUrl: "http://18.222.219.166:3000/",
+  // baseUrl2: "http://18.222.219.166:3000",
   // baseUrl:"http://a05a282e.ngrok.io"
-  baseUrl2: "//localhost:5500"
+  baseUrl2: "//localhost:5500",
+  baseUrl: "//localhost:5500"
 };
 
 /*

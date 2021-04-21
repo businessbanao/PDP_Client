@@ -62,7 +62,7 @@ export class TaskPageModel implements OnInit {
     this.taskForm = this._formBuilder.group({
       task_name: new FormControl('', Validators.compose([Validators.required])),
       userId: new FormControl(),
-      isCompleted: new FormControl('',Validators.compose([Validators.required])),
+      isCompleted: new FormControl('false',Validators.compose([])),
       priority: new FormControl('', Validators.compose([Validators.required])),
       date: new FormControl('', Validators.compose([Validators.required])), 
       id: new FormControl(""),
