@@ -38,7 +38,7 @@ export class DocListPageModel implements OnInit {
     const modal = await this.modalController.create({
       component: AddEditDocPageModel
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => {this.getFolderDocs(this.folderId);});
     return await modal.present();
   }
 
@@ -80,7 +80,9 @@ export class DocListPageModel implements OnInit {
         data : data
       }
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getFolderDocs(this.folderId);
+    });
     return await modal.present();
   }
 

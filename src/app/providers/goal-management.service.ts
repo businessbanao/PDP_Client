@@ -12,51 +12,27 @@ export class GoalManagementService {
 
     constructor(private _http: HttpClient){}
 
-    // getGoal(adminId: String): Observable<any> {
-    //   return this._http.get(environment.baseUrl2+`/api/v1/GetAllGoals/`+adminId).pipe(
-    //     tap(
-    //       response => { console.log("get goal management Goal : successfull"); },
-    //       error => { console.log("get goal management task : failed"); }
-    //     )
-    //   );
-    // }
-    getGoal(): Observable<any> {
-      return this._http.get(environment.baseUrl2+`/api/v1/AllGoals`).pipe(
+    serializer( obj ) {
+      let str = '?' + Object.keys(obj).reduce(function(a, k){
+          a.push(k + '=' + encodeURIComponent(obj[k]));
+          return a;
+      }, []).join('&');
+      return str;
+  }
+
+    getGoal(payload:any): Observable<any> {
+      let queryParams = this.serializer(payload);
+      // console.log(queryParams,"queryParams from goals");
+      return this._http.get(environment.baseUrl2+`/api/v1/AllGoals${queryParams}`).pipe(
         tap(
-          response => { console.log("get goal management Goal : successfull"); },
-          error => { console.log("get goal management task : failed"); }
+          response => { console.log("get  goal : successfull"); },
+          error => { console.log("get  goal : failed"); }
         )
       );
     }
 
 
-    getGoalType(type:String): Observable<any> {
-      return this._http.get(environment.baseUrl2+`/api/v1/Getgoalbytype/`+type).pipe(
-        tap(
-          response => { console.log("get goal management Goal : successfull"); },
-          error => { console.log("get goal management task : failed"); }
-        )
-      );
-    }
-    getGoaldate(date:String): Observable<any> {
-      return this._http.get(environment.baseUrl2+`/api/v1/Getgoalbydate/`+date).pipe(
-        tap(
-          response => { console.log("get goal management Goal : successfull"); },
-          error => { console.log("get goal management task : failed"); }
-        )
-      );
-    }
-    
-    getGoalStatus(status:String): Observable<any> {
-      return this._http.get(environment.baseUrl2+`/api/v1/Getgoalbystatus/`+status).pipe(
-        tap(
-          response => { console.log("get goal management Goal : successfull"); },
-          error => { console.log("get goal management task : failed"); }
-        )
-      );
-    }
-    
-    
+   
     
     deleteGoal(goalId:String): Observable<any> {
       return this._http.delete(environment.baseUrl2+`/api/v1/deletegoals/`+goalId).pipe(

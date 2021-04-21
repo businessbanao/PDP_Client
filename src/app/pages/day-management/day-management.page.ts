@@ -194,8 +194,6 @@ export class DayManagementPage implements OnInit {
     this.getTask();
   }
 
-
-  
   getDateTask(event) {
     console.log(this.dateFilter,"date filter");
     this.getTask();

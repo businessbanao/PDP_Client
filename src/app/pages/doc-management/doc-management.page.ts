@@ -96,9 +96,9 @@ export class DocManagementPage implements OnInit {
   async openAddEditDocModal() {
     const modal = await this.modalController.create({
       component: AddEditDocPageModel,
-      componentProps:{
-        filder_list : this.folderList
-      }
+      // componentProps:{
+      //   folderList : this.folderList
+      // }
     });
     modal.onDidDismiss().then((dataReturned) => {
       this.getDocFolders();

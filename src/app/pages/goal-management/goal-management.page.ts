@@ -29,6 +29,13 @@ export class GoalManagementPage implements OnInit {
   respMsg:String;
   public isEditMode: boolean;
   goalForm: FormGroup;
+  public status = '';
+  public type = '';
+  public detailsGoalList=[];
+  public taskList: any = [];
+  public highPriorityGoalList: any = [];
+  public medPriorityGoalList: any = [];
+  public lowPriorityGoalList: any = [];
 
   constructor(
     private _goalManagementService: GoalManagementService, 
@@ -41,22 +48,60 @@ export class GoalManagementPage implements OnInit {
   }
 
   ngOnInit() {
-    // debugger
     this.getGoal();
-    // this.getGoalType();
   }
-  // getGoal() {
-  //   // debugger
-  //   this._goalManagementService.getGoal(localStorage.getItem('adminId')).subscribe((resp) => {
-  //     this.goalList = resp.response;
-  //   });
-  // }
-  getGoal() {
-    
-    this._goalManagementService.getGoal().subscribe((result) => {
-      console.log("Goal result", result);
-      this.goalList = result["response"];
+
+
+
+
+
+  getDatedGoal(startDate, endtDate) {
+    let payload = {};
+
+    if (this.status) {
+      payload["status"] = this.status;
+    }
+
+
+    if (this.type) {
+      payload["type"] = this.type;
+    }
+
+    if(startDate && endtDate){
+      payload["startDate"] = startDate;
+      payload["endDate"] = endtDate;
+    }
+
+
+    this._goalManagementService.getGoal(payload).subscribe(resp => {
+      this.detailsGoalList = resp.response;
+      this.highPriorityGoalList = this.goalList.filter(
+        goal => goal.type == "short_term"
+      );
+      this.medPriorityGoalList = this.goalList.filter(
+        goal => goal.type == "med_term"
+      );
+      this.lowPriorityGoalList = this.goalList.filter(
+        goal => goal.type == "long_term"
+      );
     });
+  }
+
+  getGoal() {
+    let date = this.dateFormater(this.dateFilter);
+    this.getDatedGoal(date,date);
+  }
+
+  dateFormater(inputDate) {
+    let tempDate = new Date(inputDate);
+    let date =
+      tempDate.getDate() < 10 ? "0" + tempDate.getDate() : tempDate.getDate();
+    let month =
+      tempDate.getMonth() + 1
+        ? "0" + (tempDate.getMonth() + 1)
+        : tempDate.getMonth() + 1;
+    let year = tempDate.getFullYear();
+    return isNaN(tempDate.getTime()) ? "" : year + "-" + month + "-" + date;
   }
 
   
@@ -77,7 +122,8 @@ export class GoalManagementPage implements OnInit {
     const modal = await this.modalController.create({
       component: GoalPageModel
     });
-    modal.onDidDismiss().then((dataReturned) => {      this.getGoal();
+    modal.onDidDismiss().then((dataReturned) => {  
+          this.getGoal();
     });
     return await modal.present();
   }
@@ -90,7 +136,8 @@ export class GoalManagementPage implements OnInit {
         data : data
       }
     });
-    modal.onDidDismiss().then((dataReturned) => {      this.getGoal();
+    modal.onDidDismiss().then((dataReturned) => {    
+        this.getGoal();
     });
     return await modal.present();
   }
@@ -102,36 +149,20 @@ export class GoalManagementPage implements OnInit {
 
   }
 
-  filterGoal(event){
-    // console.log(event.detail.value);
-    const type = event.detail.value
-    // debugger
-    this._goalManagementService.getGoalType(type).subscribe((result) => {
-      console.log("Goal result By Type", result);
-      this.goalList = result["response"];
-      
-    });
+  filterGoal(event) {
+    this.type = event.detail.value;
+    this.getGoal();
   }
 
-  getDateGoal(event){
-    const date = event.detail.value
-    // debugger
-    this._goalManagementService.getGoaldate(date).subscribe((result) => {
-      console.log("Goal result By Type", result);
-      this.goalList = result["response"];
-  })
+  filterGoalByStatus(event) {
+  this.status = event.detail.value;
+  this.getGoal();
 }
 
-
-filterGoalByStatus(event){
-  const status = event.detail.value
-  // debugger
-  this._goalManagementService.getGoalStatus(status).subscribe((result) => {
-    console.log("Goal result By Status", result);
-    this.goalList = result["response"];
-  })
+getDateGoal(event) {
+  console.log(this.dateFilter,"date filter");
+  this.getGoal();
 }
-
 
   async goalCompleted(goal) {
     let self = this;

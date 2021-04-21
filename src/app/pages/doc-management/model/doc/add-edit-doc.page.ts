@@ -28,7 +28,8 @@ export class AddEditDocPageModel implements OnInit {
   public isEditMode: boolean = false;
   public data:any;
   public responseStr: string;
-  public filder_list:any;
+  public folderList:any;
+public list:[]
 
   constructor(
     public modalController: ModalController,
@@ -46,15 +47,28 @@ export class AddEditDocPageModel implements OnInit {
   public myphoto: any;
 
   ngOnInit() {
+    this.getDocFolders();
     this.initDocForm();
-    if(this.data){
+    if(undefined != this.data){
       this.docForm.patchValue(this.data);
-      this.docForm.get('folder_id').setValue(this.data.folder_id);
+      this.docForm.get('id').setValue(this.data._id);
     }
+
+
 
   }
 
+
+
+  getDocFolders() {
+    this._docManagementService.getDocFolders().subscribe((result) => {
+     
+      this.folderList = result["response"];
+      console.log("from add edit ",this.folderList);
+    });
+  }
   updateDoc(payload) {
+   
     let formData = JSON.parse(JSON.stringify(payload.value));
     let id = this.docForm.get("id").value;
     this._docManagementService.updateDoc(id, formData).subscribe(async (resp) => {

@@ -27,9 +27,14 @@
                 <ion-input type="text" placeholder="Title" formControlName="name"></ion-input>
               </ion-item>
             </div>
-            <span class="help-block" *ngIf="folderForm.get('name').errors?.required">
+            <span
+            class="help-block"
+            *ngIf=" folderForm.get('name').errors && (folderForm.get('name').touched || folderForm.get('name').dirty)"
+          >
+            <span  *ngIf="folderForm.get('name').errors?.required">
               <!-- <br> -->
               &nbsp;&nbsp;&nbsp;&nbsp;Title is required*
+            </span>
             </span>
           </div>
           <br>

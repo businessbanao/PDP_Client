@@ -18,7 +18,7 @@
 <ng-container >  
   <ion-item>
     <ion-label>Date : </ion-label>
-    <ion-input type="date" (ionChange)="getDateGoal($event)"></ion-input>
+    <ion-input type="date" [(ngModel)]="dateFilter" (ionChange)="getDateGoal($event)"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -40,12 +40,12 @@
   
   
 <hr>
-    <ion-item-sliding *ngFor="let goal of goalList">
+    <ion-item-sliding *ngFor="let goal of detailsGoalList">
       <ion-item>
         <ion-label>
           <h5
           style="color: rgb(90, 141, 13);"
-          *ngIf="goal.isCompleted == 'true'"
+          *ngIf="goal.isCompleted == true "
         >
           <s style="text-transform: capitalize;">{{goal.title}}</s
           >&nbsp;&nbsp;( Done )&nbsp;
@@ -55,7 +55,7 @@
         </h5>
         <h5
           style="text-transform: capitalize;"
-          *ngIf="goal.isCompleted == 'false'"
+          *ngIf="goal.isCompleted == false"
         >
           {{goal.title}}&nbsp;          <!-- <span style="color: blue;" *ngIf="!isShow && goal.type == 'event.detail.value'">{{goal.name}}</span> -->
           <span style="color: blue;" *ngIf="goal.type == 'short_term'">( Short term )</span>
@@ -67,7 +67,7 @@
         </h5>
         </ion-label>
         <ion-button
-        *ngIf="goal.isCompleted == 'false'"
+        *ngIf="goal.isCompleted == false"
         (click)="goalCompleted(goal)"
         class="button"
         type="submit"
@@ -85,7 +85,7 @@
       </ion-item-options>
     </ion-item-sliding>
     <br />
-    <p style="text-align:center" *ngIf="goalList.length==0">
+    <p style="text-align:center" *ngIf="detailsGoalList.length==0">
       No Goal Found
     </p>
 </ng-container>

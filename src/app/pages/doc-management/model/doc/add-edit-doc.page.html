@@ -33,9 +33,14 @@
                 <ion-input type="text" placeholder="Title" formControlName="doc_name"></ion-input>
               </ion-item>
             </div>
+            <span
+            class="help-block"
+            *ngIf=" docForm.get('doc_name').errors && (docForm.get('doc_name').touched || docForm.get('doc_name').dirty)"
+          >
             <span class="help-block" *ngIf="docForm.get('doc_name').errors?.required">
               <!-- <br> -->
               &nbsp;&nbsp;&nbsp;&nbsp;Doc Name is required*
+            </span>
             </span>
           </div>
           <br>
@@ -49,31 +54,42 @@
                 <ion-input type="text" placeholder="Content" formControlName="doc_image"></ion-input>
               </ion-item>
             </div>
+            <span
+            class="help-block"
+            *ngIf=" docForm.get('doc_image').errors && (docForm.get('doc_image').touched || docForm.get('doc_image').dirty)"
+          >
             <span class="help-block" *ngIf="docForm.get('doc_image').errors?.required">
               <!-- <br> -->
               &nbsp;&nbsp;&nbsp;&nbsp;Image is required*
             </span>
+            </span>
           </div>
           <br>
 
-              <div class="form-group">
-                <div
-                  [ngClass]="{'has-error' : docForm.get('folder_id').errors && (docForm.get('folder_id').touched || docForm.get('folder_id').dirty) }">
-    
+          <div class="form-group">
+            <div
+            [ngClass]="{'has-error' : docForm.get('folder_id').errors && (docForm.get('folder_id').touched || docForm.get('folder_id').dirty) }">
+      
               <ion-item>
-                <ion-label>Folder : </ion-label>
-                <ion-select placeholder="Folder" formControlName="folder_id">
-                  <section  *ngFor="let folder of filder_list">
-                    <ion-select-option value="{{ folder._id }}">{{ folder.name }}</ion-select-option>
+                <ion-label>Folder Id :</ion-label>
+                <ion-select  placeholder="Select :" formControlName="folder_id">
+                  <section>
+                    <ion-select-option [value]="folder._id" *ngFor="let folder of folderList">{{folder.name}}</ion-select-option>
                 </section>
                 </ion-select>
               </ion-item>
-            </div>
-            <span class="help-block" *ngIf="docForm.get('folder_id').errors?.required">
-              <!-- <br> -->
-              &nbsp;&nbsp;&nbsp;&nbsp;FolderId is required*
-            </span>
           </div>
+          <span
+          class="help-block"
+          *ngIf=" docForm.get('folder_id').errors && (docForm.get('folder_id').touched || docForm.get('folder_id').dirty)"
+        >
+          <span class="help-block" *ngIf="docForm.get('folder_id').errors?.required">
+            <!-- <br> -->
+            &nbsp;&nbsp;&nbsp;&nbsp;folder_id is required*
+          </span>
+          </span>
+          </div>
+          <br>
 <br>
 
                 <br>
