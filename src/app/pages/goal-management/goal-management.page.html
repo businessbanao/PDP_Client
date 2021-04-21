@@ -27,15 +27,16 @@
   </ion-item>
   
 <hr>
-
     <ion-item-sliding *ngFor="let goal of goalList">
       <ion-item>
         <ion-label>
-          <h5>{{goal.title}} &nbsp;
+          <h5  >{{goal.title}} &nbsp;
+          <!-- <span style="color: blue;" *ngIf="!isShow && goal.type == 'event.detail.value'">{{goal.name}}</span> -->
           <span style="color: blue;" *ngIf="goal.type == 'short_term'">( Short term )</span>
           <span  style="color: blue;" *ngIf="goal.type == 'long_term'"> ( Long term )</span>
           <span  style="color: blue;" *ngIf="goal.type == 'med_term'">( Med term )</span>
         </h5>
+       
           <p>Date - {{goal.expectedCompleteddate | date: 'dd-MMM-yyyy'}}</p>
         </ion-label>
       </ion-item>

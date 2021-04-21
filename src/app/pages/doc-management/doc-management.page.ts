@@ -6,6 +6,8 @@ import { DocListPageModel } from './model/doc-list/doc-list.page';
 import { AddEditFolderPageModel } from './model/folder/add-edit-folder.page';
 import { ToastController } from '@ionic/angular';
 import { DocManagementService } from '../../providers/doc-management.service';
+import { AlertController } from "@ionic/angular";
+
 
 
 @Component({
@@ -25,6 +27,8 @@ export class DocManagementPage implements OnInit {
     private datePipe: DatePipe, 
     public actionSheetController: ActionSheetController,
     public toastController: ToastController,
+    public alertController: AlertController,
+
     public modalController: ModalController) {
   }
 
@@ -143,4 +147,56 @@ export class DocManagementPage implements OnInit {
     // });
     return await modal.present();
   }
+
+  async openEditFolderModal(body) {
+    const modal = await this.modalController.create({
+  component: AddEditFolderPageModel,
+  componentProps:{
+    data:body
+  }
+});
+modal.onDidDismiss().then((dataReturned) => {
+  this.getDocFolders();
+});
+return await modal.present();
+}
+
+
+deleteFolderManagement(id) {
+  this._docManagementService.deleteFolder(id).subscribe((data) => {
+    this.getDocFolders();
+    this.presentToast("Folder Deleted");
+  });
+}
+async presentAlertConfirm(id) {
+  let self = this;
+  const alert = await this.alertController.create({
+    header: 'Delete Folder',
+    message: "Are you sure you want to delete?",
+    buttons: [
+      {
+        text: 'Cancel',
+
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          
+        }
+      }, {
+        text: 'Okay',
+        handler: () => {
+          self.deleteFolderManagement(id)
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+
+
+
+
+
 }

@@ -76,7 +76,7 @@ export class EMIManagementPage implements OnInit {
     const modal = await this.modalController.create({
       component: EMIPageModel
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => {this.getEmi()});
     return await modal.present();
   }
   
@@ -88,7 +88,7 @@ export class EMIManagementPage implements OnInit {
         data : data
       }
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => {this.getEmi()});
     return await modal.present();
   }
 }

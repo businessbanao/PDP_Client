@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController, ToastController } from "@ionic/angular";
-import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
+import { FormBuilder, FormGroup, FormControl, NgForm, Validators } from "@angular/forms";
 import { DocManagementService } from '../../../../providers/doc-management.service';
 import { ActivatedRoute } from "@angular/router";
 
@@ -30,6 +30,7 @@ export class AddEditFolderPageModel implements OnInit {
       this.folderForm.patchValue(this.data);
       this.folderForm.get('id').setValue(this.data._id);
     }
+   
   }
   
   async closeModal() {
@@ -38,7 +39,7 @@ export class AddEditFolderPageModel implements OnInit {
 
   initFolderForm() {
     this.folderForm = this._formBuilder.group({
-      name: new FormControl(),
+      name: new FormControl('',Validators.compose([Validators.required])),
       description: new FormControl(),
       type:new FormControl("DOCS"),
       id: new FormControl(""),

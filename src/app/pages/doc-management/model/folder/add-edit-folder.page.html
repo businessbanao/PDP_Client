@@ -16,17 +16,50 @@
     <div class="row">
         <div class="form-bg">
              <form [formGroup]="folderForm" (ngSubmit)="createFolder(folderForm)">
+              
+              <div class="form-group">
+                <div
+                  [ngClass]="{'has-error' : folderForm.get('name').errors && (folderForm.get('name').touched || folderForm.get('name').dirty) }">
+    
+
               <ion-item>
                 <ion-label>Name : </ion-label>
                 <ion-input type="text" placeholder="Title" formControlName="name"></ion-input>
               </ion-item>
+            </div>
+            <span class="help-block" *ngIf="folderForm.get('name').errors?.required">
+              <!-- <br> -->
+              &nbsp;&nbsp;&nbsp;&nbsp;Title is required*
+            </span>
+          </div>
+          <br>
+
+
               <ion-item>
                 <ion-label>Description : </ion-label>
                 <ion-input type="text" placeholder="Content" formControlName="description"></ion-input>
               </ion-item>
                 <br>
-                <ion-button *ngIf="!data" color="primary" type="submit" value="Save">Save</ion-button>
+
+
+
+                <!-- <ion-button *ngIf="!data" color="primary" type="submit" value="Save">Save</ion-button>
                 <ion-button *ngIf="data" color="secondary"  type="button" value="Update" (click)="updateFolder(folderForm)">Update</ion-button>
+             
+              -->
+                <ion-button type="submit" [disabled]="folderForm.invalid" *ngIf='!data && folderForm.invalid' color="primary">save (Please
+                  Fill all Required* fields First)</ion-button>
+      
+                <ion-button type="submit" [disabled]="folderForm.invalid" *ngIf='!data && folderForm.valid' color="primary">Save
+                </ion-button>
+      
+                <ion-button type="button" [disabled]="folderForm.invalid" *ngIf='data && folderForm.valid' color="primary"
+                  value="update" (click)="updateFolder(folderForm)">Update</ion-button>
+                <ion-button type="button" [disabled]="folderForm.invalid" *ngIf='data && folderForm.invalid' color="primary"
+                  value="update" (click)="updateFolder(folderForm)">Update(Please Fill all
+                  Required*
+                  fields First)</ion-button>
+             
               </form>
         </div>
     </div>

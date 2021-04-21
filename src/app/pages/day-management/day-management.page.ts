@@ -4,6 +4,8 @@ import { DatePipe } from '@angular/common';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { TaskPageModel } from './model/task/task.page';
 import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
+import { AlertController } from "@ionic/angular";
+
 
 
 @Component({
@@ -25,10 +27,13 @@ export class DayManagementPage implements OnInit {
   respMsg:String;
   public isEditMode: boolean;
   taskForm: FormGroup;
+  detailsList=[]
 
   constructor(
     private _dayManagementService: DayManagementService, 
     private datePipe: DatePipe, 
+    public alertController: AlertController,
+
     public actionSheetController: ActionSheetController,
     public modalController: ModalController) {
     this.dateFilter = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
@@ -36,6 +41,8 @@ export class DayManagementPage implements OnInit {
 
   ngOnInit() {
     this.getDatedTask(this.dateFilter, this.dateFilter);
+    this.getTask()
+    this.getTaskdetails();
   }
 
   getDatedTask(startDate, endtDate) {
@@ -47,6 +54,24 @@ export class DayManagementPage implements OnInit {
     });
   }
 
+  getTaskdetails() {
+    
+    this._dayManagementService.getTaskdetails().subscribe((result) => {
+      console.log("Task result", result);
+      this.detailsList = result["response"];
+    });
+  }
+  getDateTask(event) {
+    // debugger
+    const date = event.detail.value
+    
+    this._dayManagementService.getDateTask(date).subscribe((result) => {
+      console.log("Task result", result);
+      this.detailsList = result["response"];
+    });
+  }
+
+
   deleteTask(taskId){
     let responseMsg:String;
     this._dayManagementService.deleteTask(taskId).subscribe(resp => {
@@ -54,6 +79,8 @@ export class DayManagementPage implements OnInit {
       if(!resp.error){
         this.getTask();
       }
+      this.getTaskdetails()
+
     });
   }
 
@@ -78,6 +105,8 @@ export class DayManagementPage implements OnInit {
       if(dataReturned){
         this.getTask();
       }
+      this.getTaskdetails()
+
     });
     return await modal.present();
   }
@@ -94,6 +123,7 @@ export class DayManagementPage implements OnInit {
       if(dataReturned){
         this.getTask();
       }
+      this.getTaskdetails()
     });
     return await modal.present();
   }
@@ -102,4 +132,59 @@ export class DayManagementPage implements OnInit {
     this.isEditMode = true;
     this.editTaskModal(data);
   }
+
+
+
+
+
+
+
+ 
+  async taskCompleted(task) {
+    let self = this;
+    // debugger
+    const alert = await this.alertController.create({
+      header: 'Task',
+      message: "Sure! Your task completed?",
+      buttons: [
+        {
+          text: 'No',
+  
+          role: 'No',
+          cssClass: 'secondary',
+          handler: () => {
+            task.isCompleted = 'false'
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+        //  task.isCompleted='true'
+         this.updateIsCompleted(task) 
+         this.getTaskdetails();
+          
+          }
+        }
+      ]
+    });
+    await alert.present();
+    // debugger
+  }
+  updateIsCompleted(task) {
+    let id = task._id
+    var data =
+     {"task_name" :task.task_name,
+    "isCompleted" :'true',
+    "priority" :task.priority,
+    "date":task.date,
+    };
+    this._dayManagementService.updateTask(id,data ).subscribe(async (resp) => {
+      console.log("Updated Task");
+      this.getTaskdetails();
+    });
+  
+  }
+
+
+
+
 }
