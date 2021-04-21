@@ -16,6 +16,10 @@
 
 
 <ng-container >  
+  <ion-item>
+    <ion-label>Date : </ion-label>
+    <ion-input type="date" (ionChange)="getDateGoal($event)"></ion-input>
+  </ion-item>
 
   <ion-item>
     <ion-label>Goal Type : </ion-label>
@@ -25,20 +29,51 @@
       <ion-select-option value="med_term">MED TERM</ion-select-option>
     </ion-select>
   </ion-item>
+
+  <ion-item>
+    <ion-label> Goal Status : </ion-label>
+    <ion-select placeholder="Select :" (ionChange)="filterGoalByStatus($event)">
+      <ion-select-option value="true">DONE</ion-select-option>
+      <ion-select-option value="false">NOT DONE</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
   
 <hr>
     <ion-item-sliding *ngFor="let goal of goalList">
       <ion-item>
         <ion-label>
-          <h5  >{{goal.title}} &nbsp;
-          <!-- <span style="color: blue;" *ngIf="!isShow && goal.type == 'event.detail.value'">{{goal.name}}</span> -->
+          <h5
+          style="color: rgb(90, 141, 13);"
+          *ngIf="goal.isCompleted == 'true'"
+        >
+          <s style="text-transform: capitalize;">{{goal.title}}</s
+          >&nbsp;&nbsp;( Done )&nbsp;
+          <h5 style="color:brown !important">
+            Date : {{goal.expectedCompleteddate | date: 'dd-MMM-yyyy'}}
+          </h5>
+        </h5>
+        <h5
+          style="text-transform: capitalize;"
+          *ngIf="goal.isCompleted == 'false'"
+        >
+          {{goal.title}}&nbsp;          <!-- <span style="color: blue;" *ngIf="!isShow && goal.type == 'event.detail.value'">{{goal.name}}</span> -->
           <span style="color: blue;" *ngIf="goal.type == 'short_term'">( Short term )</span>
           <span  style="color: blue;" *ngIf="goal.type == 'long_term'"> ( Long term )</span>
           <span  style="color: blue;" *ngIf="goal.type == 'med_term'">( Med term )</span>
-        </h5>
+        
        
           <p>Date - {{goal.expectedCompleteddate | date: 'dd-MMM-yyyy'}}</p>
+        </h5>
         </ion-label>
+        <ion-button
+        *ngIf="goal.isCompleted == 'false'"
+        (click)="goalCompleted(goal)"
+        class="button"
+        type="submit"
+        color="success"
+        >Mark As Done</ion-button
+      >
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option color="warning" (click)="editGoal(goal)">
@@ -49,6 +84,9 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
+    <br />
+    <p style="text-align:center" *ngIf="goalList.length==0">
+      No Goal Found
+    </p>
 </ng-container>
 </ion-content>

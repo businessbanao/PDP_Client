@@ -5,6 +5,7 @@ import { ActionSheetController, ModalController } from '@ionic/angular';
 import { GoalPageModel } from './model/goal/goal.page';
 import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
 import { GoalManagementService } from '../../providers/goal-management.service';
+import { AlertController } from "@ionic/angular";
 
 
 @Component({
@@ -32,6 +33,8 @@ export class GoalManagementPage implements OnInit {
   constructor(
     private _goalManagementService: GoalManagementService, 
     private datePipe: DatePipe, 
+    public alertController: AlertController,
+
     public actionSheetController: ActionSheetController,
     public modalController: ModalController) {
     this.dateFilter = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
@@ -109,4 +112,77 @@ export class GoalManagementPage implements OnInit {
       
     });
   }
+
+  getDateGoal(event){
+    const date = event.detail.value
+    // debugger
+    this._goalManagementService.getGoaldate(date).subscribe((result) => {
+      console.log("Goal result By Type", result);
+      this.goalList = result["response"];
+  })
+}
+
+
+filterGoalByStatus(event){
+  const status = event.detail.value
+  // debugger
+  this._goalManagementService.getGoalStatus(status).subscribe((result) => {
+    console.log("Goal result By Status", result);
+    this.goalList = result["response"];
+  })
+}
+
+
+  async goalCompleted(goal) {
+    let self = this;
+    // debugger
+    const alert = await this.alertController.create({
+      header: 'Task',
+      message: "Sure! Your task completed?",
+      buttons: [
+        {
+          text: 'No',
+  
+          role: 'No',
+          cssClass: 'secondary',
+          handler: () => {
+            goal.isCompleted = 'false'
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+        //  task.isCompleted='true'
+         this.updateIsCompleted(goal) 
+         this.getGoal()
+          
+          }
+        }
+      ]
+    });
+    await alert.present();
+    // debugger
+  }
+  updateIsCompleted(goal) {
+    let id = goal._id
+    var data =
+     {"title" :goal.title,
+    "isCompleted" :'true',
+    "type" :goal.type,
+    "expectedCompleteddate":goal.expectedCompleteddate,
+    "completeddate":goal.completeddate,
+
+
+    };
+    this._goalManagementService.updateGoal(id,data ).subscribe(async (resp) => {
+      console.log("Updated goal");
+      this.getGoal()
+    });
+  
+  }
+
+
+
+
+
+
 }

@@ -27,7 +27,8 @@ export class DayManagementPage implements OnInit {
   respMsg:String;
   public isEditMode: boolean;
   taskForm: FormGroup;
-  detailsList=[]
+  detailsList=[];
+  TaskList=[]
 
   constructor(
     private _dayManagementService: DayManagementService, 
@@ -61,15 +62,7 @@ export class DayManagementPage implements OnInit {
       this.detailsList = result["response"];
     });
   }
-  getDateTask(event) {
-    // debugger
-    const date = event.detail.value
-    
-    this._dayManagementService.getDateTask(date).subscribe((result) => {
-      console.log("Task result", result);
-      this.detailsList = result["response"];
-    });
-  }
+  
 
 
   deleteTask(taskId){
@@ -185,6 +178,42 @@ export class DayManagementPage implements OnInit {
   }
 
 
+
+  //filters
+  
+  filterTask(event){
+    const priority = event.detail.value
+    // debugger
+    this._dayManagementService.getTaskPriority(priority).subscribe((result) => {
+      console.log("Goal result By Type", result);
+     
+      this.detailsList = result["response"];
+    
+  })
+
+}
+
+filterTaskByStatus(event){
+  const status = event.detail.value
+  // debugger
+  this._dayManagementService.getTaskStatus(status).subscribe((result) => {
+    console.log("Goal result By Status", result);
+    this.detailsList = result["response"];
+
+})
+}
+
+
+getDateTask(event) {
+  // debugger
+  const date = event.detail.value
+  this._dayManagementService.getDateTask(date).subscribe((result) => {
+    console.log("Task result", result);
+    // this.filterTask(event);
+    // this.filterTaskByStatus(event)
+    this.detailsList = result["response"];
+  });
+}
 
 
 }

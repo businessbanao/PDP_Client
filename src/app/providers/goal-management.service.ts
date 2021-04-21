@@ -38,6 +38,24 @@ export class GoalManagementService {
         )
       );
     }
+    getGoaldate(date:String): Observable<any> {
+      return this._http.get(environment.baseUrl2+`/api/v1/Getgoalbydate/`+date).pipe(
+        tap(
+          response => { console.log("get goal management Goal : successfull"); },
+          error => { console.log("get goal management task : failed"); }
+        )
+      );
+    }
+    
+    getGoalStatus(status:String): Observable<any> {
+      return this._http.get(environment.baseUrl2+`/api/v1/Getgoalbystatus/`+status).pipe(
+        tap(
+          response => { console.log("get goal management Goal : successfull"); },
+          error => { console.log("get goal management task : failed"); }
+        )
+      );
+    }
+    
     
     
     deleteGoal(goalId:String): Observable<any> {

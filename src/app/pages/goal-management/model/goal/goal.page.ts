@@ -64,6 +64,8 @@ export class GoalPageModel implements OnInit {
       type: new FormControl('', Validators.compose([Validators.required])),
       expectedCompleteddate: new FormControl('', Validators.compose([Validators.required])),
       completeddate: new FormControl(), 
+      isCompleted: new FormControl('false',Validators.compose([])),
+
       description: new FormControl('', Validators.compose([Validators.required])),
       id: new FormControl(""),
     });

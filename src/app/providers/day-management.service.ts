@@ -36,6 +36,22 @@ export class DayManagementService {
         )
       );
     }
+    getTaskPriority(priority:string): Observable<any> {
+      return this._http.get(environment.baseUrl2+'/api/v1/taskbypriority/'+priority).pipe(
+        tap(
+          response => { console.log("get day management task : successfull"); },
+          error => { console.log("get day management task : failed"); }
+        )
+      );
+    }
+    getTaskStatus(status:string): Observable<any> {
+      return this._http.get(environment.baseUrl2+'/api/v1/taskbystatus/'+status).pipe(
+        tap(
+          response => { console.log("get day management task : successfull"); },
+          error => { console.log("get day management task : failed"); }
+        )
+      );
+    }
     
     deleteTask(taskId:String): Observable<any> {
       return this._http.delete(environment.baseUrl2+`/api/v1/deletedayman/`+taskId).pipe(
