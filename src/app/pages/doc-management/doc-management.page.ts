@@ -52,33 +52,33 @@ export class DocManagementPage implements OnInit {
     let year = tempDate.getFullYear();
     return isNaN(tempDate.getTime()) ? "" : year + '-' + month + '-' + date; 
   }
-
+// 
   // show action options/sheet
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-       header: "",
-       cssClass: "my-custom-class",
-       buttons: [
-         {
-           text: "Create Folder",
-           role: "destructive",
-           icon: "key-outline",
-           handler: () => {
-             this.openAddEditFolderModal();
-           },
-         },
-         {
-           text: "Cancel",
-           icon: "close",
-           role: "cancel",
-           handler: () => {
-             console.log("Cancel clicked");
-           },
-         },
-       ],
-     });
-     await actionSheet.present();
-   }
+  // async presentActionSheet() {
+  //   const actionSheet = await this.actionSheetController.create({
+  //      header: "",
+  //      cssClass: "my-custom-class",
+  //      buttons: [
+  //        {
+  //          text: "Create Folder",
+  //          role: "destructive",
+  //          icon: "key-outline",
+  //          handler: () => {
+  //            this.openAddEditFolderModal();
+  //          },
+  //        },
+  //        {
+  //          text: "Cancel",
+  //          icon: "close",
+  //          role: "cancel",
+  //          handler: () => {
+  //            console.log("Cancel clicked");
+  //          },
+  //        },
+  //      ],
+  //    });
+  //    await actionSheet.present();
+  //  }
 
   // notification msg
   async presentToast(msg){

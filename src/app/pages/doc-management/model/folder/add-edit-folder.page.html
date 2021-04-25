@@ -52,8 +52,7 @@
                 <ion-button *ngIf="data" color="secondary"  type="button" value="Update" (click)="updateFolder(folderForm)">Update</ion-button>
              
               -->
-                <ion-button type="submit" [disabled]="folderForm.invalid" *ngIf='!data && folderForm.invalid' color="primary">save (Please
-                  Fill all Required* fields First)</ion-button>
+                <ion-button type="submit" [disabled]="folderForm.invalid" *ngIf='!data && folderForm.invalid' color="primary">save</ion-button>
       
                 <ion-button type="submit" [disabled]="folderForm.invalid" *ngIf='!data && folderForm.valid' color="primary">Save
                 </ion-button>
@@ -61,9 +60,7 @@
                 <ion-button type="button" [disabled]="folderForm.invalid" *ngIf='data && folderForm.valid' color="primary"
                   value="update" (click)="updateFolder(folderForm)">Update</ion-button>
                 <ion-button type="button" [disabled]="folderForm.invalid" *ngIf='data && folderForm.invalid' color="primary"
-                  value="update" (click)="updateFolder(folderForm)">Update(Please Fill all
-                  Required*
-                  fields First)</ion-button>
+                  value="update" (click)="updateFolder(folderForm)">Update</ion-button>
              
               </form>
         </div>
