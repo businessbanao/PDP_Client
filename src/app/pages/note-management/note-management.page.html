@@ -5,11 +5,11 @@
     </ion-buttons>
     <ion-title> Note Management </ion-title>
     <ion-buttons slot="end">
-      <ion-icon
+      <!-- <ion-icon
         class="right-menu"
         name="ellipsis-vertical-outline"
         (click)="presentActionSheet()"
-      ></ion-icon>
+      ></ion-icon> -->
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -20,36 +20,11 @@
     
   
 
- <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openNoteModal()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-</ion-content>   -->
-
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-buttons slot="start">
-        <ion-menu-button style="color: white"></ion-menu-button>
-      </ion-buttons>
-      <ion-title> Note Management </ion-title>
-      <ion-icon
-        style="margin-left: 10px"
-        *ngIf="showSearchBox"
-        (click)="backToNormal()"
-        name="arrow-back-outline"
-      ></ion-icon>
-    </ion-buttons>
-
-
-    
-  </ion-toolbar>
-</ion-header> -->
-<!--  
+ 
+ 
 <ion-content>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openNoteModal()">
+    <ion-fab-button (click)="openAddEditFolderModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -87,8 +62,9 @@
     </ion-label>
   </ion-item>
 
-   </ion-list> -->
+   </ion-list> 
 <!-- </ng-template>  -->
+
 
 
 <ion-content [fullscreen]="true">

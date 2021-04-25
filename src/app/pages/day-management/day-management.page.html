@@ -24,6 +24,7 @@
 <ion-item>
   <ion-label>Priority : </ion-label>
   <ion-select placeholder="Select :" (ionChange)="filterTask($event)">
+    <ion-select-option value="">All</ion-select-option>
     <ion-select-option value="HIGH">HIGH</ion-select-option>
     <ion-select-option value="MED">MED</ion-select-option>
     <ion-select-option value="LOW">LOW</ion-select-option>
@@ -36,6 +37,7 @@
 <ion-item>
   <ion-label> Task Status : </ion-label>
   <ion-select placeholder="Select :" (ionChange)="filterTaskByStatus($event)">
+    <ion-select-option value="">All</ion-select-option>
     <ion-select-option value="true">DONE</ion-select-option>
     <ion-select-option value="false">NOT DONE</ion-select-option>
   </ion-select>

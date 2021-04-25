@@ -23,7 +23,7 @@ export class GoalManagementService {
     getGoal(payload:any): Observable<any> {
       let queryParams = this.serializer(payload);
       // console.log(queryParams,"queryParams from goals");
-      return this._http.get(environment.baseUrl2+`/api/v1/AllGoals${queryParams}`).pipe(
+      return this._http.get(environment.baseUrl+`/api/v1/AllGoals${queryParams}`).pipe(
         tap(
           response => { console.log("get  goal : successfull"); },
           error => { console.log("get  goal : failed"); }
@@ -35,7 +35,7 @@ export class GoalManagementService {
    
     
     deleteGoal(goalId:String): Observable<any> {
-      return this._http.delete(environment.baseUrl2+`/api/v1/deletegoals/`+goalId).pipe(
+      return this._http.delete(environment.baseUrl+`/api/v1/deletegoals/`+goalId).pipe(
         tap(
           response => { 
             console.log("delete goal id : " + goalId + "success"); 
@@ -50,7 +50,7 @@ export class GoalManagementService {
     }
     
     updateGoal(goalId, payload): Observable<any> {
-      return this._http.put(environment.baseUrl2+`/api/v1/editgoals/` + goalId, payload).pipe(
+      return this._http.put(environment.baseUrl+`/api/v1/editgoals/` + goalId, payload).pipe(
         tap(
           response => { console.log("update goal : successfull"); },
           error => { console.log("update goal : failed"); }
@@ -59,7 +59,7 @@ export class GoalManagementService {
     }
     
     createGoal(payload): Observable<any> {
-      return this._http.post(environment.baseUrl2+`/api/v1/creategoals`, payload).pipe(
+      return this._http.post(environment.baseUrl+`/api/v1/creategoals`, payload).pipe(
         tap(
           response => { console.log("create goal : successfull"); },
           error => { console.log("create goal : failed"); }

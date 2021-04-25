@@ -42,7 +42,9 @@ export class NoteListPageModel implements OnInit {
         folder_list : this.folderList
       }
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getFolderNotes(this.folderId);
+    });
     return await modal.present();
   }
 

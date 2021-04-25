@@ -57,6 +57,7 @@ export class NotePageModel implements OnInit {
       this.noteForm.get('id').setValue(this.data._id);
       this.noteForm.get('date').setValue(this.data.date.slice(0,10));
       this.noteContent = this.data.content;
+      // this.noteForm.get('content').setValue(this.data.content)
     }
 
   }
@@ -71,7 +72,7 @@ export class NotePageModel implements OnInit {
     let formData = JSON.parse(JSON.stringify(payload.value));
     let id = this.noteForm.get("id").value;
     formData["date"] = this.dateFormater(formData.date); 
-    formData["content"] = this.noteContent;
+    // formData["content"] = this.noteContent;
     this._noteManagementService.updateNote(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
@@ -91,7 +92,7 @@ export class NotePageModel implements OnInit {
       title: new FormControl(),
       userId: new FormControl(localStorage.getItem('adminId')),
       content: new FormControl(),
-      images: new FormControl(),
+      images: new FormControl(''),
       folder_id: new FormControl(), 
       date: new FormControl(), 
       id: new FormControl(""),
@@ -102,7 +103,7 @@ export class NotePageModel implements OnInit {
     let formData = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId") || "601870f796b9f2834f045d1a"
     formData["date"] = this.dateFormater(formData.date); 
-    formData["content"] = this.noteContent;
+    // formData["content"] = this.noteContent;
     // formData["images"] = "xfgxgfb.jpg";
     console.log("create payload",formData);
     this._noteManagementService.createNote(formData).subscribe(async (resp) => {

@@ -19,9 +19,10 @@
 <ion-content [fullscreen]="true">
   <ion-card>
     <ion-card-header>
-      <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/Project-Scope-Management-Cover.jpg"/>
+      <ion-card-title>{{note.title}} <ion-icon style="float: right;" name="create-outline" (click)="editNote(note)"></ion-icon> </ion-card-title>
       <ion-card-subtitle>Date :  {{note.date | date: 'dd-MMM-yyyy'}}</ion-card-subtitle>
-      <ion-card-title>{{note.title}}</ion-card-title>
+      
+      <img class="img-box" *ngIf="note.images" [src]="note.images"/>
     </ion-card-header>
   
     <ion-card-content>
@@ -33,5 +34,5 @@
   
   
   
-  <ion-button color="secondary"  type="button" value="edit" (click)="editNote(note)">Edit</ion-button>
+  
 </ion-content>

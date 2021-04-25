@@ -24,6 +24,7 @@
   <ion-item>
     <ion-label>Goal Type : </ion-label>
     <ion-select placeholder="Type" (ionChange)="filterGoal($event)">
+      <ion-select-option value="">All</ion-select-option>
       <ion-select-option value="short_term">SHORT TERM</ion-select-option>
       <ion-select-option value="long_term">LONG TERM</ion-select-option>
       <ion-select-option value="med_term">MED TERM</ion-select-option>
@@ -33,6 +34,7 @@
   <ion-item>
     <ion-label> Goal Status : </ion-label>
     <ion-select placeholder="Select :" (ionChange)="filterGoalByStatus($event)">
+      <ion-select-option value="">All</ion-select-option>
       <ion-select-option value="true">DONE</ion-select-option>
       <ion-select-option value="false">NOT DONE</ion-select-option>
     </ion-select>

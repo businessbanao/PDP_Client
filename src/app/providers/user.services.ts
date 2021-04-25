@@ -15,7 +15,7 @@ export class UserServices {
   // public baseUrl: String = "//localhost:3000"
   // public baseUrl: string = "http://5afcaa1d.ngrok.io";
   public baseUrl: String = environment.baseUrl;
-  public baseUrl2 = environment.baseUrl2;
+  // public baseUrl = environment.baseUrl;
   public ownerId = "601870f796b9f2834f045d1a"
   public _ownerId = "601870f796b9f2834f045d1a";
 
