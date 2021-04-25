@@ -89,7 +89,7 @@ public list:[]
     this.docForm = this._formBuilder.group({
       doc_name: new FormControl('' ,Validators.compose([Validators.required])),
       userId: new FormControl(),
-      doc_image: new FormControl('', Validators.compose([Validators.required])),
+      doc_image: new FormControl(''),
       folder_id: new FormControl('', Validators.compose([Validators.required])), 
       date: new FormControl(), 
       owner_id : new FormControl(),

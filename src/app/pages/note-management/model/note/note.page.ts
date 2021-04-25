@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActionSheetController, ModalController, ToastController } from "@ionic/angular";
-import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
+import { FormBuilder, FormGroup, FormControl, NgForm, Validators } from "@angular/forms";
 import { NoteManagementService } from '../../../../providers/note-management.service';
 import { ActivatedRoute } from "@angular/router";
 import {
@@ -89,12 +89,12 @@ export class NotePageModel implements OnInit {
 
   initNoteForm() {
     this.noteForm = this._formBuilder.group({
-      title: new FormControl(),
+      title: new FormControl('', Validators.compose([Validators.required])),
       userId: new FormControl(localStorage.getItem('adminId')),
       content: new FormControl(),
-      images: new FormControl(''),
-      folder_id: new FormControl(), 
-      date: new FormControl(), 
+      images: new FormControl(),
+      folder_id: new FormControl('', Validators.compose([Validators.required])), 
+      date: new FormControl('', Validators.compose([Validators.required])), 
       id: new FormControl(""),
     });
   }

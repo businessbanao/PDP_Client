@@ -168,8 +168,8 @@ getDateGoal(event) {
     let self = this;
     // debugger
     const alert = await this.alertController.create({
-      header: 'Task',
-      message: "Sure! Your task completed?",
+      header: 'Goal',
+      message: "Sure! Your Goal completed?",
       buttons: [
         {
           text: 'No',
