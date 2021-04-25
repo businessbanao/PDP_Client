@@ -5,44 +5,35 @@
     </ion-buttons>
     <ion-title> Note Management </ion-title>
     <ion-buttons slot="end">
-      <!-- <ion-icon
+      <ion-icon
         class="right-menu"
         name="ellipsis-vertical-outline"
         (click)="presentActionSheet()"
-      ></ion-icon> -->
+      ></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content> -->
-
-   
-    
-  
-
- 
- 
 <ion-content>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openAddEditFolderModal()">
+    <ion-fab-button (click)="openNoteModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-
-  <br>
+  <br />
   <ion-card class="chose-category-grid">
-
-    <div class="relative" 
-    
-    (click)="openNoteListModal(list._id, list.name)"
-    *ngFor="let list of folderList"   >
-    <img src="../../../assets/img/folder-icon.png" alt="">
+    <div
+      class="relative"
+      (click)="openNoteListModal(list._id, list.name)"
+      *ngFor="let list of folderList"
+    >
+      <img src="../../../assets/img/folder-icon.png" alt="" />
       <p>{{list.name}}</p>
     </div>
   </ion-card>
-  <br><br><br>
-  </ion-content>
+  <br /><br /><br />
+</ion-content>
 
 <ng-template #skeleton>
   <ion-item *ngFor="let item of [1, 2, 3, 4, 5,6,7,8,9]">
@@ -62,56 +53,5 @@
     </ion-label>
   </ion-item>
 
-   </ion-list> 
-<!-- </ng-template>  -->
-
-
-
-<ion-content [fullscreen]="true">
-
-
-  <ion-list>
-    <ion-item-sliding id="item100" *ngFor='let folder of folderList'>
-  
-      <ion-item >
-        
-        <ion-grid>
-          <ion-row>
-           
-            <div
-               class="folder" (click)="openNoteListModal(folder._id, folder.name)">
-      <img src="../../../assets/img/folder-icon.png" alt="">
-      <br>
-      <p class="folder-name">
-        {{ folder.name }}
-      </p>
-    </div>
-          
-          </ion-row>  
-        </ion-grid>
-      </ion-item>
-  
-      <ion-item-options side="end">
-        <ion-item-option color="warning" (click)="openEditFolderModal(folder)">
-          <ion-icon slot="icon-only" name="create"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" (click)="presentAlertConfirm(folder._id)">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-       
-  
-      </ion-item-options>
-  
-    </ion-item-sliding>
-    <p  style="text-align: center;"  *ngIf="folderList.length == 0 ">No Folders Found</p>
-
-  </ion-list>
-  
-  
-   
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openNoteModal()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  </ion-content>
+  <!-- </ion-list> -->
+</ng-template>

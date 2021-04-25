@@ -1,47 +1,15 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button style="color: white"></ion-menu-button>
     </ion-buttons>
     <ion-title> Doc Management </ion-title>
-    <!-- <ion-buttons slot="end">
-      <ion-icon
-        class="right-menu"
-        name="ellipsis-vertical-outline"
-        (click)="presentActionSheet()">
-      </ion-icon>
-    </ion-buttons> -->
+   
   </ion-toolbar>
 </ion-header>
 
 
-<!-- <ion-content [fullscreen]="true">
-
-
-<div
-    *ngFor='let folder of folderList ' class="folder" (click)="openDocListModal(folder._id, folder.name)">
-      <img src="../../../assets/img/folder-icon.png" alt="">
-      <br>
-      <p class="folder-name">
-        {{ folder.name }}
-      </p>
-      
-      <ion-col>
-        <ion-icon class="call-icon" (click)="openEditFolderModal(folder)" name="create-outline"></ion-icon>
-      </ion-col>
-      <br>
-     
-      <ion-col>
-        <ion-icon class="call-icon" (click)="presentAlertConfirm(folder._id)" name="trash-outline"></ion-icon>
-      </ion-col>
-    </div>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openAddEditDocModal()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-</ion-content> -->
+ 
 <ion-content [fullscreen]="true">
 
 
@@ -95,4 +63,63 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  </ion-content> -->
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button style="color: white"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> Doc Management </ion-title>
+      <ion-buttons slot="end">
+        <!-- <ion-icon
+          class="right-menu"
+          name="ellipsis-vertical-outline"
+          (click)="presentActionSheet()"
+        ></ion-icon> -->
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="openAddEditFolderModal()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+    <br />
+    <ion-card class="chose-category-grid">
+      <div
+        class="relative"
+        (click)="openDocListModal(list._id, list.name)"
+        *ngFor="let list of folderList"
+      >
+        <img src="../../../assets/img/folder-icon.png" alt="" />
+        <p>{{list.name}}</p>
+      </div>
+    </ion-card>
+    <br /><br /><br />
   </ion-content>
+  
+  <ng-template #skeleton>
+    <ion-item *ngFor="let item of [1, 2, 3, 4, 5,6,7,8,9]">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  
+    <!-- </ion-list> -->
+  </ng-template>
+  
