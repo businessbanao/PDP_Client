@@ -35,6 +35,7 @@ export class NotePageModel implements OnInit {
   public myphoto: any;
   public url;
   noteContent;
+  public folderList=[]
   
   constructor(
     public modalController: ModalController,
@@ -49,6 +50,7 @@ export class NotePageModel implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getFolders();
     this.initNoteForm();
     if(this.data){
       this.noteForm.patchValue(this.data);
@@ -57,6 +59,12 @@ export class NotePageModel implements OnInit {
       this.noteContent = this.data.content;
     }
 
+  }
+
+  getFolders(){
+    this._noteManagementService.getFolders().subscribe((resp) => {
+      this.folderList = resp.response;
+    });
   }
   
   updateNote(payload) {

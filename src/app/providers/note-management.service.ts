@@ -80,5 +80,19 @@ export class NoteManagementService {
         )
       );
     }
-
+    deleteFolder(folderId: String): Observable<any> {
+      return this._http.delete(environment.baseUrl2 + '/api/v1/deletefolder/' + folderId).pipe(
+        tap(
+          response => {
+            console.log("delete folder id : " + folderId + "success");
+            true;
+          },
+          error => {
+            console.log("delete folder id : " + folderId + "failed");
+            false;
+          }
+        )
+      );
+    }
+  
 }

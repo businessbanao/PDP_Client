@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EMIManagementService } from '../../providers/emi-management.service';
 import { DatePipe } from '@angular/common';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
 import { NotePageModel } from './model/note/note.page';
 import { NoteListPageModel } from './model/note-list/note-list.page';
 import { AddEditFolderPageModel } from './model/folder/add-edit-folder.page';
@@ -28,6 +28,8 @@ export class NoteManagementPage implements OnInit {
   constructor(
     private _noteManagementService: NoteManagementService, 
     private datePipe: DatePipe, 
+    public alertController: AlertController,
+
     public actionSheetController: ActionSheetController,
     public toastController: ToastController,
     public modalController: ModalController) {
@@ -149,4 +151,53 @@ export class NoteManagementPage implements OnInit {
     // });
     return await modal.present();
   }
+
+  async openEditFolderModal(body) {
+    const modal = await this.modalController.create({
+  component: AddEditFolderPageModel,
+  componentProps:{
+    data:body
+  }
+});
+modal.onDidDismiss().then((dataReturned) => {
+  this.getFolders();
+});
+return await modal.present();
+}
+
+
+deleteFolderManagement(id) {
+  this._noteManagementService.deleteFolder(id).subscribe((data) => {
+    this.getFolders();
+    this.presentToast("Folder Deleted");
+  });
+}
+async presentAlertConfirm(id) {
+  let self = this;
+  const alert = await this.alertController.create({
+    header: 'Delete Folder',
+    message: "Are you sure you want to delete?",
+    buttons: [
+      {
+        text: 'Cancel',
+
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          
+        }
+      }, {
+        text: 'Okay',
+        handler: () => {
+          self.deleteFolderManagement(id)
+          this.getFolders();
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+
 }

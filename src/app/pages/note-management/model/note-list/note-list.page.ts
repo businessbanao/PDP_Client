@@ -88,7 +88,8 @@ export class NoteListPageModel implements OnInit {
       }
 
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => {    this.getFolderNotes(this.folderId);
+    });
     return await modal.present();
   }
 
