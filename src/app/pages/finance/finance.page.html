@@ -34,7 +34,7 @@
                <form [formGroup]="inventoryForm" (ngSubmit)="createInventory(inventoryForm)">
                 <ion-item>
                   <ion-label>Account : </ion-label>
-                  <ion-select placeholder="account id" formControlName="account_id">
+                  <ion-select placeholder="Choose Account " formControlName="account_id">
                     <section  *ngFor="let account of accounts">
                       <ion-select-option value="{{ account._id }}">{{ account.account_name }}</ion-select-option>
                   </section>
@@ -49,11 +49,11 @@
                 </ion-item>  
                 <ion-item>
                   <ion-label>Amount : </ion-label>
-                  <ion-input class="alignRight" type="number" placeholder="amount" formControlName="amount"></ion-input>
+                  <ion-input class="alignRight" type="number" placeholder="Amount" formControlName="amount"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label>Description : </ion-label>
-                  <ion-input class="alignRight" type="text" placeholder="description" formControlName="description"></ion-input>
+                  <ion-input class="alignRight" type="text" placeholder="Description" formControlName="description"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label>Date : </ion-label>
@@ -65,11 +65,11 @@
                   <ion-button *ngIf='isEditMode' color="secondary"  type="button" value="Update" (click)="updateInventory(inventoryForm)">Update</ion-button>
                 </form>
 
-                <ion-row style="width:100%" style="justify-content: flex-end;padding: 10px 0px;">
+                <!-- <ion-row style="width:100%" style="justify-content: flex-end;padding: 10px 0px;">
                   <ion-button class="upload-img" (click)="selectImagefromMobille()">
                     Upload Image  &nbsp;&nbsp;<ion-icon  name="cloud-upload-sharp"></ion-icon>
                   </ion-button>
-                </ion-row>
+                </ion-row> -->
 
           </div>
       </div>
@@ -79,7 +79,7 @@
   <ng-container *ngIf="tabName == 'inventory_list'">
     <ion-item>
       <ion-label>Date : </ion-label>
-      <input type="date" [(ngModel)]="dateFilter" (ngModelChange)='applyFilter()'>
+      <input type="month" [(ngModel)]="dateFilter" (ngModelChange)='applyFilter()'>
     </ion-item> 
     <ion-item>
       <ion-label>Inventory Type: </ion-label>
@@ -132,12 +132,12 @@
       </ion-item-options>
     </ion-item-sliding>
     
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"
         loadingText="Loading more data...">
       </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    </ion-infinite-scroll> -->
 </ng-container>
 
   </div>

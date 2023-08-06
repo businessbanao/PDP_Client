@@ -28,7 +28,7 @@ export class AccountService {
   }
 
   updateAccount(id, payload): Observable<any> {
-    return this._http.put(environment.baseUrl+`/api/v1/accountUpdate/` + id, payload).pipe(
+    return this._http.put(environment.baseUrl+`/api/v1/editAccountDetails/` + id, payload).pipe(
       tap(
         response => {},
         error => {}

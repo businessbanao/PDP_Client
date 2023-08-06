@@ -29,7 +29,7 @@ import { GoalManagementService } from './providers/goal-management.service';
 import { EMIManagementService } from './providers/emi-management.service';
 import { NoteManagementService } from './providers/note-management.service';
 import { DocManagementService } from './providers/doc-management.service';
-import { CKEditorModule } from 'ng2-ckeditor';
+// import { CKEditorModule } from 'ng2-ckeditor';
 
 
 @NgModule({
@@ -38,7 +38,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    CKEditorModule,
+    // CKEditorModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {

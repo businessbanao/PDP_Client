@@ -50,11 +50,7 @@ export class FinancePage implements OnInit {
   totalIncoming: number = 0;
   totalOutgoing: number = 0;
 
-  Users: any = [
-    { name: "Shashwat", id: "6018524ed041c31c261227cd" },
-    { name: "Shivam", id: "6011524ed041c31c561227cd" },
-    { name: "Sandip", id: "6018564ed041c31c261227cd" },
-  ];
+
 
   constructor(
     private _datePipe: DatePipe,
@@ -66,22 +62,22 @@ export class FinancePage implements OnInit {
     public modalController: ModalController,
     private camera: Camera,
     private transfer: FileTransfer
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.finance = this.activatedRoute.snapshot.paramMap.get("id");
     this.initinventoryForm();
     this.getAccounts();
-    this.dateFilter =this._datePipe.transform(new Date(),  'yyyy-MM-dd');
+    this.dateFilter = this._datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.applyFilter()
   }
 
-   
+
 
   initinventoryForm() {
     this.inventoryForm = this._formBuilder.group({
       account_id: new FormControl(),
-      inventryType: new FormControl(),
+      inventryType: new FormControl('debit'),
       userId: new FormControl(),
       amount: new FormControl(),
       description: new FormControl(),
@@ -97,7 +93,7 @@ export class FinancePage implements OnInit {
       this.responseStr = resp.response;
       this.tabName = "inventory_list";
       this.isEditMode = false;
-      this.applyFilter(); 
+      this.applyFilter();
     });
   }
 
@@ -135,12 +131,50 @@ export class FinancePage implements OnInit {
   //   });
   // }
 
+  public bkpInvenrryList = []
   applyFilter() {
     let date = this.dateFormater(this.dateFilter);
     this._financeService
       .filterInventory(date, date, this.accountFilter, this.inventryTypeFilter, this.page)
       .subscribe((resp: any) => {
-        this.inventoryList = resp.response;
+        this.inventoryList = resp.object.response;
+        this.bkpInvenrryList = JSON.parse(JSON.stringify(this.inventoryList));
+
+
+
+        if (this.inventryTypeFilter == "debit" || this.inventryTypeFilter == "credit") {
+          this.inventoryList = this.bkpInvenrryList.filter((list) => {
+            return list.inventryType == this.inventryTypeFilter
+          })
+        }
+
+        if (this.accountFilter) {
+          this.inventoryList = this.bkpInvenrryList.filter((list) => {
+            return list.account_id == this.accountFilter
+          })
+        }
+
+        if (this.dateFilter == '2023-07') {
+          this.inventoryList = this.bkpInvenrryList.filter((list) => {
+           return list.date ? list.date.slice(0,7) == '2023-07' : false
+          })
+        }
+
+        if (this.dateFilter == '2023-08') {
+          this.inventoryList = this.bkpInvenrryList.filter((list) => {
+           return list.date ? list.date.slice(0,7) == '2023-08' : false
+          })
+        }
+
+        if (this.dateFilter == '2023-09') {
+          this.inventoryList = this.bkpInvenrryList.filter((list) => {
+           return list.date ? list.date.slice(0,7) == '2023-09' : false
+          })
+        }
+
+
+        this.totalIncoming = 0;
+        this.totalOutgoing = 0;
 
         this.inventoryList.filter(invntry => invntry.inventryType == "credit").forEach(element => {
           this.totalIncoming += Number(element.amount);
@@ -206,7 +240,7 @@ export class FinancePage implements OnInit {
     const modal = await this.modalController.create({
       component: AccountPageModel,
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => { });
     return await modal.present();
   }
 
@@ -214,7 +248,7 @@ export class FinancePage implements OnInit {
     const modal = await this.modalController.create({
       component: LedgerPageModel,
     });
-    modal.onDidDismiss().then((dataReturned) => {});
+    modal.onDidDismiss().then((dataReturned) => { });
     return await modal.present();
   }
 
@@ -230,9 +264,10 @@ export class FinancePage implements OnInit {
 
   getAccounts() {
     this._accountService
+
       .getAccount(localStorage.getItem("adminId"))
       .subscribe((resp) => {
-        this.accounts = resp.response;
+        this.accounts = resp.object.response;
       });
   }
 
@@ -242,20 +277,20 @@ export class FinancePage implements OnInit {
   };
 
   loadData(event) {
-    let date = this.dateFormater(this.dateFilter);
-    this.page.limit = this.page.limit;
-    this.page.skip = this.page.skip + 5;
+    // let date = this.dateFormater(this.dateFilter);
+    // this.page.limit = this.page.limit;
+    // this.page.skip = this.page.skip + 5;
 
-    this._financeService.filterInventory(date, date, this.accountFilter, this.inventryTypeFilter, this.page).subscribe((resp:any) => {
-      if (event) {
-        setTimeout(() => {
-          event.target.complete();
-          debugger
-          this.inventoryList = this.inventoryList.concat(resp.response);
-          // this.getAvgReview();
-        }, 1800);
-      }
-    });
+    // this._financeService.filterInventory(date, date, this.accountFilter, this.inventryTypeFilter, this.page).subscribe((resp:any) => {
+    //   if (event) {
+    //     setTimeout(() => {
+    //       event.target.complete();
+    //       // debugger
+    //       this.inventoryList = this.inventoryList.concat(resp.response);
+    //       // this.getAvgReview();
+    //     }, 1800);
+    //   }
+    // });
 
     // this._financeService.getInventory(this.page).subscribe((resp) => {
     //   // this.inventoryList = resp.response;
@@ -352,8 +387,8 @@ export class FinancePage implements OnInit {
           this.inventoryForm.get("images").setValue(this.url);
           alert(
             "data " +
-              JSON.stringify(result) +
-              JSON.parse(result.response).object
+            JSON.stringify(result) +
+            JSON.parse(result.response).object
           );
 
           console.log(this.images, "this.images");

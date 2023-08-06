@@ -63,7 +63,7 @@ export class AccountPageModel implements OnInit {
    
   createAccount(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
-    formData["userId"] = localStorage.getItem("adminId");
+    formData["userId"] = localStorage.getItem("adminId")  ;
     this._accountService.createAccount(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
@@ -131,16 +131,16 @@ export class AccountPageModel implements OnInit {
 
   getAccounts() {
     this._accountService
-      .getAccount(localStorage.getItem("adminId"))
+      .getAccount(localStorage.getItem("adminId")  )
       .subscribe((resp) => {
-        this.accounts = resp.response;
+        this.accounts = resp.object.response;
       });
   }
 
 
   searchAccount(){
     if(this.acc_search.length > 2){
-      this._accountService.searchAccout(this.acc_search, localStorage.getItem('adminId')).subscribe((resp) => {
+      this._accountService.searchAccout(this.acc_search, localStorage.getItem('adminId')  ).subscribe((resp) => {
         this.accounts = resp.response;
       });
     } else if(this.acc_search.length == 0){
