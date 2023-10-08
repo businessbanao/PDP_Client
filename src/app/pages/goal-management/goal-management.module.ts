@@ -9,7 +9,7 @@ import { GoalManagementPageRoutingModule } from './goal-management-routing.modul
 import { GoalManagementPage } from './goal-management.page';
 
 import { GoalPageModel } from './model/goal/goal.page';
-import { DayManagementService } from '../../providers/day-management.service';
+import { TaskManagementService } from '../../providers/task-management.service';
 
 @NgModule({
   imports: [
@@ -22,7 +22,7 @@ import { DayManagementService } from '../../providers/day-management.service';
     GoalManagementPageRoutingModule
   ],
   declarations: [GoalManagementPage, GoalPageModel],
-  providers:[DayManagementService],
+  providers:[TaskManagementService],
   entryComponents:[GoalPageModel]
 })
 export class GoalManagementPageModule {}

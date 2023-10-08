@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DayManagementService } from '../../providers/day-management.service';
 import { DatePipe } from '@angular/common';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { GoalPageModel } from './model/goal/goal.page';

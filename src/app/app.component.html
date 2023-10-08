@@ -43,33 +43,25 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
+         
         </ion-list>
         <ion-list lines="none">
-     
-          <ion-menu-toggle autoHide="false">
-            <ion-item button routerLink="/daymgnt" routerLinkActive="selected" routerDirection="root"
-              detail="false">
-              <ion-icon slot="start" name="calendar-outline"></ion-icon>
-              <ion-label>
-                Daily Routine
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
 
           <ion-menu-toggle autoHide="false">
-            <ion-item button routerLink="/docmgnt" routerLinkActive="selected" routerDirection="root"
+            <ion-item button routerLink="/task" routerLinkActive="selected" routerDirection="root"
               detail="false">
               <ion-icon slot="start" name="document-text-outline"></ion-icon>
               <ion-label>
-                Documents
+                Task Manager
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle autoHide="false">
+            <ion-item button routerLink="/time-manager" routerLinkActive="selected" routerDirection="root"
+              detail="false">
+              <ion-icon slot="start" name="document-text-outline"></ion-icon>
+              <ion-label>
+                Time Manager 
               </ion-label>
             </ion-item>
           </ion-menu-toggle>

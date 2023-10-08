@@ -50,16 +50,16 @@ public newTotalCount =0;
       url: "/notemgnt",
       icon: "create-outline",
     },
-    {
-      title: "Goals",
-      url: "/goalmgnt",
-      icon: "golf-outline",
-    },
-    {
-      title: "EMI Manager",
-      url: "/emimgnt",
-      icon: "receipt-outline",
-    },
+    // {
+    //   title: "Goals",
+    //   url: "/goalmgnt",
+    //   icon: "golf-outline",
+    // },
+    // {
+    //   title: "EMI Manager",
+    //   url: "/emimgnt",
+    //   icon: "receipt-outline",
+    // },
    
   ];
   loggedIn = false;

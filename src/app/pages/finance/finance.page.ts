@@ -35,7 +35,7 @@ export class FinancePage implements OnInit {
   selectedDate: any;
   public dateFilter;
   public accountFilter = "";
-  public inventryTypeFilter = "all";
+  public inventryTypeFilter = "";
   prevInventoryList: any = [];
 
   public isEditMode: boolean;
@@ -69,7 +69,7 @@ export class FinancePage implements OnInit {
     this.initinventoryForm();
     this.getAccounts();
     this.dateFilter = this._datePipe.transform(new Date(), 'yyyy-MM-dd');
-    this.applyFilter()
+    this.applyFilter();
   }
 
 
@@ -84,6 +84,10 @@ export class FinancePage implements OnInit {
       date: new FormControl(),
       id: new FormControl(""),
     });
+
+    // this.inventoryForm.get('account_id').valueChanges.subscribe(()=>{
+    //   this.inventoryForm.get('inventryType').setValue("debit");
+    // })
   }
 
   createInventory(payload: FormGroup) {
@@ -102,6 +106,7 @@ export class FinancePage implements OnInit {
     this.isEditMode = true;
     this.inventoryForm.patchValue(data);
     this.inventoryForm.get("id").setValue(data._id);
+    this.inventoryForm.get("account_id").setValue(data.account_id._id);
     this.inventoryForm.get("date").setValue(data.date.slice(0, 10));
   }
 
@@ -133,44 +138,60 @@ export class FinancePage implements OnInit {
 
   public bkpInvenrryList = []
   applyFilter() {
-    let date = this.dateFormater(this.dateFilter);
+    let date = new Date(this.dateFilter);
+    var firstDay = this.dateFormater(new Date(date.getFullYear(), date.getMonth(), 1));
+    var lastDay = this.dateFormater(new Date(date.getFullYear(), date.getMonth() + 1, 0));
+
+    let payload = {
+      startDate: firstDay,
+      endDate: lastDay,
+    };
+
+    if (this.inventryTypeFilter) {
+      payload['inventryType'] = this.inventryTypeFilter
+    }
+
+    if (this.accountFilter) {
+      payload['account_id'] = this.accountFilter
+    }
+
     this._financeService
-      .filterInventory(date, date, this.accountFilter, this.inventryTypeFilter, this.page)
+      .filterInventory(payload)
       .subscribe((resp: any) => {
         this.inventoryList = resp.object.response;
         this.bkpInvenrryList = JSON.parse(JSON.stringify(this.inventoryList));
 
 
 
-        if (this.inventryTypeFilter == "debit" || this.inventryTypeFilter == "credit") {
-          this.inventoryList = this.bkpInvenrryList.filter((list) => {
-            return list.inventryType == this.inventryTypeFilter
-          })
-        }
+        // if (this.inventryTypeFilter == "debit" || this.inventryTypeFilter == "credit") {
+        //   this.inventoryList = this.bkpInvenrryList.filter((list) => {
+        //     return list.inventryType == this.inventryTypeFilter
+        //   })
+        // }
 
-        if (this.accountFilter) {
-          this.inventoryList = this.bkpInvenrryList.filter((list) => {
-            return list.account_id == this.accountFilter
-          })
-        }
+        // if (this.accountFilter) {
+        //   this.inventoryList = this.bkpInvenrryList.filter((list) => {
+        //     return list.account_id == this.accountFilter
+        //   })
+        // }
 
-        if (this.dateFilter == '2023-07') {
-          this.inventoryList = this.bkpInvenrryList.filter((list) => {
-           return list.date ? list.date.slice(0,7) == '2023-07' : false
-          })
-        }
+        // if (this.dateFilter == '2023-07') {
+        //   this.inventoryList = this.bkpInvenrryList.filter((list) => {
+        //     return list.date ? list.date.slice(0, 7) == '2023-07' : false
+        //   })
+        // }
 
-        if (this.dateFilter == '2023-08') {
-          this.inventoryList = this.bkpInvenrryList.filter((list) => {
-           return list.date ? list.date.slice(0,7) == '2023-08' : false
-          })
-        }
+        // if (this.dateFilter == '2023-08') {
+        //   this.inventoryList = this.bkpInvenrryList.filter((list) => {
+        //     return list.date ? list.date.slice(0, 7) == '2023-08' : false
+        //   })
+        // }
 
-        if (this.dateFilter == '2023-09') {
-          this.inventoryList = this.bkpInvenrryList.filter((list) => {
-           return list.date ? list.date.slice(0,7) == '2023-09' : false
-          })
-        }
+        // if (this.dateFilter == '2023-09') {
+        //   this.inventoryList = this.bkpInvenrryList.filter((list) => {
+        //     return list.date ? list.date.slice(0, 7) == '2023-09' : false
+        //   })
+        // }
 
 
         this.totalIncoming = 0;
@@ -195,7 +216,7 @@ export class FinancePage implements OnInit {
         : tempDate.getMonth() + 1;
     let year = tempDate.getFullYear();
     if (!isNaN(tempDate.getTime())) {
-      return month + "-" + date + "-" + year;
+      return year + "-" + month + "-" + date;
     } else {
       return "";
     }

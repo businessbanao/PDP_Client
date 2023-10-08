@@ -99,10 +99,7 @@
       </ion-select>
     </ion-item>
     
-    <div class="NoRecordFound" *ngIf="inventoryList?.length == 0">
-      <img src="../../../assets/img/no-record.gif" alt="no record found">
-      <p>No Record Found</p>
-    </div>
+    
 
     <ion-item *ngIf="inventoryList?.length != 0">
       <ion-label class="crAmmount">Total Incoming : {{ totalIncoming }}</ion-label>
@@ -131,6 +128,10 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
+    <div style="margin-top: 200px;text-align: center;" *ngIf="!inventoryList?.length">
+      <!-- <img src="../../../assets/img/no-record.gif" alt="no record found"> -->
+      <div> No Record Found</div> 
+    </div>
     
     <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content

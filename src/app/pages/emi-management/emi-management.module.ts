@@ -9,7 +9,7 @@ import { EMIManagementPageRoutingModule } from './emi-management-routing.module'
 import { EMIManagementPage } from './emi-management.page';
 
 import { EMIPageModel } from './model/emi/emi.page';
-import { DayManagementService } from '../../providers/day-management.service';
+import { TaskManagementService } from '../../providers/task-management.service';
 
 @NgModule({
   imports: [
@@ -22,7 +22,7 @@ import { DayManagementService } from '../../providers/day-management.service';
     EMIManagementPageRoutingModule
   ],
   declarations: [EMIManagementPage, EMIPageModel],
-  providers:[DayManagementService],
+  providers:[TaskManagementService],
   entryComponents:[EMIPageModel]
 })
 export class EMIManagementPageModule {}

@@ -3,31 +3,35 @@ import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../../../providers/account.service';
 import { ModalController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
+import { FinanceService } from '../../../../providers/finance.service';
 
 @Component({
   selector: 'app-ledger',
   templateUrl: './ledger.page.html',
   styleUrls: ['./ledger.page.scss'],
-  providers:[DatePipe]
+  providers: [DatePipe]
 })
 
 export class LedgerPageModel implements OnInit {
 
-  inventoryList:any = [];
-  monthlyInventoryList:any[];
+  inventoryList: any = [];
+  monthlyInventoryList: any[];
   public monthYear;
   totalIncoming: number = 0;
   totalOutgoing: number = 0;
-  newInventoryList:any = [];
-
+  newInventoryList: any = [];
+  public dateFilter;
 
   constructor(
     private _datePipe: DatePipe,
-    private _accountService: AccountService, 
-    public modalController: ModalController
+    private _accountService: AccountService,
+    public modalController: ModalController,
+    private _financeService: FinanceService,
   ) {
-    this.monthYear = this._datePipe.transform(new Date(),  'yyyy-MM');
+    this.monthYear = this._datePipe.transform(new Date(), 'yyyy-MM');
     // console.log(this._datePipe.transform(new Date(),  'yyyy-MM'));
+    this.dateFilter = this._datePipe.transform(new Date(), 'yyyy-MM-dd');
+
   }
 
   ngOnInit() {
@@ -39,74 +43,70 @@ export class LedgerPageModel implements OnInit {
     await this.modalController.dismiss(onClosedData);
   }
 
-  // public 
-  getInventory(){
-    let startDate =  this.monthYear.split("-")[1]+"-01-"+this.monthYear.split("-")[0], 
-        endDate = this.monthYear.split("-")[1]+"-31-"+this.monthYear.split("-")[0];
-    this._accountService.getDateInventory(startDate, endDate).subscribe((resp) => {
-      this.inventoryList = resp.response;
+  public groupAccounts;
+  panelOpenState = false;
+  getInventory() {
+    let date = new Date(this.monthYear);
+    var firstDay = this.dateFormater(new Date(date.getFullYear(), date.getMonth(), 1));
+    var lastDay = this.dateFormater(new Date(date.getFullYear(), date.getMonth() + 1, 0));
 
-      this.inventoryList.filter(invntry => invntry.inventryType == "credit").forEach(element => {
-        this.totalIncoming += Number(element.amount);
-      });
-      this.inventoryList.filter(invntry => invntry.inventryType == "debit").forEach(element => {
-        this.totalOutgoing += Number(element.amount);
-      });
-
-      let groupResult = this.inventoryList.reduce(function (r, a) {
-        r[a.account_id.account_name] = r[a.account_id.account_name] || [];
-        r[a.account_id.account_name].push(a);
-        return r;
-      }, Object.create(null));
+    let payload = {
+      startDate: firstDay,
+      endDate: lastDay,
+    };
 
 
-      console.log(groupResult, "group result");
-
-      
-
-      // let arr1=[]
-      // groupResult.Petrol.forEach(data => {
-      //   console.log(data,"pert data");
-      //   arr1.push(data);
-      // });
-
-      // console.log(arr1,"arr1")
+    this._financeService
+      .filterInventory(payload)
+      .subscribe((resp: any) => {
+        this.inventoryList = resp.object.response;
 
 
-
-      let self = this;
-      this.inventoryList.forEach(element => {
-        self.monthlyInventoryList.push(element.account_id.account_name);
-      });
-
-
-      let finalArr = [];
-      for (const [key, value] of Object.entries(groupResult)) {
-        console.log(`${key}: ${value}`);
-
-        let total = this.sum(value, "amount");
-        finalArr.push({
-          accountName: value[0].account_id.account_name,
-          amount: total,
-          
+        this.inventoryList.filter(invntry => invntry.inventryType == "credit").forEach(element => {
+          this.totalIncoming += Number(element.amount);
         });
-      }
+        this.inventoryList.filter(invntry => invntry.inventryType == "debit").forEach(element => {
+          this.totalOutgoing += Number(element.amount);
+        });
 
-      this.newInventoryList = finalArr;
-      
-    });
+        let groupResult = this.inventoryList.reduce(function (r, a) {
+          r[a.account_id.account_name] = r[a.account_id.account_name] || [];
+          r[a.account_id.account_name].push(a);
+          return r;
+        }, Object.create(null));
+
+
+        console.log(groupResult, "group result");
+
+        this.groupAccounts = Object.entries(groupResult);
+      });
   }
 
-  sum(items, prop) {
+  getTotal(items) {
     let total_value = 0;
     items.forEach(function (val) {
-       
-        total_value = total_value + parseInt(val.amount);
-      
+
+      total_value = total_value + parseInt(val.amount);
+
     });
     return total_value;
   }
 
+  dateFormater(inputDate) {
+    let tempDate = new Date(inputDate);
+    let date =
+      tempDate.getDate() < 10 ? "0" + tempDate.getDate() : tempDate.getDate();
+    let month =
+      tempDate.getMonth() + 1
+        ? "0" + (tempDate.getMonth() + 1)
+        : tempDate.getMonth() + 1;
+    let year = tempDate.getFullYear();
+    if (!isNaN(tempDate.getTime())) {
+      return year + "-" + month + "-" + date;
+    } else {
+      return "";
+    }
+  }
 
 
 

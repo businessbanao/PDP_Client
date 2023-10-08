@@ -9,7 +9,7 @@ import { DeveloperManagementPageRoutingModule } from './developer-management-rou
 import { DeveloperManagementPage } from './developer-management.page';
 
 import { AddEditModulePageModel } from './model/add-edit-module/add-edit-module.page';
-import { DayManagementService } from '../../providers/day-management.service';
+import { TaskManagementService } from '../../providers/task-management.service';
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -28,7 +28,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatExpansionModule
   ],
   declarations: [DeveloperManagementPage, AddEditModulePageModel,],
-  providers:[DayManagementService,Camera,File, WebView,
+  providers:[TaskManagementService,Camera,File, WebView,
     FilePath],
   entryComponents:[AddEditModulePageModel]
 })

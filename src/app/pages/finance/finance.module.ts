@@ -14,6 +14,7 @@ import { AccountPageModel } from "./model/account/account.page";
 import { LedgerPageModel } from './model/ledger/ledger.page';
 import { AccountLedgerPageModel } from './model/account_ledger/account_ledger.page';
 import { Camera } from '@ionic-native/camera/ngx';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { Camera } from '@ionic-native/camera/ngx';
     FinancePageRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatExpansionModule
   ],
   declarations: [FinancePage, AccountPageModel, LedgerPageModel, AccountLedgerPageModel],
   providers:[AccountService, FinanceService, Camera],

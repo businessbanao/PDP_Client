@@ -1,10 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button
-        defaultHref="/finance"
-        (click)="closeModal()"
-      ></ion-back-button>
+      <ion-back-button defaultHref="/finance" (click)="closeModal()"></ion-back-button>
     </ion-buttons>
     <ion-title>Ledger</ion-title>
   </ion-toolbar>
@@ -16,35 +13,58 @@
       <ion-title size="large">Ledger</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <ng-container>
     <ion-item>
       <ion-label>Date : </ion-label>
       <ion-input type="month" [(ngModel)]="monthYear" (ionChange)='getInventory()'></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="groupAccounts.length">
       <ion-label class="crAmmount">Total Incoming : {{ totalIncoming }}</ion-label>
       <ion-label class="drAmmount">Total Outgoing : {{ totalOutgoing }}</ion-label>
     </ion-item>
 
     <hr>
 
-    <div class="NoRecordFound" *ngIf="inventoryList?.length == 0">
-      <img src="../../../../../assets/img/no-record.gif" alt="no record found">
+    
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let list of groupAccounts" (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{list[0]}}
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <table>
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr *ngFor="let account of list[1]">
+            <td>{{account.date | date:'dd-MMM-yyyy'}}</td>
+            <td>{{account.amount}}</td>
+            <td class="capitalize">{{account.inventryType}}</td>
+            <td class="capitalize">{{account.description}}</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>{{getTotal(list[1])}}</td>
+            <td></td>
+            <td></td>
+
+          </tr>
+        </table>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="NoRecordFound" *ngIf="groupAccounts?.length == 0">
       <p>No Record Found</p>
     </div>
-
-    <div *ngIf="inventoryList?.length != 0">
-      <div *ngFor="let invtry of newInventoryList" class="trList">
-        
-        <p class="save-later-name" style="text-transform: capitalize;">
-          {{invtry.accountName}}  - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <span  class="crAmmount"> {{ invtry.amount | currency:'INR' }}</span>
-        </p>
-      </div>
-    </div>
-
   </ng-container>
-  
+
 </ion-content>

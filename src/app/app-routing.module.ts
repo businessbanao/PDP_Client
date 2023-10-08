@@ -25,8 +25,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/goal-management/goal-management.module').then(m => m.GoalManagementPageModule)
   },
   {
-    path: 'daymgnt',
-    loadChildren: () => import('./pages/day-management/day-management.module').then(m => m.DayManagementPageModule)
+    path: 'task',
+    loadChildren: () => import('./pages/todo-management/todo-management.module').then(m => m.TodoManagementPageModule)
+  },
+  {
+    path: 'time-manager',
+    loadChildren: () => import('./pages/time-management/time-management.module').then(m => m.TimeManagementPageModule)
   },
   {
     path: 'login',
