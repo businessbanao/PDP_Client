@@ -1,0 +1,186 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/daymgnt" (click)="closeModal(false)"></ion-back-button>
+    </ion-buttons>
+    <ion-title id="top">Task</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="row">
+      <div class="form-bg">
+        <form [formGroup]="taskForm" (ngSubmit)="submit(taskForm)">
+          <div class="form-group">
+            <div
+              [ngClass]="{'has-error' : taskForm.get('category').errors && (taskForm.get('category').touched || taskForm.get('category').dirty) }">
+              <ion-item>
+                <ion-label>Category : </ion-label>
+                <ion-select placeholder="Select :" formControlName="category">
+                  <ion-select-option value="DAILY_ROUTINE">Daily Routine</ion-select-option>
+                  <ion-select-option value="HABIT">Habit</ion-select-option>
+                  <ion-select-option value="HOBBIE">Hobbie</ion-select-option>
+                  <ion-select-option value="NIGHT_ROUTINE">Night Routine</ion-select-option>
+                  <ion-select-option value="HAIR_ROUTINE">Hair Routine</ion-select-option>
+                  <ion-select-option value="SKIN_ROUTINE">Skin Routine</ion-select-option>
+                  <ion-select-option value="ENTERTAINMENT">Entertainment</ion-select-option>
+                  <ion-select-option value="IMP_WORK">Imp Work</ion-select-option>
+                  <ion-select-option value="BUSINESS_EXTRA_WORK">Business/Extra Work</ion-select-option>
+                  <ion-select-option value="TRAVEL">Travel</ion-select-option>
+                  <ion-select-option value="OFFICE">Office</ion-select-option>
+                  <ion-select-option value="HOUSE_WORK">House Work</ion-select-option>
+                  <ion-select-option value="REST">Rest</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </div>
+            <span class="help-block"
+              *ngIf=" taskForm.get('category').errors && (taskForm.get('category').touched || taskForm.get('category').dirty)">
+              <span *ngIf="taskForm.get('category').errors?.required">
+                <!-- <br> -->
+                &nbsp;&nbsp;&nbsp;&nbsp;Category is required*
+              </span>
+            </span>
+          </div>
+          <br />
+          <div class="form-group">
+            <div
+              [ngClass]="{'has-error' : taskForm.get('task_name').errors && (taskForm.get('task_name').touched || taskForm.get('task_name').dirty) }">
+              <ion-item>
+                <ion-label>Task Name : </ion-label>
+                <ion-input type="text" placeholder="Task Name" formControlName="task_name"></ion-input>
+              </ion-item>
+            </div>
+            <span class="help-block"
+              *ngIf=" taskForm.get('task_name').errors && (taskForm.get('task_name').touched || taskForm.get('task_name').dirty)">
+              <span *ngIf="taskForm.get('task_name').errors?.required">
+                <!-- <br> -->
+                &nbsp;&nbsp;&nbsp;&nbsp;Task Name is required*
+              </span>
+            </span>
+          </div>
+          <br />
+          
+          <div class="form-group">
+            <div
+              [ngClass]="{'has-error' : taskForm.get('duration_type').errors && (taskForm.get('duration_type').touched || taskForm.get('duration_type').dirty) }">
+              <ion-item>
+                <ion-label>Duration : </ion-label>
+                <ion-select placeholder="Select :" formControlName="duration_type">
+                  <ion-select-option value="day">Day</ion-select-option>
+                  <ion-select-option value="week">Week</ion-select-option>
+                  <ion-select-option value="month">Month</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </div>
+            <span class="help-block"
+              *ngIf=" taskForm.get('duration_type').errors && (taskForm.get('duration_type').touched || taskForm.get('duration_type').dirty)">
+              <span *ngIf="taskForm.get('duration_type').errors?.required">
+                <!-- <br> -->
+                &nbsp;&nbsp;&nbsp;&nbsp;Duration Type is required*
+              </span>
+            </span>
+          </div>
+          <br />
+          <br />
+          <div class="form-group">
+            <div
+              [ngClass]="{'has-error' : taskForm.get('priority').errors && (taskForm.get('priority').touched || taskForm.get('priority').dirty) }">
+              <ion-item>
+                <ion-label>Priority : </ion-label>
+                <ion-select placeholder="Select :" formControlName="priority">
+                  <ion-select-option value="HIGH">HIGH</ion-select-option>
+                  <ion-select-option value="MED">MED</ion-select-option>
+                  <ion-select-option value="LOW">LOW</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </div>
+            <span class="help-block"
+              *ngIf=" taskForm.get('priority').errors && (taskForm.get('priority').touched || taskForm.get('priority').dirty)">
+              <span *ngIf="taskForm.get('priority').errors?.required">
+                <!-- <br> -->
+                &nbsp;&nbsp;&nbsp;&nbsp;Priority is required*
+              </span>
+            </span>
+          </div>
+          <br />
+
+          <div class="form-group">
+            <div
+              [ngClass]="{'has-error' : taskForm.get('duration_start_date').errors && (taskForm.get('duration_start_date').touched || taskForm.get('duration_start_date').dirty) }">
+              <ion-item>
+                <ion-label>Start Date : </ion-label>
+                <ion-input type="date" formControlName="duration_start_date"></ion-input>
+              </ion-item>
+            </div>
+            <span class="help-block"
+              *ngIf=" taskForm.get('duration_start_date').errors && (taskForm.get('duration_start_date').touched || taskForm.get('duration_start_date').dirty)">
+              <span *ngIf="taskForm.get('duration_start_date').errors?.required">
+                &nbsp;&nbsp;&nbsp;&nbsp;Start Date is required*
+              </span>
+            </span>
+          </div>
+          <br />
+          <div class="form-group">
+            <div
+              [ngClass]="{'has-error' : taskForm.get('duration_end_date').errors && (taskForm.get('duration_end_date').touched || taskForm.get('duration_end_date').dirty) }">
+              <ion-item>
+                <ion-label>End Date : </ion-label>
+                <ion-input type="date" formControlName="duration_end_date"></ion-input>
+              </ion-item>
+            </div>
+            <span class="help-block"
+              *ngIf=" taskForm.get('duration_end_date').errors && (taskForm.get('duration_end_date').touched || taskForm.get('duration_end_date').dirty)">
+              <span *ngIf="taskForm.get('duration_end_date').errors?.required">
+                &nbsp;&nbsp;&nbsp;&nbsp;End Date is required*
+              </span>
+            </span>
+          </div>
+          <!-- <br />
+          <div class="form-group">
+            <div
+              [ngClass]="{'has-error' : taskForm.get('priority').errors && (taskForm.get('priority').touched || taskForm.get('priority').dirty) }">
+              <ion-item>
+                <ion-label>recuring : </ion-label>
+                <input type="checkbox">
+              </ion-item>
+            </div>
+            <span class="help-block"
+              *ngIf=" taskForm.get('priority').errors && (taskForm.get('priority').touched || taskForm.get('priority').dirty)">
+              <span *ngIf="taskForm.get('priority').errors?.required">
+                &nbsp;&nbsp;&nbsp;&nbsp;Priority is required*
+              </span>
+            </span>
+          </div>
+          <br /> -->
+
+          <!-- <div class="form-group">
+            <div
+              [ngClass]="{'has-error' : taskForm.get('priority').errors && (taskForm.get('priority').touched || taskForm.get('priority').dirty) }">
+              <ion-item>
+                <ion-label>Tags : </ion-label>
+                <input type="checkbox">
+              </ion-item>
+            </div>
+            <span class="help-block"
+              *ngIf=" taskForm.get('priority').errors && (taskForm.get('priority').touched || taskForm.get('priority').dirty)">
+              <span *ngIf="taskForm.get('priority').errors?.required">
+                &nbsp;&nbsp;&nbsp;&nbsp;Priority is required*
+              </span>
+            </span>
+          </div>
+          <br /> -->
+
+
+          <ion-button type="submit"   *ngIf="!data"
+            color="primary" >Save</ion-button>
+
+       
+         
+          <ion-button type="submit" [disabled]="taskForm.invalid" *ngIf="data" color="primary"
+            value="update" >Update</ion-button>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>

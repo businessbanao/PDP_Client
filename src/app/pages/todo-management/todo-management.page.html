@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Task Manager </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openTaskModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ng-container>
+    <ion-grid>
+      <ion-row class="date-row">
+        <ion-col size="5">
+          <span class="date-label">Choose Date</span>
+        </ion-col>
+  
+        <ion-col>
+          <input type="date" [max]="formatCurrentDate" class="form-control" autocomplete="off" [value]="changeDate"
+            [(ngModel)]="changeDate" placeholder="Select Date" (ngModelChange)="handleChangeDate(changeDate)" />
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-row>
+      <p style="margin-left: 158px; font-weight: 550" (click)="decreaseDate()">
+        Previous
+      </p>
+      <p style="margin-left: 73px; font-weight: 550" *ngIf="!(changeDate >=formatCurrentDate)" (click)="increaseDate()">
+        Next
+      </p>
+    </ion-row>
+    <br />
+    <ion-item-sliding *ngFor="let task of detailsList">
+      <ion-item>
+        <ion-label>
+            <div style="text-transform: capitalize;">{{task.task_name}} ({{task.priority}})</div>
+            <div >Category : {{task.category}}</div>
+            <div style="color: darkgreen;">
+            Status : {{task.status}}
+            </div>
+        </ion-label>
+        <ion-button *ngIf="task.isCompleted == false" (click)="taskCompleted(task)" class="button" type="submit"
+          color="success">Mark As Done</ion-button>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="warning" (click)="editTask(task)">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-item-option>
+        <!-- <ion-item-option color="danger" (click)="deleteTask(task._id)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option> -->
+        <ion-item-option color="secondary" (click)="presentActionSheet(task._id)">
+          <ion-icon slot="icon-only" name="pencil"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <br />
+    <p class="no_record" *ngIf="!detailsList.length"> No Tasks Found</p>
+
+  </ng-container>
+</ion-content>

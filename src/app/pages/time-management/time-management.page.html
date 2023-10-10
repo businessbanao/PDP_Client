@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Time Manager </ion-title>
+    <sub style="margin-left: 20px;">Time is Precious</sub>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openTaskModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ng-container>
+    <!-- <ion-item>
+      <ion-label>Date : </ion-label>
+      <ion-input type="date" [(ngModel)]="dateFilter" (ionChange)="getDateTask($event)"></ion-input>
+    </ion-item> -->
+
+
+    <!-- <ion-item>
+  <ion-label>Priority : </ion-label>
+  <ion-select placeholder="Select :" (ionChange)="filterTask($event)">
+    <ion-select-option value="">All</ion-select-option>
+    <ion-select-option value="HIGH">HIGH</ion-select-option>
+    <ion-select-option value="MED">MED</ion-select-option>
+    <ion-select-option value="LOW">LOW</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<hr> -->
+
+
+    <!-- <ion-item>
+      <ion-label> Task Status : </ion-label>
+      <ion-select placeholder="Select :" (ionChange)="filterTaskByStatus($event)">
+        <ion-select-option value="">All</ion-select-option>
+        <ion-select-option value="true">DONE</ion-select-option>
+        <ion-select-option value="false">NOT DONE</ion-select-option>
+      </ion-select>
+    </ion-item> -->
+
+
+
+    <ion-item-sliding *ngFor="let task of detailsList">
+      <ion-item>
+        <ion-label>
+          <h5 style="color: rgb(109, 110, 108);">
+            <h3 style="color:rgb(35, 29, 29) !important">
+              Time : {{task.duration_start_time | time24to12Transform}} - {{task.duration_end_time | time24to12Transform}}
+            </h3>
+            <h4 style="text-transform: capitalize;">Task - <span style="color: green;">{{task.task_id?.task_name}} (  {{task.task_id?.category}})</span></h4>&nbsp;
+            <h4>Status : {{task.task_id.status}}</h4>
+            <h4  >
+              Due Date & Time : <span style="color: brown;">Till {{task.due_date | date:'dd-MMM-yyyy'}} . {{task.due_time | time24to12Transform}}</span>
+            </h4>
+
+
+          </h5>
+        </ion-label>
+        <ion-button *ngIf="task.isCompleted == false" (click)="taskCompleted(task)" class="button" type="submit"
+          color="success">Mark As Done</ion-button>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="warning" (click)="editTask(task)">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-item-option>
+        <!-- <ion-item-option color="danger" (click)="deleteTask(task._id)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option> -->
+        <ion-item-option color="secondary" (click)="presentActionSheet(task.task_id._id)">
+          <ion-icon slot="icon-only" name="pencil"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <br />
+
+  </ng-container>
+</ion-content>
