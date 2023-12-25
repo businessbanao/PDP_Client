@@ -32,7 +32,7 @@ export class TimePageModel implements OnInit {
   ngOnInit() {
     this.initTaskForm();
     this.getTaskList();
-    
+
   }
 
   async closeModal(isCreated: boolean) {
@@ -65,10 +65,11 @@ export class TimePageModel implements OnInit {
       id: new FormControl(""),
       task_id: new FormControl('', Validators.compose([Validators.required])),
       status: new FormControl(''),
-      due_date: new FormControl(''),
-      due_time: new FormControl(''),
-      duration_start_time: new FormControl(),
-      duration_end_time: new FormControl(),
+      due_date: new FormControl('', [Validators.required]),
+      due_time: new FormControl('', [Validators.required]),
+      duration_start_time: new FormControl('', [Validators.required]),
+      duration_end_time: new FormControl('', [Validators.required]),
+      date: new FormControl(new Date(), [Validators.required]),
       userId: new FormControl(),
     });
   }
@@ -94,7 +95,7 @@ export class TimePageModel implements OnInit {
     });
   }
 
-  public taskList=[];
+  public taskList = [];
   getTaskList() {
     let payload = {};
 
@@ -107,10 +108,10 @@ export class TimePageModel implements OnInit {
         this.taskForm.get('due_date').setValue(this.data.due_date.slice(0, 10));
         this.taskForm.get('task_id').setValue(this.data.task_id ? this.data.task_id._id : "");
       }
-       
+
     });
   }
 
-  
+
 
 }

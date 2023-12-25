@@ -161,3 +161,61 @@ github_pat_11BCCAQXQ0HoFtICb8CPay_joyBqpTkoI2u7EooRic6KvFeTSqrGqtvxae39WguNNTYQM
 
  7862
     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
+
+    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
+
+    currentDate = new Date();
+startDate = new Date(currentDate.getFullYear(), 0, 1);
+var days = Math.floor((currentDate - startDate) /
+    (24 * 60 * 60 * 1000));
+ 
+var weekNumber = Math.ceil(days / 7);
+ 
+// Display the calculated result       
+console.log("Week number of " + currentDate +
+    " is :   " + weekNumber);
+
+
+
+
+    function GFG_Fun() {
+    let date = new Date();
+    let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    console.log("First day=" + firstDay)
+    console.log("Last day = " + lastDay);
+}
+GFG_Fun()
+
+
+
+var curr = new Date; // get current date
+var first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+var last = first + 6; // last day is the first day + 6
+
+var firstday = new Date(curr.setDate(first)).toUTCString();
+var lastday = new Date(curr.setDate(last)).toUTCString();
+
+firstday
+"Sun, 06 Mar 2011 12:25:40 GMT"
+lastday
+"Sat, 12 Mar 2011 12:25:40 GMT"
+
+
+time slot 
+
+category view/ slot view
+
+morning task (time)
+work
+diet & suppliment
+habbit
+
+
+
+noon task (time)
+
+evening task (time)
+
+
+night task (time)

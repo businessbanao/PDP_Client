@@ -5,7 +5,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'notemgnt',
+    redirectTo: 'finance',
     pathMatch: 'full'
   },
   {
@@ -116,7 +116,7 @@ const routes: Routes = [
   },
   {
     path: 'routine',
-    loadChildren: () => import('./pages/routine/routine.module').then( m => m.RoutinePageModule)
+    loadChildren: () => import('./pages/routine-management/routine-management.module').then( m => m.RoutineManagementPageModule)
   },
 
 

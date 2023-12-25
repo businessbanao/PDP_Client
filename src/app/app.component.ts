@@ -45,11 +45,11 @@ public newTotalCount =0;
   public AdminName:String;
   public selectedTheme = 'light'
   appPages = [
-    {
-      title: "Notes",
-      url: "/notemgnt",
-      icon: "create-outline",
-    },
+    // {
+    //   title: "Notes",
+    //   url: "/notemgnt",
+    //   icon: "create-outline",
+    // },
     // {
     //   title: "Goals",
     //   url: "/goalmgnt",

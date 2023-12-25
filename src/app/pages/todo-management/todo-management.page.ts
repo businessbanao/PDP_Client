@@ -6,13 +6,21 @@ import { TododPageModel } from "./model/todo/todo.page";
 import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
 import { AlertController } from "@ionic/angular";
 
+
+
 @Component({
   selector: "app-todoManagement",
   templateUrl: "./todo-management.page.html",
   styleUrls: ["./todo-management.page.scss"],
   providers: [DatePipe]
 })
+
+
 export class TodoManagementPage implements OnInit {
+
+
+
+
   public taskList: any = [];
   public highPrioritytaskList: any = [];
   public medPrioritytaskList: any = [];
@@ -27,6 +35,7 @@ export class TodoManagementPage implements OnInit {
   public TaskList = [];
   public status = '';
   public priority = '';
+  public duration_type = 'DAY';
 
   public changeDate: any = new Date();
   public formatCurrentDate;
@@ -41,6 +50,7 @@ export class TodoManagementPage implements OnInit {
     public modalController: ModalController
   ) {
     this.dateFilter = this.datePipe.transform(new Date(), "yyyy-MM-dd");
+
   }
 
   ngOnInit() {
@@ -74,6 +84,8 @@ export class TodoManagementPage implements OnInit {
       this.detailsList = resp.object.response;
     });
   }
+
+
 
 
 
@@ -116,8 +128,12 @@ export class TodoManagementPage implements OnInit {
     });
     modal.onDidDismiss().then(dataReturned => {
       if (dataReturned) {
-        let date = this.changeDate;
-        this.getDatedTask(date, date);
+        if (this.duration_type == 'MONTH') {
+          const { firstDay, lastDay } = this.GFG_Fun();
+          this.getDatedTask(firstDay, lastDay);
+          return
+        }
+        this.getTask();
       }
     });
     return await modal.present();
@@ -133,6 +149,11 @@ export class TodoManagementPage implements OnInit {
     });
     modal.onDidDismiss().then(dataReturned => {
       if (dataReturned) {
+        if (this.duration_type == 'MONTH') {
+          const { firstDay, lastDay } = this.GFG_Fun();
+          this.getDatedTask(firstDay, lastDay);
+          return
+        }
         this.getTask();
       }
     });
@@ -205,33 +226,75 @@ export class TodoManagementPage implements OnInit {
   }
 
   increaseDate() {
-    // this.date = this.changeDate
-    // this.date.setDate( this.date.getDate() + 1 );
-    // console.log(this.date);
     var tomorrow = new Date(this.changeDate);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    // this.date = tomorrow ;
     let date = this.formatDate(tomorrow);
     this.changeDate = date;
-
     this.getDatedTask(this.changeDate, this.changeDate);
   }
 
   decreaseDate() {
     var tomorrow = new Date(this.changeDate);
     tomorrow.setDate(tomorrow.getDate() - 1);
-    // this.date = tomorrow ;
     let date = this.formatDate(tomorrow);
     this.changeDate = date;
     this.getDatedTask(this.changeDate, this.changeDate);
   }
 
   handleChangeDate(changeDate) {
-    // this.isShow = true;
-    // this.changeDate = changeDate;
-    console.log(changeDate, "changeDate");
+    if (this.duration_type == 'MONTH') {
+      const { firstDay, lastDay } = this.GFG_Fun();
+      this.getDatedTask(firstDay, lastDay);
+      return
+    }
+
+    if (this.duration_type == 'WEEK') {
+      const { firstDay, lastDay } = this.GFG_Fun();
+      // const { firstWeekDay, lasyWeekDay } = 
+      this.GFG_Fun_Week(firstDay, lastDay)
+      // this.getDatedTask(firstDay, lastDay);
+      return
+    }
+
     this.changeDate = changeDate.slice(0, 10);
     this.getDatedTask(this.changeDate, this.changeDate);
+  }
+
+
+  GFG_Fun() {
+    let date;
+    if (this.duration_type !== 'WEEK') {
+      date = new Date(this.changeDate);
+    } else {
+      date = new Date();
+    }
+    let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    return {
+      firstDay,
+      lastDay
+    }
+  }
+
+  GFG_Fun_Week(firstDay, lastDay) {
+    let sDate = new Date(firstDay).getDate();
+    let eDate = new Date(lastDay).getDate();
+
+    for (let i = 0; i <= eDate; i++) {
+      console.log(i, "i");
+      let currentDate: any = new Date("");
+      let startDate: any = new Date(currentDate.getFullYear(), 0, 1);
+      var days = Math.floor((currentDate - startDate) /
+        (24 * 60 * 60 * 1000));
+
+      var weekNumber = Math.ceil(days / 7);
+      console.log("Week number of " + currentDate +
+        " is :   " + weekNumber);
+    }
+
+
+    // Display the calculated result       
+
   }
 
   async presentActionSheet(id) {
@@ -279,12 +342,33 @@ export class TodoManagementPage implements OnInit {
 
   updateStatus(status, id) {
     this._taskManagementService.updateTask(id, {
-        status: status,
-      })
+      status: status,
+    })
       .subscribe((results: any) => {
         this.getTask();
       });
   }
 
- 
+  async showInfo(startDate, endDate) {
+    let message = "Task Start Date: " + startDate.slice(0, 10) + "<br><br> Task  End Date : " + endDate.slice(0, 10)
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'More details',
+      message: message,
+
+      buttons: [
+        {
+          text: 'close',
+          handler: (data) => {
+
+          }
+        }
+      ]
+    });
+
+
+
+    await alert.present();
+  }
+
 }

@@ -19,6 +19,7 @@
               <ion-item>
                 <ion-label>Task Name : </ion-label>
                <select formControlName="task_id">
+                <option value="">Select Task</option>
                 <option *ngFor="let list of taskList" [value]="list._id">{{list.task_name}}</option>
                </select>
               </ion-item>
@@ -101,7 +102,21 @@
             </span>
           </div>
           <br />
-        
+          <div class="form-group">
+            <div
+              [ngClass]="{'has-error' : taskForm.get('date').errors && (taskForm.get('date').touched || taskForm.get('date').dirty) }">
+              <ion-item>
+                <ion-label>Date : </ion-label>
+                <ion-input type="date" formControlName="date"></ion-input>
+              </ion-item>
+            </div>
+            <span class="help-block"
+              *ngIf=" taskForm.get('date').errors && (taskForm.get('date').touched || taskForm.get('date').dirty)">
+              <span *ngIf="taskForm.get('due_date').errors?.required">
+                &nbsp;&nbsp;&nbsp;&nbsp;Date is required*
+              </span>
+            </span>
+          </div>
  
           <ion-button type="submit" [disabled]="taskForm.invalid" *ngIf="!data && taskForm.invalid"
             color="primary">Save</ion-button>

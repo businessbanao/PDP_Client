@@ -29,6 +29,9 @@ export class TimeManagementPage implements OnInit {
   public status = '';
   public priority = '';
 
+  public changeDate: any = new Date();
+  public formatCurrentDate;
+
   constructor(
     private _timeManagementService: TimeManagementService,
     private datePipe: DatePipe,
@@ -38,14 +41,15 @@ export class TimeManagementPage implements OnInit {
     private _taskManagementService: TaskManagementService,
 
   ) {
-    this.dateFilter = this.datePipe.transform(new Date(), "yyyy-MM-dd");
+    this.changeDate = this.datePipe.transform(new Date(), "yyyy-MM-dd");
+    // this.changeDate = this.changeDate.slice(0,10)
   }
 
   ngOnInit() {
     this.getTask();
   }
 
-  getDatedTask(startDate, endtDate) {
+  getDatedTask() {
     let payload = {};
 
     if (this.status) {
@@ -57,20 +61,20 @@ export class TimeManagementPage implements OnInit {
       payload["priority"] = this.priority;
     }
 
-    if(startDate && endtDate){
-      payload["startDate"] = startDate;
-      payload["endDate"] = endtDate;
-    }
+    payload["date"] = this.dateFormater(this.changeDate);
 
 
     this._timeManagementService.getTime(payload).subscribe(resp => {
-      // debugger
       this.detailsList = resp.object.response;
-      
+      this.detailsList.sort(function (a, b) {
+        return a.duration_start_time.localeCompare(b.duration_start_time);
+      });
+
+
     });
   }
 
-  
+
 
   deleteTask(taskId) {
     let responseMsg: String;
@@ -85,8 +89,7 @@ export class TimeManagementPage implements OnInit {
   }
 
   getTask() {
-    let date = this.dateFormater(this.dateFilter);
-    this.getDatedTask(date,date);
+    this.getDatedTask();
   }
 
   dateFormater(inputDate) {
@@ -190,7 +193,7 @@ export class TimeManagementPage implements OnInit {
   }
 
   getDateTask(event) {
-    console.log(this.dateFilter,"date filter");
+    console.log(this.dateFilter, "date filter");
     this.getTask();
   }
 
@@ -239,10 +242,49 @@ export class TimeManagementPage implements OnInit {
 
   updateStatus(status, id) {
     this._taskManagementService.updateTask(id, {
-        status: status,
-      })
+      status: status,
+    })
       .subscribe((results: any) => {
         this.getTask();
       });
   }
+
+  increaseDate() {
+    var tomorrow = new Date(this.changeDate);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    let date = this.formatDate(tomorrow);
+    this.changeDate = date;
+    this.getDatedTask();
+  }
+
+  decreaseDate() {
+    var tomorrow = new Date(this.changeDate);
+    tomorrow.setDate(tomorrow.getDate() - 1);
+    let date = this.formatDate(tomorrow);
+    this.changeDate = date;
+    this.getDatedTask();
+  }
+
+  handleChangeDate(changeDate) {
+    this.getDatedTask();
+  }
+
+  formatDate(currentDate) {
+    if (!currentDate) {
+      return;
+    }
+    // alert("Called")
+    var d = new Date(currentDate),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
+
+
+
 }

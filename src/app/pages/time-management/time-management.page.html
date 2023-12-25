@@ -4,7 +4,6 @@
       <ion-menu-button style="color: white"></ion-menu-button>
     </ion-buttons>
     <ion-title> Time Manager </ion-title>
-    <sub style="margin-left: 20px;">Time is Precious</sub>
   </ion-toolbar>
 </ion-header>
 
@@ -16,48 +15,50 @@
   </ion-fab>
 
   <ng-container>
-    <!-- <ion-item>
-      <ion-label>Date : </ion-label>
-      <ion-input type="date" [(ngModel)]="dateFilter" (ionChange)="getDateTask($event)"></ion-input>
-    </ion-item> -->
-
-
-    <!-- <ion-item>
-  <ion-label>Priority : </ion-label>
-  <ion-select placeholder="Select :" (ionChange)="filterTask($event)">
-    <ion-select-option value="">All</ion-select-option>
-    <ion-select-option value="HIGH">HIGH</ion-select-option>
-    <ion-select-option value="MED">MED</ion-select-option>
-    <ion-select-option value="LOW">LOW</ion-select-option>
-  </ion-select>
-</ion-item>
-
-<hr> -->
-
-
-    <!-- <ion-item>
-      <ion-label> Task Status : </ion-label>
-      <ion-select placeholder="Select :" (ionChange)="filterTaskByStatus($event)">
-        <ion-select-option value="">All</ion-select-option>
-        <ion-select-option value="true">DONE</ion-select-option>
-        <ion-select-option value="false">NOT DONE</ion-select-option>
-      </ion-select>
-    </ion-item> -->
-
-
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item style="display: flex;flex-direction: column;" >
+            <ion-label class="date-label">Choose Date</ion-label>
+            <input type="date" [max]="formatCurrentDate" class="form-control" autocomplete="off" [value]="changeDate"
+              [(ngModel)]="changeDate" placeholder="Select Date" (ngModelChange)="getDatedTask()" />
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-row >
+      <p class="next_preview" (click)="decreaseDate()">
+        Previous
+      </p>
+      <p class="next_preview" *ngIf="!(changeDate >=formatCurrentDate)" (click)="increaseDate()">
+        Next
+      </p>
+    </ion-row>
 
     <ion-item-sliding *ngFor="let task of detailsList">
       <ion-item>
         <ion-label>
           <h5 style="color: rgb(109, 110, 108);">
+
+            <h4 style="text-transform: capitalize;">
+              <span style="color: green;"> <ion-icon name="arrow-forward-outline"></ion-icon>
+                {{task.task_id?.task_name}} </span>
+              <span *ngIf="task.task_id.status == 'CREATED'"
+                style="color: #1488e3;float: right;">{{task.task_id.status}}</span>
+              <span *ngIf="task.task_id.status == 'DONE'"
+                style="color: green;float: right;">&nbsp;{{task.task_id.status}}&nbsp;<img class="done" src="https://static.vecteezy.com/system/resources/previews/016/314/839/original/tick-mark-sign-free-png.png"></span>
+              <span *ngIf="task.task_id.status == 'IN_PROGRESS'"
+                style="color: rgb(201, 173, 18);float: right;">{{task.task_id.status}}</span>
+              <span *ngIf="task.task_id.status == 'HOLD'"
+                style="color: rgb(235, 223, 113);float: right;">{{task.task_id.status}}</span>
+              <span *ngIf="task.task_id.status == 'BLOCKER'"
+                style="color: rgb(199, 58, 19);float: right;">{{task.task_id.status}}</span>
+            </h4>&nbsp;
             <h3 style="color:rgb(35, 29, 29) !important">
-              Time : {{task.duration_start_time | time24to12Transform}} - {{task.duration_end_time | time24to12Transform}}
+              Time : <span style="color: #1488e3;">{{task.duration_start_time | time24to12Transform}} -
+                {{task.duration_end_time |
+                time24to12Transform}}</span>
             </h3>
-            <h4 style="text-transform: capitalize;">Task - <span style="color: green;">{{task.task_id?.task_name}} (  {{task.task_id?.category}})</span></h4>&nbsp;
-            <h4>Status : {{task.task_id.status}}</h4>
-            <h4  >
-              Due Date & Time : <span style="color: brown;">Till {{task.due_date | date:'dd-MMM-yyyy'}} . {{task.due_time | time24to12Transform}}</span>
-            </h4>
 
 
           </h5>

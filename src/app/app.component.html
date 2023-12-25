@@ -65,6 +65,15 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle autoHide="false">
+            <ion-item button routerLink="/routine" routerLinkActive="selected" routerDirection="root"
+              detail="false">
+              <ion-icon slot="start" name="desktop-outline"></ion-icon>
+              <ion-label>
+                Routine Tracker 
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
   
           <ion-menu-toggle autoHide="false">
             <ion-item (click)="logout()" routerLinkActive="selected" routerDirection="root" detail="false">
