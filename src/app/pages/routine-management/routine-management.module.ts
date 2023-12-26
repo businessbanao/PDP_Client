@@ -19,7 +19,7 @@ import { RoutineManagementService } from '../../providers/routine-management.ser
     HttpClientModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-    RoutineManagementPageRoutingModule
+    RoutineManagementPageRoutingModule,
   ],
   declarations: [RoutineManagementPage, AddEditRoutineModel],
   providers:[RoutineManagementService],
