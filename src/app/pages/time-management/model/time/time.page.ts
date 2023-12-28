@@ -69,11 +69,16 @@ export class TimePageModel implements OnInit {
       due_time: new FormControl('', [Validators.required]),
       duration_start_time: new FormControl('', [Validators.required]),
       duration_end_time: new FormControl('', [Validators.required]),
-      date: new FormControl(new Date(), [Validators.required]),
+      date: new FormControl(this.formatDate(new Date()), [Validators.required]),
       userId: new FormControl(),
     });
   }
-
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
   createTask(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId");
@@ -97,7 +102,9 @@ export class TimePageModel implements OnInit {
 
   public taskList = [];
   getTaskList() {
-    let payload = {};
+    const date = this.taskForm.get('date').value;
+    let payload = {date};
+    console.log(payload);
 
     this._timeManagementService.getTask(payload).subscribe(resp => {
       // debugger

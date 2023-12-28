@@ -249,6 +249,8 @@ export class TimeManagementPage implements OnInit {
       });
   }
 
+  
+
   increaseDate() {
     var tomorrow = new Date(this.changeDate);
     tomorrow.setDate(tomorrow.getDate() + 1);

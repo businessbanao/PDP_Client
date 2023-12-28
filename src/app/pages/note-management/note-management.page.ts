@@ -19,11 +19,11 @@ import { NoteManagementService } from '../../providers/note-management.service';
 
 export class NoteManagementPage implements OnInit {
 
-  public folderList:any = [];
-  public notesList:any = [];
+  public noteFolderList:any = [];
   respMsg:String;
   public isEditMode: boolean;
   emiForm: FormGroup;
+  public currentFolder:any= [null];
 
   constructor(
     private _noteManagementService: NoteManagementService, 
@@ -36,13 +36,15 @@ export class NoteManagementPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getFolders();
+    this.getFolders(this.currentFolder[this.currentFolder.length-1]);
   }
 
   // get folders
-  getFolders(){
-    this._noteManagementService.getFolders().subscribe((resp) => {
-      this.folderList = resp.response;
+  getFolders(parentId:any){
+    console.log("called folderList")
+    this._noteManagementService.getFolders(parentId).subscribe((resp) => {
+      this.noteFolderList = resp.object.response;
+      console.log(resp.object.response);
     });
   }
 
@@ -100,11 +102,11 @@ export class NoteManagementPage implements OnInit {
     const modal = await this.modalController.create({
       component: NotePageModel,
       componentProps:{
-        filder_list : this.folderList
+        filder_list : this.noteFolderList
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-      this.getFolders();
+      this.getFolders(this.currentFolder[this.currentFolder.length-1]);
     });
     return await modal.present();
   }
@@ -115,7 +117,7 @@ export class NoteManagementPage implements OnInit {
       component: AddEditFolderPageModel
     });
     modal.onDidDismiss().then((dataReturned) => {
-      this.getFolders();
+      this.getFolders(this.currentFolder[this.currentFolder.length-1]);
     });
     return await modal.present();
   }
@@ -129,7 +131,7 @@ export class NoteManagementPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-      this.getFolders();
+      this.getFolders(this.currentFolder[this.currentFolder.length-1]);
     });
     return await modal.present();
   }
@@ -141,11 +143,11 @@ export class NoteManagementPage implements OnInit {
       componentProps:{
         folderId : folder_id,
         folderName : folder_name,
-        folderList : this.folderList
+        folderList : this.noteFolderList
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-      this.getFolders();
+      this.getFolders(this.currentFolder[this.currentFolder.length-1]);
     });
       
     // });
@@ -160,7 +162,7 @@ export class NoteManagementPage implements OnInit {
   }
 });
 modal.onDidDismiss().then((dataReturned) => {
-  this.getFolders();
+  this.getFolders(null);
 });
 return await modal.present();
 }
@@ -168,7 +170,7 @@ return await modal.present();
 
 deleteFolderManagement(id) {
   this._noteManagementService.deleteFolder(id).subscribe((data) => {
-    this.getFolders();
+    this.getFolders(id);
     this.presentToast("Folder Deleted");
   });
 }
@@ -190,7 +192,7 @@ async presentAlertConfirm(id) {
         text: 'Okay',
         handler: () => {
           self.deleteFolderManagement(id)
-          this.getFolders();
+          this.getFolders(null);
         }
       }
     ]

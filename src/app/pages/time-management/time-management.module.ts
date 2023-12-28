@@ -12,6 +12,7 @@ import { TimePageModel } from './model/time/time.page';
 import { TimeManagementService } from '../../providers/time-management.service';
 import { Time24to12Format } from './pipe/time24to12.pipe';
 import { TaskManagementService } from '../../providers/task-management.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +21,7 @@ import { TaskManagementService } from '../../providers/task-management.service';
     HttpClientModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-    TimeManagementPageRoutingModule
+    TimeManagementPageRoutingModule,
   ],
   declarations: [TimeManagementPage, TimePageModel,Time24to12Format],
   providers:[TimeManagementService,TaskManagementService],

@@ -74,6 +74,16 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item button routerLink="/notemgnt" routerLinkActive="selected" routerDirection="root"
+              detail="false">
+              <ion-icon slot="start" name="document-text-outline"></ion-icon>
+              <ion-label>
+                Notes Manager 
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
   
           <ion-menu-toggle autoHide="false">
             <ion-item (click)="logout()" routerLinkActive="selected" routerDirection="root" detail="false">

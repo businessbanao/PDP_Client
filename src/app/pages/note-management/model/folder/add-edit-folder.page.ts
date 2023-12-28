@@ -40,8 +40,9 @@ export class AddEditFolderPageModel implements OnInit {
     this.folderForm = this._formBuilder.group({
       name: new FormControl('',Validators.compose([Validators.required])),
       description: new FormControl(),
-      type:new FormControl("DOCS"),
-      id: new FormControl(""),
+      type:new FormControl("folder"),
+      owner: new FormControl(""),
+      parent: new FormControl(null)
     });
   }
 

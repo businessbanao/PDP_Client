@@ -12,8 +12,8 @@ export class NoteManagementService {
 
     constructor(private _http: HttpClient){}
 
-    getFolders(): Observable<any> {
-      return this._http.get(environment.baseUrl+'/api/v1/getallfolder?type=NOTES').pipe(
+    getFolders(parentId=null): Observable<any> {
+      return this._http.get(environment.baseUrl+`/api/v1/NoteList?parentId=${parentId}`).pipe(
         tap(
           response => { console.log("get folder management : successfull"); },
           error => { console.log("get folder management : failed"); }
