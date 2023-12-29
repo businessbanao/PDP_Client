@@ -33,15 +33,16 @@
 
   <ion-card class="chose-category-grid">
     <div class="relative" *ngFor="let list of noteFolderList">
-      <div *ngIf="list.type == 'FOLDER'" (click)="openNoteListModal(list._id,list.name)">
-        <img src="../../../assets/img/folder.png" alt="" />
+      <div style="position: relative;" *ngIf="list.type == 'FOLDER'" >
+        <img src="../../../assets/img/folder.png" (click)="openNoteListModal(list._id,list.name)" alt="" />
         <p>{{list.name}}</p>
+        <ion-icon (click)="presentActionSheetFolder(list)" name="ellipsis-vertical" class="settings-icon" style="position: absolute;top:0px;right: 0px;"></ion-icon>
       </div>
-      <div *ngIf="list.type == 'NOTE'" (click)="presentActionSheet(list)">
-        <img src="../../../assets/img/notes.png" alt="" />
+      <div style="position: relative;" *ngIf="list.type == 'NOTE'" >
+        <img src="../../../assets/img/notes.png" (click)="previewNote(list)" alt="" />
         <p>{{list.name}}</p>
+        <ion-icon (click)="presentActionSheet(list)" name="ellipsis-vertical" class="settings-icon" style="position: absolute;top:0px;right: 0px;"></ion-icon>
       </div>
-
     </div>
   </ion-card>
   <br /><br /><br />

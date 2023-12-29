@@ -8,6 +8,7 @@ import { AddEditFolderPageModel } from './model/folder/add-edit-folder.page';
 import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
 import { PopoverController, ToastController } from '@ionic/angular';
 import { NoteManagementService } from '../../providers/note-management.service';
+import {NoteDetailPageModel} from './model/note-details/note-detail.page'
 
 
 @Component({
@@ -68,7 +69,7 @@ export class NoteManagementPage implements OnInit {
       cssClass: "my-custom-class",
       buttons: [
         {
-          text: "Edit Note",
+          text: `Edit Note`,
           role: "destructive",
           icon: "key-outline",
           handler: () => {
@@ -81,6 +82,33 @@ export class NoteManagementPage implements OnInit {
           icon: "key-outline",
           handler: () => {
             this.presentAlertConfirm(data._id);
+          },
+        },
+        {
+          text: "Cancel",
+          icon: "close",
+          role: "cancel",
+          handler: () => {
+            console.log("Cancel clicked");
+          },
+        },
+      ],
+    });
+    await actionSheet.present();
+  }
+
+  async presentActionSheetFolder(data) {
+    this.isEditMode = false;
+    const actionSheet = await this.actionSheetController.create({
+      header: "",
+      cssClass: "my-custom-class",
+      buttons: [
+        {
+          text: `Edit Folder`,
+          role: "destructive",
+          icon: "key-outline",
+          handler: () => {
+            this.openEditFolderModal(data);
           },
         },
         {
@@ -135,11 +163,12 @@ export class NoteManagementPage implements OnInit {
   }
 
   // open folder model
-  async editAddEditFolderModal() {
+  async editAddEditFolderModal(list) {
     const modal = await this.modalController.create({
       component: AddEditFolderPageModel,
       componentProps: {
-        folderId: this.folderId ? this.folderId : null
+        folderId: this.folderId ? this.folderId : null,
+        data:list
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
@@ -167,6 +196,8 @@ export class NoteManagementPage implements OnInit {
     return await modal.present();
   }
 
+
+
   async openEditFolderModal(body) {
     const modal = await this.modalController.create({
       component: AddEditFolderPageModel,
@@ -175,7 +206,7 @@ export class NoteManagementPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-      this.getFolders(null);
+      this.getFolders(this.folderId);
     });
     return await modal.present();
   }
@@ -183,7 +214,7 @@ export class NoteManagementPage implements OnInit {
 
   deleteFolderManagement(id) {
     this._noteManagementService.deleteFolder(id).subscribe((data) => {
-      this.getFolders(id);
+      this.getFolders(this.folderId);
       this.presentToast("Folder Deleted");
     });
   }
@@ -206,7 +237,7 @@ export class NoteManagementPage implements OnInit {
           text: 'Okay',
           handler: () => {
             self.deleteFolderManagement(id)
-            this.getFolders(null);
+            this.getFolders(this.folderId);
           }
         }
       ]
@@ -219,8 +250,20 @@ export class NoteManagementPage implements OnInit {
     await this.modalController.dismiss();
   }
 
-  previewNote(list){
-     // open model for show content
-  }
+ async previewNote(list){
+    const modal = await this.modalController.create({
+      component: NoteDetailPageModel,
+      componentProps: {
+         note : list,
+         folderName: this.folderName
+
+      }
+    });
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getFolders(this.folderId);
+    });
+
+    // });
+    return await modal.present();  }
 
 }

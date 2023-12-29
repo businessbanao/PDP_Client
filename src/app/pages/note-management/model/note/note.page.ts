@@ -57,7 +57,7 @@ export class NotePageModel implements OnInit {
     if(this.data){
       this.noteForm.patchValue(this.data);
       this.noteForm.get('id').setValue(this.data._id);
-      this.noteForm.get('date').setValue(this.data.date.slice(0,10));
+      // this.noteForm.get('date').setValue(this.data.date.slice(0,10));
       this.noteContent = this.data.content;
       // this.noteForm.get('content').setValue(this.data.content)
     }
@@ -73,7 +73,6 @@ export class NotePageModel implements OnInit {
   updateNote(payload) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     let id = this.noteForm.get("id").value;
-    formData["date"] = this.dateFormater(formData.date); 
     // formData["content"] = this.noteContent;
     this._noteManagementService.updateNote(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;

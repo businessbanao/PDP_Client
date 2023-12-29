@@ -15,6 +15,7 @@ export class AddEditFolderPageModel implements OnInit {
   public isEditMode: boolean = false;
   public folderId: string | null;
   public responseStr: string;
+  public data:any;
 
   constructor(
     public modalController: ModalController,
@@ -26,10 +27,10 @@ export class AddEditFolderPageModel implements OnInit {
 
   ngOnInit() {
     this.initFolderForm();
-    // if (undefined != this.data) {
-    //   this.folderForm.patchValue(this.data);
-    //   this.folderForm.get('id').setValue(this.data._id);
-    // }
+    if (undefined != this.data) {
+      this.folderForm.patchValue(this.data);
+      // this.folderForm.get('id').setValue(this.data._id);
+    }
   }
 
   async closeModal() {
@@ -48,8 +49,8 @@ export class AddEditFolderPageModel implements OnInit {
 
   updateFolder(payload) {
     let formData = JSON.parse(JSON.stringify(payload.value));
-    let id = this.folderForm.get("id").value;
-    this._noteManagementService.updateFolder(id, formData).subscribe(async (resp) => {
+    let id = this.data._id;
+    this._noteManagementService.updateNote(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
         message: "Updated Successfully",

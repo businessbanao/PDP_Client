@@ -7,9 +7,9 @@
       ></ion-back-button>
     </ion-buttons>
     <ion-title id="top"> 
-      {{note.title}}
+      {{note.name}}
       </ion-title>
-  </ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 
  
@@ -19,14 +19,12 @@
 <ion-content [fullscreen]="true">
   <ion-card>
     <ion-card-header>
-      <ion-card-title>{{note.title}} <ion-icon style="float: right;" name="create-outline" (click)="editNote(note)"></ion-icon> </ion-card-title>
-      <ion-card-subtitle>Date :  {{note.date | date: 'dd-MMM-yyyy'}}</ion-card-subtitle>
-      
+      <ion-card-title>{{note.name}} <ion-icon style="float: right;" name="create-outline" (click)="editNote(note)"></ion-icon> </ion-card-title>      
       <img class="img-box" *ngIf="note.images" [src]="note.images"/>
     </ion-card-header>
   
     <ion-card-content>
-      <div innerHtml="{{ note.content }}"></div>
+      <div innerHtml="{{ note.content }}">{{note.content}}</div>
     </ion-card-content>
   </ion-card>
   

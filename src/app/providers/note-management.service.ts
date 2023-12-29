@@ -73,7 +73,7 @@ export class NoteManagementService {
     }
 
     updateNote(noteId, payload): Observable<any> {
-      return this._http.put(environment.baseUrl+`/api/v1/editnotes/` + noteId, payload).pipe(
+      return this._http.put(environment.baseUrl+`/api/v1/NoteUpdate/` + noteId, payload).pipe(
         tap(
           response => { console.log("update note : successfull"); },
           error => { console.log("update note : failed"); }
@@ -81,7 +81,7 @@ export class NoteManagementService {
       );
     }
     deleteFolder(folderId: String): Observable<any> {
-      return this._http.delete(environment.baseUrl + '/api/v1/deletefolder/' + folderId).pipe(
+      return this._http.delete(environment.baseUrl + '/api/v1/NoteDelete/' + folderId).pipe(
         tap(
           response => {
             console.log("delete folder id : " + folderId + "success");
