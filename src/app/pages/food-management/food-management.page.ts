@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FoodManagementService } from '../../providers/food.service'; // Import your food service here
+import { FoodPageModel } from './model/food/food.page';
 
 @Component({
   selector: 'app-food-management',
@@ -52,7 +53,7 @@ export class FoodManagement implements OnInit {
 
   async presentAddFoodModal() {
     const modal = await this.modalCtrl.create({
-      component: AddFoodPage, // Create an AddFoodPage for adding a new food
+      component: FoodPageModel, // Create an AddFoodPage for adding a new food
       componentProps: { form: this.foodForm },
     });
     await modal.present();

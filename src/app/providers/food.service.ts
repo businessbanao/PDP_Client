@@ -37,7 +37,7 @@ export class FoodManagementService {
 
 
 
-  deleteTask(taskId: String): Observable<any> {
+  deleteFood(taskId: String): Observable<any> {
     return this._http.delete(environment.baseUrl + `/api/v1/TaskDelete/` + taskId).pipe(
       tap(
         response => {
@@ -62,7 +62,7 @@ export class FoodManagementService {
     );
   }
 
-  createTask(payload): Observable<any> {
+  addFood(payload): Observable<any> {
     // debugger
     return this._http.post(environment.baseUrl + `/api/v1/CreateTask`, payload).pipe(
       tap(

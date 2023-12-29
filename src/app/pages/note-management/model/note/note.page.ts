@@ -37,6 +37,8 @@ export class NotePageModel implements OnInit {
   noteContent;
   public folderList=[]
   
+  public folderId;
+  
   constructor(
     public modalController: ModalController,
     public toast:ToastController,
@@ -89,23 +91,23 @@ export class NotePageModel implements OnInit {
 
   initNoteForm() {
     this.noteForm = this._formBuilder.group({
-      title: new FormControl('', Validators.compose([Validators.required])),
-      userId: new FormControl(localStorage.getItem('adminId')),
+      name: new FormControl('', Validators.compose([Validators.required])),
+      owner: new FormControl(localStorage.getItem('adminId')),
       content: new FormControl(),
-      images: new FormControl(),
-      folder_id: new FormControl('', Validators.compose([Validators.required])), 
-      date: new FormControl('', Validators.compose([Validators.required])), 
+      imageUrl: new FormControl(),
+      // links: new FormControl([]),
+      parentId: new FormControl(this.folderId, Validators.compose([Validators.required])), 
+      tags:new FormControl(''),
       id: new FormControl(""),
     });
   }
 
-  createNote(payload: FormGroup) {
+  addNote(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
-    formData["userId"] = localStorage.getItem("adminId") || "601870f796b9f2834f045d1a"
-    formData["date"] = this.dateFormater(formData.date); 
-    // formData["content"] = this.noteContent;
-    // formData["images"] = "xfgxgfb.jpg";
-    console.log("create payload",formData);
+    formData["userId"] = localStorage.getItem("adminId");
+    formData["type"] = 'NOTE';
+    // debugger
+    // return
     this._noteManagementService.createNote(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({

@@ -30,9 +30,7 @@ export class NoteListPageModel implements OnInit {
     this.getFolderNotes(this.folderId);
   }
   
-  async closeModal() {
-    await this.modalController.dismiss();
-  }
+  
 
   // add notes model
   async openNoteModal() {

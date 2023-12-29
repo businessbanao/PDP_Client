@@ -13,53 +13,20 @@
 
 <ion-content [fullscreen]="true">
   <div class="container">
-    <ion-row
-      style="width:100%"
-      style="justify-content: flex-end;padding: 10px 0px;"
-    >
-      <ion-col>
-        <img
-          class="img-box"
-          *ngIf="noteForm.get('images').value"
-          [src]="noteForm.get('images').value"
-        />
-      </ion-col>
-      <ion-col>
-        <ion-button class="upload-img" (click)="selectImagefromMobille()">
-          Upload Image &nbsp;&nbsp;<ion-icon
-            name="cloud-upload-sharp"
-          ></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
+    
 
     <div class="row">
       <div class="form-bg">
-        <form [formGroup]="noteForm" (ngSubmit)="createNote(noteForm)">
+        <form [formGroup]="noteForm" (ngSubmit)="addNote(noteForm)">
           <ion-item>
             <ion-label>Title : </ion-label>
             <ion-input
               type="text"
               placeholder="Title"
-              formControlName="title"
+              formControlName="name"
             ></ion-input>
           </ion-item>
-
-          <ion-item>
-            <ion-label>Date : </ion-label>
-            <ion-input type="date" formControlName="date"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>Folder : </ion-label>
-            <ion-select placeholder="Folder" formControlName="folder_id">
-              <section *ngFor="let folder of folderList">
-                <ion-select-option value="{{ folder._id }}"
-                  >{{ folder.name }}</ion-select-option
-                >
-              </section>
-            </ion-select>
-          </ion-item>
+          
           <br />
           <ion-item>
             <textarea
@@ -70,6 +37,16 @@
             ></textarea>
           </ion-item>
           <br />
+          <!-- <ion-item>
+            <ion-label>Link : </ion-label>
+            <ion-input
+              type="text"
+              placeholder="Link"
+              formControlName="link"
+            ></ion-input>
+          </ion-item> -->
+
+          
           <ion-button *ngIf="!data" color="primary" type="submit" value="Save"
             >Save</ion-button
           >

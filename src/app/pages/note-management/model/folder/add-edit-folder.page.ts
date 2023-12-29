@@ -10,37 +10,37 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./add-edit-folder.page.scss"],
 })
 export class AddEditFolderPageModel implements OnInit {
-  
+
   folderForm: FormGroup;
   public isEditMode: boolean = false;
-  public data:any;
+  public folderId: string | null;
   public responseStr: string;
-  
+
   constructor(
     public modalController: ModalController,
-    public toast:ToastController,
+    public toast: ToastController,
     private _formBuilder: FormBuilder,
-    private _noteManagementService:NoteManagementService,
+    private _noteManagementService: NoteManagementService,
     private activatedRoute: ActivatedRoute,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.initFolderForm();
-    if(undefined != this.data){
-      this.folderForm.patchValue(this.data);
-      this.folderForm.get('id').setValue(this.data._id);
-    }
+    // if (undefined != this.data) {
+    //   this.folderForm.patchValue(this.data);
+    //   this.folderForm.get('id').setValue(this.data._id);
+    // }
   }
-  
+
   async closeModal() {
     await this.modalController.dismiss();
   }
 
   initFolderForm() {
     this.folderForm = this._formBuilder.group({
-      name: new FormControl('',Validators.compose([Validators.required])),
+      name: new FormControl('', Validators.compose([Validators.required])),
       description: new FormControl(),
-      type:new FormControl("folder"),
+      type: new FormControl("folder"),
       owner: new FormControl(""),
       parent: new FormControl(null)
     });
@@ -52,9 +52,9 @@ export class AddEditFolderPageModel implements OnInit {
     this._noteManagementService.updateFolder(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
-        message:"Updated Successfully",
-        color:'success',
-        duration:2000
+        message: "Updated Successfully",
+        color: 'success',
+        duration: 2000
       })
       toast.present();
       this.folderForm.reset();
@@ -64,14 +64,21 @@ export class AddEditFolderPageModel implements OnInit {
   }
 
   createFolder(payload: FormGroup) {
+
     let formData = JSON.parse(JSON.stringify(payload.value));
-    formData["type"] = "NOTES";
+    formData["type"] = "FOLDER";
+    formData['owner'] = localStorage.getItem('adminId');
+    
+    if (this.folderId) {
+      formData['parentId'] = this.folderId;
+    }
+
     this._noteManagementService.createFolder(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
-        message:resp.message,
-        color:'success',
-        duration:2000
+        message: resp.message,
+        color: 'success',
+        duration: 2000
       })
       toast.present();
       this.folderForm.reset();

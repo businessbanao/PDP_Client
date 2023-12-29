@@ -1,26 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" *ngIf="!isModel">
       <ion-menu-button style="color: white"></ion-menu-button>
     </ion-buttons>
-    <ion-title> Note Management </ion-title>
-    <ion-buttons slot="end">
-      <ion-icon
-        class="right-menu"
-        name="ellipsis-vertical-outline"
-        (click)="presentActionSheet()"
-      ></ion-icon>
+    <ion-buttons slot="start" *ngIf="isModel">
+      <ion-back-button defaultHref="/notemgnt" (click)="closeModal()"></ion-back-button>
     </ion-buttons>
+    <ion-title *ngIf="!isModel"> Note Management </ion-title>
+    <ion-title *ngIf="isModel"> {{folderName}} </ion-title>
+
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openNoteModal()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
-
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
@@ -28,7 +21,7 @@
     </ion-fab-button>
     <ion-fab-list side="top">
       <ion-fab-button>
-        <ion-icon name="folder" (click)="editAddEditFolderModal(null)"></ion-icon>
+        <ion-icon name="folder" (click)="editAddEditFolderModal()"></ion-icon>
       </ion-fab-button>
       <ion-fab-button>
         <ion-icon name="add" (click)="openNoteModal()"></ion-icon>
@@ -36,48 +29,20 @@
     </ion-fab-list>
   </ion-fab>
 
-  <br />
-  <!-- <ion-card class="chose-category-grid">
-    <div
-      class="relative"
-      (click)="openNoteListModal(list._id, list.name)"
-      *ngFor="let list of noteFolderList"
-    >
-      <img src="../../../assets/img/folder-icon.png" alt="" />
-      <p>{{list.name}} ({{list.type}})</p>
-    </div>
-  </ion-card> -->
+  <ion-searchbar *ngIf="!isModel" animated="true" placeholder="Search Notes"></ion-searchbar>
 
   <ion-card class="chose-category-grid">
-    <div
-      class="relative"
-      (click)="openNoteListModal(list)"
-      *ngFor="let list of noteFolderList"
-    > 
-      <img src="../../../assets/img/folder-icon.png" alt="" />
-      <p>{{list.name}} ({{list.type}})</p>
+    <div class="relative" *ngFor="let list of noteFolderList">
+      <div *ngIf="list.type == 'FOLDER'" (click)="openNoteListModal(list._id,list.name)">
+        <img src="../../../assets/img/folder.png" alt="" />
+        <p>{{list.name}}</p>
+      </div>
+      <div *ngIf="list.type == 'NOTE'" (click)="presentActionSheet(list)">
+        <img src="../../../assets/img/notes.png" alt="" />
+        <p>{{list.name}}</p>
+      </div>
+
     </div>
   </ion-card>
   <br /><br /><br />
 </ion-content>
-
-<ng-template #skeleton>
-  <ion-item *ngFor="let item of [1, 2, 3, 4, 5,6,7,8,9]">
-    <ion-thumbnail slot="start">
-      <ion-skeleton-text animated></ion-skeleton-text>
-    </ion-thumbnail>
-    <ion-label>
-      <h3>
-        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-      </h3>
-      <p>
-        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-      </p>
-      <p>
-        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-      </p>
-    </ion-label>
-  </ion-item>
-
-  <!-- </ion-list> -->
-</ng-template>

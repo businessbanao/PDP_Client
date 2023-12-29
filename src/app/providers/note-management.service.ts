@@ -46,7 +46,7 @@ export class NoteManagementService {
     }
 
     createFolder(payload): Observable<any> {
-      return this._http.post(environment.baseUrl+`/api/v1/createfolder`, payload).pipe(
+      return this._http.post(environment.baseUrl+`/api/v1/CreateNote`, payload).pipe(
         tap(
           response => { console.log("create folder : successfull"); },
           error => { console.log("create folder : failed"); }
@@ -55,7 +55,7 @@ export class NoteManagementService {
     }
 
     createNote(payload): Observable<any> {
-      return this._http.post(environment.baseUrl+`/api/v1/createnotes`, payload).pipe(
+      return this._http.post(environment.baseUrl+`/api/v1/CreateNote`, payload).pipe(
         tap(
           response => { console.log("create note : successfull"); },
           error => { console.log("create note : failed"); }
