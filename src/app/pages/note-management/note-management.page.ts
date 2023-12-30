@@ -27,8 +27,9 @@ export class NoteManagementPage implements OnInit {
   folderName: string;
   folderId: string;
   isModel: boolean;
-
-
+   
+  searchInstance:any = null;
+  
   constructor(
     private _noteManagementService: NoteManagementService,
     private datePipe: DatePipe,
@@ -47,6 +48,14 @@ export class NoteManagementPage implements OnInit {
   getFolders(parentId: any) {
     console.log("called folderList")
     this._noteManagementService.getFolders(parentId).subscribe((resp) => {
+      this.noteFolderList = resp.object.response;
+      console.log(resp.object.response);
+    });
+  }
+
+  searchNotes(q){
+    let owner = localStorage.getItem('adminId');
+    this._noteManagementService.getSearchedNote(q,owner).subscribe((resp) => {
       this.noteFolderList = resp.object.response;
       console.log(resp.object.response);
     });
@@ -247,6 +256,16 @@ export class NoteManagementPage implements OnInit {
 
   async closeModal() {
     await this.modalController.dismiss();
+  }
+
+  searchTextChange(value){
+    console.log(value);
+
+    clearTimeout(this.searchInstance);
+
+    this.searchInstance = setTimeout(()=>{
+      this.searchNotes(value);
+    },800);
   }
 
  async previewNote(list){
