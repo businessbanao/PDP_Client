@@ -1,36 +1,50 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button
-        defaultHref="/notemgnt"
-        (click)="closeModal()"
-      ></ion-back-button>
+      <ion-back-button defaultHref="/notemgnt" (click)="closeModal()"></ion-back-button>
     </ion-buttons>
-    <ion-title id="top"> 
-      {{note.name}}
-      </ion-title>
-    </ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-icon style="float: right;" name="create-outline" (click)="editNote(note)"></ion-icon>
+    </ion-buttons>
+    <ion-title id="top">
+
+    </ion-title>
+  </ion-toolbar>
 </ion-header>
 
- 
 
- 
+
+
 
 <ion-content [fullscreen]="true">
+  <img *ngIf="note.imageUrl" [src]="note.imageUrl" alt="">
   <ion-card>
     <ion-card-header>
-      <ion-card-title>{{note.name}} <ion-icon style="float: right;" name="create-outline" (click)="editNote(note)"></ion-icon> </ion-card-title>      
-      <img class="img-box" *ngIf="note.images" [src]="note.images"/>
+      <ion-card-title>{{note.name}} </ion-card-title>
+      <img class="img-box" *ngIf="note.images" [src]="note.images" />
     </ion-card-header>
-  
+
     <ion-card-content>
       <div innerHtml="{{ note.content }}">{{note.content}}</div>
     </ion-card-content>
   </ion-card>
+
+  <div>
+    <div *ngFor="let link of note?.links;let i = index">
+      <a style="margin-left: 20px;"  [href]="link" target="_blank"> Link {{i+1}}</a>
+    </div>
+  </div>
+
+
+  <!-- <div>
+    <div *ngFor="let link of note?.links; let i = index">
+      <a [href]="link">{{ i }}</a>
+    </div>
+  </div> -->
   
-  
-  
-  
-  
-  
+
+
+
+
+
 </ion-content>

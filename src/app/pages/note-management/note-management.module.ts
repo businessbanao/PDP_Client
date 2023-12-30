@@ -18,6 +18,7 @@ import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 // import { CKEditorModule } from 'ng2-ckeditor';
+import { TagInputModule } from 'ngx-chips';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
     ReactiveFormsModule,
     MatNativeDateModule,
     NoteManagementPageRoutingModule,
+    TagInputModule
     // CKEditorModule
     
   ],

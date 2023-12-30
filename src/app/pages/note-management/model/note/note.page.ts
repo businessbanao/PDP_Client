@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActionSheetController, ModalController, ToastController } from "@ionic/angular";
-import { FormBuilder, FormGroup, FormControl, NgForm, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, FormControl, NgForm, Validators, FormArray } from "@angular/forms";
 import { NoteManagementService } from '../../../../providers/note-management.service';
 import { ActivatedRoute } from "@angular/router";
 import {
@@ -73,7 +73,12 @@ export class NotePageModel implements OnInit {
   updateNote(payload) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     let id = this.noteForm.get("id").value;
-    // formData["content"] = this.noteContent;
+    formData["userId"] = localStorage.getItem("adminId");
+    formData["type"] = 'NOTE';
+    formData['links'] = this.links.value;
+    formData['tags'] = formData['tags'].map((list)=>{
+      return list.value;
+    }) 
     this._noteManagementService.updateNote(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
@@ -88,25 +93,36 @@ export class NotePageModel implements OnInit {
     this.isEditMode = false;
   }
 
+  public links= new FormArray([]);
+
   initNoteForm() {
     this.noteForm = this._formBuilder.group({
       name: new FormControl('', Validators.compose([Validators.required])),
       owner: new FormControl(localStorage.getItem('adminId')),
       content: new FormControl(),
       imageUrl: new FormControl(),
-      // links: new FormControl([]),
       parentId: new FormControl(this.folderId, Validators.compose([Validators.required])), 
-      tags:new FormControl(''),
+      tags:new FormControl(),
       id: new FormControl(""),
     });
+  }
+
+  addLink() {
+    this.links.push(new FormControl(''));
+  }
+
+  removeLink(index: number) {
+    this.links.removeAt(index);
   }
 
   addNote(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId");
     formData["type"] = 'NOTE';
-    // debugger
-    // return
+    formData['links'] = this.links.value;
+    formData['tags'] = formData['tags'].map((list)=>{
+      return list.value;
+    });
     this._noteManagementService.createNote(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({

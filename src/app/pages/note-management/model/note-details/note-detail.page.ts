@@ -41,4 +41,9 @@ export class NoteDetailPageModel implements OnInit {
     return await modal.present();
   }
 
+
+
+  
+
+   
 }

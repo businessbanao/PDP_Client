@@ -212,17 +212,17 @@ export class NoteManagementPage implements OnInit {
   }
 
 
-  deleteFolderManagement(id) {
+  deleteNote(id) {
     this._noteManagementService.deleteFolder(id).subscribe((data) => {
       this.getFolders(this.folderId);
-      this.presentToast("Folder Deleted");
+      this.presentToast("Note Deleted");
     });
   }
  
   async presentAlertConfirm(id) {
     let self = this;
     const alert = await this.alertController.create({
-      header: 'Delete Folder',
+      header: 'Delete Note',
       message: "Are you sure you want to delete?",
       buttons: [
         {
@@ -236,8 +236,7 @@ export class NoteManagementPage implements OnInit {
         }, {
           text: 'Okay',
           handler: () => {
-            self.deleteFolderManagement(id)
-            this.getFolders(this.folderId);
+            self.deleteNote(id)
           }
         }
       ]
