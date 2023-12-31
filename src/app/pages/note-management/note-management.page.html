@@ -29,7 +29,7 @@
     </ion-fab-list>
   </ion-fab>
 
-  <ion-searchbar *ngIf="!isModel" animated="true" placeholder="Search Notes"></ion-searchbar>
+  <ion-searchbar *ngIf="!isModel" animated="true" placeholder="Search Notes" (ionChange)="searchTextChange($event.target.value)"></ion-searchbar>
 
   <ion-card class="chose-category-grid">
     <div class="relative" *ngFor="let list of noteFolderList">
