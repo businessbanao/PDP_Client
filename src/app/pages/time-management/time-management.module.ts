@@ -12,6 +12,8 @@ import { TimePageModel } from './model/time/time.page';
 import { TimeManagementService } from '../../providers/time-management.service';
 import { Time24to12Format } from './pipe/time24to12.pipe';
 import { TaskManagementService } from '../../providers/task-management.service';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+
 
 @NgModule({
   imports: [
@@ -22,6 +24,7 @@ import { TaskManagementService } from '../../providers/task-management.service';
     ReactiveFormsModule,
     MatNativeDateModule,
     TimeManagementPageRoutingModule,
+    NgxMaterialTimepickerModule
   ],
   declarations: [TimeManagementPage, TimePageModel,Time24to12Format],
   providers:[TimeManagementService,TaskManagementService],

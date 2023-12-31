@@ -29,6 +29,7 @@ import { GoalManagementService } from './providers/goal-management.service';
 import { EMIManagementService } from './providers/emi-management.service';
 import { NoteManagementService } from './providers/note-management.service';
 import { DocManagementService } from './providers/doc-management.service';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 // import { CKEditorModule } from 'ng2-ckeditor';
 
 
@@ -45,6 +46,7 @@ import { DocManagementService } from './providers/doc-management.service';
       enabled: environment.production
     }),
     BrowserAnimationsModule,
+    NgxMaterialTimepickerModule
   ],
   declarations: [AppComponent,OrderIncomingPage],
   providers: [InAppBrowser ,FileTransfer,SplashScreen,SocketService, StatusBar,SocialSharing,
