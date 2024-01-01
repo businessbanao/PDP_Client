@@ -63,8 +63,7 @@
             </span>
           </div>
           <br />
-          <input [ngxTimepicker]="picker">
-<ngx-material-timepicker #picker></ngx-material-timepicker>
+
 
           <div class="form-group">
             <div
@@ -72,10 +71,13 @@
             >
               <ion-item>
                 <ion-label>Start Time : </ion-label>
-                <ion-input
+                <input placeholder="start time"                   formControlName="duration_start_time"
+                [ngxTimepicker]="startTime">
+                <ngx-material-timepicker #startTime></ngx-material-timepicker>
+                <!-- <ion-input
                   type="time"
                   formControlName="duration_start_time"
-                ></ion-input>
+                ></ion-input> -->
               </ion-item>
             </div>
             <span
@@ -96,10 +98,16 @@
             >
               <ion-item>
                 <ion-label>End Time : </ion-label>
-                <ion-input
+                <!-- <ion-input
                   type="time"
                   formControlName="duration_end_time"
-                ></ion-input>
+                ></ion-input> -->
+
+
+                <input placeholder="End time"                                     formControlName="duration_end_time"
+
+                [ngxTimepicker]="endTime">
+                <ngx-material-timepicker #endTime></ngx-material-timepicker>
               </ion-item>
             </div>
             <span
@@ -113,7 +121,7 @@
           </div>
           <br />
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <div
               [ngClass]="{'has-error' : taskForm.get('due_date').errors && (taskForm.get('due_date').touched || taskForm.get('due_date').dirty) }"
             >
@@ -150,7 +158,7 @@
               </span>
             </span>
           </div>
-          <br />
+          <br /> -->
 
           <ion-button
             type="submit"
