@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="!isModel">
+      <ion-menu-button style="color: white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title > Food Management </ion-title>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button>
+        <ion-icon name="add" (click)="openAddEditModal()"></ion-icon>
+      </ion-fab-button>
+  </ion-fab>
+    <ion-item>
+      <div
+        style="
+          display: flex;
+          width: 100vw;
+          justify-content: space-between;
+          padding: 5px;
+        "
+      >
+        <input
+          type="date"
+          style="border-radius: 5px; padding: 10px"
+          name="date"
+          (change) = "getFoodConsumptionList()"
+          [(ngModel)] = "selectedDate"
+        />
+      </div>
+    </ion-item>
+
+    <ion-row>
+      <p class="next_preview" (click)="decreaseDate()">
+        Previous
+      </p>
+      <p  class="next_preview"  *ngIf="!(changeDate >=formatCurrentDate)" (click)="increaseDate()">
+        Next
+      </p>
+    </ion-row>
+    
+    <div *ngFor="let meal of ['Breakfast', 'Lunch', 'Snack', 'Dinner']">
+      <h1>{{ meal }}</h1>
+      <button (click)="addFoodConsumption(meal)">add food</button>
+      <ion-list *ngIf="foodConsumptionList.length > 0">
+        <ion-item-sliding *ngFor="let foodItem of foodConsumptionList" >
+          <ion-label *ngIf="foodItem.timeSlot === meal" (click)="openFoodConsumptionAddEdit(foodItem,meal)">
+          <div  style="display: flex;justify-content: space-between;padding: 5px;">
+            <img src="{{foodItem.foodDetails.imageUrl}}" width="30" height="30" alt="">
+           <div>
+             {{ foodItem.foodDetails.name }} - {{ foodItem.serving }} servings
+           </div>
+          </div>  
+          </ion-label>
+        </ion-item-sliding>
+      </ion-list>
+<!--   
+      Display Meal List 
+      <ion-list *ngIf="foodConsumptionList.length > 0">
+        <ion-item *ngFor="let foodItem of foodConsumptionList">
+          Display information about each food item for the specific meal 
+          <ion-label *ngIf="foodItem.timeSlot.toLowerCase() === meal.toLowerCase()">
+            {{ foodItem.foodId }} - {{ foodItem.serving }} servings
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    -->
+  
+     
+    </div>
+
+</ion-content>

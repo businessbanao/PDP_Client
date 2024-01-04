@@ -119,6 +119,11 @@ const routes: Routes = [
     path: 'routine',
     loadChildren: () => import('./pages/routine-management/routine-management.module').then( m => m.RoutineManagementPageModule)
   },
+  {
+    path: 'food-manager',
+    loadChildren:()=> import('./pages/food-management/food-management.module').then( m => m.FoodManagementPageModule)
+
+  }
 
 
 ];

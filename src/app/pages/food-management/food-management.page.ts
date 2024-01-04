@@ -1,115 +1,197 @@
-import { Component, OnInit } from '@angular/core';
-import { ActionSheetController, ModalController, AlertController } from '@ionic/angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FoodManagementService } from '../../providers/food.service'; // Import your food service here
-import { FoodPageModel } from './model/food/food.page';
+import { Component, OnInit } from "@angular/core";
+import { DatePipe } from "@angular/common";
+import {
+  ActionSheetController,
+  AlertController,
+  ModalController,
+} from "@ionic/angular";
+import { FoodPageModel } from "./model/food/food.page";
+import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
+import { PopoverController, ToastController } from "@ionic/angular";
+import { FoodManagementService } from "../../providers/food-management.service";
+import { FoodConsumptionPageModel } from "./model/foodConsuption/foodConsumption.page";
 
 @Component({
-  selector: 'app-food-management',
-  templateUrl: 'food-management.page.html',
-  styleUrls: ['food-management.page.scss'],
+  selector: "app-foodManagement",
+  templateUrl: "./food-management.page.html",
+  styleUrls: ["./food-management.page.scss"],
+  providers: [DatePipe],
 })
-export class FoodManagement implements OnInit {
-  foodForm: FormGroup;
+export class FoodManagementPage implements OnInit {
+  public foodItems: any[] = []
+  public selectedDate = this.formatDate(new Date());
+  public foodConsumptionList: any[] = []
 
   constructor(
-    private formBuilder: FormBuilder,
-    private actionSheetCtrl: ActionSheetController,
-    private modalCtrl: ModalController,
-    private alertController: AlertController,
-    private foodService: FoodManagementService
+    private _foodManagementService: FoodManagementService,
+    private datePipe: DatePipe,
+    public alertController: AlertController,
+
+    public actionSheetController: ActionSheetController,
+    public toastController: ToastController,
+    public modalController: ModalController,
   ) {}
+  
+  private formatDate(date: Date): string {
+    // Format the date as 'YYYY-MM-DD' (the format expected by the input type="date")
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
 
   ngOnInit() {
-    this.initForm();
+    this.getFoodItems();
+    this.getFoodConsumptionList();
   }
 
-  initForm() {
-    this.foodForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      imageUrl: ['', Validators.required],
-      category: [[]], // Default to an empty array
-      nutrition: this.formBuilder.group({
-        // Define your nutrition fields here
-      }),
+  mapFoodConsumptionList() {
+    // Map food consumption list to include details from food items
+    this.foodConsumptionList = this.foodConsumptionList.map((consumptionItem) => {
+      const matchingFoodItem = this.foodItems.find((foodItem) => foodItem._id === consumptionItem.foodId);
+      // If a matching food item is found, add its details to the consumption item
+      return matchingFoodItem
+        ? { ...consumptionItem, foodDetails: matchingFoodItem }
+        : consumptionItem;
     });
   }
+ 
+async getFoodItems(){
+  this._foodManagementService.getFoodItems().subscribe((resp)=>{
+    this.foodItems = resp.object.response;
+    console.log(this.foodItems);
+    this.mapFoodConsumptionList()
+    console.log(this.foodConsumptionList)
+  })
+}
 
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Options',
-      buttons: [
-        {
-          text: 'Add Food',
-          handler: () => {
-            this.presentAddFoodModal();
-          },
+async getFoodConsumptionList(){
+  this._foodManagementService.getFoodConsumptionList(this.selectedDate).subscribe((resp)=>{
+    this.foodConsumptionList = resp.object.response;
+    console.log(this.foodConsumptionList);
+    this.mapFoodConsumptionList();
+    console.log(this.foodConsumptionList)
+
+  })
+}
+
+async presentAlertConfirm(id) {
+  let self = this;
+  const alert = await this.alertController.create({
+    header: 'Delete Note',
+    message: "Are you sure you want to delete?",
+    buttons: [
+      {
+        text: 'Cancel',
+
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+
+        }
+      }, {
+        text: 'Okay',
+        handler: () => {
+          self.deleteFood(id)
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+async deleteFood(id){
+  console.log("called");
+  this._foodManagementService.deleteFood(id).subscribe(resp=>{
+    console.log(resp);
+  });
+}
+
+async presentActionSheet(data) {
+  const actionSheet = await this.actionSheetController.create({
+    header: "",
+    cssClass: "my-custom-class",
+    buttons: [
+      {
+        text: `Edit Food`,
+        role: "destructive",
+        icon: "key-outline",
+        handler: () => {
+          this.openAddEditModal(data,true);
         },
-        // Add more actions as needed
-      ],
-    });
-    await actionSheet.present();
-  }
+      },
+      {
+        text: "Delete Food",
+        role: "destructive",
+        icon: "key-outline",
+        handler: () => {
+          this.presentAlertConfirm(data._id);
+        },
+      },
+      {
+        text: "Cancel",
+        icon: "close",
+        role: "cancel",
+        handler: () => {
+          console.log("Cancel clicked");
+        },
+      },
+    ],
+  });
+  await actionSheet.present();
+}
 
-  async presentAddFoodModal() {
-    const modal = await this.modalCtrl.create({
-      component: FoodPageModel, // Create an AddFoodPage for adding a new food
-      componentProps: { form: this.foodForm },
-    });
-    await modal.present();
+addFoodConsumption(timeSlot){
+  console.log(this.selectedDate);
+  this.openFoodConsumptionAddEdit(null,timeSlot); 
+}
 
-    const { data } = await modal.onWillDismiss();
-    if (data) {
-      // Handle the data returned from the modal (e.g., new food added)
-      this.addFood(data);
+increaseDate() {
+  var tomorrow = new Date(this.selectedDate);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  let date = this.formatDate(tomorrow);
+  this.selectedDate = date;
+  this.getFoodConsumptionList();
+}
+
+decreaseDate() {
+  var tomorrow = new Date(this.selectedDate);
+  tomorrow.setDate(tomorrow.getDate() - 1);
+  let date = this.formatDate(tomorrow);
+  this.selectedDate = date;
+  this.getFoodConsumptionList();
+}
+
+async openFoodConsumptionAddEdit(data,timeSlot){
+  const modal = await this.modalController.create({
+    component:FoodConsumptionPageModel,
+    componentProps:{
+        data:data,
+        timeSlot:timeSlot,
+        foodList:this.foodItems,
+        date:this.selectedDate
     }
-  }
-
-  addFood(newFood: any) {
-    // Call your food service to add the new food
-    this.foodService.addFood(newFood).subscribe(
-      (response) => {
-        // Handle success
-        console.log('Food added successfully:', response);
-      },
-      (error) => {
-        // Handle error
-        console.error('Error adding food:', error);
-      }
-    );
-  }
-
-  async presentConfirmationAlert(foodId: string) {
-    const alert = await this.alertController.create({
-      header: 'Delete Food',
-      message: 'Are you sure you want to delete this food?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-        },
-        {
-          text: 'Delete',
-          handler: () => {
-            this.deleteFood(foodId);
-          },
-        },
-      ],
+  });
+  modal.onDidDismiss().then((dataReturned) => {
+    this.getFoodItems();
+    this.getFoodConsumptionList();
     });
-    await alert.present();
-  }
+  return await modal.present(); 
+}
 
-  deleteFood(foodId: string) {
-    // Call your food service to delete the food
-    this.foodService.deleteFood(foodId).subscribe(
-      (response) => {
-        // Handle success
-        console.log('Food deleted successfully:', response);
-      },
-      (error) => {
-        // Handle error
-        console.error('Error deleting food:', error);
+ async openAddEditModal(data,isEditMode=false){
+   const modal = await this.modalController.create({
+      component:FoodPageModel,
+      componentProps:{
+          data:data,
+          isEditMode:isEditMode
       }
-    );
+    });
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getFoodItems();
+      this.getFoodConsumptionList();
+    });
+    return await modal.present();  
   }
 }
