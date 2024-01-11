@@ -15,55 +15,100 @@
   </ion-fab>
 
   <ng-container>
-    <ion-grid>
+    <ion-grid class="header-filter">
       <ion-row>
         <ion-col>
-          <ion-item style="display: flex;flex-direction: column;" >
-            <ion-label class="date-label">Choose Date</ion-label>
-            <input type="date" [max]="formatCurrentDate" class="form-control" autocomplete="off" [value]="changeDate"
-              [(ngModel)]="changeDate" placeholder="Select Date" (ngModelChange)="getDatedTask()" />
-          </ion-item>
+          <ion-label class="date-label">Choose Date</ion-label>
+        </ion-col>
+        <ion-col>
+          <input
+            type="date"
+            [max]="formatCurrentDate"
+            class="form-control"
+            autocomplete="off"
+            [value]="changeDate"
+            [(ngModel)]="changeDate"
+            placeholder="Select Date"
+            (ngModelChange)="getDatedTask()"
+          />
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-row >
-      <p class="next_preview" (click)="decreaseDate()">
-        Previous
-      </p>
-      <p class="next_preview" *ngIf="!(changeDate >=formatCurrentDate)" (click)="increaseDate()">
-        Next
-      </p>
-    </ion-row>
+    <ion-grid>
+      <ion-row>
+        <ion-col
+          ><p class="next_preview prev" (click)="decreaseDate()">
+            Previous
+          </p></ion-col
+        >
+        <ion-col></ion-col>
+        <ion-col
+          ><p
+            class="next_preview next"
+            *ngIf="!(changeDate >=formatCurrentDate)"
+            (click)="increaseDate()"
+          >
+            Next
+          </p></ion-col
+        >
+      </ion-row>
+    </ion-grid>
 
     <ion-item-sliding *ngFor="let task of detailsList">
       <ion-item>
         <ion-label>
-          <h5 style="color: rgb(109, 110, 108);">
-
-            <h4 style="text-transform: capitalize;">
-              <span style="color: green;"> <ion-icon name="arrow-forward-outline"></ion-icon>
-                {{task.task_id?.task_name}} </span>
-              <span *ngIf="task.task_id.status == 'CREATED'"
-                style="color: #1488e3;float: right;">{{task.task_id.status}}</span>
-              <span *ngIf="task.task_id.status == 'DONE'"
-                style="color: green;float: right;">&nbsp;{{task.task_id.status}}&nbsp;<img class="done" src="https://static.vecteezy.com/system/resources/previews/016/314/839/original/tick-mark-sign-free-png.png"></span>
-              <span *ngIf="task.task_id.status == 'IN_PROGRESS'"
-                style="color: rgb(201, 173, 18);float: right;">{{task.task_id.status}}</span>
-              <span *ngIf="task.task_id.status == 'HOLD'"
-                style="color: rgb(235, 223, 113);float: right;">{{task.task_id.status}}</span>
-              <span *ngIf="task.task_id.status == 'BLOCKER'"
-                style="color: rgb(199, 58, 19);float: right;">{{task.task_id.status}}</span>
-            </h4>&nbsp;
-            <h3 style="color:rgb(35, 29, 29) !important">
-              Time : <span style="color: #1488e3;">{{task.duration_start_time }} -
-                {{task.duration_end_time}}</span>
+          <h5 style="color: rgb(109, 110, 108)">
+            <h4 style="text-transform: capitalize">
+              <span style="color: green">
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+                {{task.task_id?.task_name}}
+              </span>
+              <span
+                *ngIf="task.task_id.status == 'CREATED'"
+                style="color: #1488e3; float: right"
+                >{{task.task_id.status}}</span
+              >
+              <span
+                *ngIf="task.task_id.status == 'DONE'"
+                style="color: green; float: right"
+                >&nbsp;{{task.task_id.status}}&nbsp;<img
+                  class="done"
+                  src="https://static.vecteezy.com/system/resources/previews/016/314/839/original/tick-mark-sign-free-png.png"
+              /></span>
+              <span
+                *ngIf="task.task_id.status == 'IN_PROGRESS'"
+                style="color: rgb(201, 173, 18); float: right"
+                >{{task.task_id.status}}</span
+              >
+              <span
+                *ngIf="task.task_id.status == 'HOLD'"
+                style="color: rgb(235, 223, 113); float: right"
+                >{{task.task_id.status}}</span
+              >
+              <span
+                *ngIf="task.task_id.status == 'BLOCKER'"
+                style="color: rgb(199, 58, 19); float: right"
+                >{{task.task_id.status}}</span
+              >
+            </h4>
+            &nbsp;
+            <h3 style="color: rgb(35, 29, 29) !important">
+              Time :
+              <span style="color: #1488e3"
+                >{{task.duration_start_time }} -
+                {{task.duration_end_time}}</span
+              >
             </h3>
-
-
           </h5>
         </ion-label>
-        <ion-button *ngIf="task.isCompleted == false" (click)="taskCompleted(task)" class="button" type="submit"
-          color="success">Mark As Done</ion-button>
+        <ion-button
+          *ngIf="task.isCompleted == false"
+          (click)="taskCompleted(task)"
+          class="button"
+          type="submit"
+          color="success"
+          >Mark As Done</ion-button
+        >
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option color="warning" (click)="editTask(task)">
@@ -72,13 +117,15 @@
         <!-- <ion-item-option color="danger" (click)="deleteTask(task._id)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option> -->
-        <ion-item-option color="secondary" (click)="presentActionSheet(task.task_id._id)">
+        <ion-item-option
+          color="secondary"
+          (click)="presentActionSheet(task.task_id._id)"
+        >
           <ion-icon slot="icon-only" name="pencil"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
 
     <br />
-
   </ng-container>
 </ion-content>

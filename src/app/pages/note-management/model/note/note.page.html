@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/notemgnt" (click)="closeModal()"></ion-back-button>
+      <ion-back-button
+        defaultHref="/notemgnt"
+        (click)="closeModal()"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="!data" id="top">Add Note</ion-title>
     <ion-title *ngIf="data" id="top">Update Note</ion-title>
@@ -9,42 +12,83 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="container">
-    <div class="row">
-      <div class="form-bg">
-        <form [formGroup]="noteForm" (ngSubmit)="addNote(noteForm)">
-          <ion-item>
-            <ion-label>Title : </ion-label>
-            <ion-input type="text" placeholder="Title" formControlName="name"></ion-input>
-          </ion-item>
-
-          <br />
-          <ion-item>
-            <textarea placeholder="Content" formControlName="content" rows="4" cols="50"></textarea>
-          </ion-item>
-          <br />
-          <ion-item>
-            <ion-label>Note Image : </ion-label>
-            <ion-input type="text" placeholder="link" formControlName="imageUrl"></ion-input>
-          </ion-item>
-         
-          <br>
-          <ion-button color="primary" (click)="addLink()">+ Add Link </ion-button><br>
-          <div class="link-container" *ngFor="let control of links.controls; index as i">
-            <input placeholder="link" [formControl]="links.controls[i]" /> <ion-button color="primary"
-              (click)="removeLink(i)"> - </ion-button><br>
-            <br>
+  <ion-grid>
+    <form [formGroup]="noteForm" (ngSubmit)="addNote(noteForm)">
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
+            <ion-input
+              type="text"
+              placeholder="Title"
+              formControlName="name"
+            ></ion-input>
           </div>
-          <br>
-          <ion-item>
-            <tag-input formControlName="tags" ></tag-input>
-          </ion-item>
-          <br> <br>
-          <ion-button *ngIf="!data" color="primary" type="submit" value="Save">Save</ion-button>
-          <ion-button *ngIf="data" color="primary" type="button" value="Update"
-            (click)="updateNote(noteForm)">Update</ion-button>
-        </form>
-      </div>
-    </div>
-  </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
+            <textarea
+              placeholder="Content"
+              formControlName="content"
+              rows="4"
+              cols="50"
+            ></textarea>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
+            <ion-input
+              type="text"
+              placeholder="Note image link"
+              formControlName="imageUrl"
+            ></ion-input>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-button color="primary" (click)="addLink()"
+            >+ Add Link
+          </ion-button>
+          <div
+            class="link-container form-field"
+            *ngFor="let control of links.controls; index as i"
+          >
+            <ion-input
+              type="text"
+              placeholder="Link"
+              [formControl]="links.controls[i]"
+            ></ion-input>
+            <ion-button color="primary" (click)="removeLink(i)"
+              ><ion-icon name="remove-outline"></ion-icon
+            ></ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <tag-input formControlName="tags" class="tag-field"></tag-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button *ngIf="!data" color="primary" type="submit" value="Save"
+            >Save</ion-button
+          >
+          <ion-button
+            *ngIf="data"
+            color="primary"
+            type="button"
+            value="Update"
+            (click)="updateNote(noteForm)"
+            >Update</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
 </ion-content>

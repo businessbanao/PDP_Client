@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/food-manager" (click)="closeModal()"></ion-back-button>
+      <ion-back-button
+        defaultHref="/food-manager"
+        (click)="closeModal()"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="!isEditMode" id="top">Add Food Consumption</ion-title>
     <ion-title *ngIf="isEditMode" id="top">Update Food Consumption</ion-title>
@@ -9,33 +12,45 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row *ngFor="let foodItem of foodList" class="food-list-item">
+      <ion-col>
+        <div class="food-name">{{ foodItem.name }}</div>
+      </ion-col>
+      <ion-col>
+        <p *ngIf="foodItem?._id == data?.foodId">serving {{data.serving}}</p>
+      </ion-col>
+      <ion-col>
+        <div class="action-list">
+          <button
+            (click)="openServingSizeModel(foodItem._id)"
+            *ngIf="foodItem?._id != data?.foodId"
+          >
+            Add
+          </button>
+          <button
+            *ngIf="foodItem?._id == data?.foodId"
+            (click)="openServingSizeModel(foodItem._id,true)"
+          >
+            Update
+          </button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <div class="container">
     <div class="row">
       <div class="form-bg">
         <!-- <form [formGroup]="foodConsumptionForm" (ngSubmit)="isEditMode ? updateFoodConsumption(foodConsumptionForm) : addFoodConsumption(foodConsumptionForm)"> -->
 
-          <!-- <ion-item> -->
-            <!-- <ion-label position="floating">Food</ion-label> -->
-            <!-- <ion-select formControlName="foodId" placeholder="Select a food" required> -->
-              <ion-list>
-                <ion-item  *ngFor="let foodItem of foodList">
-                  <ion-label>          
-                          {{ foodItem.name }}
-                  </ion-label>
-                  <ion-label>
-                    <p *ngIf="foodItem?._id == data?.foodId" >serving {{data.serving}}</p>
-                  </ion-label>
-                  <ion-label style="display: flex;">
-                         <button (click)="openServingSizeModel(foodItem._id)" *ngIf="foodItem?._id != data?.foodId"> add</button>
-                         <button *ngIf="foodItem?._id == data?.foodId" (click)="openServingSizeModel(foodItem._id,true)" >update</button>
-                  </ion-label>
-                </ion-item>
-                
-              </ion-list>
-            <!-- </ion-select> -->
-          <!-- </ion-item> -->
-      
-          <!-- <ion-item>
+        <!-- <ion-item> -->
+        <!-- <ion-label position="floating">Food</ion-label> -->
+        <!-- <ion-select formControlName="foodId" placeholder="Select a food" required> -->
+
+        <!-- </ion-select> -->
+        <!-- </ion-item> -->
+
+        <!-- <ion-item>
             <ion-label position="floating">Serving</ion-label>
             <ion-input formControlName="serving" type="number"></ion-input>
           </ion-item>
@@ -49,10 +64,7 @@
             <ion-label position="floating">Date</ion-label>
             <ion-datetime formControlName="date" display-format="MMM DD, YYYY" picker-format="MMM DD, YYYY" disabled></ion-datetime>
           </ion-item> -->
-      
-      
-          
-      
+
         <!-- </form> -->
       </div>
     </div>

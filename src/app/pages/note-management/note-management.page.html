@@ -4,17 +4,17 @@
       <ion-menu-button style="color: white"></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="start" *ngIf="isModel">
-      <ion-back-button defaultHref="/notemgnt" (click)="closeModal()"></ion-back-button>
+      <ion-back-button
+        defaultHref="/notemgnt"
+        (click)="closeModal()"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="!isModel"> Note Management </ion-title>
     <ion-title *ngIf="isModel"> {{folderName}} </ion-title>
-
-
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
       <ion-icon name="chevron-up-circle"></ion-icon>
@@ -29,21 +29,96 @@
     </ion-fab-list>
   </ion-fab>
 
-  <ion-searchbar *ngIf="!isModel" animated="true" placeholder="Search Notes" (ionChange)="searchTextChange($event.target.value)"></ion-searchbar>
+  <ion-searchbar
+    *ngIf="!isModel"
+    animated="true"
+    placeholder="Search Notes"
+    (ionChange)="searchTextChange($event.target.value)"
+  ></ion-searchbar>
 
-  <ion-card class="chose-category-grid">
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let list of noteFolderList">
+        <div
+          style="position: relative"
+          *ngIf="list.type == 'FOLDER'"
+          class="note-card"
+        >
+          <ion-card color="light">
+            <ion-card-header>
+              <div class="card-img">
+                <img
+                  src="../../../assets/img/folder.png"
+                  (click)="openNoteListModal(list._id,list.name)"
+                  alt=""
+                />
+              </div>
+            </ion-card-header>
+            <ion-card-content><span>{{list.name}}</span></ion-card-content>
+            <ion-icon
+              (click)="presentActionSheetFolder(list)"
+              name="ellipsis-vertical"
+              class="setting-icon"
+            ></ion-icon>
+          </ion-card>
+        </div>
+        <div
+          style="position: relative"
+          *ngIf="list.type == 'NOTE'"
+          class="note-card"
+        >
+          <ion-card color="light">
+            <ion-card-header>
+              <div class="card-img">
+                <img
+                  src="../../../assets/img/notes.png"
+                  (click)="previewNote(list)"
+                  alt=""
+                />
+              </div>
+            </ion-card-header>
+            <ion-card-content><span>{{list.name}}</span></ion-card-content>
+            <ion-icon
+              (click)="presentActionSheet(list)"
+              name="ellipsis-vertical"
+              class="setting-icon"
+            ></ion-icon>
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <ion-card class="chose-category-grid">
     <div class="relative" *ngFor="let list of noteFolderList">
-      <div style="position: relative;" *ngIf="list.type == 'FOLDER'" >
-        <img src="../../../assets/img/folder.png" (click)="openNoteListModal(list._id,list.name)" alt="" />
+      <div style="position: relative" *ngIf="list.type == 'FOLDER'">
+        <img
+          src="../../../assets/img/folder.png"
+          (click)="openNoteListModal(list._id,list.name)"
+          alt=""
+        />
         <p>{{list.name}}</p>
-        <ion-icon (click)="presentActionSheetFolder(list)" name="ellipsis-vertical" class="settings-icon" style="position: absolute;top:0px;right: 0px;"></ion-icon>
+        <ion-icon
+          (click)="presentActionSheetFolder(list)"
+          name="ellipsis-vertical"
+          class="settings-icon"
+          style="position: absolute; top: 0px; right: 0px"
+        ></ion-icon>
       </div>
-      <div style="position: relative;" *ngIf="list.type == 'NOTE'" >
-        <img src="../../../assets/img/notes.png" (click)="previewNote(list)" alt="" />
+      <div style="position: relative" *ngIf="list.type == 'NOTE'">
+        <img
+          src="../../../assets/img/notes.png"
+          (click)="previewNote(list)"
+          alt=""
+        />
         <p>{{list.name}}</p>
-        <ion-icon (click)="presentActionSheet(list)" name="ellipsis-vertical" class="settings-icon" style="position: absolute;top:0px;right: 0px;"></ion-icon>
+        <ion-icon
+          (click)="presentActionSheet(list)"
+          name="ellipsis-vertical"
+          class="settings-icon"
+          style="position: absolute; top: 0px; right: 0px"
+        ></ion-icon>
       </div>
     </div>
-  </ion-card>
+  </ion-card> -->
   <br /><br /><br />
 </ion-content>

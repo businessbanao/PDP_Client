@@ -3,63 +3,137 @@
     <ion-buttons slot="start" *ngIf="!isModel">
       <ion-menu-button style="color: white"></ion-menu-button>
     </ion-buttons>
-    <ion-title > Food Management </ion-title>
-
-
+    <ion-title> Food Management </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-      <ion-fab-button>
-        <ion-icon name="add" (click)="openAddEditModal()"></ion-icon>
-      </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="add" (click)="openAddEditModal()"></ion-icon>
+    </ion-fab-button>
   </ion-fab>
-    <ion-item>
-      <div
-        style="
-          display: flex;
-          width: 100vw;
-          justify-content: space-between;
-          padding: 5px;
-        "
-      >
+  <ion-grid>
+    <ion-row class="border-bottom">
+      <ion-col>
+        <div class="nav-btns">
+          <ion-icon
+            name="chevron-back-outline"
+            (click)="decreaseDate()"
+          ></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col>
         <input
           type="date"
           style="border-radius: 5px; padding: 10px"
           name="date"
-          (change) = "getFoodConsumptionList()"
-          [(ngModel)] = "selectedDate"
+          (change)="getFoodConsumptionList()"
+          [(ngModel)]="selectedDate"
         />
-      </div>
-    </ion-item>
+      </ion-col>
 
-    <ion-row>
-      <p class="next_preview" (click)="decreaseDate()">
-        Previous
-      </p>
-      <p  class="next_preview"  *ngIf="!(changeDate >=formatCurrentDate)" (click)="increaseDate()">
-        Next
-      </p>
+      <ion-col>
+        <div class="nav-btns right-btn">
+          <ion-icon
+            name="chevron-forward-outline"
+            *ngIf="!(changeDate >=formatCurrentDate)"
+            (click)="increaseDate()"
+          ></ion-icon>
+        </div>
+      </ion-col>
     </ion-row>
-    
-    <div *ngFor="let meal of ['Breakfast', 'Lunch', 'Snack', 'Dinner']">
-      <h1>{{ meal }}</h1>
-      <button (click)="addFoodConsumption(meal)">add food</button>
-      <ion-list *ngIf="foodConsumptionList.length > 0">
-        <ion-item-sliding *ngFor="let foodItem of foodConsumptionList" >
-          <ion-label *ngIf="foodItem.timeSlot === meal" (click)="openFoodConsumptionAddEdit(foodItem,meal)">
-          <div  style="display: flex;justify-content: space-between;padding: 5px;">
-            <img src="{{foodItem.foodDetails.imageUrl}}" width="30" height="30" alt="">
-           <div>
-             {{ foodItem.foodDetails.name }} - {{ foodItem.serving }} servings
-           </div>
-          </div>  
-          </ion-label>
-        </ion-item-sliding>
-      </ion-list>
-<!--   
+    <!-- <ion-row>
+      <ion-col>
+        <p class="next_preview" (click)="decreaseDate()">Previous</p>
+      </ion-col>
+      <ion-col class="next-btn">
+        <p
+          class="next_preview"
+          *ngIf="!(changeDate >=formatCurrentDate)"
+          (click)="increaseDate()"
+        >
+          Next
+        </p>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+
+  <ion-grid class="remaining-info">
+    <ion-row>
+      <ion-col>
+        <h3 class="cal-heading">Calories Remaining</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="8">
+        <div class="calories-cal">
+          <div class="cal-item">
+            <span>2340</span>
+            <span>Goal</span>
+          </div>
+          <div class="operator"><span>-</span></div>
+          <div class="cal-item">
+            <span>342</span>
+            <span>Food</span>
+          </div>
+          <div class="operator"><span>+</span></div>
+          <div class="cal-item">
+            <span>0</span>
+            <span>Exercise</span>
+          </div>
+          <div class="operator"><span>=</span></div>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="cal-total">
+          <span>3435</span>
+          <span>Remaining</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid
+    *ngFor="let meal of ['Breakfast', 'Lunch', 'Snack', 'Dinner']"
+    class="food-manage-blocks"
+  >
+    <ion-row>
+      <ion-col>
+        <h2 class="heading">{{ meal }}</h2>
+        <ion-list *ngIf="foodConsumptionList.length > 0">
+          <ion-item-sliding
+            *ngFor="let foodItem of foodConsumptionList"
+            class="food-row"
+          >
+            <ion-label
+              *ngIf="foodItem.timeSlot === meal"
+              (click)="openFoodConsumptionAddEdit(foodItem,meal)"
+            >
+              <div class="food-item">
+                <img
+                  src="{{foodItem.foodDetails.imageUrl}}"
+                  width="30"
+                  height="30"
+                  alt=""
+                />
+                <div class="food-detail">
+                  {{ foodItem.foodDetails.name }} - {{ foodItem.serving }}
+                  servings
+                </div>
+                <div class="action">
+                  <a href="#!">Edit</a>
+                </div>
+              </div>
+            </ion-label>
+          </ion-item-sliding>
+        </ion-list>
+        <div class="btn-container">
+          <button (click)="addFoodConsumption(meal)" class="add-food-btn">
+            <ion-icon name="add-outline"></ion-icon><span>Add Food</span>
+          </button>
+        </div>
+        <!--   
       Display Meal List 
       <ion-list *ngIf="foodConsumptionList.length > 0">
         <ion-item *ngFor="let foodItem of foodConsumptionList">
@@ -70,8 +144,7 @@
         </ion-item>
       </ion-list>
     -->
-  
-     
-    </div>
-
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

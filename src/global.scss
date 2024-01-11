@@ -24,7 +24,6 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-
 /*
  * App CSS
  * ----------------------------------------------------------------------------
@@ -33,7 +32,6 @@
  */
 
 @import "./app/app.scss";
-
 
 /* TODO remove once fixed in framework */
 .ios .header-collapse-condense ion-toolbar {
@@ -47,7 +45,6 @@
   color: var(--ion-text-color);
 }
 
-
 .noRecordsFound {
   text-align: center;
   margin-top: 67px;
@@ -56,5 +53,43 @@
 }
 
 .search-product input {
-  border-radius:50px !important;
+  border-radius: 50px !important;
+}
+
+ion-back-button {
+  color: #fff !important;
+}
+.border-bottom {
+  border-bottom: 1px solid #ddd;
+}
+.next-btn {
+  display: flex;
+  justify-content: right;
+}
+.next_preview {
+  margin-left: 0 !important;
+  font-weight: 550;
+  border: 1px black solid;
+  padding: 9px;
+  border-radius: 16px;
+  margin-top: 4px;
+  font-size: 13px;
+  width: 100px;
+  text-align: center;
+}
+h2.heading {
+  font-size: 18px;
+  margin-top: 0;
+}
+.form-field {
+  ion-input,
+  textarea {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 0 10px !important;
+  }
+  textarea {
+    padding: 10px !important;
+    width: 100%;
+  }
 }
