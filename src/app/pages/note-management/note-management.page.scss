@@ -103,13 +103,20 @@
 .note-card {
   text-align: center;
   height: 100%;
-  ion-card {
+  max-width: 180px;
+  /* ion-card {
     height: calc(100% - 46px);
-  }
+  } */
   .setting-icon {
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+  .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
   }
 }
 

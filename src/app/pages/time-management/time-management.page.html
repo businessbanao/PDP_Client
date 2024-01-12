@@ -13,49 +13,44 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <ion-grid>
+    <ion-row class="border-bottom">
+      <ion-col>
+        <div class="nav-btns">
+          <ion-icon
+            name="chevron-back-outline"
+            (click)="decreaseDate()"
+          ></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col>
+        <input
+          type="date"
+          style="border-radius: 5px; padding: 10px"
+          [max]="formatCurrentDate"
+          class="form-control"
+          autocomplete="off"
+          [value]="changeDate"
+          [(ngModel)]="changeDate"
+          placeholder="Select Date"
+          (ngModelChange)="getDatedTask()"
+        />
+      </ion-col>
 
-  <ng-container>
-    <ion-grid class="header-filter">
-      <ion-row>
-        <ion-col>
-          <ion-label class="date-label">Choose Date</ion-label>
-        </ion-col>
-        <ion-col>
-          <input
-            type="date"
-            [max]="formatCurrentDate"
-            class="form-control"
-            autocomplete="off"
-            [value]="changeDate"
-            [(ngModel)]="changeDate"
-            placeholder="Select Date"
-            (ngModelChange)="getDatedTask()"
-          />
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-grid>
-      <ion-row>
-        <ion-col
-          ><p class="next_preview prev" (click)="decreaseDate()">
-            Previous
-          </p></ion-col
-        >
-        <ion-col></ion-col>
-        <ion-col
-          ><p
-            class="next_preview next"
+      <ion-col>
+        <div class="nav-btns right-btn">
+          <ion-icon
+            name="chevron-forward-outline"
             *ngIf="!(changeDate >=formatCurrentDate)"
             (click)="increaseDate()"
-          >
-            Next
-          </p></ion-col
-        >
-      </ion-row>
-    </ion-grid>
-
+          ></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
     <ion-item-sliding *ngFor="let task of detailsList">
-      <ion-item>
+      <ion-item class="sliding-row" lines="full">
         <ion-label>
           <h5 style="color: rgb(109, 110, 108)">
             <h4 style="text-transform: capitalize">
@@ -127,5 +122,5 @@
     </ion-item-sliding>
 
     <br />
-  </ng-container>
+  </ion-grid>
 </ion-content>

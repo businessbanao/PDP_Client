@@ -1,19 +1,31 @@
- .img-box{
-    width: 360px;
-    height: 153px;
-    margin-top: 20px;
- }
+.img-box {
+  width: 360px;
+  height: 153px;
+  margin-top: 20px;
+}
 
- .banner{
-   // background-image: url();
-   // height: 100%;
-   background-size: cover; /* You can use 'contain' or other values based on your preference */
-   background-position: center center; /* Adjust the position as needed */
-   background-repeat: no-repeat;
-   margin: 0; /* Remove default margin */
-   padding: 0; /* Remove default padding */
-   height: 100vh; /* Make the background cover the entire viewport height */
-   display: flex;
-   justify-content: center;
-   align-items: center;
- }
+.banner {
+  // background-image: url();
+  // height: 100%;
+  background-size: cover; /* You can use 'contain' or other values based on your preference */
+  background-position: center center; /* Adjust the position as needed */
+  background-repeat: no-repeat;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  height: 100vh; /* Make the background cover the entire viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.note-list {
+  margin-left: 20px;
+  ul {
+    padding-left: 14px;
+    li {
+      margin-bottom: 6px;
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -100,7 +100,10 @@
   >
     <ion-row>
       <ion-col>
-        <h2 class="heading">{{ meal }}</h2>
+        <div class="day-break">
+          <h2 class="heading">{{ meal }}</h2>
+          <div class="break-cal">120 cal.</div>
+        </div>
         <ion-list *ngIf="foodConsumptionList.length > 0">
           <ion-item-sliding
             *ngFor="let foodItem of foodConsumptionList"

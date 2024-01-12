@@ -35,25 +35,19 @@
 //    padding-left: 50%;
 // }
 
-.no_record{
-    text-align: center;
-    color: #a09898;
-    margin-top: 44%;
+.no_record {
+  text-align: center;
+  color: #a09898;
+  margin-top: 44%;
 }
 
-.category{
-    font-size: 10px;
-    /* font-style: italic; */
-    color: teal;
-    font-weight: 500;
+.category {
+  font-size: 10px;
+  /* font-style: italic; */
+  color: teal;
+  font-weight: 500;
 }
 
-.next_preview{
-    margin-left: 30%;
-    font-weight: 550;
-    border: 1px black solid;
-    padding: 9px;
-    border-radius: 16px;
-    margin-top: 4px;
-    font-size: 13px;
+.filter-option {
+  display: flex;
 }

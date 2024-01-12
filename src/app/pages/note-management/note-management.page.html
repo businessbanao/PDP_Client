@@ -38,7 +38,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let list of noteFolderList">
+      <ion-col *ngFor="let list of noteFolderList" size="6">
         <div
           style="position: relative"
           *ngIf="list.type == 'FOLDER'"
@@ -50,11 +50,14 @@
                 <img
                   src="../../../assets/img/folder.png"
                   (click)="openNoteListModal(list._id,list.name)"
-                  alt=""
+                  alt="folder"
+                  width="48"
                 />
               </div>
             </ion-card-header>
-            <ion-card-content><span>{{list.name}}</span></ion-card-content>
+            <ion-card-content
+              ><span class="title">{{list.name}}</span></ion-card-content
+            >
             <ion-icon
               (click)="presentActionSheetFolder(list)"
               name="ellipsis-vertical"
@@ -73,11 +76,14 @@
                 <img
                   src="../../../assets/img/notes.png"
                   (click)="previewNote(list)"
-                  alt=""
+                  alt="notes"
+                  width="48"
                 />
               </div>
             </ion-card-header>
-            <ion-card-content><span>{{list.name}}</span></ion-card-content>
+            <ion-card-content
+              ><span class="title">{{list.name}}</span></ion-card-content
+            >
             <ion-icon
               (click)="presentActionSheet(list)"
               name="ellipsis-vertical"

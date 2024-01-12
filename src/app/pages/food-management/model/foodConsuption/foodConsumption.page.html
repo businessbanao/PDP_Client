@@ -16,17 +16,19 @@
     <ion-row *ngFor="let foodItem of foodList" class="food-list-item">
       <ion-col>
         <div class="food-name">{{ foodItem.name }}</div>
-      </ion-col>
-      <ion-col>
-        <p *ngIf="foodItem?._id == data?.foodId">serving {{data.serving}}</p>
+        <p class="food-cal">188 calories</p>
       </ion-col>
       <ion-col>
         <div class="action-list">
           <button
             (click)="openServingSizeModel(foodItem._id)"
             *ngIf="foodItem?._id != data?.foodId"
+            class="link"
           >
-            Add
+            <div class="icon-text">
+              <ion-icon name="add-outline"></ion-icon>
+              <span>Add</span>
+            </div>
           </button>
           <button
             *ngIf="foodItem?._id == data?.foodId"

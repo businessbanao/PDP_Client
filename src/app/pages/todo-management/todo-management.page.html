@@ -14,65 +14,110 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ng-container>
-    <ion-grid>
-      <ion-row class="date-row">
-        <ion-col size="12">
-          <ion-item>
-            <ion-label>Duration : </ion-label>
-            <ion-select placeholder="Select :" [(ngModel)]="duration_type"  >
-              <ion-select-option value="DAY">Day</ion-select-option>
-              <!-- <ion-select-option value="WEEK">Week</ion-select-option> -->
-              <ion-select-option value="MONTH">Month</ion-select-option>
-            </ion-select>
-          </ion-item>
+  <ion-grid>
+    <ion-row class="border-bottom">
+      <ion-col>
+        <div class="nav-btns">
+          <ion-icon
+            name="chevron-back-outline"
+            (click)="decreaseDate()"
+            *ngIf="duration_type == 'DAY'"
+          ></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="filter-option">
+          <ion-select placeholder="Select :" [(ngModel)]="duration_type">
+            <ion-select-option value="DAY">Day</ion-select-option>
+            <!-- <ion-select-option value="WEEK">Week</ion-select-option> -->
+            <ion-select-option value="MONTH">Month</ion-select-option>
+          </ion-select>
+          <div class="filter-input" *ngIf="duration_type == 'DAY'">
+            <input
+              type="date"
+              [max]="formatCurrentDate"
+              class="form-control"
+              autocomplete="off"
+              [value]="changeDate"
+              [(ngModel)]="changeDate"
+              placeholder="Select Date"
+              (ngModelChange)="handleChangeDate(changeDate)"
+              style="border-radius: 5px; padding: 10px"
+            />
+          </div>
+          <div class="filter-input" *ngIf="duration_type == 'MONTH'">
+            <input
+              type="month"
+              [max]="formatCurrentDate"
+              class="form-control"
+              autocomplete="off"
+              [value]="changeDate"
+              [(ngModel)]="changeDate"
+              placeholder="Select Date"
+              (ngModelChange)="handleChangeDate(changeDate)"
+              style="border-radius: 5px; padding: 10px"
+            />
+          </div>
+        </div>
+      </ion-col>
 
-        </ion-col>
-
-        <ion-col>
-          <ion-item style="display: flex;flex-direction: column;" *ngIf="duration_type == 'DAY'">
-            <ion-label class="date-label">Choose Date</ion-label>
-            <input type="date" [max]="formatCurrentDate" class="form-control" autocomplete="off" [value]="changeDate"
-              [(ngModel)]="changeDate" placeholder="Select Date" (ngModelChange)="handleChangeDate(changeDate)" />
-          </ion-item>
-          <!-- <ion-item style="display: flex;flex-direction: column;" *ngIf="duration_type == 'WEEK'">
-            <ion-label class="date-label">Choose Week</ion-label>
-            <input type="week" [max]="formatCurrentDate" class="form-control" autocomplete="off" [value]="changeDate"
-              [(ngModel)]="changeDate" placeholder="Select Date" (ngModelChange)="handleChangeDate(changeDate)" />
-          </ion-item> -->
-          <ion-item style="display: flex;flex-direction: column;" *ngIf="duration_type == 'MONTH'">
-            <ion-label class="date-label">Choose Month</ion-label>
-            <input type="month" [max]="formatCurrentDate" class="form-control" autocomplete="off" [value]="changeDate"
-              [(ngModel)]="changeDate" placeholder="Select Date" (ngModelChange)="handleChangeDate(changeDate)" />
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-row  *ngIf="duration_type == 'DAY'">
-      <p class="next_preview" (click)="decreaseDate()">
-        Previous
-      </p>
-      <p  class="next_preview"  *ngIf="!(changeDate >=formatCurrentDate)" (click)="increaseDate()">
-        Next
-      </p>
+      <ion-col>
+        <div class="nav-btns right-btn">
+          <ion-icon
+            name="chevron-forward-outline"
+            *ngIf="!(changeDate >=formatCurrentDate)"
+            (click)="increaseDate()"
+          ></ion-icon>
+        </div>
+      </ion-col>
     </ion-row>
-    <hr style="height: 1px;background: teal;">
-    <br />
+  </ion-grid>
+
+  <ng-container>
     <ion-item-sliding *ngFor="let task of detailsList">
-      <ion-item (click)="showInfo(task.duration_start_date,task.duration_end_date)">
+      <ion-item
+        (click)="showInfo(task.duration_start_date,task.duration_end_date)"
+      >
         <ion-label>
-          <div style="text-transform: capitalize;">{{task.task_name}} <span class="category">({{task.category}}) </span>
-            <span *ngIf="task.status == 'CREATED'" style="color: #1488e3;float: right;">{{task.status}}</span>
-            <span *ngIf="task.status == 'DONE'" style="color: green;float: right;">{{task.status}}</span>
-            <span *ngIf="task.status == 'IN_PROGRESS'" style="color: rgb(201, 173, 18);float: right;">{{task.status}}</span>
-            <span *ngIf="task.status == 'HOLD'" style="color: rgb(235, 223, 113);float: right;">{{task.status}}</span>
-            <span *ngIf="task.status == 'BLOCKER'" style="color: rgb(199, 58, 19);float: right;">{{task.status}}</span>
+          <div style="text-transform: capitalize">
+            {{task.task_name}}
+            <span class="category">({{task.category}}) </span>
+            <span
+              *ngIf="task.status == 'CREATED'"
+              style="color: #1488e3; float: right"
+              >{{task.status}}</span
+            >
+            <span
+              *ngIf="task.status == 'DONE'"
+              style="color: green; float: right"
+              >{{task.status}}</span
+            >
+            <span
+              *ngIf="task.status == 'IN_PROGRESS'"
+              style="color: rgb(201, 173, 18); float: right"
+              >{{task.status}}</span
+            >
+            <span
+              *ngIf="task.status == 'HOLD'"
+              style="color: rgb(235, 223, 113); float: right"
+              >{{task.status}}</span
+            >
+            <span
+              *ngIf="task.status == 'BLOCKER'"
+              style="color: rgb(199, 58, 19); float: right"
+              >{{task.status}}</span
+            >
           </div>
           <!-- <div>Category : {{task.category}}</div> -->
-           
         </ion-label>
-        <ion-button *ngIf="task.isCompleted == false" (click)="taskCompleted(task)" class="button" type="submit"
-          color="success">Mark As Done</ion-button>
+        <ion-button
+          *ngIf="task.isCompleted == false"
+          (click)="taskCompleted(task)"
+          class="button"
+          type="submit"
+          color="success"
+          >Mark As Done</ion-button
+        >
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option color="warning" (click)="editTask(task)">
@@ -81,14 +126,16 @@
         <!-- <ion-item-option color="danger" (click)="deleteTask(task._id)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option> -->
-        <ion-item-option color="secondary" (click)="presentActionSheet(task._id)">
+        <ion-item-option
+          color="secondary"
+          (click)="presentActionSheet(task._id)"
+        >
           <ion-icon slot="icon-only" name="pencil"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
 
     <br />
-    <p class="no_record" *ngIf="!detailsList.length"> No Tasks Found</p>
-
+    <p class="no_record" *ngIf="!detailsList.length">No Tasks Found</p>
   </ng-container>
 </ion-content>

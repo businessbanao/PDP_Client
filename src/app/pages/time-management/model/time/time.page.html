@@ -11,74 +11,75 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="container">
-    <div class="row">
-      <div class="form-bg">
-        <form [formGroup]="taskForm" (ngSubmit)="createTask(taskForm)">
-          <div class="form-group">
+  <ion-grid>
+    <form [formGroup]="taskForm" (ngSubmit)="createTask(taskForm)">
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
             <div
               [ngClass]="{'has-error' : taskForm.get('date').errors && (taskForm.get('date').touched || taskForm.get('date').dirty) }"
             >
-              <ion-item>
-                <ion-label>Date : </ion-label>
-                <ion-input
-                  (ionChange)="getTaskList()"
-                  type="date"
-                  formControlName="date"
-                ></ion-input>
-              </ion-item>
+              <ion-input
+                (ionChange)="getTaskList()"
+                type="date"
+                formControlName="date"
+              ></ion-input>
             </div>
             <span
               class="help-block"
               *ngIf=" taskForm.get('date').errors && (taskForm.get('date').touched || taskForm.get('date').dirty)"
             >
-              <span *ngIf="taskForm.get('due_date').errors?.required">
-                &nbsp;&nbsp;&nbsp;&nbsp;Date is required*
+              <span
+                *ngIf="taskForm.get('due_date').errors?.required"
+                class="error"
+              >
+                Date is required*
               </span>
             </span>
           </div>
-
-          <div class="form-group">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
             <div
               [ngClass]="{'has-error' : taskForm.get('task_id').errors && (taskForm.get('task_id').touched || taskForm.get('task_id').dirty) }"
             >
-              <ion-item>
-                <ion-label>Task Name : </ion-label>
-                <select formControlName="task_id">
-                  <option value="">Select Task</option>
-                  <option *ngFor="let list of taskList" [value]="list._id">
-                    {{list.task_name}}
-                  </option>
-                </select>
-              </ion-item>
+              <select formControlName="task_id">
+                <option value="">Select Task</option>
+                <option *ngFor="let list of taskList" [value]="list._id">
+                  {{list.task_name}}
+                </option>
+              </select>
             </div>
             <span
               class="help-block"
               *ngIf=" taskForm.get('task_id').errors && (taskForm.get('task_id').touched || taskForm.get('task_id').dirty)"
             >
-              <span *ngIf="taskForm.get('task_id').errors?.required">
-                <!-- <br> -->
-                &nbsp;&nbsp;&nbsp;&nbsp;Task Name is required*
+              <span
+                *ngIf="taskForm.get('task_id').errors?.required"
+                class="error"
+              >
+                Task Name is required*
               </span>
             </span>
           </div>
-          <br />
+        </ion-col>
+      </ion-row>
 
-
-          <div class="form-group">
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
             <div
               [ngClass]="{'has-error' : taskForm.get('duration_start_time').errors && (taskForm.get('duration_start_time').touched || taskForm.get('duration_start_time').dirty) }"
             >
-              <ion-item>
-                <ion-label>Start Time : </ion-label>
-                <input placeholder="start time"                   formControlName="duration_start_time"
-                [ngxTimepicker]="startTime">
-                <ngx-material-timepicker #startTime></ngx-material-timepicker>
-                <!-- <ion-input
-                  type="time"
-                  formControlName="duration_start_time"
-                ></ion-input> -->
-              </ion-item>
+              <input
+                placeholder="Start Time"
+                formControlName="duration_start_time"
+                [ngxTimepicker]="startTime"
+                class="custom-input"
+              />
+              <ngx-material-timepicker #startTime></ngx-material-timepicker>
             </div>
             <span
               class="help-block"
@@ -86,42 +87,44 @@
             >
               <span
                 *ngIf="taskForm.get('duration_start_time').errors?.required"
+                class="error"
               >
-                &nbsp;&nbsp;&nbsp;&nbsp;Start Time is required*
+                Start Time is required*
               </span>
             </span>
           </div>
-          <br />
-          <div class="form-group">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
             <div
               [ngClass]="{'has-error' : taskForm.get('duration_end_time').errors && (taskForm.get('duration_end_time').touched || taskForm.get('duration_end_time').dirty) }"
             >
-              <ion-item>
-                <ion-label>End Time : </ion-label>
-                <!-- <ion-input
-                  type="time"
-                  formControlName="duration_end_time"
-                ></ion-input> -->
-
-
-                <input placeholder="End time"                                     formControlName="duration_end_time"
-
-                [ngxTimepicker]="endTime">
-                <ngx-material-timepicker #endTime></ngx-material-timepicker>
-              </ion-item>
+              <input
+                placeholder="End Time"
+                formControlName="duration_end_time"
+                [ngxTimepicker]="endTime"
+                class="custom-input"
+              />
+              <ngx-material-timepicker #endTime></ngx-material-timepicker>
             </div>
             <span
               class="help-block"
               *ngIf=" taskForm.get('duration_end_time').errors && (taskForm.get('duration_end_time').touched || taskForm.get('duration_end_time').dirty)"
             >
-              <span *ngIf="taskForm.get('duration_end_time').errors?.required">
-                &nbsp;&nbsp;&nbsp;&nbsp;End Time is required*
+              <span
+                *ngIf="taskForm.get('duration_end_time').errors?.required"
+                class="error"
+              >
+                End Time is required*
               </span>
             </span>
           </div>
-          <br />
+        </ion-col>
+      </ion-row>
 
-          <!-- <div class="form-group">
+      <!-- <div class="form-group">
             <div
               [ngClass]="{'has-error' : taskForm.get('due_date').errors && (taskForm.get('due_date').touched || taskForm.get('due_date').dirty) }"
             >
@@ -159,7 +162,8 @@
             </span>
           </div>
           <br /> -->
-
+      <ion-row>
+        <ion-col>
           <ion-button
             type="submit"
             [disabled]="taskForm.invalid"
@@ -194,8 +198,8 @@
             (click)="updateTask(taskForm)"
             >Update</ion-button
           >
-        </form>
-      </div>
-    </div>
-  </div>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
 </ion-content>

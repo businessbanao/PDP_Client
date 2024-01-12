@@ -27,10 +27,25 @@
 .food-list-item {
   border-bottom: 1px solid #ddd;
   padding: 8px 0;
+  .food-cal {
+    margin: 5px 0 0;
+    font-size: 12px;
+    color: #616161;
+  }
 }
 .action-list {
+  display: flex;
+  justify-content: end;
+  height: 100%;
   button {
     background-color: transparent;
     text-transform: uppercase;
+    span {
+      display: inline-block;
+    }
+    .icon-text span {
+      font-size: 15px;
+      line-height: 26px;
+    }
   }
 }

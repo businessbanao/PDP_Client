@@ -124,15 +124,6 @@
     }
   }
 }
-.nav-btns {
-  display: flex;
-  height: 100%;
-  font-size: 30px;
-  align-items: center;
-  &.right-btn {
-    justify-content: right;
-  }
-}
 .cal-heading {
   font-size: 16px;
   padding-left: 12px;
@@ -167,6 +158,14 @@
   h2.heading {
     padding: 8px 0;
     margin-bottom: 0;
+  }
+  .day-break {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .break-cal {
+      font-size: 14px;
+    }
   }
   .food-row {
     border-bottom: 1px solid #ddd;

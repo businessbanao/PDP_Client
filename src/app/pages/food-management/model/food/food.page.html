@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/food-manager" (click)="closeModal()"></ion-back-button>
+      <ion-back-button
+        defaultHref="/food-manager"
+        (click)="closeModal()"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="!isEditMode" id="top">Add Food</ion-title>
     <ion-title *ngIf="isEditMode" id="top">Update Food</ion-title>
@@ -9,39 +12,88 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="container">
-    <div class="row">
-      <div class="form-bg">
-        <form [formGroup]="foodForm" (ngSubmit)="addFood(foodForm)">
-          <ion-item>
-            <ion-label>Food Name : </ion-label>
-            <ion-input type="text" placeholder="Title" formControlName="name"></ion-input>
-          </ion-item>
-          <br />
-          <ion-item>
-            <ion-label>Food Image : </ion-label>
-            <ion-input type="text" placeholder="link" formControlName="imageUrl"></ion-input>
-          </ion-item>
-          <br>
-          <ion-item>
-            <tag-input formControlName="category" aria-placeholder="add category" ></tag-input>
-          </ion-item>
-          <br> 
-          <div formArrayName="nutrition">
-            <div *ngFor="let nutrient of nutritionArray.controls; let i = index" [formGroupName]="i">
-              <input [id]="'nutrient-key-' + i" placeholder="key" formControlName="key">
-              <input [id]="'nutrient-value-' + i" placeholder="value" formControlName="value">
-              <button type="button" (click)="removeNutrientField(i)">Remove Nutrient</button>
-            </div>
+  <ion-grid>
+    <form [formGroup]="foodForm" (ngSubmit)="addFood(foodForm)">
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
+            <ion-input
+              type="text"
+              placeholder="Title"
+              formControlName="name"
+            ></ion-input>
           </div>
-          <button type="button" (click)="addNutrientField()">Add Nutrient</button>
-
-          <br>
-          <ion-button *ngIf="!data" color="primary" type="submit" value="Save">Save</ion-button>
-          <ion-button *ngIf="data" color="primary" type="button" value="Update"
-            (click)="updateFood(foodForm)">Update</ion-button>
-        </form>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
+            <ion-input
+              type="text"
+              placeholder="Food image link"
+              formControlName="imageUrl"
+            ></ion-input>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
+            <tag-input
+              formControlName="category"
+              aria-placeholder="add category"
+              class="tag-field"
+            ></tag-input>
+          </div>
+        </ion-col>
+      </ion-row>
+      <div formArrayName="nutrition">
+        <div
+          *ngFor="let nutrient of nutritionArray.controls; let i = index"
+          [formGroupName]="i"
+          class="nitrition-value"
+        >
+          <div class="form-field">
+            <input
+              [id]="'nutrient-key-' + i"
+              placeholder="Key"
+              formControlName="key"
+              class="custom-input"
+            />
+          </div>
+          <div class="form-field">
+            <input
+              [id]="'nutrient-value-' + i"
+              placeholder="Value"
+              formControlName="value"
+              class="custom-input"
+            />
+          </div>
+          <ion-button
+            type="button"
+            (click)="removeNutrientField(i)"
+            color="primary"
+          >
+            <ion-icon name="remove-outline"></ion-icon>
+          </ion-button>
+        </div>
       </div>
-    </div>
-  </div>
+      <button type="button" (click)="addNutrientField()" class="add-btn">
+        <ion-icon name="add-outline"></ion-icon><span>Add Nutrient</span>
+      </button>
+
+      <br />
+      <ion-button *ngIf="!data" color="primary" type="submit" value="Save"
+        >Save</ion-button
+      >
+      <ion-button
+        *ngIf="data"
+        color="primary"
+        type="button"
+        value="Update"
+        (click)="updateFood(foodForm)"
+        >Update</ion-button
+      >
+    </form>
+  </ion-grid>
 </ion-content>

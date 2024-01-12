@@ -35,25 +35,35 @@
 //    padding-left: 50%;
 // }
 
-.no_record{
-    text-align: center;
-    color: #a09898;
-    margin-top: 44%;
+.no_record {
+  text-align: center;
+  color: #a09898;
 }
 
-.category{
-    font-size: 10px;
-    /* font-style: italic; */
-    color: teal;
-    font-weight: 500;
+.category {
+  font-size: 10px;
+  /* font-style: italic; */
+  color: teal;
+  font-weight: 500;
 }
-
-.next_preview{
-    margin-left: 30%;
-    font-weight: 550;
-    border: 1px black solid;
-    padding: 9px;
-    border-radius: 16px;
-    margin-top: 4px;
-    font-size: 13px;
+.heading {
+  margin-bottom: 0;
+}
+.routine-block {
+  margin-bottom: 10px;
+  .routine-heading {
+    background-color: #f5f5f5;
+  }
+}
+.routine-list {
+  border-bottom: 1px solid #ddd;
+}
+.routine-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+  }
 }
