@@ -123,6 +123,10 @@ const routes: Routes = [
     path: 'food-manager',
     loadChildren:()=> import('./pages/food-management/food-management.module').then( m => m.FoodManagementPageModule)
 
+  },
+  {
+    path: 'credential-manager',
+    loadChildren:()=> import('./pages/credential-manager/credential-management.module').then( m => m.CredentialManagementPageModule)
   }
 
 

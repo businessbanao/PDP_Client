@@ -94,6 +94,21 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item button routerLink="/credential-manager" routerLinkActive="selected" routerDirection="root"
+              detail="false">
+              <ion-icon slot="start" name="document-text-outline"></ion-icon>
+              <ion-label>
+                Credential Manager 
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          
+
+
+
   
           <ion-menu-toggle autoHide="false">
             <ion-item (click)="logout()" routerLinkActive="selected" routerDirection="root" detail="false">
