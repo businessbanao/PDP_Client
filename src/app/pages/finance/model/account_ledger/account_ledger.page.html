@@ -16,10 +16,9 @@
       <ion-title size="large"> </ion-title>
     </ion-toolbar>
   </ion-header>
-  
 
   <div class="NoRecordFound" *ngIf="creditInventory?.length == 0">
-    <img src="../../../../../assets/img/no-record.gif" alt="no record found">
+    <img src="../../../../../assets/img/no-record.gif" alt="no record found" />
     <p>No Record Found</p>
   </div>
   <!-- <table *ngIf="creditInventory?.length != 0">
@@ -41,33 +40,52 @@
     </tr>
     <hr>
   </table> -->
-
-  <hr>
-  <h1>In coming : <span class="crAmmount">{{ crTotal | currency:'INR'}} </span></h1>
-  <hr>
-  <ion-item-sliding *ngFor="let account of creditInventory">
-    <ion-item>
-      <ion-label>
-        <p class="save-later-name" style="text-transform: capitalize;">
-          {{account.account_id.account_name}}  - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="crAmmount">{{account.amount | currency:'INR'}}</span>
-        </p>
-        <span class="trading-price" style="text-transform: capitalize;"> {{account.date | date : 'MMM d, y'}}</span>
-      </ion-label>
-    </ion-item>
-  </ion-item-sliding>
-
-  <hr>
-  <h1>Out going : <span class="drAmmount"> {{ dbtTotal | currency:'INR' }} </span></h1>
-  <hr>
-  <ion-item-sliding *ngFor="let account of debitInventory">
-    <ion-item>
-      <ion-label>
-        <p class="save-later-name" style="text-transform: capitalize;">
-          {{account.account_id.account_name}}  - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{account.amount | currency:'INR'}}</span>
-        </p>
-        <span class="trading-price" style="text-transform: capitalize;"> {{account.date | date : 'MMM d, y' }}</span>
-      </ion-label>
-    </ion-item>
-  </ion-item-sliding>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h2 class="trans-heading">
+          In coming :
+          <span class="crAmmount">{{ crTotal | currency:'INR'}} </span>
+        </h2>
+        <ion-item-sliding *ngFor="let account of creditInventory">
+          <ion-item>
+            <ion-label>
+              <p class="save-later-name" style="text-transform: capitalize">
+                {{account.account_id.account_name}} -
+                <span class="crAmmount"
+                  >{{account.amount | currency:'INR'}}</span
+                >
+              </p>
+              <span class="trading-price" style="text-transform: capitalize">
+                {{account.date | date : 'MMM d, y'}}</span
+              >
+            </ion-label>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h2 class="trans-heading">
+          Out going :
+          <span class="drAmmount"> {{ dbtTotal | currency:'INR' }} </span>
+        </h2>
+        <ion-item-sliding *ngFor="let account of debitInventory">
+          <ion-item>
+            <ion-label>
+              <p class="save-later-name" style="text-transform: capitalize">
+                {{account.account_id.account_name}} -
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                  >{{account.amount | currency:'INR'}}</span
+                >
+              </p>
+              <span class="trading-price" style="text-transform: capitalize">
+                {{account.date | date : 'MMM d, y' }}</span
+              >
+            </ion-label>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

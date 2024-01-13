@@ -4,7 +4,7 @@
       <ion-menu-button style="color: white"></ion-menu-button>
     </ion-buttons>
     <ion-title> Inventry Management </ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" style="margin-right: 10px">
       <ion-icon
         class="right-menu"
         name="ellipsis-vertical-outline"
@@ -27,119 +27,217 @@
   <div id="container">
     <!-- <h1>Finance Page</h1>   -->
 
-  <section *ngIf="tabName == 'mannual_entry'">
-    <div class="container">
-      <div class="row">
-          <div class="form-bg">
-               <form [formGroup]="inventoryForm" (ngSubmit)="createInventory(inventoryForm)">
-                <ion-item>
-                  <ion-label>Account : </ion-label>
-                  <ion-select placeholder="Choose Account " formControlName="account_id">
-                    <section  *ngFor="let account of accounts">
-                      <ion-select-option value="{{ account._id }}">{{ account.account_name }}</ion-select-option>
+    <section *ngIf="tabName == 'mannual_entry'">
+      <ion-grid>
+        <form
+          [formGroup]="inventoryForm"
+          (ngSubmit)="createInventory(inventoryForm)"
+        >
+          <ion-row>
+            <ion-col>
+              <div class="form-field">
+                <ion-select
+                  placeholder="Choose Account"
+                  formControlName="account_id"
+                >
+                  <section *ngFor="let account of accounts">
+                    <ion-select-option value="{{ account._id }}"
+                      >{{ account.account_name }}</ion-select-option
+                    >
                   </section>
-                  </ion-select>
-                </ion-item>
-                <ion-item>
-                  <ion-label>Inventory Type: </ion-label>
-                  <ion-select placeholder="inventry type" formControlName="inventryType">
-                    <ion-select-option value="credit">Credit</ion-select-option>
-                    <ion-select-option value="debit">Debit</ion-select-option>
-                  </ion-select>
-                </ion-item>  
-                <ion-item>
-                  <ion-label>Amount : </ion-label>
-                  <ion-input class="alignRight" type="number" placeholder="Amount" formControlName="amount"></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-label>Description : </ion-label>
-                  <ion-input class="alignRight" type="text" placeholder="Description" formControlName="description"></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-label>Date : </ion-label>
-                  <ion-input class="alignRight" type="date" formControlName="date"></ion-input>
-                  <!-- <ion-datetime placeholder="date" [(ngModel)]="selectedDate" [max]="today" formControlName="date"></ion-datetime> -->
-                </ion-item>
-                  <br>
-                  <ion-button *ngIf='!isEditMode' color="primary" type="submit" value="Save">Save</ion-button>
-                  <ion-button *ngIf='isEditMode' color="secondary"  type="button" value="Update" (click)="updateInventory(inventoryForm)">Update</ion-button>
-                </form>
+                </ion-select>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div class="form-field">
+                <ion-select
+                  placeholder="Inventory Type"
+                  formControlName="inventryType"
+                >
+                  <ion-select-option value="credit">Credit</ion-select-option>
+                  <ion-select-option value="debit">Debit</ion-select-option>
+                </ion-select>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div class="form-field">
+                <ion-input
+                  type="number"
+                  placeholder="Amount"
+                  formControlName="amount"
+                ></ion-input>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div class="form-field">
+                <ion-input
+                  type="text"
+                  placeholder="Description"
+                  formControlName="description"
+                ></ion-input>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div class="form-field">
+                <ion-input type="date" formControlName="date"></ion-input>
+                <!-- <ion-datetime placeholder="date" [(ngModel)]="selectedDate" [max]="today" formControlName="date"></ion-datetime> -->
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button
+                *ngIf="!isEditMode"
+                color="primary"
+                type="submit"
+                value="Save"
+                >Save</ion-button
+              >
+              <ion-button
+                *ngIf="isEditMode"
+                color="secondary"
+                type="button"
+                value="Update"
+                (click)="updateInventory(inventoryForm)"
+                >Update</ion-button
+              >
+            </ion-col>
+          </ion-row>
+        </form>
 
-                <!-- <ion-row style="width:100%" style="justify-content: flex-end;padding: 10px 0px;">
+        <!-- <ion-row style="width:100%" style="justify-content: flex-end;padding: 10px 0px;">
                   <ion-button class="upload-img" (click)="selectImagefromMobille()">
                     Upload Image  &nbsp;&nbsp;<ion-icon  name="cloud-upload-sharp"></ion-icon>
                   </ion-button>
                 </ion-row> -->
+      </ion-grid>
+    </section>
 
-          </div>
-      </div>
-  </div>
-  </section>
+    <ng-container *ngIf="tabName == 'inventory_list'">
+      <ion-grid>
+        <ion-item>
+          <ion-label>Date : </ion-label>
+          <input
+            type="month"
+            placeholder="Date"
+            [(ngModel)]="dateFilter"
+            (ngModelChange)="applyFilter()"
+          />
+        </ion-item>
+        <ion-item>
+          <ion-label>Inventory Type: </ion-label>
+          <ion-select
+            [(ngModel)]="inventryTypeFilter"
+            (ionChange)="applyFilter()"
+          >
+            <ion-select-option value="">All</ion-select-option>
+            <ion-select-option value="debit">Debit</ion-select-option>
+            <ion-select-option value="credit">Credit</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Account : </ion-label>
+          <ion-select [(ngModel)]="accountFilter" (ionChange)="applyFilter()">
+            <ion-select-option value="">All</ion-select-option>
+            <section *ngFor="let account of accounts">
+              <ion-select-option value="{{ account._id }}"
+                >{{ account.account_name }}</ion-select-option
+              >
+            </section>
+          </ion-select>
+        </ion-item>
 
-  <ng-container *ngIf="tabName == 'inventory_list'">
-    <ion-item>
-      <ion-label>Date : </ion-label>
-      <input type="month" [(ngModel)]="dateFilter" (ngModelChange)='applyFilter()'>
-    </ion-item> 
-    <ion-item>
-      <ion-label>Inventory Type: </ion-label>
-      <ion-select [(ngModel)]="inventryTypeFilter" (ionChange)='applyFilter()'>
-        <ion-select-option value="">All</ion-select-option>
-        <ion-select-option value="debit">Debit</ion-select-option>
-        <ion-select-option value="credit">Credit</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>Account : </ion-label>
-      <ion-select [(ngModel)]="accountFilter" (ionChange)='applyFilter()'>
-        <ion-select-option value="">All</ion-select-option>
-        <section *ngFor="let account of accounts">
-          <ion-select-option value="{{ account._id }}">{{ account.account_name }}</ion-select-option>
-        </section>
-      </ion-select>
-    </ion-item>
-    
-    
+        <ion-item *ngIf="inventoryList?.length != 0">
+          <ion-label class="crAmmount"
+            >Total Incoming : {{ totalIncoming }}</ion-label
+          >
+          <ion-label class="drAmmount"
+            >Total Outgoing : {{ totalOutgoing }}</ion-label
+          >
+        </ion-item>
 
-    <ion-item *ngIf="inventoryList?.length != 0">
-      <ion-label class="crAmmount">Total Incoming : {{ totalIncoming }}</ion-label>
-      <ion-label class="drAmmount">Total Outgoing : {{ totalOutgoing }}</ion-label>
-    </ion-item>
+        <ion-item-sliding
+          id="item100"
+          *ngFor="let inventory of inventoryList"
+          class="transactions"
+        >
+          <ion-item>
+            <ion-label>
+              <div class="trans-row">
+                <div class="trans-item-desc">
+                  <p
+                    *ngIf="inventory.inventryType == 'debit'"
+                    class="save-later-name"
+                    style="text-transform: capitalize; color: red"
+                  >
+                    Amount : - {{inventory.amount}}
+                  </p>
+                  <p
+                    *ngIf="inventory.inventryType == 'credit'"
+                    class="save-later-name"
+                    style="text-transform: capitalize; color: green"
+                  >
+                    Amount : + {{inventory.amount}}
+                  </p>
+                  <span class="trading-price" style="text-transform: capitalize"
+                    >Description : {{inventory.description}}</span
+                  >
+                  <span
+                    class="trading-price trans-date"
+                    style="text-transform: capitalize"
+                    >Date : {{inventory.date | date: 'dd-MMM-yyyy'}}</span
+                  >
+                </div>
+                <div class="trans-sign">
+                  <span
+                    *ngIf="inventory.inventryType == 'debit'"
+                    style="color: red"
+                    >dr</span
+                  >
+                  <span
+                    *ngIf="inventory.inventryType == 'credit'"
+                    style="color: green"
+                    >cr</span
+                  >
+                </div>
+              </div>
+            </ion-label>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="warning" (click)="editInventory(inventory)">
+              <ion-icon slot="icon-only" name="create"></ion-icon>
+            </ion-item-option>
+            <ion-item-option
+              color="danger"
+              (click)="deleteInventory(inventory._id)"
+            >
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+        <div
+          style="margin-top: 200px; text-align: center"
+          *ngIf="!inventoryList?.length"
+        >
+          <!-- <img src="../../../assets/img/no-record.gif" alt="no record found"> -->
+          <div>No Record Found</div>
+        </div>
 
-    <ion-item-sliding id="item100" *ngFor="let inventory of inventoryList">
-      <ion-item >
-        <ion-label>
-          <p  *ngIf="inventory.inventryType == 'debit'" class="save-later-name" style="text-transform: capitalize;color: red;">
-            <br> Amount : - {{inventory.amount}}
-          </p>
-          <p  *ngIf="inventory.inventryType == 'credit'" class="save-later-name" style="text-transform: capitalize;color: green">
-            <br> Amount : + {{inventory.amount}}
-          </p>
-          <span class="trading-price" style="text-transform: capitalize;">Description : {{inventory.description}}</span><br>
-          <span class="trading-price" style="text-transform: capitalize;color: blue;">Date : {{inventory.date | date: 'dd-MMM-yyyy'}}</span>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="warning" (click)="editInventory(inventory)">
-          <ion-icon slot="icon-only" name="create"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" (click)="deleteInventory(inventory._id)">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-    <div style="margin-top: 200px;text-align: center;" *ngIf="!inventoryList?.length">
-      <!-- <img src="../../../assets/img/no-record.gif" alt="no record found"> -->
-      <div> No Record Found</div> 
-    </div>
-    
-    <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"
         loadingText="Loading more data...">
       </ion-infinite-scroll-content>
     </ion-infinite-scroll> -->
-</ng-container>
-
+      </ion-grid>
+    </ng-container>
   </div>
 </ion-content>
