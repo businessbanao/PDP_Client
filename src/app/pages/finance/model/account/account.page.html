@@ -12,24 +12,22 @@
 
 <ion-content [fullscreen]="true">
   <div id="container">
-    <div class="container">
-      <div class="row">
-        <div class="form-bg">
-          <form
-            [formGroup]="accountForm"
-            (ngSubmit)="createAccount(accountForm)"
-          >
-            <ion-item>
-              <ion-label>Account : </ion-label>
+    <ion-grid>
+      <form [formGroup]="accountForm" (ngSubmit)="createAccount(accountForm)">
+        <ion-row>
+          <ion-col>
+            <div class="form-field">
               <ion-input
-                style="margin-top: -11px"
                 type="text"
-                placeholder="account name"
+                placeholder="Account Name"
                 formControlName="account_name"
               ></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Category : </ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="form-field">
               <ion-select placeholder="Category" formControlName="category">
                 <ion-select-option value="Travel">Travel</ion-select-option>
                 <ion-select-option value="Home_expense"
@@ -41,17 +39,23 @@
                 >
                 <ion-select-option value="Money">Money</ion-select-option>
                 <ion-select-option value="Others">Others</ion-select-option>
-              </ion-select> </ion-item
-            ><ion-item>
-              <ion-label>Description : </ion-label>
+              </ion-select>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="form-field">
               <ion-input
-                style="margin-top: -11px"
                 type="text"
-                placeholder="description"
+                placeholder="Description"
                 formControlName="description"
               ></ion-input>
-            </ion-item>
-            <br />
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
             <ion-button
               *ngIf="!isEditMode"
               color="primary"
@@ -75,20 +79,25 @@
               (click)="cancelUpdate()"
               >Cancel</ion-button
             >
-          </form>
-        </div>
-      </div>
-  </div>
-  
-  
-  <h1>
-    <ion-searchbar (ionChange)='searchAccount()' [(ngModel)]="acc_search"></ion-searchbar>
-  </h1>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+
+    <h1>
+      <ion-searchbar
+        (ionChange)="searchAccount()"
+        [(ngModel)]="acc_search"
+      ></ion-searchbar>
+    </h1>
 
     <!--sg-->
     <ng-container>
       <div class="NoRecordFound" *ngIf="accounts?.length == 0">
-        <img src="../../../../../assets/img/no-record.gif" alt="no record found">
+        <img
+          src="../../../../../assets/img/no-record.gif"
+          alt="no record found"
+        />
         <p>No Record Found</p>
       </div>
       <ion-item-sliding id="item100" *ngFor="let list of accounts">
@@ -98,8 +107,12 @@
               {{list.account_name}} -
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{list.category}}
             </p>
-            <span class="trading-price" style="text-transform: capitalize">
-              {{list.description}}</span
+            <span
+              class="trading-price"
+              style="text-transform: capitalize; font-size: 12px"
+              *ngIf="list.description"
+            >
+              Description: {{list.description}}</span
             >
           </ion-label>
         </ion-item>

@@ -27,11 +27,11 @@ ion-menu-button {
   text-decoration: none;
 }
 
-.crAmmount{
+.crAmmount {
   color: green;
 }
 
-.drAmmount{
+.drAmmount {
   color: red;
 }
 
@@ -41,7 +41,8 @@ table {
   width: 100%;
 }
 
-td, th {
+td,
+th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
@@ -72,4 +73,8 @@ tr:nth-child(even) {
   margin-top: -10%;
   margin-left: 15%;
   font-size: 26px;
+}
+.trans-heading {
+  margin-top: 0;
+  font-size: 20px;
 }

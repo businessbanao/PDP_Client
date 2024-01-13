@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/finance" (click)="closeModal()"></ion-back-button>
+      <ion-back-button
+        defaultHref="/finance"
+        (click)="closeModal()"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title>Ledger</ion-title>
   </ion-toolbar>
@@ -15,56 +18,72 @@
   </ion-header>
 
   <ng-container>
-    <ion-item>
-      <ion-label>Date : </ion-label>
-      <ion-input type="month" [(ngModel)]="monthYear" (ionChange)='getInventory()'></ion-input>
-    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
+            <ion-input
+              type="month"
+              [(ngModel)]="monthYear"
+              (ionChange)="getInventory()"
+              placeholder="Choose Date"
+            ></ion-input>
+          </div>
+        </ion-col>
+      </ion-row>
 
-    <ion-item *ngIf="groupAccounts.length">
-      <ion-label class="crAmmount">Total Incoming : {{ totalIncoming }}</ion-label>
-      <ion-label class="drAmmount">Total Outgoing : {{ totalOutgoing }}</ion-label>
-    </ion-item>
+      <ion-item *ngIf="groupAccounts.length">
+        <ion-label class="crAmmount highlight-amt"
+          >Total Incoming : {{ totalIncoming }}</ion-label
+        >
+        <ion-label class="drAmmount highlight-amt"
+          >Total Outgoing : {{ totalOutgoing }}</ion-label
+        >
+      </ion-item>
 
-    <hr>
+      <hr />
 
-    
-    <mat-accordion>
-      <mat-expansion-panel *ngFor="let list of groupAccounts" (opened)="panelOpenState = true"
-        (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{list[0]}}
-          </mat-panel-title>
+      <mat-accordion>
+        <mat-expansion-panel
+          *ngFor="let list of groupAccounts"
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+          class="ledger-panel"
+        >
+          <mat-expansion-panel-header class="ledger-header">
+            <mat-panel-title class="ledger-title">
+              {{list[0]}}
+            </mat-panel-title>
+            <span class="ledger-total"
+              >{{getTotal(list[1])}} <span>INR</span></span
+            >
+          </mat-expansion-panel-header>
+          <table>
+            <tr>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            <tr *ngFor="let account of list[1]">
+              <td>{{account.date | date:'dd-MMM-yyyy'}}</td>
+              <td>{{account.amount}}</td>
+              <td class="capitalize">{{account.inventryType}}</td>
+              <td class="capitalize">{{account.description}}</td>
+            </tr>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td>{{getTotal(list[1])}}</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
 
-        </mat-expansion-panel-header>
-        <table>
-          <tr>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Type</th>
-            <th>Description</th>
-          </tr>
-          <tr *ngFor="let account of list[1]">
-            <td>{{account.date | date:'dd-MMM-yyyy'}}</td>
-            <td>{{account.amount}}</td>
-            <td class="capitalize">{{account.inventryType}}</td>
-            <td class="capitalize">{{account.description}}</td>
-          </tr>
-          <tr>
-            <td>Total</td>
-            <td>{{getTotal(list[1])}}</td>
-            <td></td>
-            <td></td>
-
-          </tr>
-        </table>
-
-      </mat-expansion-panel>
-    </mat-accordion>
-
-    <div class="NoRecordFound" *ngIf="groupAccounts?.length == 0">
-      <p>No Record Found</p>
-    </div>
+      <div class="NoRecordFound" *ngIf="groupAccounts?.length == 0">
+        <p>No Record Found</p>
+      </div>
+    </ion-grid>
   </ng-container>
-
 </ion-content>
