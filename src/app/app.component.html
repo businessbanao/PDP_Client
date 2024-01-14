@@ -1,123 +1,139 @@
- 
 <ion-app
   [ngClass]="{
-    'dark-theme': (selectedTheme == 'dark-theme') ? true : false,
+    'dark-theme': selectedTheme == 'dark-theme' ? true : false,
     'material-dark-theme':
-      (selectedTheme == 'material-dark-theme') ? true : false,
-    'cosmic-theme': (selectedTheme == 'cosmic-theme') ? true : false,
-    'corporate-dark-theme': (selectedTheme == 'corporate-dark-theme')?true:false,
-    'sweggy-theme': (selectedTheme == 'sweggy-theme')?true:false,
-    'light-theme': (selectedTheme == 'light-theme')?true:false
+      selectedTheme == 'material-dark-theme' ? true : false,
+    'cosmic-theme': selectedTheme == 'cosmic-theme' ? true : false,
+    'corporate-dark-theme':
+      selectedTheme == 'corporate-dark-theme' ? true : false,
+    'sweggy-theme': selectedTheme == 'sweggy-theme' ? true : false,
+    'light-theme': selectedTheme == 'light-theme' ? true : false
   }"
 >
-
-
- 
-<ion-split-pane  contentId="main-content">
-  <input type="hidden" id="sound">
-  <ion-menu  contentId="main-content">
-    <div class="menu-proile">
-      <img class="menu-proile-bg" src="https://www.invensislearning.com/blog/wp-content/uploads/2020/09/Time-management-strategies-for-Project-Managers-1068x552-1.jpg">
-      <ion-list class="menu-profile-content">
-        <ion-item>
-          <ion-label>
-        
-            <h5 class="user-name">{{userName}}</h5>
-              </ion-label>
-            </ion-item>
-            <ion-thumbnail class="user-profile-img" slot="start">
-              <img *ngIf="userImage == ''" src="https://www.menshairstyletrends.com/wp-content/uploads/2018/04/andrewdoeshair-growing-hair-out-guide-chin-length-hairstyles-men4-1.jpg">
-              <img *ngIf="userImage != ''" src="{{userImage}}">
-            </ion-thumbnail>
-            </ion-list>
+  <ion-split-pane contentId="main-content">
+    <input type="hidden" id="sound" />
+    <ion-menu contentId="main-content">
+      <div class="menu-proile">
+        <img
+          class="menu-proile-bg"
+          src="https://www.invensislearning.com/blog/wp-content/uploads/2020/09/Time-management-strategies-for-Project-Managers-1068x552-1.jpg"
+        />
+        <ion-list class="menu-profile-content">
+          <ion-item>
+            <ion-label>
+              <h5 class="user-name">{{ userName }}</h5>
+            </ion-label>
+          </ion-item>
+          <ion-thumbnail class="user-profile-img" slot="start">
+            <img
+              *ngIf="userImage == ''"
+              src="https://www.menshairstyletrends.com/wp-content/uploads/2018/04/andrewdoeshair-growing-hair-out-guide-chin-length-hairstyles-men4-1.jpg"
+            />
+            <img *ngIf="userImage != ''" src="{{ userImage }}" />
+          </ion-thumbnail>
+        </ion-list>
       </div>
 
-      <ion-content >
-        <ion-list style="margin-top: -20px;" lines="none">
-          <ion-menu-toggle autoHide="false">
-            <ion-item button routerLink="/finance" routerLinkActive="selected" routerDirection="root"
-              detail="false">
-              <ion-icon slot="start" name="card-outline"></ion-icon>
-              <ion-label>
-                Finance
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-         
-        </ion-list>
+      <ion-content>
         <ion-list lines="none">
+          <ion-menu-toggle autoHide="false">
+            <ion-item
+              button
+              routerLink="/finance"
+              routerLinkActive="selected"
+              routerDirection="root"
+              detail="false"
+            >
+              <ion-icon slot="start" name="card-outline"></ion-icon>
+              <ion-label> Finance </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle autoHide="false">
+            <ion-item
+              button
+              routerLink="/task"
+              routerLinkActive="selected"
+              routerDirection="root"
+              detail="false"
+            >
+              <ion-icon slot="start" name="reader-outline"></ion-icon>
+              <ion-label> Task Manager </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle autoHide="false">
+            <ion-item
+              button
+              routerLink="/time-manager"
+              routerLinkActive="selected"
+              routerDirection="root"
+              detail="false"
+            >
+              <ion-icon slot="start" name="hourglass-outline"></ion-icon>
+              <ion-label> Time Manager </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle autoHide="false">
+            <ion-item
+              button
+              routerLink="/routine"
+              routerLinkActive="selected"
+              routerDirection="root"
+              detail="false"
+            >
+              <ion-icon slot="start" name="alarm-outline"></ion-icon>
+              <ion-label> Routine Tracker </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
 
           <ion-menu-toggle autoHide="false">
-            <ion-item button routerLink="/task" routerLinkActive="selected" routerDirection="root"
-              detail="false">
+            <ion-item
+              button
+              routerLink="/notemgnt"
+              routerLinkActive="selected"
+              routerDirection="root"
+              detail="false"
+            >
               <ion-icon slot="start" name="document-text-outline"></ion-icon>
-              <ion-label>
-                Task Manager
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle autoHide="false">
-            <ion-item button routerLink="/time-manager" routerLinkActive="selected" routerDirection="root"
-              detail="false">
-              <ion-icon slot="start" name="document-text-outline"></ion-icon>
-              <ion-label>
-                Time Manager 
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle autoHide="false">
-            <ion-item button routerLink="/routine" routerLinkActive="selected" routerDirection="root"
-              detail="false">
-              <ion-icon slot="start" name="desktop-outline"></ion-icon>
-              <ion-label>
-                Routine Tracker 
-              </ion-label>
+              <ion-label> Notes Manager </ion-label>
             </ion-item>
           </ion-menu-toggle>
 
           <ion-menu-toggle autoHide="false">
-            <ion-item button routerLink="/notemgnt" routerLinkActive="selected" routerDirection="root"
-              detail="false">
-              <ion-icon slot="start" name="document-text-outline"></ion-icon>
-              <ion-label>
-                Notes Manager 
-              </ion-label>
+            <ion-item
+              button
+              routerLink="/food-manager"
+              routerLinkActive="selected"
+              routerDirection="root"
+              detail="false"
+            >
+              <ion-icon slot="start" name="fast-food-outline"></ion-icon>
+              <ion-label> Food Manager </ion-label>
             </ion-item>
           </ion-menu-toggle>
 
           <ion-menu-toggle autoHide="false">
-            <ion-item button routerLink="/food-manager" routerLinkActive="selected" routerDirection="root"
-              detail="false">
-              <ion-icon slot="start" name="document-text-outline"></ion-icon>
-              <ion-label>
-                Food Manager 
-              </ion-label>
+            <ion-item
+              button
+              routerLink="/credential-manager"
+              routerLinkActive="selected"
+              routerDirection="root"
+              detail="false"
+            >
+              <ion-icon slot="start" name="document-lock-outline"></ion-icon>
+              <ion-label> Credential Manager </ion-label>
             </ion-item>
           </ion-menu-toggle>
 
           <ion-menu-toggle autoHide="false">
-            <ion-item button routerLink="/credential-manager" routerLinkActive="selected" routerDirection="root"
-              detail="false">
-              <ion-icon slot="start" name="document-text-outline"></ion-icon>
-              <ion-label>
-                Credential Manager 
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-
-          
-
-
-
-  
-          <ion-menu-toggle autoHide="false">
-            <ion-item (click)="logout()" routerLinkActive="selected" routerDirection="root" detail="false">
+            <ion-item
+              (click)="logout()"
+              routerLinkActive="selected"
+              routerDirection="root"
+              detail="false"
+            >
               <ion-icon slot="start" name="log-out-outline"></ion-icon>
-              <ion-label>
-                Logout
-              </ion-label>
+              <ion-label> Logout </ion-label>
             </ion-item>
-
           </ion-menu-toggle>
         </ion-list>
 
@@ -128,10 +144,10 @@
           <!-- {{ selectedTheme }} -->
 
           <!-- <ion-item> -->
-            <!-- <ion-icon slot="start" name="moon-outline"></ion-icon> -->
+          <!-- <ion-icon slot="start" name="moon-outline"></ion-icon> -->
 
-            <!-- <ion-toggle [(ngModel)]="dark"></ion-toggle> -->
-            <!-- <select class="select-theme" [(ngModel)]="selectedTheme">
+          <!-- <ion-toggle [(ngModel)]="dark"></ion-toggle> -->
+          <!-- <select class="select-theme" [(ngModel)]="selectedTheme">
               <option [value]="'dark-theme'">Dark</option>
               <option [value]="'material-dark-theme'">Material-Dark</option>
               <option [value]="'cosmic-theme'">Cosmic</option>
@@ -162,17 +178,10 @@
             <ion-toggle [(ngModel)]="dark"></ion-toggle>
           </ion-item> -->
         </ion-list>
-
       </ion-content>
     </ion-menu>
 
-    <ion-router-outlet  (activate)="onActivate($event)" id="main-content">
-
+    <ion-router-outlet (activate)="onActivate($event)" id="main-content">
     </ion-router-outlet>
-
   </ion-split-pane>
-
-
-
-
 </ion-app>
