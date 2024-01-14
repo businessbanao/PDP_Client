@@ -75,8 +75,8 @@ export class TodoManagementPage implements OnInit {
     }
 
     if (startDate && endtDate) {
-      payload["startDate"] = startDate;
-      payload["endDate"] = endtDate;
+      payload["duration_start_date"] = this.formatDate(startDate);
+      payload["duration_end_date"] = this.formatDate(endtDate);
     }
 
 
@@ -230,7 +230,7 @@ export class TodoManagementPage implements OnInit {
     tomorrow.setDate(tomorrow.getDate() + 1);
     let date = this.formatDate(tomorrow);
     this.changeDate = date;
-    this.getDatedTask(this.changeDate, this.changeDate);
+    this.handleChangeDate(this.changeDate);
   }
 
   decreaseDate() {
@@ -238,10 +238,11 @@ export class TodoManagementPage implements OnInit {
     tomorrow.setDate(tomorrow.getDate() - 1);
     let date = this.formatDate(tomorrow);
     this.changeDate = date;
-    this.getDatedTask(this.changeDate, this.changeDate);
+    this.handleChangeDate(this.changeDate);
   }
 
   handleChangeDate(changeDate) {
+    // debugger;
     if (this.duration_type == 'MONTH') {
       const { firstDay, lastDay } = this.GFG_Fun();
       this.getDatedTask(firstDay, lastDay);

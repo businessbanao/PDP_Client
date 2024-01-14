@@ -21,21 +21,21 @@
           <ion-icon
             name="chevron-back-outline"
             (click)="decreaseDate()"
-            *ngIf="duration_type == 'DAY'"
-          ></ion-icon>
+            ></ion-icon>
+            <!-- *ngIf="duration_type == 'DAY'" -->
         </div>
       </ion-col>
       <ion-col>
         <div class="filter-option">
-          <ion-select placeholder="Select :" [(ngModel)]="duration_type">
+          <ion-select (ionChange)="handleChangeDate(changeDate)"  placeholder="Select :" [(ngModel)]="duration_type">
             <ion-select-option value="DAY">Day</ion-select-option>
             <!-- <ion-select-option value="WEEK">Week</ion-select-option> -->
-            <ion-select-option value="MONTH">Month</ion-select-option>
+            <ion-select-option  value="MONTH">Month</ion-select-option>
           </ion-select>
-          <div class="filter-input" *ngIf="duration_type == 'DAY'">
+          <div class="filter-input">
+            <!-- [max]="formatCurrentDate" -->
             <input
               type="date"
-              [max]="formatCurrentDate"
               class="form-control"
               autocomplete="off"
               [value]="changeDate"
@@ -45,7 +45,7 @@
               style="border-radius: 5px; padding: 10px"
             />
           </div>
-          <div class="filter-input" *ngIf="duration_type == 'MONTH'">
+          <!-- <div class="filter-input" *ngIf="duration_type == 'MONTH'">
             <input
               type="month"
               [max]="formatCurrentDate"
@@ -57,7 +57,7 @@
               (ngModelChange)="handleChangeDate(changeDate)"
               style="border-radius: 5px; padding: 10px"
             />
-          </div>
+          </div> -->
         </div>
       </ion-col>
 
@@ -65,9 +65,9 @@
         <div class="nav-btns right-btn">
           <ion-icon
             name="chevron-forward-outline"
-            *ngIf="!(changeDate >=formatCurrentDate)"
             (click)="increaseDate()"
-          ></ion-icon>
+            ></ion-icon>
+            <!-- *ngIf="!(changeDate >=formatCurrentDate)" -->
         </div>
       </ion-col>
     </ion-row>
