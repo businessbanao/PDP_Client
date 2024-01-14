@@ -10,9 +10,9 @@
     'light-theme': selectedTheme == 'light-theme' ? true : false
   }"
 >
-  <ion-split-pane contentId="main-content">
-    <input type="hidden" id="sound" />
-    <ion-menu contentId="main-content">
+  <!-- <ion-split-pane contentId="main-content"> -->
+    <!-- <input type="hidden" id="sound" /> -->
+    <ion-menu contentId="main-content" *ngIf="!false">
       <div class="menu-proile">
         <img
           class="menu-proile-bg"
@@ -45,7 +45,7 @@
               detail="false"
             >
               <ion-icon slot="start" name="card-outline"></ion-icon>
-              <ion-label> Finance </ion-label>
+              <ion-label> Finance Tracker </ion-label>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle autoHide="false">
@@ -57,7 +57,7 @@
               detail="false"
             >
               <ion-icon slot="start" name="reader-outline"></ion-icon>
-              <ion-label> Task Manager </ion-label>
+              <ion-label> Todo Tracker </ion-label>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle autoHide="false">
@@ -69,7 +69,7 @@
               detail="false"
             >
               <ion-icon slot="start" name="hourglass-outline"></ion-icon>
-              <ion-label> Time Manager </ion-label>
+              <ion-label> Time Tracker </ion-label>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle autoHide="false">
@@ -107,7 +107,7 @@
               detail="false"
             >
               <ion-icon slot="start" name="fast-food-outline"></ion-icon>
-              <ion-label> Food Manager </ion-label>
+              <ion-label> Food Tracker </ion-label>
             </ion-item>
           </ion-menu-toggle>
 
@@ -119,7 +119,7 @@
               routerDirection="root"
               detail="false"
             >
-              <ion-icon slot="start" name="document-lock-outline"></ion-icon>
+              <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
               <ion-label> Credential Manager </ion-label>
             </ion-item>
           </ion-menu-toggle>
@@ -183,5 +183,5 @@
 
     <ion-router-outlet (activate)="onActivate($event)" id="main-content">
     </ion-router-outlet>
-  </ion-split-pane>
+  <!-- </ion-split-pane> -->
 </ion-app>

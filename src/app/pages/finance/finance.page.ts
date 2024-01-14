@@ -237,14 +237,6 @@ export class FinancePage implements OnInit {
           },
         },
         {
-          text: "Ledger",
-          role: "destructive",
-          icon: "key-outline",
-          handler: () => {
-            this.openLedgerModal();
-          },
-        },
-        {
           text: "Cancel",
           icon: "close",
           role: "cancel",
@@ -281,6 +273,10 @@ export class FinancePage implements OnInit {
       this.inventoryForm.reset();
     }
     this.tabName = tabData.detail.value;
+
+    if(this.tabName == 'ledger'){
+      this.openLedgerModal();
+    }
   }
 
   getAccounts() {

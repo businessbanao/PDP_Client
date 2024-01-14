@@ -43,7 +43,7 @@ public newTotalCount =0;
 
 
   public AdminName:String;
-  public selectedTheme = 'light'
+  public selectedTheme = 'sweggy-theme'
   appPages = [
     // {
     //   title: "Notes",
