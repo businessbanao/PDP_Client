@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button style="color: white"></ion-menu-button>
     </ion-buttons>
-    <ion-title> Inventry Management </ion-title>
+    <ion-title> Finance Tracker </ion-title>
     <ion-buttons slot="end" style="margin-right: 10px">
       <ion-icon
         class="right-menu"
@@ -15,14 +15,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-segment [(ngModel)]="tabName" (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="mannual_entry">
-      <ion-label>Save Record</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="inventory_list">
-      <ion-label>Transactions</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+ 
 
   <div id="container">
     <!-- <h1>Finance Page</h1>   -->
@@ -239,5 +232,30 @@
     </ion-infinite-scroll> -->
       </ion-grid>
     </ng-container>
+
+    <ng-container *ngIf="tabName == 'ledger'">
+       <!-- {{openLedgerModal()}} -->
+    </ng-container>
+
+    <ng-container *ngIf="tabName == 'pay'">
+      Coming Soon
+   </ng-container>
   </div>
+ 
+  <ion-footer class="footer">
+    <ion-segment value="pay" [(ngModel)]="tabName" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="mannual_entry">
+        <ion-label>Inventry</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="inventory_list">
+        <ion-label>Transactions</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="ledger">
+        <ion-label>Ledger</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="pay">
+        <ion-label>Pay</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-footer>
 </ion-content>
