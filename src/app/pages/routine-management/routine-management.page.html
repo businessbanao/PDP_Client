@@ -1,3 +1,4 @@
+<form #form="ngForm" (ngSubmit)="handelSubmit(form)" style="height: 92%;" >
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -8,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content style="height: 100%;">
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addRoutineModal()">
       <ion-icon name="add"></ion-icon>
@@ -48,7 +49,7 @@
       </ion-row>
     </ion-grid>
     <ion-grid>
-      <form #form="ngForm" (ngSubmit)="handelSubmit(form)">
+      <!-- <form #form="ngForm" (ngSubmit)="handelSubmit(form)"> -->
         <div class="routine-block">
           <ion-row class="routine-heading">
             <ion-col>
@@ -164,7 +165,12 @@
             </ion-col>
           </ion-row>
         </div>
-      </form>
+        <br>
+        <br>
+        <br>
+      <!-- </form> -->
     </ion-grid>
   </ng-container>
 </ion-content>
+</form>
+

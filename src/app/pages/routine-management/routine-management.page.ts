@@ -5,6 +5,7 @@ import { ActionSheetController, ModalController, ToastController } from "@ionic/
 import { AddEditRoutineModel } from "./model/addEditRoutine/addEditRoutine.page";
 import { AlertController } from "@ionic/angular";
 import { NgForm } from "@angular/forms";
+import { debug } from "console";
 
 @Component({
   selector: "app-routineManagement",
@@ -15,7 +16,6 @@ import { NgForm } from "@angular/forms";
 export class RoutineManagementPage implements OnInit {
   public routineList = [];
   public selectedDate = this.formatDate(new Date());
-
   constructor(
     private _routineManagementService: RoutineManagementService,
     public alertController: AlertController,
@@ -23,6 +23,8 @@ export class RoutineManagementPage implements OnInit {
     public modalController: ModalController,
     private toastCtrl: ToastController
   ) {}
+   
+
 
   private formatDate(date: Date): string {
     // Format the date as 'YYYY-MM-DD' (the format expected by the input type="date")
