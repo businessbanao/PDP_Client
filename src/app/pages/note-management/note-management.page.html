@@ -36,9 +36,9 @@
     (ionChange)="searchTextChange($event.target.value)"
   ></ion-searchbar>
 
-  <ion-grid>
+  <ion-grid [fixed]="true">
     <ion-row>
-      <ion-col *ngFor="let list of noteFolderList" size="6">
+      <ion-col *ngFor="let list of noteFolderList" size="6" sizeMd="4">
         <div
           style="position: relative"
           *ngIf="list.type == 'FOLDER'"
