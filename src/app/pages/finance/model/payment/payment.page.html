@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/finance"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Payment Management</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngFor="let acc of account">
+    <ion-card-header>
+      {{ acc.account_name }}
+    </ion-card-header>
+    <ion-card-content>
+      <p>Category: {{ acc.category }}</p>
+      <!-- Add more details as needed -->
+    </ion-card-content>
+  </ion-card>
+
+   
+
+
+  
+
+</ion-content>

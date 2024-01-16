@@ -19,6 +19,7 @@ import {
   FileTransferObject,
 } from "@ionic-native/file-transfer/ngx";
 import { format } from "highcharts";
+import { PaymentPageModel } from "./model/payment/payment.page";
 
 @Component({
   selector: "app-finance",
@@ -265,7 +266,16 @@ export class FinancePage implements OnInit {
     return await modal.present();
   }
 
+  async openPaymentModal(){
+    const modal = await this.modalController.create({
+      component: PaymentPageModel
+    });
+    modal.onDidDismiss().then((dataReturned) => { });
+    return await modal.present();
+    }
+
   segmentChanged(tabData: any) {
+    console.log(this.tabName)
     if (this.tabName == "mannual_entry" && this.isEditMode) {
       this.isEditMode = true;
     } else {
@@ -276,6 +286,10 @@ export class FinancePage implements OnInit {
 
     if(this.tabName == 'ledger'){
       this.openLedgerModal();
+    }
+
+    if(this.tabName === 'pay'){
+      this.openPaymentModal();
     }
   }
 

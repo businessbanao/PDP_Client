@@ -15,6 +15,7 @@ import { LedgerPageModel } from './model/ledger/ledger.page';
 import { AccountLedgerPageModel } from './model/account_ledger/account_ledger.page';
 import { Camera } from '@ionic-native/camera/ngx';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { PaymentPageModel } from './model/payment/payment.page';
 
 @NgModule({
   imports: [
@@ -27,8 +28,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatNativeDateModule,
     MatExpansionModule
   ],
-  declarations: [FinancePage, AccountPageModel, LedgerPageModel, AccountLedgerPageModel],
+  declarations: [FinancePage, AccountPageModel, LedgerPageModel, AccountLedgerPageModel,PaymentPageModel],
   providers:[AccountService, FinanceService, Camera],
-  entryComponents:[AccountPageModel, LedgerPageModel, AccountLedgerPageModel]
+  entryComponents:[AccountPageModel, LedgerPageModel, AccountLedgerPageModel,PaymentPageModel]
 })
 export class FinancePageModule {}
