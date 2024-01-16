@@ -381,6 +381,15 @@ public newTotalCount =0;
 
 
   initializeApp() {
+    
+    if(this.swUpdate.available){
+      this.swUpdate.available.subscribe(() => {
+        if (confirm('A new version is available. Load it?'))
+          window.location.reload();
+      });
+    }
+
+
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.statusBar.backgroundColorByHexString('#282b3d');

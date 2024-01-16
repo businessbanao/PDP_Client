@@ -12,7 +12,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-card *ngFor="let acc of account">
-    <ion-card-header>
+    <ion-card-header (click)="preferFrontCamera()">
       {{ acc.account_name }}
     </ion-card-header>
     <ion-card-content>

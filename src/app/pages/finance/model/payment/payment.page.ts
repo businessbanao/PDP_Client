@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { AccountService } from "../../../../providers/account.service";
 import { ModalController } from "@ionic/angular";
+import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
 
 @Component({
   selector: "app-account_ledger",
@@ -14,7 +15,8 @@ export class PaymentPageModel implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private _accountService: AccountService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    public _barcodeScanner: BarcodeScanner
   ) {}
 
   ngOnInit() {
@@ -27,6 +29,12 @@ export class PaymentPageModel implements OnInit {
   async closeModal() {
     const onClosedData: string = "Address Added";
     await this.modalController.dismiss(onClosedData);
+  }
+
+  openScanner(){
+     this._barcodeScanner.scan({
+      preferFrontCamera:true
+     })
   }
 
   getAccount(accountId) {

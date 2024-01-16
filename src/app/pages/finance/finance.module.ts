@@ -16,6 +16,7 @@ import { AccountLedgerPageModel } from './model/account_ledger/account_ledger.pa
 import { Camera } from '@ionic-native/camera/ngx';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { PaymentPageModel } from './model/payment/payment.page';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { PaymentPageModel } from './model/payment/payment.page';
     MatExpansionModule
   ],
   declarations: [FinancePage, AccountPageModel, LedgerPageModel, AccountLedgerPageModel,PaymentPageModel],
-  providers:[AccountService, FinanceService, Camera],
+  providers:[AccountService, FinanceService, Camera,BarcodeScanner],
   entryComponents:[AccountPageModel, LedgerPageModel, AccountLedgerPageModel,PaymentPageModel]
 })
 export class FinancePageModule {}
