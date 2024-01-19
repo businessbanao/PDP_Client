@@ -103,6 +103,7 @@
     "ngx-chips": "^2.1.0",
     "ngx-material-timepicker": "^5.5.3",
     "ngx-socket-io": "^3.2.0",
+    "phonegap-plugin-barcodescanner": "^8.1.0",
     "phonegap-plugin-multidex": "^1.0.0",
     "phonegap-plugin-push": "^2.3.0",
     "primeicons": "^4.0.0",
@@ -202,7 +203,10 @@
       "cordova-plugin-file-opener2": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "cordova-plugin-filepath": {}
+      "cordova-plugin-filepath": {},
+      "phonegap-plugin-barcodescanner": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      }
     }
   }
 }
