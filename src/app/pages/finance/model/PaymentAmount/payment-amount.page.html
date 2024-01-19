@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/finance" (click)="closeModal()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Payment Management</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      {{ merchantName }}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Amount</ion-label>
+        <ion-input [(ngModel)]="amount" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Merchant Address</ion-label>
+        <ion-input [(ngModel)]="merchantAddress" type="text" readonly></ion-input>
+      </ion-item>
+      <!-- Add other details as needed -->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button [disabled]="amount === 0 || amount.length === 0" (click)="pay()">
+    Pay
+  </ion-button>
+</ion-content>

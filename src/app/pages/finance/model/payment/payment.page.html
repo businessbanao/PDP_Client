@@ -11,8 +11,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let acc of account">
-    <ion-card-header (click)="preferFrontCamera()">
+  <ion-card *ngFor="let acc of account" (click)="openScanner(acc)">
+    <ion-card-header >
       {{ acc.account_name }}
     </ion-card-header>
     <ion-card-content>
@@ -20,8 +20,16 @@
       <!-- Add more details as needed -->
     </ion-card-content>
   </ion-card>
+  <!-- <a class="ion-home color-primary item" href="#" onclick="window.open('{{upiUrl}}', '_system', 'location=yes'); return false;"> 
+  
+    <ion-button >
+     pay {{upiUrl}}
+    </ion-button>
+  
+  </a> -->
+  <!-- <a target="_blank" href="{{upiUrl}}">
 
-   
+  </a> -->
 
 
   

@@ -14,8 +14,8 @@ export class AccountPageModel implements OnInit {
   public finance: string;
   public responseStr: string;
   public acc_search;
-  accounts:any = [];
-  accountsInventory:any = [];
+  accounts: any = [];
+  accountsInventory: any = [];
   accountForm: FormGroup;
   public isEditMode: boolean;
 
@@ -24,7 +24,7 @@ export class AccountPageModel implements OnInit {
     private _accountService: AccountService,
     private _formBuilder: FormBuilder,
     public modalController: ModalController,
-    public toast:ToastController
+    public toast: ToastController
   ) {}
 
   ngOnInit() {
@@ -52,25 +52,25 @@ export class AccountPageModel implements OnInit {
     this.accountForm.get("id").setValue(data._id);
     this.isEditMode = true;
     var elmntToView = document.getElementById("top");
-    console.log(elmntToView)
+    console.log(elmntToView);
     elmntToView.scrollIntoView();
   }
 
-  cancelUpdate(){
+  cancelUpdate() {
     this.accountForm.reset();
     this.isEditMode = false;
   }
-   
+
   createAccount(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
-    formData["userId"] = localStorage.getItem("adminId")  ;
+    formData["userId"] = localStorage.getItem("adminId");
     this._accountService.createAccount(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
-        message:"created Successfully",
-        color:'success',
-        duration:2000
-      })
+        message: "created Successfully",
+        color: "success",
+        duration: 2000,
+      });
       toast.present();
       this.accountForm.reset();
       this.getAccounts();
@@ -83,10 +83,10 @@ export class AccountPageModel implements OnInit {
     this._accountService.updateAccount(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
-        message:"Updated Successfully",
-        color:'success',
-        duration:2000
-      })
+        message: "Updated Successfully",
+        color: "success",
+        duration: 2000,
+      });
       toast.present();
       this.accountForm.reset();
       this.getAccounts();
@@ -100,14 +100,13 @@ export class AccountPageModel implements OnInit {
       this.accountForm.reset();
       this.getAccounts();
       let toast = await this.toast.create({
-        message:"deleted Successfully",
-        color:'success',
-        duration:2000
-      })
+        message: "deleted Successfully",
+        color: "success",
+        duration: 2000,
+      });
       toast.present();
     });
     this.isEditMode = false;
-    
   }
 
   getAccountInventory(accountId) {
@@ -131,19 +130,20 @@ export class AccountPageModel implements OnInit {
 
   getAccounts() {
     this._accountService
-      .getAccount(localStorage.getItem("adminId")  )
+      .getAccount(localStorage.getItem("adminId"))
       .subscribe((resp) => {
         this.accounts = resp.object.response;
       });
   }
 
-
-  searchAccount(){
-    if(this.acc_search.length > 2){
-      this._accountService.searchAccout(this.acc_search, localStorage.getItem('adminId')  ).subscribe((resp) => {
-        this.accounts = resp.response;
-      });
-    } else if(this.acc_search.length == 0){
+  searchAccount() {
+    if (this.acc_search.length > 2) {
+      this._accountService
+        .searchAccout(this.acc_search, localStorage.getItem("adminId"))
+        .subscribe((resp) => {
+          this.accounts = resp.response;
+        });
+    } else if (this.acc_search.length == 0) {
       this.getAccounts();
     }
   }
