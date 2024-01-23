@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/video-manager"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="!data" id="top">Add Video</ion-title>
+    <ion-title *ngIf="data" id="top">Update Video</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <form [formGroup]="videoForm" (ngSubmit)="addVideo(videoForm)">
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
+            <ion-input
+              type="text"
+              placeholder="Title"
+              formControlName="name"
+            ></ion-input>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
+            <textarea
+            placeholder="Video  link"
+            formControlName="videoUrl"
+              rows="4"
+              cols="50"
+            ></textarea>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row>
+        <ion-col>
+          <div class="form-field">
+            <ion-input
+              type="text"
+              placeholder="Video  link"
+            ></ion-input>
+          </div>
+        </ion-col>
+      </ion-row> -->
+
+      <!-- <ion-row>
+        <ion-col>
+          <ion-button color="primary" (click)="addLink()"
+            >+ Add Link
+          </ion-button>
+          <div
+            class="link-container form-field"
+            *ngFor="let control of links.controls; index as i"
+          >
+            <ion-input
+              type="text"
+              placeholder="Link"
+              [formControl]="links.controls[i]"
+            ></ion-input>
+            <ion-button color="primary" (click)="removeLink(i)"
+              ><ion-icon name="remove-outline"></ion-icon
+            ></ion-button>
+          </div>
+        </ion-col>
+      </ion-row> -->
+      <ion-row>
+        <ion-col>
+          <tag-input formControlName="tags" class="tag-field"></tag-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button *ngIf="!data" color="primary" type="submit" value="Save"
+            >Save</ion-button
+          >
+          <ion-button
+            *ngIf="data"
+            color="primary"
+            type="button"
+            value="Update"
+            (click)="updateVideo(videoForm)"
+            >Update</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="!isModel">
+      <ion-menu-button style="color: white"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start" *ngIf="isModel">
+      <ion-back-button
+        defaultHref="/video-manager"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="!isModel"> Videos Manager </ion-title>
+    <ion-title *ngIf="isModel"> {{folderName}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>
+        <ion-icon name="folder" (click)="editAddEditFolderModal(null)"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="add" (click)="openVideoModal(null)"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-searchbar
+    *ngIf="!isModel"
+    animated="true"
+    placeholder="Search Videos"
+    (ionChange)="searchTextChange($event.target.value)"
+  ></ion-searchbar>
+
+  <ion-grid [fixed]="true">
+    <ion-row>
+      <ion-col *ngFor="let list of videoFolderList" size="6" sizeMd="4">
+        <div
+          style="position: relative"
+          *ngIf="list.type == 'FOLDER'"
+          class="note-card"
+        >
+          <ion-card color="light">
+            <ion-card-header>
+              <div class="card-img">
+                <img
+                  src="../../../assets/img/folder.png"
+                  (click)="openVideoListModal(list._id,list.name)"
+                  alt="folder"
+                  width="48"
+                />
+              </div>
+            </ion-card-header>
+            <ion-card-content
+              ><span class="title">{{list.name}}</span></ion-card-content
+            >
+            <ion-icon
+              (click)="presentActionSheetFolder(list)"
+              name="ellipsis-vertical"
+              class="setting-icon"
+            ></ion-icon>
+          </ion-card>
+        </div>
+        <div
+          style="position: relative"
+          *ngIf="list.type == 'VIDEO'"
+          class="note-card"
+        >
+          <ion-card color="light">
+            <ion-card-header>
+              <div class="card-img">
+                <!-- (click)="previewVideo(list)" -->
+                <!-- <img
+                  src="../../../assets/img/notes.png"
+                  alt="notes"
+                  width="48"
+                /> -->
+                <!-- <ion-content overflow-scroll="true"> -->
+                  <video controls="controls" preload="metadata" width="200" height="200"  webkit-playsinline="webkit-playsinline" class="videoPlayer"> 
+                   <source src="http://localhost:3500/{{list.videoUrl}}" type="video/mp4" />
+                  </video>
+                <!-- </ion-content> -->
+              </div>
+            </ion-card-header>
+            <ion-card-content
+              ><span class="title">{{list.name}}</span></ion-card-content
+            >
+            <ion-icon
+              (click)="presentActionSheet(list)"
+              name="ellipsis-vertical"
+              class="setting-icon"
+            ></ion-icon>
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <ion-card class="chose-category-grid">
+    <div class="relative" *ngFor="let list of noteFolderList">
+      <div style="position: relative" *ngIf="list.type == 'FOLDER'">
+        <img
+          src="../../../assets/img/folder.png"
+          (click)="openVideoListModal(list._id,list.name)"
+          alt=""
+        />
+        <p>{{list.name}}</p>
+        <ion-icon
+          (click)="presentActionSheetFolder(list)"
+          name="ellipsis-vertical"
+          class="settings-icon"
+          style="position: absolute; top: 0px; right: 0px"
+        ></ion-icon>
+      </div>
+      <div style="position: relative" *ngIf="list.type == 'VIDEO'">
+        <img
+          src="../../../assets/img/notes.png"
+          (click)="previewVideo(list)"
+          alt=""
+        />
+        <p>{{list.name}}</p>
+        <ion-icon
+          (click)="presentActionSheet(list)"
+          name="ellipsis-vertical"
+          class="settings-icon"
+          style="position: absolute; top: 0px; right: 0px"
+        ></ion-icon>
+      </div>
+    </div>
+  </ion-card> -->
+  <br /><br /><br />
+</ion-content>

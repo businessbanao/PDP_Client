@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/note-management/note-management.module').then(m => m.NoteManagementPageModule)
   },
   {
+    path: 'video-manager',
+    loadChildren: () => import('./pages/video-manager/video-management.module').then(m => m.VideoManagementPageModule)
+  },
+  {
     path: 'emimgnt',
     loadChildren: () => import('./pages/emi-management/emi-management.module').then(m => m.EMIManagementPageModule)
   },

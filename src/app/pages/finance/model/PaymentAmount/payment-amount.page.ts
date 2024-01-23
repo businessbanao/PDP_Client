@@ -63,22 +63,13 @@ export class PaymentAmountPageModel implements OnInit {
     const urlSearchParams = new URLSearchParams(this.upiUrl.split('?')[1]);
     urlSearchParams.set('am',this.amount);
     const updatedUPIUrl = 'upi://pay?' + urlSearchParams.toString();
+    // const paytmUrl = "paytmmp://pay?"+ urlSearchParams.toString();
+
 
   // Open the updated UPI link using the in-app browser
   const options: string = '_system';
   const browser = this.inAppBrowser.create(updatedUPIUrl, options);
-  
-
-      let successCallback = function (apps) {
-        console.log("UPI supported apps", apps);
-    }
-    let failureCallback = function (err) {
-        console.error("Issue in fetching UPI supported apps ", err);
-    }
-
-    window["UPI"].supportedApps(successCallback, failureCallback);
-
-
+  console.log(browser);
 
   }
 

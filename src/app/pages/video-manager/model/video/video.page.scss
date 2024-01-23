@@ -1,0 +1,28 @@
+.capitial-text {
+  text-transform: capitalize !important;
+}
+
+.img-box {
+  width: 1000px;
+  height: 100px;
+  margin-top: 20px;
+}
+
+.upload-img {
+  margin-top: 20px !important;
+}
+.help-block {
+  color: red;
+  padding-top: 10%;
+  // padding-top: 2px;
+  // margin-left: 70%;
+}
+
+.link-container {
+  display: flex;
+  margin-top: 10px;
+  ion-button {
+    height: 40px;
+    margin: 0;
+  }
+}
