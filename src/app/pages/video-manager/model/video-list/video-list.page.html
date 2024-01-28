@@ -16,7 +16,7 @@
 <ion-content [fullscreen]="true">
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openNoteModal()">
+    <ion-fab-button (click)="openVideoModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -24,8 +24,8 @@
   
 
   <div class="container">
-    <div *ngIf="notesList.length != 0">
-    <ion-item-sliding *ngFor="let note of notesList">
+    <div *ngIf="videosList.length != 0">
+    <ion-item-sliding *ngFor="let note of videosList">
       <ion-item (click)="openNoteDetailModal(note)">
         <ion-label>
           <h5 style="text-transform: capitalize;">{{note.title}} <img class="img-list-view" [src]="note.images" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';" ></h5>
@@ -44,7 +44,7 @@
     </ion-item-sliding>
 
   </div>
-  <p  style="text-align: center;"  *ngIf="notesList.length == 0 ">No Notes  Found</p>
+  <p  style="text-align: center;"  *ngIf="videosList.length == 0 ">No Notes  Found</p>
 
 </div>
 

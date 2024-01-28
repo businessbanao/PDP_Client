@@ -49,11 +49,12 @@ export class FoodPageModel implements OnInit {
   ngOnInit() {
     this.getFolders();
     this.initNoteForm();
+    console.log(this.data);
     if(this.data){
       this.isEditMode=true;
       this.foodForm.patchValue(this.data);
       this.foodForm.get('id').setValue(this.data._id);
-      const category = this.data.category.map(item=>({display:item,name:item}));
+      const category = this.data.category.map(item=>({display:item,value:item}));
       this.foodForm.get('category').setValue(category);
       for(let {key,value} of this.data.nutrition){
         this.nutritionArray.push(this._formBuilder.group({
@@ -61,6 +62,7 @@ export class FoodPageModel implements OnInit {
           value: [value, Validators.required],
         }));
       }
+      console.log(this.foodForm.value);
       // this.noteForm.get('date').setValue(this.data.date.slice(0,10));
       // this.noteForm.get('content').setValue(this.data.content)
     }
@@ -70,9 +72,21 @@ export class FoodPageModel implements OnInit {
   getFolders(){
     
   }
+
+  // printFoodForm(payload){
+
+  //   let formData = JSON.parse(JSON.stringify(payload.value));
+  //   let id = this.foodForm.get("id").value;
+  //   formData['category'] = formData['category'].map((list)=>{
+  //     return list.value;
+  //   }) 
+  //   console.log(formData);
+
+  // }
   
   updateFood(payload) {
     let formData = JSON.parse(JSON.stringify(payload.value));
+    console.log(formData);
     let id = this.foodForm.get("id").value;
     formData['category'] = formData['category'].map((list)=>{
       return list.value;

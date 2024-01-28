@@ -70,8 +70,8 @@
           *ngIf="list.type == 'VIDEO'"
           class="note-card"
         >
-          <ion-card color="light">
-            <ion-card-header>
+          <ion-card color="light" style="width: 250px;" >
+            <ion-card-header >
               <div class="card-img">
                 <!-- (click)="previewVideo(list)" -->
                 <!-- <img
@@ -81,7 +81,7 @@
                 /> -->
                 <!-- <ion-content overflow-scroll="true"> -->
                   <video controls="controls" preload="metadata" width="200" height="200"  webkit-playsinline="webkit-playsinline" class="videoPlayer"> 
-                   <source src="http://localhost:3500/{{list.videoUrl}}" type="video/mp4" />
+                   <source src="https://api.pdp-online.shop/{{list.videoUrl}}" type="video/mp4" />
                   </video>
                 <!-- </ion-content> -->
               </div>

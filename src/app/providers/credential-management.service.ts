@@ -23,7 +23,7 @@ export class CredentialManagementService {
 
   getCredentials(): Observable<any> {
     return this._http
-      .get(environment.baseUrl + `/api/v1/CredentialList`)
+      .get(environment.baseUrl + `/api/v1/CredentialList/${localStorage.getItem('adminId')}`)
       .pipe(
         tap(
           (response) => {
@@ -38,7 +38,7 @@ export class CredentialManagementService {
 
   addCredential(payload): Observable<any> {
     return this._http
-      .post(environment.baseUrl + "/api/v1/AddCredential", payload)
+      .post(environment.baseUrl + "/api/v1/AddCredential", {...payload,userId:localStorage.getItem("adminId")})
       .pipe(
        tap( (response) => {
           console.log("added new credential ");

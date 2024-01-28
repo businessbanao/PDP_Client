@@ -25,7 +25,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-button [disabled]="amount === 0 || amount.length === 0" (click)="pay()">
+  <ion-button [disabled]="amount === '0' || amount.length === 0" (click)="pay()">
     Pay
   </ion-button>
 </ion-content>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -17,6 +17,27 @@ export class FinanceService {
 
   getResult() {
     return this.result;
+  }
+
+  uploadFile(payload: FormData): Observable<any> {
+    const url = `${environment.baseUrl}/api/v1/addAccountData/${localStorage.getItem('adminId')}`;
+
+    // Set the content type to 'multipart/form-data'
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'multipart/form-data');
+
+    return this._http.post(url, payload, { headers }).pipe(
+      tap(
+        response => {
+          // Handle the response if needed
+          console.log('Upload successful:', response);
+        },
+        error => {
+          // Handle errors if needed
+          console.error('Upload error:', error);
+        }
+      )
+    );
   }
 
   createInventory(payload): Observable<any> {

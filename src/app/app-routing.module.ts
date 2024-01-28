@@ -131,6 +131,11 @@ const routes: Routes = [
   {
     path: 'credential-manager',
     loadChildren:()=> import('./pages/credential-manager/credential-management.module').then( m => m.CredentialManagementPageModule)
+  },
+
+  {
+    path: 'course-manager',
+    loadChildren:()=> import('./pages/course-manager/course-management.module').then( m => m.CourseManagementPageModule)
   }
 
 

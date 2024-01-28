@@ -50,7 +50,15 @@ export class CredentialManagementPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-alert',
       header: "password",
-      message:data
+      message:data,
+      buttons:[
+        {
+          text:"copy",
+          handler: () => {
+            navigator.clipboard.writeText(data);
+          }
+        }
+      ]
     })
     alert.present();
   }

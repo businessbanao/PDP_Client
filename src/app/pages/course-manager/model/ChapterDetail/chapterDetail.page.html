@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+      defaultHref="/course-manager"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title id="top"> 
+      <!-- <ion-icon name="folder-open-outline" style="color: white;"></ion-icon> -->
+      &nbsp; {{ chapter.name }}  
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Content</ion-label>
+      <ion-textarea [(ngModel)]="chapter.content" #textAres (ionFocus)="textAres.autoGrow=true"    [autoGrow]="true"    placeholder="Enter chapter content"></ion-textarea>
+    </ion-item>
+
+    <ion-item *ngFor="let link of chapter.link; let i = index trackBy: trackByIndex">
+      <ion-label position="stacked">Link {{ i + 1 }}</ion-label>
+      <ion-input [(ngModel)]="chapter.link[i]" placeholder="Enter link"></ion-input>
+      <ion-button (click)="removeLink(i)">Remove</ion-button>
+    </ion-item>
+
+    <ion-item *ngFor="let videoLink of chapter.videoId; let i = index trackBy: trackByIndex">
+      <ion-label position="stacked">Video Link {{ i + 1 }}</ion-label>
+      <ion-input [(ngModel)]="chapter.videoId[i]" placeholder="Enter video link"></ion-input>
+      <ion-button (click)="removeVideoLink(i)">Remove</ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-button (click)="addLink()">Add New Link</ion-button>
+      <ion-button (click)="addVideoLink()">Add New Video Link</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="saveChapter()">
+      <ion-icon name="save"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

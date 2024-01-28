@@ -74,10 +74,10 @@ export class TododPageModel implements OnInit {
     this.taskForm = this._formBuilder.group({
       id: new FormControl(""),
       task_name: new FormControl(
-        "todo",
+        "",
         Validators.compose([Validators.required])
       ),
-      category: new FormControl("DAILY_ROUTINE"),
+      category: new FormControl("IMP_WORK"),
       priority: new FormControl("MED", Validators.compose([Validators.required])),
       duration_type: new FormControl("day"),
       duration_start_date: new FormControl(this.formatDate(new Date()), [

@@ -15,6 +15,7 @@ import {
   FileTransferObject,
 } from "@ionic-native/file-transfer/ngx";
 import { FoodManagementService } from "../../../../providers/food-management.service";
+import { FoodPageModel } from "../food/food.page";
 
 
 @Component({
@@ -35,12 +36,21 @@ export class FoodConsumptionPageModel implements OnInit {
   public date:string;
   
   constructor(
+    private _foodManagementService: FoodManagementService,
     public modalController: ModalController,
     public toast:ToastController,
     private _formBuilder: FormBuilder,
     private _foodManagerService:FoodManagementService,
     private alertController: AlertController
   ) {}
+
+  async getFoodItems(){
+    this._foodManagementService.getFoodItems().subscribe((resp)=>{
+      this.foodList = resp.object.response;
+      // console.log(this.foodItems);
+      // console.log(this.foodConsumptionList)
+    })
+  }
 
   
 
@@ -59,6 +69,20 @@ export class FoodConsumptionPageModel implements OnInit {
     }
 
   }
+  async openAddEditModal(data,isEditMode=false){
+    const modal = await this.modalController.create({
+       component:FoodPageModel,
+       componentProps:{
+           data:data,
+           isEditMode:isEditMode
+       }
+     });
+     modal.onDidDismiss().then((dataReturned) => {
+       this.getFoodItems();
+      //  this.getFoodConsumptionList();
+     });
+     return await modal.present();  
+   }
  
   async openServingSizeModel(id,inEdit=false) {
 

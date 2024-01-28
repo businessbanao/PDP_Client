@@ -7,6 +7,12 @@
   height: 100%;
   width: 100%;
 }
+.videoPlayer .card-img{
+  flex-shrink: 0;
+  width: 200px !important;
+  height: 200px !important;
+
+}
 
 .folder-name {
   margin-top: -10px;
