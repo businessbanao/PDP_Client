@@ -55,6 +55,21 @@ export class FoodManagementPage implements OnInit {
         : consumptionItem;
     });
   }
+
+getTotalCaloryByMeal(meal){
+ return  this.foodConsumptionList.reduce((prev,curr)=>{
+         if(curr.timeSlot === meal) return curr.foodDetails.calory * curr.serving + prev;
+         return prev;
+  },0)
+}
+
+getTotalCalory(){
+  return  this.foodConsumptionList.reduce((prev,curr)=>{
+           return curr.foodDetails.calory * curr.serving + prev;
+   },0)
+ }
+
+
  
 async getFoodItems(){
   this._foodManagementService.getFoodItems().subscribe((resp)=>{

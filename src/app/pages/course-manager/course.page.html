@@ -28,6 +28,9 @@
       <ion-row size="3" style="gap: 4px;align-items: center;" sizeMd="4">
           <ion-checkbox [(ngModel)]="course.status" (ionChange)="updateCourseStatus(course)"></ion-checkbox>        </ion-row>
     </ion-row>
+    <div *ngIf="courseList.length===0" style="display:flex;justify-content:center;align-items: center;">
+      no records found
+    </div>
   </ion-grid>
 
   <br /><br /><br />

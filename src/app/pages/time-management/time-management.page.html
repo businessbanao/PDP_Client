@@ -121,6 +121,10 @@
       </ion-item-options>
     </ion-item-sliding>
 
+    <div *ngIf="detailsList.length===0" style="display:flex;justify-content:center;align-items: center;">
+      no records found
+    </div>
+
     <br />
   </ion-grid>
 </ion-content>

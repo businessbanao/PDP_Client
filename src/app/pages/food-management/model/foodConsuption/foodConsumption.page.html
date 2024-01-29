@@ -24,7 +24,7 @@
     <ion-row *ngFor="let foodItem of foodList" class="food-list-item">
       <ion-col>
         <div class="food-name" (click)="openAddEditModal(foodItem)">{{ foodItem.name }}</div>
-        <p class="food-cal">188 calories</p>
+        <p class="food-cal">{{foodItem.calory}} calories</p>
       </ion-col>
       <ion-col>
         <div class="action-list">

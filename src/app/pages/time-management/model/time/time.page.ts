@@ -32,6 +32,7 @@ export class TimePageModel implements OnInit {
   ngOnInit() {
     this.initTaskForm();
     this.getTaskList();
+    console.log("data",this.data)
 
   }
 
@@ -112,8 +113,9 @@ export class TimePageModel implements OnInit {
       if (this.data) {
         this.taskForm.patchValue(this.data);
         this.taskForm.get('id').setValue(this.data._id);
-        this.taskForm.get('due_date').setValue(this.data.due_date.slice(0, 10));
-        this.taskForm.get('task_id').setValue(this.data.task_id ? this.data.task_id._id : "");
+        // this.taskForm.get('due_date').setValue(this.data.due_date.slice(0, 10));
+        this.taskForm.get('date').setValue(new Date(this.data.date).toISOString().slice(0,10));
+        this.taskForm.get('task_id').setValue(this.data.task_id._id);
       }
 
     });

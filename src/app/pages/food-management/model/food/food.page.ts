@@ -48,7 +48,7 @@ export class FoodPageModel implements OnInit {
 
   ngOnInit() {
     this.getFolders();
-    this.initNoteForm();
+    this.initFoodForm();
     console.log(this.data);
     if(this.data){
       this.isEditMode=true;
@@ -108,12 +108,13 @@ export class FoodPageModel implements OnInit {
 
   public nutritionArray= new FormArray([]);
 
-  initNoteForm() {
+  initFoodForm() {
     this.foodForm = this._formBuilder.group({
       id: new FormControl(),
       name: new FormControl('', Validators.compose([Validators.required])),
       imageUrl: new FormControl(),
       category:new FormControl(),
+      calory: new FormControl(),
       nutrition:this.nutritionArray
     });
   }
