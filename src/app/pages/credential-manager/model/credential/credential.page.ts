@@ -62,6 +62,7 @@ export class AddEditCredentialPageModel implements OnInit {
       header: "Enter salt",
       inputs: [
         {
+          id: "maxLength10",
           name: "salt",
           type: "text",
           placeholder: "Enter salt",
@@ -92,7 +93,9 @@ export class AddEditCredentialPageModel implements OnInit {
       ],
     });
 
-    await alert.present();
+    await alert.present().then((result)=>{
+      document.getElementById('maxLength10').setAttribute('maxlength','4');
+    });
   }
 
   
@@ -103,7 +106,7 @@ export class AddEditCredentialPageModel implements OnInit {
       this.responseStr = resp.response;
       let toast = await this.toast.create({
         message:"Updated Successfully",
-        color:'success',
+        color:'secondary',
         duration:2000
       })
       toast.present();
@@ -138,7 +141,7 @@ export class AddEditCredentialPageModel implements OnInit {
         this.responseStr = resp.response;
       let toast = await this.toast.create({
         message:"credential created Successfully",
-        color:'success',
+        color:'secondary',
         duration:2000
       })
       toast.present();

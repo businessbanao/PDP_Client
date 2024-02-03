@@ -41,11 +41,10 @@ export class NotePageModel implements OnInit {
   
   constructor(
     public modalController: ModalController,
-    public toast:ToastController,
+    public toastController:ToastController,
     private _formBuilder: FormBuilder,
     private _noteManagementService:NoteManagementService,
     private activatedRoute: ActivatedRoute,
-    private toastController: ToastController,
     private camera: Camera,
     private transfer: FileTransfer,
     private actionSheetController: ActionSheetController
@@ -81,11 +80,24 @@ export class NotePageModel implements OnInit {
     }) 
     this._noteManagementService.updateNote(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
-      let toast = await this.toast.create({
-        message:"Updated Successfully",
-        color:'success',
-        duration:2000
-      })
+      if(resp.error){
+        const toast = await this.toastController.create({
+          message: 'some error occurred',
+          duration: 2000,
+          position: "bottom",
+          color: "secondary",
+          animated: true,
+        });
+        toast.present();
+        return;
+      }
+      const toast = await this.toastController.create({
+        message: 'created folder successfully',
+        duration: 2000,
+        position: "bottom",
+        color: "secondary",
+        animated: true,
+      });
       toast.present();
       this.noteForm.reset();
       this.closeModal();
@@ -125,11 +137,24 @@ export class NotePageModel implements OnInit {
     });
     this._noteManagementService.createNote(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
-      let toast = await this.toast.create({
-        message:"Note created Successfully",
-        color:'success',
-        duration:2000
-      })
+      if(resp.error){
+        const toast = await this.toastController.create({
+          message: 'some error occurred',
+          duration: 2000,
+          position: "bottom",
+          color: "secondary",
+          animated: true,
+        });
+        toast.present();
+        return;
+      }
+      const toast = await this.toastController.create({
+        message: 'created note successfully',
+        duration: 2000,
+        position: "bottom",
+        color: "secondary",
+        animated: true,
+      });
       toast.present();
       this.noteForm.reset();
       this.closeModal();

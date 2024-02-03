@@ -14,6 +14,7 @@ import { PopoverController, ToastController } from "@ionic/angular";
 // import { VideoManagementService } from "../../providers/video-management.service";
 import { VideoDetailPageModel } from "./model/video-details/video-detail.page";
 import { VideoManagementService } from "../../providers/video-management.service";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-videoManagement",
@@ -23,6 +24,7 @@ import { VideoManagementService } from "../../providers/video-management.service
 })
 export class VideoManagementPage implements OnInit {
   public videoFolderList: any = [];
+  public baseUrl: String = environment.baseUrl;
   respMsg: String;
   public isEditMode: boolean;
 

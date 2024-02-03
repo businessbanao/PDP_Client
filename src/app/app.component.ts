@@ -373,7 +373,8 @@ public newTotalCount =0;
   async showToast(msg) {
     let toast = await this.toastCtrl.create({
       message: msg,
-      position: 'top',
+      position: 'bottom',
+      color:'secondary',
       duration: 2000
     });
     toast.present();

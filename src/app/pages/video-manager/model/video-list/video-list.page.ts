@@ -56,10 +56,26 @@ export class VideoListPageModel implements OnInit {
   deleteVideo(videoId) {
     let responseMsg: String;
     this._videoManagementService.deleteVideo(videoId).subscribe(async (resp) => {
-      if (!resp.error) {
-        this.getFolderVideos(this.folderId);
+      if(resp.error){
+        const toast = await this.toastController.create({
+          message: 'deleted successfully',
+          duration: 2000,
+          position: "bottom",
+          color: "secondary",
+          animated: true,
+        });
+        toast.present();
+        return;
       }
-      this.presentToast(resp.message);
+      const toast = await this.toastController.create({
+        message: 'deleted successfully',
+        duration: 2000,
+        position: "bottom",
+        color: "secondary",
+        animated: true,
+      });
+      toast.present();
+      
     });
   }
 
@@ -69,7 +85,7 @@ export class VideoListPageModel implements OnInit {
       message: msg,
       duration: 2000,
       position: "bottom",
-      color: "success",
+      color: "secondary",
       animated: true,
     });
     toast.present();

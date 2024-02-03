@@ -39,7 +39,7 @@ export class AccountPage {
       message: "Your Id has Copied",
       duration: 2000,
       position: "bottom",
-      color:'success',
+      color:'secondary',
       animated: true,
     });
     toast.present();
@@ -138,8 +138,8 @@ export class AccountPage {
           const toast = await this.toastController.create({
             message: 'Current Password is not matched',
              duration: 3000,
-             color:'danger',
-            position: 'top',
+             color:'secondary',
+            position: 'bottom',
             animated: true,
           });
           toast.present();
@@ -161,8 +161,8 @@ export class AccountPage {
         const toast = await this.toastController.create({
           message: 'Confirm Password is not matched',
            duration: 3000,
-           color:'warning',
-          position: 'top',
+           color:'secondary',
+          position: 'bottom',
           animated: true,
         });
         toast.present();

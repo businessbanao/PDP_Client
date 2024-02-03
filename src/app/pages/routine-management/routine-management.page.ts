@@ -55,7 +55,9 @@ export class RoutineManagementPage implements OnInit {
       .markDailyRoutineByDateUserId(body)
       .subscribe(async(resp) => {
         // alert(resp.object.message);
-      const toast = await  this.toastCtrl.create({message: resp.object.message,duration:2000,position:"top"});
+      const toast = await  this.toastCtrl.create({message: resp.object.message,
+        duration:2000
+        ,position:"bottom",color:"secondary"});
       toast.present()
       });
   }

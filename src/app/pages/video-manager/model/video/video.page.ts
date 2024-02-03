@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActionSheetController, ModalController, ToastController } from "@ionic/angular";
+import { ActionSheetController, LoadingController, ModalController, ToastController } from "@ionic/angular";
 import { FormBuilder, FormGroup, FormControl, NgForm, Validators, FormArray } from "@angular/forms";
 import { VideoManagementService } from '../../../../providers/video-management.service';
 import { ActivatedRoute } from "@angular/router";
@@ -41,6 +41,7 @@ export class VideoPageModel implements OnInit {
   public folderId;
   
   constructor(
+    public loadingController : LoadingController,
     public modalController: ModalController,
     public toast:ToastController,
     private _formBuilder: FormBuilder,
@@ -65,6 +66,17 @@ export class VideoPageModel implements OnInit {
 
   }
 
+  async presentLoader() {
+    const loader = await this.loadingController.create({
+      // message: 'Loading...',
+      spinner:'circles'
+    });
+  
+    await loader.present();
+  
+    return loader;
+  }
+
   getFolders(){
     this._videoManagementService.getFolders().subscribe((resp) => {
       this.folderList = resp.response;
@@ -77,17 +89,28 @@ export class VideoPageModel implements OnInit {
     formData["userId"] = localStorage.getItem("adminId");
     formData["type"] = 'NOTE';
     formData['links'] = this.links.value;
-    formData['tags'] = formData['tags'].map((list)=>{
-      return list.value;
-    }) 
+    // formData['tags'] = formData['tags'].map((list)=>{
+    //   return list.value;
+    // }) 
     this._videoManagementService.updateVideo(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
-      let toast = await this.toast.create({
-        message:"Updated Successfully",
-        color:'success',
-        duration:2000
-      })
-      toast.present();
+      if(resp.error){
+        let toast = await this.toast.create({
+          message:"some error occur",
+          color:'secondary',
+          duration:2000
+        })
+
+        toast.present();
+      }else{
+        let toast = await this.toast.create({
+          message:"Updated Successfully",
+          color:'secondary',
+          duration:2000
+        })
+
+        toast.present();
+      }
       this.videoForm.reset();
       this.closeModal();
     });
@@ -102,28 +125,41 @@ export class VideoPageModel implements OnInit {
       owner: new FormControl(localStorage.getItem('adminId')),
       videoUrl: new FormControl(),
       parentId: new FormControl(this.folderId, Validators.compose([Validators.required])), 
-      tags:new FormControl(),
+      // tags:new FormControl(),
       id: new FormControl(""),
     });
   }
 
 
 
-  addVideo(payload: FormGroup) {
+  async addVideo(payload: FormGroup) {
     let formData = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId");
     formData["type"] = 'VIDEO';
-    formData['tags'] = formData['tags'].map((list)=>{
-      return list.value;
-    });
+
+    const loader = await this.presentLoader()
+    
     this._videoManagementService.createVideo(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
-      let toast = await this.toast.create({
-        message:"Video created Successfully",
-        color:'success',
-        duration:2000
-      })
-      toast.present();
+      // if(resp.)
+      loader.dismiss();
+      if(resp.error){
+        
+        let toast = await this.toast.create({
+          message:"some error occurred",
+          color:'secondary',
+          duration:2000
+        })
+        toast.present();
+      }else{
+        let toast = await this.toast.create({
+          message:"video added successfully",
+          color:'secondary',
+          duration:2000
+        })
+        toast.present();
+
+      }
       this.videoForm.reset();
       this.closeModal();
     });

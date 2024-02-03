@@ -20,7 +20,7 @@ export class AddEditFolderPageModel implements OnInit {
 
   constructor(
     public modalController: ModalController,
-    public toast: ToastController,
+    public toastController: ToastController,
     private _formBuilder: FormBuilder,
     private _noteManagementService: VideoManagementService,
     private activatedRoute: ActivatedRoute,
@@ -53,11 +53,24 @@ export class AddEditFolderPageModel implements OnInit {
     let id = this.data._id;
     this._noteManagementService.updateVideo(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
-      let toast = await this.toast.create({
-        message: "Updated Successfully",
-        color: 'success',
-        duration: 2000
-      })
+      if(resp.error){
+        const toast = await this.toastController.create({
+          message: 'some error occurred',
+          duration: 2000,
+          position: "bottom",
+          color: "secondary",
+          animated: true,
+        });
+        toast.present();
+        return;
+      }
+      const toast = await this.toastController.create({
+        message: 'updated folder successfully',
+        duration: 2000,
+        position: "bottom",
+        color: "secondary",
+        animated: true,
+      });
       toast.present();
       this.folderForm.reset();
       this.closeModal();
@@ -77,11 +90,24 @@ export class AddEditFolderPageModel implements OnInit {
 
     this._noteManagementService.createFolder(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
-      let toast = await this.toast.create({
-        message: resp.message,
-        color: 'success',
-        duration: 2000
-      })
+      if(resp.error){
+        const toast = await this.toastController.create({
+          message: 'some error occurred',
+          duration: 2000,
+          position: "bottom",
+          color: "secondary",
+          animated: true,
+        });
+        toast.present();
+        return;
+      }
+      const toast = await this.toastController.create({
+        message: 'created folder successfully',
+        duration: 2000,
+        position: "bottom",
+        color: "secondary",
+        animated: true,
+      });
       toast.present();
       this.folderForm.reset();
       this.closeModal();

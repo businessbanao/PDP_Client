@@ -68,7 +68,7 @@ export class EditProfilePage {
         const toast = await this.toastController.create({
           message: "You Successfully Updated you Profile",
            duration: 3000,
-          color:'success',
+          color:'secondary',
           position: "bottom",
           animated: true,
         });

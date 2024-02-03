@@ -71,6 +71,7 @@ export class CredentialManagementPage implements OnInit {
       header: "Enter salt",
       inputs: [
         {
+          id:"maxLength10",
           name: "salt",
           type: "text",
           placeholder: "Enter salt",
@@ -90,9 +91,19 @@ export class CredentialManagementPage implements OnInit {
           text: "Ok",
           handler: (data) => {
             console.log(id,data);
-            this._credentialManagementService.decryptCredential(id,data).subscribe(resp=>{
+            this._credentialManagementService.decryptCredential(id,data).subscribe( async resp=>{
               console.log(resp);
-              this.showCredentials(resp.object.response.password);
+              if(resp.error){
+               let toast = await this.toastController.create({
+                message:"wrong pin",
+                color:'secondary',
+                duration:2000
+              });
+              toast.present();
+              }else{
+
+                this.showCredentials(resp.object.response.password);
+              }
 
             });
           },
@@ -100,7 +111,9 @@ export class CredentialManagementPage implements OnInit {
       ],
     });
 
-    await alert.present();
+    await alert.present().then((result)=>{
+      document.getElementById('maxLength10').setAttribute('maxlength','4');
+    });
   }
 
   async presentAlertConfirm(id) {
