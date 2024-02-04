@@ -7,11 +7,10 @@
   height: 100%;
   width: 100%;
 }
-.videoPlayer .card-img{
+.videoPlayer .card-img {
   flex-shrink: 0;
   width: 200px !important;
   height: 200px !important;
-
 }
 
 .folder-name {
@@ -116,7 +115,7 @@
   .setting-icon {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 2px;
   }
   .title {
     overflow: hidden;
@@ -148,4 +147,8 @@
       font-size: 13px;
     }
   }
+}
+.videoPlayer {
+  width: 100%;
+  height: auto;
 }

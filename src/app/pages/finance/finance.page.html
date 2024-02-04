@@ -15,8 +15,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
- 
-
   <div id="container">
     <!-- <h1>Finance Page</h1>   -->
 
@@ -25,6 +23,7 @@
         <form
           [formGroup]="inventoryForm"
           (ngSubmit)="createInventory(inventoryForm)"
+          style="border-bottom: 1px solid #ddd; margin-bottom: 15px"
         >
           <ion-row>
             <ion-col>
@@ -102,20 +101,24 @@
                 (click)="updateInventory(inventoryForm)"
                 >Update</ion-button
               >
-               
             </ion-col>
           </ion-row>
-          <hr>
-
-          
+          <hr />
         </form>
 
         <form [formGroup]="fileForm" (ngSubmit)="onSubmit(fileForm)">
-          <ion-item>
-            <ion-label for="fileInput">Upload File</ion-label>
-            <input type="file" id="fileInput" (change)="onFileChange($event)" />
-          </ion-item>
-        
+          <ion-row>
+            <ion-col>
+              <div class="form-field">
+                <input
+                  type="file"
+                  id="fileInput"
+                  (change)="onFileChange($event)"
+                />
+              </div>
+            </ion-col>
+          </ion-row>
+
           <ion-row>
             <ion-col>
               <ion-button color="primary" type="submit">Save</ion-button>
@@ -164,16 +167,13 @@
             </section>
           </ion-select>
         </ion-item>
-        <div *ngIf="inventoryList?.length != 0" style="display: flex; flex-direction: column; padding: 10px;">
-          <div class="crAmmount"
-            >Total Incoming : {{ totalIncoming }}</div
-          >
-          <div class="drAmmount"
-            >Total Outgoing : {{ totalOutgoing }}</div>
-          
+        <div
+          *ngIf="inventoryList?.length != 0"
+          style="display: flex; flex-direction: column; padding: 10px"
+        >
+          <div class="crAmmount">Total Incoming : {{ totalIncoming }}</div>
+          <div class="drAmmount">Total Outgoing : {{ totalOutgoing }}</div>
         </div>
-
-        
 
         <ion-item-sliding
           id="item100"
@@ -252,16 +252,18 @@
     </ng-container>
 
     <ng-container *ngIf="tabName == 'ledger'">
-       <!-- {{openLedgerModal()}} -->
+      <!-- {{openLedgerModal()}} -->
     </ng-container>
 
-    <ng-container *ngIf="tabName == 'pay'">
-      Coming Soon
-   </ng-container>
+    <ng-container *ngIf="tabName == 'pay'"> Coming Soon </ng-container>
   </div>
- 
+
   <ion-footer class="footer">
-    <ion-segment value="pay" [(ngModel)]="tabName" (ionChange)="segmentChanged($event)">
+    <ion-segment
+      value="pay"
+      [(ngModel)]="tabName"
+      (ionChange)="segmentChanged($event)"
+    >
       <ion-segment-button value="mannual_entry">
         <ion-label>Inventry</ion-label>
       </ion-segment-button>

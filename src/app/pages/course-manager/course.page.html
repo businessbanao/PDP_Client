@@ -9,7 +9,7 @@
         (click)="closeModal()"
       ></ion-back-button>
     </ion-buttons> -->
-    <ion-title > Course Manager </ion-title>
+    <ion-title> Course Manager </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,18 +21,24 @@
   </ion-fab>
 
   <ion-grid [fixed]="true">
-    <ion-row *ngFor="let course of courseList" style="display: flex; justify-content: space-between;align-items: center;">
-      <ion-col size="9" sizeMd="4" (click)="previewCourse(course)">
+    <ion-row *ngFor="let course of courseList" class="courseList">
+      <ion-col size="9" (click)="previewCourse(course)">
         {{ course.name }}
       </ion-col>
-      <ion-row size="3" style="gap: 4px;align-items: center;" sizeMd="4">
-          <ion-checkbox [(ngModel)]="course.status" (ionChange)="updateCourseStatus(course)"></ion-checkbox>        </ion-row>
+      <ion-col size="3" style="text-align: right; padding-right: 8px">
+        <ion-checkbox
+          [(ngModel)]="course.status"
+          (ionChange)="updateCourseStatus(course)"
+        ></ion-checkbox>
+      </ion-col>
     </ion-row>
-    <div *ngIf="courseList.length===0" style="display:flex;justify-content:center;align-items: center;">
+    <div
+      *ngIf="courseList.length===0"
+      style="display: flex; justify-content: center; align-items: center"
+    >
       no records found
     </div>
   </ion-grid>
 
   <br /><br /><br />
 </ion-content>
-

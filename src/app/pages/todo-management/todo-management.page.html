@@ -21,16 +21,20 @@
           <ion-icon
             name="chevron-back-outline"
             (click)="decreaseDate()"
-            ></ion-icon>
-            <!-- *ngIf="duration_type == 'DAY'" -->
+          ></ion-icon>
+          <!-- *ngIf="duration_type == 'DAY'" -->
         </div>
       </ion-col>
       <ion-col>
         <div class="filter-option">
-          <ion-select (ionChange)="handleChangeDate(changeDate)"  placeholder="Select :" [(ngModel)]="duration_type">
+          <ion-select
+            (ionChange)="handleChangeDate(changeDate)"
+            placeholder="Select :"
+            [(ngModel)]="duration_type"
+          >
             <ion-select-option value="DAY">Day</ion-select-option>
             <!-- <ion-select-option value="WEEK">Week</ion-select-option> -->
-            <ion-select-option  value="MONTH">Month</ion-select-option>
+            <ion-select-option value="MONTH">Month</ion-select-option>
           </ion-select>
           <div class="filter-input">
             <!-- [max]="formatCurrentDate" -->
@@ -66,8 +70,8 @@
           <ion-icon
             name="chevron-forward-outline"
             (click)="increaseDate()"
-            ></ion-icon>
-            <!-- *ngIf="!(changeDate >=formatCurrentDate)" -->
+          ></ion-icon>
+          <!-- *ngIf="!(changeDate >=formatCurrentDate)" -->
         </div>
       </ion-col>
     </ion-row>
@@ -79,9 +83,11 @@
         (click)="showInfo(task.duration_start_date,task.duration_end_date)"
       >
         <ion-label>
-          <div style="text-transform: capitalize">
-            {{task.task_name}}
-            <span class="category">({{task.category}}) </span>
+          <div style="text-transform: capitalize" class="todo-row">
+            <div class="todo-item">
+              <span>{{task.task_name}}</span>
+              <span class="category">{{task.category}} </span>
+            </div>
             <span
               *ngIf="task.status == 'CREATED'"
               style="color: #1488e3; float: right"

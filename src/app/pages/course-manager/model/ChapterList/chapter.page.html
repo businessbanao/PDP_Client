@@ -6,38 +6,36 @@
         (click)="closeModal()"
       ></ion-back-button>
     </ion-buttons>
-    <ion-title id="top"> 
+    <ion-title id="top">
       <!-- <ion-icon name="folder-open-outline" style="color: white;"></ion-icon> -->
-      &nbsp; {{ courseName }}  
+      &nbsp; {{ courseName }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addChapter()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  
-
   <div class="container">
-    <div *ngIf="chapterList.length != 0">
-    <ion-row *ngFor="let chapter of chapterList">
-
-      <ion-col size="9" sizeMd="4" (click)="openChapterDetails(chapter)">
-        {{ chapter.name }}
-      </ion-col>
-      <ion-row size="3" style="gap: 4px;align-items: center;" sizeMd="4">
-          <ion-checkbox [(ngModel)]="chapter.status" (ionChange)="updateChapterStatus(chapter)" ></ion-checkbox>      
+    <ion-grid *ngIf="chapterList.length != 0">
+      <ion-row *ngFor="let chapter of chapterList" class="chapterList">
+        <ion-col size="9" (click)="openChapterDetails(chapter)">
+          {{ chapter.name }}
+        </ion-col>
+        <ion-col size="3" style="text-align: right; padding-right: 8px">
+          <ion-checkbox
+            [(ngModel)]="chapter.status"
+            (ionChange)="updateChapterStatus(chapter)"
+          ></ion-checkbox>
+        </ion-col>
       </ion-row>
-    </ion-row>
-
+    </ion-grid>
+    <p style="text-align: center" *ngIf="chapterList.length == 0 ">
+      No chapter Found
+    </p>
   </div>
-  <p  style="text-align: center;"  *ngIf="chapterList.length == 0 ">No chapter  Found</p>
-
-</div>
-
 </ion-content>

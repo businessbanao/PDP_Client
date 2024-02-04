@@ -21,7 +21,10 @@
     </ion-fab-button>
     <ion-fab-list side="top">
       <ion-fab-button>
-        <ion-icon name="folder" (click)="editAddEditFolderModal(null)"></ion-icon>
+        <ion-icon
+          name="folder"
+          (click)="editAddEditFolderModal(null)"
+        ></ion-icon>
       </ion-fab-button>
       <ion-fab-button>
         <ion-icon name="add" (click)="openVideoModal(null)"></ion-icon>
@@ -70,8 +73,8 @@
           *ngIf="list.type == 'VIDEO'"
           class="note-card"
         >
-          <ion-card color="light" style="width: 250px;" >
-            <ion-card-header >
+          <ion-card color="light">
+            <ion-card-header>
               <div class="card-img">
                 <!-- (click)="previewVideo(list)" -->
                 <!-- <img
@@ -80,9 +83,17 @@
                   width="48"
                 /> -->
                 <!-- <ion-content overflow-scroll="true"> -->
-                  <video controls="controls" preload="metadata" width="200" height="200"  webkit-playsinline="webkit-playsinline" class="videoPlayer"> 
-                   <source src="{{baseUrl}}/{{list.videoUrl}}" type="video/mp4" />
-                  </video>
+                <video
+                  controls="controls"
+                  preload="metadata"
+                  webkit-playsinline="webkit-playsinline"
+                  class="videoPlayer"
+                >
+                  <source
+                    src="{{baseUrl}}/{{list.videoUrl}}"
+                    type="video/mp4"
+                  />
+                </video>
                 <!-- </ion-content> -->
               </div>
             </ion-card-header>
