@@ -64,9 +64,13 @@ export class AddEditCredentialPageModel implements OnInit {
         {
           id: "maxLength10",
           name: "salt",
-          type: "text",
-          placeholder: "Enter salt",
-          value: "",
+          type: "number",
+          max: '4',
+          placeholder: "Enter pin",
+          attributes: {
+            maxLength: 4,
+            inputmode: 'numeric'
+          }
         },
       ],
       buttons: [
@@ -76,15 +80,30 @@ export class AddEditCredentialPageModel implements OnInit {
           cssClass: "secondary",
           handler: () => {
             console.log("Confirm Cancel");
+            this.closeModal();
           },
         },
         {
           text: "Ok",
           handler: (data) => {
+            // debugger;
+            if(data.salt.length !== 4){
+              this.toastController.create({
+                message: 'Enter 4 digit number',
+                duration: 2000
+              }).then((_toast)=>{
+                 _toast.present();
+              })
+              return false;
+            }
             console.log(id,data);
             this.credentialForm.get('salt').setValue(data.salt);
             this._credentialManagementService.decryptCredential(id,data).subscribe(resp=>{
               console.log(resp);
+              if(resp.error){
+
+                this.closeModal();
+              }
               this.credentialForm.get('password').setValue(resp.object.response.password)
 
             });
@@ -94,7 +113,8 @@ export class AddEditCredentialPageModel implements OnInit {
     });
 
     await alert.present().then((result)=>{
-      document.getElementById('maxLength10').setAttribute('maxlength','4');
+      // document.getElementById('maxLength10').setAttribute('maxlength','4');
+
     });
   }
 

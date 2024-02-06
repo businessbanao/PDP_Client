@@ -58,14 +58,14 @@ export class FoodManagementPage implements OnInit {
 
 getTotalCaloryByMeal(meal){
  return  this.foodConsumptionList.reduce((prev,curr)=>{
-         if(curr.timeSlot === meal) return curr.foodDetails.calory * curr.serving + prev;
+         if(curr.timeSlot === meal) return Math.round(curr.foodDetails.calory * curr.serving + prev);
          return prev;
   },0)
 }
 
 getTotalCalory(){
   return  this.foodConsumptionList.reduce((prev,curr)=>{
-           return curr.foodDetails.calory * curr.serving + prev;
+           return Math.round(curr.foodDetails.calory * curr.serving + prev);
    },0)
  }
 

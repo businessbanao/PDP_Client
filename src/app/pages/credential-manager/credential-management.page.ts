@@ -41,15 +41,30 @@ export class CredentialManagementPage implements OnInit {
   async deleteCredential(credentialId) {
     this._credentialManagementService
       .deleteCredential(credentialId)
-      .subscribe((resp) => {
-        console.log(resp.object.response);
+      .subscribe(async (resp) => {
+        console.log(resp);
+        if(resp.error){
+          let toast = await this.toastController.create({
+            message:"unable to delete",
+            color:'secondary',
+            duration:2000
+          });
+          toast.present();        }
+          else{
+            let toast = await this.toastController.create({
+              message:"deleted credential successfully",
+              color:'secondary',
+              duration:2000
+            });
+            toast.present();
+          }
         this.getCredentialItems();
       });
   }
   async showCredentials(data) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-alert',
-      header: "password",
+      header: "Password",
       message:data,
       buttons:[
         {
@@ -68,13 +83,13 @@ export class CredentialManagementPage implements OnInit {
   async openSaltInputModel(id) {
     const alert = await this.alertController.create({
       cssClass: "my-custom-class",
-      header: "Enter salt",
+      header: "Enter Pin",
       inputs: [
         {
           id:"maxLength10",
           name: "salt",
           type: "text",
-          placeholder: "Enter salt",
+          placeholder: "Enter Pin",
           value: "",
         },
       ],
@@ -90,6 +105,15 @@ export class CredentialManagementPage implements OnInit {
         {
           text: "Ok",
           handler: (data) => {
+            if(data.salt.length !== 4){
+              this.toastController.create({
+                message: 'Enter 4 digit number',
+                duration: 2000
+              }).then((_toast)=>{
+                 _toast.present();
+              })
+              return false;
+            }
             console.log(id,data);
             this._credentialManagementService.decryptCredential(id,data).subscribe( async resp=>{
               console.log(resp);
@@ -115,12 +139,21 @@ export class CredentialManagementPage implements OnInit {
       document.getElementById('maxLength10').setAttribute('maxlength','4');
     });
   }
-
+  
   async presentAlertConfirm(id) {
     let self = this;
     const alert = await this.alertController.create({
       header: "Delete credential",
-      message: "Are you sure you want to delete?",
+      message: "Enter Pin to Delete Credential?",
+      inputs: [
+        {
+          id:"maxLength10",
+          name: "salt",
+          type: "text",
+          placeholder: "Enter Pin",
+          value: "",
+        },
+      ],
       buttons: [
         {
           text: "Cancel",
@@ -131,9 +164,32 @@ export class CredentialManagementPage implements OnInit {
         },
         {
           text: "Okay",
-          handler: () => {
-            self.deleteCredential(id);
+          handler: (data) => {
+            if(data.salt.length !== 4){
+              this.toastController.create({
+                message: 'Enter 4 digit number',
+                duration: 2000
+              }).then((_toast)=>{
+                 _toast.present();
+              })
+              return false;
+            }
+            this._credentialManagementService.decryptCredential(id,data).subscribe( async resp=>{
+              console.log(resp);
+              if(resp.error){
+               let toast = await this.toastController.create({
+                message:"wrong pin",
+                color:'secondary',
+                duration:2000
+              });
+              toast.present();
+              }else{
+
+                self.deleteCredential(id);
+              }
           },
+            )
+        }
         },
       ],
     });

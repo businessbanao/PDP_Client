@@ -71,14 +71,15 @@ export class CourseManagerPage implements OnInit {
             console.log('Confirm Ok', data);
              this._courseManagerService.createCourse({...data,userId:localStorage.getItem('adminId')}).subscribe(()=>{
               console.log('Course');
+              this.getCourse();
              });
           }
         }
       ]
     });
     await alert.present();
-    alert.onDidDismiss().then(()=>{
-      this.getCourse();
+    alert.onDidDismiss().then( ()=>{
+      //  this.getCourse();
     });
     
   }

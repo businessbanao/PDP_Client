@@ -68,7 +68,7 @@ export class ChapterPageModel implements OnInit {
     const courseId = chapter._id;
     console.log(status,courseId);
     this._courseManagerService.updateChapterStatus(courseId,{status}).subscribe((data)=>{
-      console.log(data);
+
     });
   }
 
@@ -102,6 +102,8 @@ export class ChapterPageModel implements OnInit {
                 courseId: this.courseId
               })
               .subscribe(() => {
+                this.getChapter();
+
                 console.log("Course");
               });
           },
@@ -110,7 +112,6 @@ export class ChapterPageModel implements OnInit {
     });
     await alert.present();
     alert.onDidDismiss().then(() => {
-      this.getChapter();
     });
   }
 }
