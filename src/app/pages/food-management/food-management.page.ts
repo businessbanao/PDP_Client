@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
 import { PopoverController, ToastController } from "@ionic/angular";
 import { FoodManagementService } from "../../providers/food-management.service";
 import { FoodConsumptionPageModel } from "./model/foodConsuption/foodConsumption.page";
+import { FoodConsumptionViewPageModel } from "./model/foodConsumptionView/foodConsumptionView.page";
 
 @Component({
   selector: "app-foodManagement",
@@ -67,6 +68,20 @@ getTotalCalory(){
   return  this.foodConsumptionList.reduce((prev,curr)=>{
            return Math.round(curr.foodDetails.calory * curr.serving + prev);
    },0)
+ }
+
+ async openDetailDailyConsumption(){
+   const modal = await this.modalController.create({
+    component:FoodConsumptionViewPageModel,
+    componentProps:{
+      foodConsumptionData:this.foodConsumptionList,
+    }
+  });
+  modal.onDidDismiss().then((dataReturned) => {
+    this.getFoodItems();
+    this.getFoodConsumptionList();
+  });
+  return await modal.present();
  }
 
 

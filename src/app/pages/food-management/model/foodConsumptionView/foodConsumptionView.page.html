@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/food-manager"
+        (click)="closeModal()"
+      ></ion-back-button>
+    </ion-buttons>
+
+    <ion-title> Food Consumption View </ion-title>
+
+  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <table border="2" style="width: 100%;">
+    <tr *ngFor="let nutrient of getNutrients()">
+      <td>{{ titleCase((nutrient.key).split('_').join(' ')) }}</td>
+      <td>{{ nutrient.value }}</td>
+      <td>{{ nutrientsUnit[nutrient.key] }}</td>
+    </tr>
+
+  </table>
+
+ 
+</ion-content>

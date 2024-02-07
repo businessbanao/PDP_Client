@@ -50,21 +50,32 @@ export class FoodPageModel implements OnInit {
     this.getFolders();
     this.initFoodForm();
     console.log(this.data);
-    if(this.data){
-      this.isEditMode=true;
-      this.foodForm.patchValue(this.data);
-      this.foodForm.get('id').setValue(this.data._id);
-      const category = this.data.category.map(item=>({display:item,value:item}));
-      this.foodForm.get('category').setValue(category);
-      for(let {key,value} of this.data.nutrition){
-        this.nutritionArray.push(this._formBuilder.group({
-          key: [key, Validators.required],
-          value: [value, Validators.required],
-        }));
+    try {
+      if(this.data){
+        this.isEditMode=true;
+        try {
+          
+          this.foodForm.patchValue(this.data);
+        } catch (error) {
+          
+        }
+        this.foodForm.get('id').setValue(this.data._id);
+        const category = this.data.category.map(item=>({display:item,value:item}));
+  
+        this.foodForm.get('category').setValue(category);
+        console.log(this.data.nutrition);
+        for(let [key,value] of Object.entries(this.data.nutrition)){
+          this.nutritionArray.push(this._formBuilder.group({
+            key: [key, Validators.required],
+            value: [value, Validators.required],
+          }));
+        }
+        console.log(this.foodForm.value);
+        // this.noteForm.get('date').setValue(this.data.date.slice(0,10));
+        // this.noteForm.get('content').setValue(this.data.content)
       }
-      console.log(this.foodForm.value);
-      // this.noteForm.get('date').setValue(this.data.date.slice(0,10));
-      // this.noteForm.get('content').setValue(this.data.content)
+    } catch (error) {
+       console.log(error);
     }
 
   }
@@ -85,12 +96,21 @@ export class FoodPageModel implements OnInit {
   // }
   
   updateFood(payload) {
+    debugger;
     let formData = JSON.parse(JSON.stringify(payload.value));
     console.log(formData);
     let id = this.foodForm.get("id").value;
     formData['category'] = formData['category'].map((list)=>{
       return list.value;
     }) 
+
+    const nutrition = {}
+    formData.nutrition.reduce((prev,curr)=>{
+     prev[curr.key] = curr.value;
+     return prev;
+    },nutrition);
+
+    formData.nutrition = nutrition;
 
     this._foodManagerService.updateFood(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
@@ -137,6 +157,12 @@ export class FoodPageModel implements OnInit {
     formData['category'] = formData['category'].map((list)=>{
       return list.value;
     });
+    const nutrition = {}
+    formData.nutrition.reduce((prev,curr)=>{
+      return prev[curr.key] = curr.value;
+    },nutrition);
+
+    formData.nutrition = nutrition;
     console.log(formData);
     this._foodManagerService.createFood(formData).subscribe(async (resp)=>{
         this.responseStr = resp.response;

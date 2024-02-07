@@ -18,6 +18,7 @@ import { FilePath } from "@ionic-native/file-path/ngx";
 import { TagInputModule } from "ngx-chips";
 import { FoodManagementService } from "../../providers/food-management.service";
 import { FoodConsumptionPageModel } from "./model/foodConsuption/foodConsumption.page";
+import { FoodConsumptionViewPageModel } from "./model/foodConsumptionView/foodConsumptionView.page";
 
 @NgModule({
   imports: [
@@ -31,8 +32,8 @@ import { FoodConsumptionPageModel } from "./model/foodConsuption/foodConsumption
     TagInputModule,
     // CKEditorModule
   ],
-  declarations: [FoodManagementPage,FoodPageModel,FoodConsumptionPageModel],
+  declarations: [FoodManagementPage,FoodPageModel,FoodConsumptionPageModel,FoodConsumptionViewPageModel],
   providers: [FoodManagementService, Camera, File, WebView, FilePath],
-  entryComponents: [FoodPageModel,FoodConsumptionPageModel],
+  entryComponents: [FoodPageModel,FoodConsumptionPageModel,FoodConsumptionViewPageModel],
 })
 export class FoodManagementPageModule {}
