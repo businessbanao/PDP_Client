@@ -17,7 +17,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
-// import { CKEditorModule } from 'ng2-ckeditor';
+import { CKEditorModule } from 'ng2-ckeditor';
 import { TagInputModule } from 'ngx-chips';
 
 @NgModule({
@@ -29,8 +29,8 @@ import { TagInputModule } from 'ngx-chips';
     ReactiveFormsModule,
     MatNativeDateModule,
     NoteManagementPageRoutingModule,
-    TagInputModule
-    // CKEditorModule
+    TagInputModule,
+    CKEditorModule
     
   ],
   declarations: [NoteManagementPage, NotePageModel, AddEditFolderPageModel, NoteListPageModel, NoteDetailPageModel],

@@ -38,6 +38,7 @@ export class NotePageModel implements OnInit {
   public folderList=[]
   
   public folderId;
+
   
   constructor(
     public modalController: ModalController,
@@ -54,10 +55,17 @@ export class NotePageModel implements OnInit {
     this.getFolders();
     this.initNoteForm();
     if(this.data){
-      this.noteForm.patchValue(this.data);
+      try {
+        
+        this.noteForm.patchValue(this.data);
+      } catch (error) {
+        
+      }
       this.noteForm.get('id').setValue(this.data._id);
+
+      
       // this.noteForm.get('date').setValue(this.data.date.slice(0,10));
-      this.noteContent = this.data.content;
+      // this.noteContent = this.data.content;
       // this.noteForm.get('content').setValue(this.data.content)
     }
 
@@ -75,9 +83,13 @@ export class NotePageModel implements OnInit {
     formData["userId"] = localStorage.getItem("adminId");
     formData["type"] = 'NOTE';
     formData['links'] = this.links.value;
-    formData['tags'] = formData['tags'].map((list)=>{
-      return list.value;
-    }) 
+    if(formData['tags']){
+      formData['tags'] = formData['tags'].map((list)=>{
+        return list.value;
+      }) 
+    }else{
+      formData['tags'] = [];
+    }
     this._noteManagementService.updateNote(id, formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       if(resp.error){
@@ -132,9 +144,13 @@ export class NotePageModel implements OnInit {
     formData["userId"] = localStorage.getItem("adminId");
     formData["type"] = 'NOTE';
     formData['links'] = this.links.value;
-    formData['tags'] = formData['tags'].map((list)=>{
-      return list.value;
-    });
+    if(formData['tags']){
+      formData['tags'] = formData['tags'].map((list)=>{
+        return list.value;
+      }) 
+    }else{
+      formData['tags'] = [];
+    }
     this._noteManagementService.createNote(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
       if(resp.error){

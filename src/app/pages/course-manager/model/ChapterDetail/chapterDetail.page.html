@@ -16,7 +16,7 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row class="item-list">
-      <ion-col>
+      <!-- <ion-col>
         <ion-label position="stacked">Content</ion-label>
         <ion-textarea
           [(ngModel)]="chapter.content"
@@ -25,7 +25,14 @@
           [autoGrow]="true"
           placeholder="Enter chapter content"
         ></ion-textarea>
-      </ion-col>
+      </ion-col> -->
+      <!-- <ckeditor tagName="textarea" ></ckeditor> -->
+      <ckeditor
+    [(ngModel)]="chapter.content"
+    [config]="{uiColor: '#dcdcdc'}"
+    debounce="500">
+  </ckeditor>
+
     </ion-row>
 
     <ion-row

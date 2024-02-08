@@ -8,12 +8,14 @@ import { NotesPageRoutingModule } from './notes-routing.module';
 
 import { NotesPage } from './notes.page';
 
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NotesPageRoutingModule
+    NotesPageRoutingModule,
   ],
   declarations: [NotesPage]
 })

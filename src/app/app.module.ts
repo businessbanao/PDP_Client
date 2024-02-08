@@ -30,7 +30,6 @@ import { EMIManagementService } from './providers/emi-management.service';
 import { NoteManagementService } from './providers/note-management.service';
 import { DocManagementService } from './providers/doc-management.service';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-// import { CKEditorModule } from 'ng2-ckeditor';
 
 
 @NgModule({
@@ -39,7 +38,6 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    // CKEditorModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {

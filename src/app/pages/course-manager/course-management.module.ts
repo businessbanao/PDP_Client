@@ -13,7 +13,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
-// import { CKEditorModule } from 'ng2-ckeditor';
+import { CKEditorModule } from 'ng2-ckeditor';
 import { TagInputModule } from 'ngx-chips';
 import { CourseManagementService } from '../../providers/course-management.service';
 import { ChapterDetailPageModel } from './model/ChapterDetail/chapterDetail.page';
@@ -27,8 +27,8 @@ import { ChapterDetailPageModel } from './model/ChapterDetail/chapterDetail.page
     ReactiveFormsModule,
     MatNativeDateModule,
     CourseManagementPageRoutingModule,
-    TagInputModule
-    // CKEditorModule
+    TagInputModule,
+    CKEditorModule
     
   ],
   declarations: [CourseManagerPage, ChapterPageModel,ChapterDetailPageModel],

@@ -17,6 +17,8 @@ import { CourseManagementService } from "../../../../providers/course-management
 })
 export class ChapterDetailPageModel implements OnInit {
   public chapter;
+  ckeditorContent: string = '<p>Some html</p>';
+
   constructor(
     public actionSheetController:ActionSheetController,
     public _courseManagerService: CourseManagementService,
@@ -25,7 +27,7 @@ export class ChapterDetailPageModel implements OnInit {
     public alertController: AlertController,
     private _formBuilder: FormBuilder,
     private _noteManagementService: NoteManagementService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {
