@@ -88,7 +88,7 @@ export class CredentialManagementPage implements OnInit {
         {
           id:"maxLength10",
           name: "salt",
-          type: "text",
+          type: window.innerWidth<600?"number":"password",
           placeholder: "Enter Pin",
           value: "",
         },
@@ -149,7 +149,7 @@ export class CredentialManagementPage implements OnInit {
         {
           id:"maxLength10",
           name: "salt",
-          type: "text",
+          type: window.innerWidth<600?"number":"password",
           placeholder: "Enter Pin",
           value: "",
         },

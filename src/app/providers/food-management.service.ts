@@ -10,9 +10,9 @@ export class FoodManagementService {
 
   constructor(private _http: HttpClient) {}
 
-  getFoodItems(parentId = null): Observable<any> {
+  getFoodItems(data={}): Observable<any> {
     return this._http
-      .get(environment.baseUrl + `/api/v1/FoodList?parentId=${parentId}`)
+      .get(environment.baseUrl + `/api/v1/FoodList?${new URLSearchParams(data)}`)
       .pipe(
         tap(
           (response) => {

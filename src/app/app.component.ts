@@ -93,6 +93,10 @@ public newTotalCount =0;
     private push: Push
   ) {
 
+    if (!localStorage.getItem('AuthToken')) {
+      this.router.navigateByUrl('/login')
+    }
+
     this.subscription = this._notificationsService.getData().subscribe((x) => {
       alert("x : " + x);
     });

@@ -59,6 +59,7 @@
               </div>
             </ion-card-header>
             <ion-card-content
+            (click)="openVideoListModal(list._id,list.name)"
               ><span class="title">{{list.name}}</span></ion-card-content
             >
             <ion-icon
@@ -110,37 +111,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-card class="chose-category-grid">
-    <div class="relative" *ngFor="let list of noteFolderList">
-      <div style="position: relative" *ngIf="list.type == 'FOLDER'">
-        <img
-          src="../../../assets/img/folder.png"
-          (click)="openVideoListModal(list._id,list.name)"
-          alt=""
-        />
-        <p>{{list.name}}</p>
-        <ion-icon
-          (click)="presentActionSheetFolder(list)"
-          name="ellipsis-vertical"
-          class="settings-icon"
-          style="position: absolute; top: 0px; right: 0px"
-        ></ion-icon>
-      </div>
-      <div style="position: relative" *ngIf="list.type == 'VIDEO'">
-        <img
-          src="../../../assets/img/notes.png"
-          (click)="previewVideo(list)"
-          alt=""
-        />
-        <p>{{list.name}}</p>
-        <ion-icon
-          (click)="presentActionSheet(list)"
-          name="ellipsis-vertical"
-          class="settings-icon"
-          style="position: absolute; top: 0px; right: 0px"
-        ></ion-icon>
-      </div>
-    </div>
-  </ion-card> -->
   <br /><br /><br />
 </ion-content>

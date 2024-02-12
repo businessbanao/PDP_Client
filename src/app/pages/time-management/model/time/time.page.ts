@@ -66,8 +66,6 @@ export class TimePageModel implements OnInit {
       id: new FormControl(""),
       task_id: new FormControl('', Validators.compose([Validators.required])),
       status: new FormControl(''),
-      // due_date: new FormControl('', [Validators.required]),
-      // due_time: new FormControl('', [Validators.required]),
       duration_start_time: new FormControl('', [Validators.required]),
       duration_end_time: new FormControl('', [Validators.required]),
       date: new FormControl(this.formatDate(new Date()), [Validators.required]),

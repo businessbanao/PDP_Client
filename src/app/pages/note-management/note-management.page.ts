@@ -48,7 +48,7 @@ export class NoteManagementPage implements OnInit {
   getFolders(parentId: any) {
     console.log("called folderList")
     this._noteManagementService.getFolders(parentId).subscribe((resp) => {
-      this.noteFolderList = resp.object.response;
+      this.noteFolderList = resp.object.response.filter(({owner})=>owner === localStorage.getItem('adminId') );
       console.log(resp.object.response);
     });
   }

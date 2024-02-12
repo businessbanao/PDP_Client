@@ -8,7 +8,9 @@
     </ion-buttons>
     <ion-title *ngIf="!isEditMode" id="top">Add Food Consumption</ion-title>
     <ion-title *ngIf="isEditMode" id="top">Update Food Consumption</ion-title>
+    
   </ion-toolbar>
+  <ion-toggle [(ngModel)]="selected" (ionChange)="toggleChanged()"></ion-toggle>
 </ion-header>
 
 <ion-content [fullscreen]="true">

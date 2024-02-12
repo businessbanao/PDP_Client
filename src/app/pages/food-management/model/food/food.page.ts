@@ -135,7 +135,8 @@ export class FoodPageModel implements OnInit {
       imageUrl: new FormControl(),
       category:new FormControl(),
       calory: new FormControl(),
-      nutrition:this.nutritionArray
+      nutrition:this.nutritionArray,
+      owner: localStorage.getItem('adminId')
     });
   }
 

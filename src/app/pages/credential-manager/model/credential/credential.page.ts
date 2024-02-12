@@ -59,17 +59,16 @@ export class AddEditCredentialPageModel implements OnInit {
   async openSaltAddEditModel(id) {
     const alert = await this.alertController.create({
       cssClass: "my-custom-class",
-      header: "Enter salt",
+      header: "Enter pin",
       inputs: [
         {
           id: "maxLength10",
           name: "salt",
-          type: "number",
+          type: window.innerWidth<600?"number":"password",
           max: '4',
           placeholder: "Enter pin",
           attributes: {
             maxLength: 4,
-            inputmode: 'numeric'
           }
         },
       ],
@@ -86,7 +85,6 @@ export class AddEditCredentialPageModel implements OnInit {
         {
           text: "Ok",
           handler: (data) => {
-            // debugger;
             if(data.salt.length !== 4){
               this.toastController.create({
                 message: 'Enter 4 digit number',

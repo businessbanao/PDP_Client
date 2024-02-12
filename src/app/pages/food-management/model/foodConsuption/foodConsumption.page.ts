@@ -34,7 +34,8 @@ export class FoodConsumptionPageModel implements OnInit {
   public foodList:any;
   public timeSlot:string
   public date:string;
-  
+  public selected = false;
+  public foodOptions = ["Global", localStorage.getItem("adminId")];
   constructor(
     private _foodManagementService: FoodManagementService,
     public modalController: ModalController,
@@ -42,14 +43,20 @@ export class FoodConsumptionPageModel implements OnInit {
     private _formBuilder: FormBuilder,
     private _foodManagerService:FoodManagementService,
     private alertController: AlertController
-  ) {}
+  ) {
+    this.getFoodItems();
+  }
 
   async getFoodItems(){
-    this._foodManagementService.getFoodItems().subscribe((resp)=>{
+    this._foodManagementService.getFoodItems({owner:this.foodOptions[Number(this.selected)]}).subscribe((resp)=>{
       this.foodList = resp.object.response;
       // console.log(this.foodItems);
       // console.log(this.foodConsumptionList)
     })
+  }
+
+  toggleChanged(){
+    this.getFoodItems();
   }
 
   
@@ -70,6 +77,8 @@ export class FoodConsumptionPageModel implements OnInit {
 
   }
   async openAddEditModal(data,isEditMode=false){
+    if(data !== null && !this.selected) return;
+
     const modal = await this.modalController.create({
        component:FoodPageModel,
        componentProps:{

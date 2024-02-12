@@ -17,6 +17,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { TagInputModule } from 'ngx-chips';
 import { CourseManagementService } from '../../providers/course-management.service';
 import { ChapterDetailPageModel } from './model/ChapterDetail/chapterDetail.page';
+import { ChapterViewPageModel } from './model/ChapterView/chapterView.page';
 
 @NgModule({
   imports: [
@@ -31,9 +32,9 @@ import { ChapterDetailPageModel } from './model/ChapterDetail/chapterDetail.page
     CKEditorModule
     
   ],
-  declarations: [CourseManagerPage, ChapterPageModel,ChapterDetailPageModel],
+  declarations: [CourseManagerPage, ChapterPageModel,ChapterDetailPageModel,ChapterViewPageModel],
   providers:[CourseManagementService,Camera,File, WebView,
     FilePath],
-  entryComponents:[ChapterPageModel,ChapterPageModel,ChapterDetailPageModel]
+  entryComponents:[ChapterPageModel,ChapterPageModel,ChapterDetailPageModel,ChapterViewPageModel]
 })
 export class CourseManagementPageModule {}

@@ -52,7 +52,7 @@ export class VideoManagementPage implements OnInit {
   getFolders(parentId: any) {
     console.log("called folderList");
     this._videoManagementService.getFolders(parentId).subscribe((resp) => {
-      this.videoFolderList = resp.object.response;
+      this.videoFolderList = resp.object.response.filter(({owner})=>owner === localStorage.getItem('adminId'));
       console.log(resp.object.response);
     });
   }
@@ -85,14 +85,6 @@ export class VideoManagementPage implements OnInit {
       header: "",
       cssClass: "my-custom-class",
       buttons: [
-        {
-          text: `Edit Video`,
-          role: "destructive",
-          icon: "key-outline",
-          handler: () => {
-            this.openVideoModal(data);
-          },
-        },
         {
           text: "Delete Video",
           role: "destructive",

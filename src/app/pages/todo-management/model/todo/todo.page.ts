@@ -9,6 +9,7 @@ import {
 } from "@angular/forms";
 import { TaskManagementService } from "../../../../providers/task-management.service";
 import { ActivatedRoute } from "@angular/router";
+import { TimeManagementService } from "../../../../providers/time-management.service";
 
 @Component({
   selector: "app-todo",
@@ -26,7 +27,8 @@ export class TododPageModel implements OnInit {
     public toast: ToastController,
     private _formBuilder: FormBuilder,
     private _taskManagementService: TaskManagementService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private _timeManagementService: TimeManagementService,
   ) {}
 
   ngOnInit() {
@@ -53,6 +55,7 @@ export class TododPageModel implements OnInit {
     this._taskManagementService
       .updateTask(id, formData)
       .subscribe(async (resp) => {
+        console.log(resp.object.response);
         this.responseStr = resp.response;
         if (!resp.error) {
           let toast = await this.toast.create({
@@ -60,6 +63,7 @@ export class TododPageModel implements OnInit {
             color: "success",
             duration: 2000,
           });
+
           toast.present();
           this.closeModal(true);
         } else {
@@ -83,6 +87,7 @@ export class TododPageModel implements OnInit {
       duration_start_date: new FormControl(this.formatDate(new Date()), [
         Validators.required,
       ]),
+      duration_start_time: new FormControl(''),
       duration_end_date: new FormControl(this.formatDate(new Date()), [
         Validators.required,
       ]),
@@ -182,12 +187,16 @@ export class TododPageModel implements OnInit {
   }
 
   createTask(payload: FormGroup) {
-    let formData = JSON.parse(JSON.stringify(payload.value));
+    let { duration_start_time,...formData} = JSON.parse(JSON.stringify(payload.value));
     formData["userId"] = localStorage.getItem("adminId");
     formData["incompleted_task"] = "NO";
     this._taskManagementService.createTask(formData).subscribe(async (resp) => {
       this.responseStr = resp.response;
+      console.log('task_id',resp.object.response._id);
       if (!resp.error) {
+        if(duration_start_time !== '' && formData.duration_type == 'day'){
+           this.createTimeTask({date:formData.duration_start_date,duration_start_time,task_id:resp.object.response._id})
+        }
         let toast = await this.toast.create({
           message: "created Successfully",
           color: "success",
@@ -201,4 +210,55 @@ export class TododPageModel implements OnInit {
       this.taskForm.reset();
     });
   }
+
+
+
+  // initTaskForm() {
+  //   this.taskForm = this._formBuilder.group({
+  //     id: new FormControl(""),
+  //     task_id: new FormControl('', Validators.compose([Validators.required])),
+  //     status: new FormControl(''),
+  //     duration_start_time: new FormControl('', [Validators.required]),
+  //     duration_end_time: new FormControl('', [Validators.required]),
+  //     date: new FormControl(this.formatDate(new Date()), [Validators.required]),
+  //     userId: new FormControl(),
+  //   });
+  // }
+
+  createTimeTask(payload){
+      payload["userId"] = localStorage.getItem("adminId");
+      payload["incompleted_task"] = "NO";
+      this._timeManagementService.createTime(payload).subscribe(async (resp) => {
+        console.log(resp);
+      })
+
+  }
+  
+  // createTimeTask(payload) {
+  //   let formData = JSON.parse(JSON.stringify(payload.value));
+  //   formData["userId"] = localStorage.getItem("adminId");
+  //   formData["incompleted_task"] = "NO";
+  //   this._timeManagementService.createTime(formData).subscribe(async (resp) => {
+  //     this.responseStr = resp.response;
+  //     if (!resp.error) {
+  //       let toast = await this.toast.create({
+  //         message: "created Successfully",
+  //         color: 'success',
+  //         duration: 2000
+  //       })
+  //       toast.present();
+  //       this.closeModal(true);
+  //     } else {
+  //       this.closeModal(false);
+  //     }
+  //     this.taskForm.reset();
+  //   });
+  // }
+
+
+
+
 }
+
+
+

@@ -10,6 +10,7 @@ import { NoteManagementService } from "../../../../providers/note-management.ser
 import { ActivatedRoute } from "@angular/router";
 import { CourseManagementService } from "../../../../providers/course-management.service";
 import { ChapterDetailPageModel } from "../ChapterDetail/chapterDetail.page";
+import { ChapterViewPageModel } from "../ChapterView/chapterView.page";
 
 @Component({
   selector: "app-note-list",
@@ -39,6 +40,7 @@ export class ChapterPageModel implements OnInit {
   async getChapter(){
     this._courseManagerService.getChapter(this.courseId).subscribe((resp)=>{
       this.chapterList = resp.object.response;
+      console.log(this.chapterList)
     });
   }
 
@@ -49,7 +51,7 @@ export class ChapterPageModel implements OnInit {
 
   async openChapterDetails(chapter){
     const modal = await this.modalController.create({
-      component: ChapterDetailPageModel,
+      component: ChapterViewPageModel,
       componentProps: {
          chapter:chapter
       }
@@ -114,4 +116,7 @@ export class ChapterPageModel implements OnInit {
     alert.onDidDismiss().then(() => {
     });
   }
+
+
+  
 }

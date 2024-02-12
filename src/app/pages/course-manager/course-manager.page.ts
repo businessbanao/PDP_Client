@@ -37,6 +37,50 @@ export class CourseManagerPage implements OnInit {
     this.getCourse();
   }
 
+
+  async presentActionSheet(course) {
+
+    const actionSheet = await this.actionSheetController.create({
+      header: "Update Status",
+      cssClass: 'actionsheet',
+      buttons: [
+        {
+          text: "IN_PROGRESS",
+          handler: () => {
+            course.status = "IN_PROGRESS";
+            this.updateCourseStatus(course);
+          },
+        },
+        {
+          text: "COMPLETED",
+          handler: () => {
+            course.status = "COMPLETED";
+
+            this.updateCourseStatus(course);
+          },
+        },
+        {
+          text: "TODO",
+          handler: () => {
+            course.status = "TODO";
+
+            this.updateCourseStatus(course);
+          },
+        },
+        {
+          text: "Cancel",
+          icon: "close",
+          role: "cancel",
+          handler: () => {
+            console.log("Cancel clicked");
+            this.getCourse();
+          },
+        },
+      ],
+    });
+    await actionSheet.present();
+  }
+
   // get folders
   getCourse() {
     this._courseManagerService.getCourse().subscribe((resp) => {
@@ -106,11 +150,13 @@ export class CourseManagerPage implements OnInit {
 
 
   async updateCourseStatus(course){
+    console.log("updateCourseStatus",course);
     const status = course.status;
     const courseId = course._id;
     console.log(status,courseId);
     this._courseManagerService.updateCourseStatus(courseId,{status}).subscribe((data)=>{
       console.log(data);
+      this.getCourse();
     });
   }
 
