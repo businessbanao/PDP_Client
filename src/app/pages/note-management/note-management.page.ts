@@ -108,10 +108,11 @@ export class NoteManagementPage implements OnInit {
 
   async presentActionSheetFolder(data) {
     this.isEditMode = false;
-    const actionSheet = await this.actionSheetController.create({
-      header: "",
-      cssClass: "my-custom-class",
-      buttons: [
+    console.log(data._id);
+    await this._noteManagementService.checkFileInsideFolder(data._id).subscribe(async(response)=>{
+      const result =response.object.response;
+      
+      const buttons = [
         {
           text: `Edit Folder`,
           role: "destructive",
@@ -128,9 +129,33 @@ export class NoteManagementPage implements OnInit {
             console.log("Cancel clicked");
           },
         },
-      ],
+      ];
+      console.log(result);
+      if(!result.notePresent){
+        buttons.push({
+          text: "Delete Folder",
+          role: "destructive",
+          icon: "key-outline",
+          handler: () => {
+            this.presentAlertConfirm(data._id);
+          },
+        },)
+      }
+
+
+
+          const actionSheet = await this.actionSheetController.create({
+      header: "",
+      cssClass: "my-custom-class",
+      buttons: buttons,
     });
     await actionSheet.present();
+
+
+
+
+    });
+    
   }
 
   // notification msg

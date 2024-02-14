@@ -24,6 +24,20 @@ export class NoteManagementService {
         )
       );
   }
+  checkFileInsideFolder(parentId = null): Observable<any> {
+    return this._http
+      .get(environment.baseUrl + `/api/v1/checkFileInsideFolder/${parentId}`)
+      .pipe(
+        tap(
+          (response) => {
+            console.log("get folder management : successfull");
+          },
+          (error) => {
+            console.log("get folder management : failed");
+          }
+        )
+      );
+  }
 
   getSearchedNote(q,owner): Observable<any> {
     return this._http
