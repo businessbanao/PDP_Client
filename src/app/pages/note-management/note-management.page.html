@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab *ngIf="!isMove" slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
       <ion-icon name="chevron-up-circle"></ion-icon>
     </ion-fab-button>
@@ -28,7 +28,11 @@
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
-
+  <ion-fab *ngIf="isMove" slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button>
+        <ion-icon name="move" (click)="onMove()"></ion-icon>
+      </ion-fab-button>
+  </ion-fab>
   <ion-searchbar
     *ngIf="!isModel"
     animated="true"
@@ -41,7 +45,7 @@
       <ion-col *ngFor="let list of noteFolderList" size="6" sizeMd="4">
         <div
           style="position: relative"
-          *ngIf="list.type == 'FOLDER'"
+          *ngIf="list.type == 'FOLDER' && list._id !== hideFolder"
           class="note-card"
         >
           <ion-card color="light">
@@ -60,6 +64,7 @@
               ><span class="title">{{list.name}}</span></ion-card-content
             >
             <ion-icon
+             *ngIf="!isMove"
               (click)="presentActionSheetFolder(list)"
               name="ellipsis-vertical"
               class="setting-icon"
@@ -68,7 +73,7 @@
         </div>
         <div
           style="position: relative"
-          *ngIf="list.type == 'NOTE'"
+          *ngIf="list.type == 'NOTE' && !isMove"
           class="note-card"
         >
           <ion-card color="light">

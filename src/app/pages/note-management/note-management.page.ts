@@ -27,7 +27,9 @@ export class NoteManagementPage implements OnInit {
   folderName: string;
   folderId: string;
   isModel: boolean;
-   
+
+  isMove: boolean = false;
+  hideFolder = null; 
   searchInstance:any = null;
   
   constructor(
@@ -42,6 +44,11 @@ export class NoteManagementPage implements OnInit {
 
   ngOnInit() {
     this.getFolders(this.folderId);
+    console.log(this.isMove,this.hideFolder);
+  }
+
+  async onMove(){
+    await this.modalController.dismiss({moveLocation:this.folderId});
   }
 
   // get folders
@@ -94,6 +101,33 @@ export class NoteManagementPage implements OnInit {
           },
         },
         {
+          text: 'move note',
+          role: 'destructive',
+          icon: 'move',
+          handler: async () => {
+            console.log(data);
+            const modal = await this.modalController.create({
+              component: NoteManagementPage,
+              componentProps: {
+                folderId: null,
+                 isMove: true,
+                 isModel: true,
+                 hideFolder:data._id
+              }
+            });
+            modal.onDidDismiss().then(async (dataReturned) => {
+              if(dataReturned.data){
+                console.log(dataReturned.data);
+                this._noteManagementService.updateNote(data._id,{parentId : dataReturned.data.moveLocation}).subscribe(()=>{
+
+                  this.getFolders(this.folderId);  
+                })
+              }
+            });
+            return await modal.present();
+          },
+        },
+        {
           text: "Cancel",
           icon: "close",
           role: "cancel",
@@ -119,6 +153,35 @@ export class NoteManagementPage implements OnInit {
           icon: "key-outline",
           handler: () => {
             this.openEditFolderModal(data);
+          },
+        },
+        {
+          text: 'move folder',
+          role: 'destructive',
+          icon: 'move',
+          handler: async () => {
+            console.log(data);
+            
+
+            const modal = await this.modalController.create({
+              component: NoteManagementPage,
+              componentProps: {
+                folderId: null,
+                 isMove: true,
+                 isModel: true,
+                 hideFolder:data._id
+              }
+            });
+            modal.onDidDismiss().then(async (dataReturned) => {
+              if(dataReturned.data){
+                console.log(dataReturned.data);
+                this._noteManagementService.updateNote(data._id,{parentId : dataReturned.data.moveLocation}).subscribe(()=>{
+
+                  this.getFolders(this.folderId);  
+                })
+              }
+            });
+            return await modal.present();
           },
         },
         {
@@ -150,10 +213,6 @@ export class NoteManagementPage implements OnInit {
       buttons: buttons,
     });
     await actionSheet.present();
-
-
-
-
     });
     
   }
@@ -218,12 +277,21 @@ export class NoteManagementPage implements OnInit {
       componentProps: {
         folderId: folder_id,
         folderName: folder_name,
-        isModel: true
+        isModel: true,
+        isMove:this.isMove,
+        hideFolder:this.hideFolder
 
       }
     });
-    modal.onDidDismiss().then((dataReturned) => {
-      this.getFolders(this.folderId);
+    modal.onDidDismiss().then(async (dataReturned) => {
+      console.log(dataReturned);
+      if(dataReturned.data){
+        setTimeout(()=>{
+          this.closeModalData(dataReturned.data);
+        },200) 
+      }else{
+        this.getFolders(this.folderId);
+      }
     });
 
     // });
@@ -281,6 +349,9 @@ export class NoteManagementPage implements OnInit {
 
   async closeModal() {
     await this.modalController.dismiss();
+  }
+  async closeModalData(data) {
+    await this.modalController.dismiss(data);
   }
 
   searchTextChange(value){
