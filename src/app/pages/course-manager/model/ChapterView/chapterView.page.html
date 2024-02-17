@@ -19,19 +19,33 @@
       <ion-icon name="pencil-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <div >
-   <div [innerHtml] = "chapter.content" ></div>
-    <h1 *ngIf="chapter.link.length>0">Links</h1>
-     <ul>
-      <li *ngFor="let link of chapter.link">
-        <a [href]="link">{{ link }}</a>
-      </li>
-    </ul>
-   <h1 *ngIf="chapter.videoId.length>0">Video Links</h1>
-    <ul>
-      <li *ngFor="let link of chapter.videoId">
-        <a [href]="link">{{ link }}</a>
-      </li>
-    </ul> 
-  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div [innerHtml]="chapter.content" style="padding: 0 5px"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h2 *ngIf="chapter.link.length>0" class="section-heading">Links</h2>
+        <ul class="links">
+          <li *ngFor="let link of chapter.link">
+            <a [href]="link">{{ link }}</a>
+          </li>
+        </ul>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h2 *ngIf="chapter.videoId.length>0" class="section-heading">
+          Video Links
+        </h2>
+        <ul class="links">
+          <li *ngFor="let link of chapter.videoId">
+            <a [href]="link">{{ link }}</a>
+          </li>
+        </ul>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

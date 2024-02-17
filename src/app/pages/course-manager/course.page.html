@@ -32,32 +32,33 @@
         ></ion-checkbox>
       </ion-col>
     </ion-row> -->
-    
+
     <ion-item-sliding *ngFor="let course of courseList">
-      <ion-item
-        (click)="previewCourse(course)"
-      >
+      <ion-item (click)="previewCourse(course)">
         <ion-label>
           <div style="text-transform: capitalize" class="todo-row">
-            <div class="todo-item">
-              <span>        {{ course.name }}              </span>
+            <div class="course-item">
+              <span> {{ course.name }} </span>
+
+              <span
+                class="course-status"
+                *ngIf="course.status == 'COMPLETED'"
+                style="color: green"
+                >{{course.status}}</span
+              >
+              <span
+                class="course-status"
+                *ngIf="course.status == 'IN_PROGRESS'"
+                style="color: rgb(201, 173, 18)"
+                >{{course.status}}</span
+              >
+              <span
+                class="course-status"
+                *ngIf="course.status == 'TODO'"
+                style="color: rgb(235, 223, 113)"
+                >{{course.status}}</span
+              >
             </div>
-           
-            <span
-              *ngIf="course.status == 'COMPLETED'"
-              style="color: green; float: right"
-              >{{course.status}}</span
-            >
-            <span
-              *ngIf="course.status == 'IN_PROGRESS'"
-              style="color: rgb(201, 173, 18); float: right"
-              >{{course.status}}</span
-            >
-            <span
-              *ngIf="course.status == 'TODO'"
-              style="color: rgb(235, 223, 113); float: right"
-              >{{course.status}}</span
-            >
           </div>
           <!-- <div>Category : {{course.category}}</div> -->
         </ion-label>
@@ -74,17 +75,11 @@
         <!-- <ion-item-option color="danger" (click)="deleteTask(course._id)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option> -->
-        <ion-item-option
-          color="secondary"
-          (click)="presentActionSheet(course)"
-        >
+        <ion-item-option color="secondary" (click)="presentActionSheet(course)">
           <ion-icon slot="icon-only" name="pencil"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
-
-
 
     <div
       *ngIf="courseList.length===0"

@@ -32,3 +32,12 @@
 .note-title {
   text-transform: capitalize;
 }
+.note-img-container {
+  max-height: 250px;
+  overflow: hidden;
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
+}

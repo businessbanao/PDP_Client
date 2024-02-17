@@ -25,10 +25,31 @@ div.desc {
   float: right;
 }
 .item-list {
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+  // border-bottom: 1px solid #ddd;
   input,
-  textarea {
+  textarea,
+  ion-input {
     padding-left: 0 !important;
   }
+}
+.bottom-line {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+.link-input {
+  .link-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    ion-input input {
+      padding: 0 0 0 5px !important;
+    }
+  }
+  .link-container ion-icon {
+    font-size: 20px;
+  }
+}
+.new-link {
+  text-transform: uppercase;
+  color: #176fa3;
 }

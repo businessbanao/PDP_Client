@@ -49,3 +49,8 @@
     }
   }
 }
+.custom-tbl {
+  tr td:last-child {
+    text-align: right;
+  }
+}
