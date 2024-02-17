@@ -180,15 +180,6 @@
                 aria-placeholder="End Date"
               ></ion-input>
             </div>
-            <ion-row>
-              <input
-              placeholder="Start Time"
-              formControlName="duration_start_time"
-              [ngxTimepicker]="startTime"
-              class="custom-input"
-            />
-            <ngx-material-timepicker #startTime></ngx-material-timepicker>
-            </ion-row>
           </div>
           <span
             class="help-block"
@@ -201,6 +192,19 @@
               End Date is required*
             </span>
           </span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="form-field">
+            <input
+              placeholder="Start Time"
+              formControlName="duration_start_time"
+              [ngxTimepicker]="startTime"
+              class="custom-input"
+            />
+            <ngx-material-timepicker #startTime></ngx-material-timepicker>
+          </div>
         </ion-col>
       </ion-row>
       <!-- <br />

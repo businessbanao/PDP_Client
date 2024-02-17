@@ -159,3 +159,27 @@ h2.heading {
 ion-title {
   text-transform: capitalize;
 }
+.section-heading {
+  font-size: 20px;
+  padding: 0 8px;
+  color: #363535;
+  position: relative;
+  &:after {
+    content: "";
+    width: 10%;
+    height: 1px;
+    // background-color: #000;
+    position: absolute;
+    bottom: -3px;
+    left: 8px;
+  }
+}
+.custom-tbl {
+  tr {
+    border-bottom: 1px solid #acabab;
+    font-size: 14px;
+  }
+  td {
+    padding: 8px;
+  }
+}

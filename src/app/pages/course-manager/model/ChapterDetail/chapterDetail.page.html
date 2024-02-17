@@ -6,17 +6,16 @@
         (click)="closeModal()"
       ></ion-back-button>
     </ion-buttons>
-    <ion-title id="top">
-      &nbsp; {{ chapter.name }}
-    </ion-title>
+    <ion-title id="top">{{ chapter.name }} </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row class="item-list">
-      <ckeditor
-      [config]="{
+      <ion-col>
+        <ckeditor
+          [config]="{
         toolbar: [
           { name: 'document', items: ['Source'] },
           { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
@@ -26,44 +25,61 @@
           { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] }          
         ]
       }"
-      [(ngModel)]="chapter.content"
-      debounce="500">
-    </ckeditor>
-    <!-- [config]="{uiColor: '#dcdcdc'}" -->
-
+          [(ngModel)]="chapter.content"
+          debounce="500"
+        >
+        </ckeditor>
+        <!-- [config]="{uiColor: '#dcdcdc'}" -->
+      </ion-col>
     </ion-row>
 
+    <h2 class="section-heading">Links</h2>
     <ion-row
       *ngFor="let link of chapter.link; let i = index trackBy: trackByIndex"
       class="item-list"
     >
-      <ion-col>
-        <ion-label position="stacked">Link {{ i + 1 }}</ion-label>
-        <ion-input
-          [(ngModel)]="chapter.link[i]"
-          placeholder="Enter link"
-        ></ion-input>
-        <ion-button (click)="removeLink(i)">Remove</ion-button>
+      <ion-col class="link-input">
+        <div class="link-container">
+          <ion-input
+            [(ngModel)]="chapter.link[i]"
+            placeholder="Enter link"
+          ></ion-input>
+          <ion-icon
+            (click)="removeLink(i)"
+            name="close-circle-outline"
+          ></ion-icon>
+        </div>
       </ion-col>
     </ion-row>
-
+    <ion-row class="bottom-line">
+      <ion-col>
+        <span class="new-link" (click)="addLink()"
+          ><ion-icon name="add-outline"></ion-icon> Add New Link</span
+        >
+      </ion-col>
+    </ion-row>
+    <h2 class="section-heading">Video Links</h2>
     <ion-row
       *ngFor="let videoLink of chapter.videoId; let i = index trackBy: trackByIndex"
       class="item-list"
-      ><ion-col>
-        <ion-label position="stacked">Video Link {{ i + 1 }}</ion-label>
-        <ion-input
-          [(ngModel)]="chapter.videoId[i]"
-          placeholder="Enter video link"
-        ></ion-input>
-        <ion-button (click)="removeVideoLink(i)">Remove</ion-button>
+      ><ion-col class="link-input">
+        <div class="link-container">
+          <ion-input
+            [(ngModel)]="chapter.videoId[i]"
+            placeholder="Enter video link"
+          ></ion-input>
+          <ion-icon
+            (click)="removeVideoLink(i)"
+            name="close-circle-outline"
+          ></ion-icon>
+        </div>
       </ion-col>
     </ion-row>
-
-    <ion-row class="item-list">
+    <ion-row class="bottom-line">
       <ion-col>
-        <ion-button (click)="addLink()">Add New Link</ion-button>
-        <ion-button (click)="addVideoLink()">Add New Video Link</ion-button>
+        <span class="new-link" (click)="addVideoLink()"
+          ><ion-icon name="add-outline"></ion-icon> New Video Link</span
+        >
       </ion-col>
     </ion-row>
   </ion-grid>

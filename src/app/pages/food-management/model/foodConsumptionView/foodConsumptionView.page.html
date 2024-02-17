@@ -8,21 +8,20 @@
     </ion-buttons>
 
     <ion-title> Nutrients </ion-title>
-
-  
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <table border="2" style="width: 100%;">
-    <tr *ngFor="let nutrient of getNutrients()">
-      <td>{{ titleCase((nutrient.key).split('_').join(' ')) }}</td>
-      <td>{{ nutrient.value }}</td>
-      <td>{{ nutrientsUnit[nutrient.key] }}</td>
-    </tr>
-
-  </table>
-
- 
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <table style="width: 100%" class="custom-tbl">
+          <tr *ngFor="let nutrient of getNutrients()">
+            <td>{{ titleCase((nutrient.key).split('_').join(' ')) }}</td>
+            <td>{{ nutrient.value }}{{ nutrientsUnit[nutrient.key] }}</td>
+          </tr>
+        </table>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

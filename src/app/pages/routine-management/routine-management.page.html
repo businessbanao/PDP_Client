@@ -1,54 +1,54 @@
-<form #form="ngForm" (ngSubmit)="handelSubmit(form)" style="height: 92%;" >
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button style="color: white"></ion-menu-button>
-    </ion-buttons>
-    <ion-title> Routine Tracker </ion-title>
-    <button type="submit" class="top-right-btn">Save</button>
-  </ion-toolbar>
-</ion-header>
+<form #form="ngForm" (ngSubmit)="handelSubmit(form)" style="height: 92%">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button style="color: white"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> Routine Tracker </ion-title>
+      <button type="submit" class="top-right-btn">Save</button>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content style="height: 100%;">
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addRoutineModal()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <ion-content style="height: 100%">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="addRoutineModal()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 
-  <ng-container>
-    <ion-grid>
-      <ion-row class="border-bottom">
-        <ion-col>
-          <div class="nav-btns">
-            <ion-icon
-              name="chevron-back-outline"
-              (click)="decreaseDate()"
-            ></ion-icon>
-          </div>
-        </ion-col>
-        <ion-col>
-          <input
-            type="date"
-            style="border-radius: 5px; padding: 10px"
-            name="date"
-            (change)="getDailyRoutineListByDate($event.target.value)"
-            [(ngModel)]="selectedDate"
-          />
-        </ion-col>
+    <ng-container>
+      <ion-grid>
+        <ion-row class="border-bottom">
+          <ion-col>
+            <div class="nav-btns">
+              <ion-icon
+                name="chevron-back-outline"
+                (click)="decreaseDate()"
+              ></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col>
+            <input
+              type="date"
+              style="border-radius: 5px; padding: 10px"
+              name="date"
+              (change)="getDailyRoutineListByDate($event.target.value)"
+              [(ngModel)]="selectedDate"
+            />
+          </ion-col>
 
-        <ion-col>
-          <div class="nav-btns right-btn">
-            <ion-icon
-              name="chevron-forward-outline"
-              (click)="increaseDate()"
-            ></ion-icon>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-grid>
-      <!-- <form #form="ngForm" (ngSubmit)="handelSubmit(form)"> -->
+          <ion-col>
+            <div class="nav-btns right-btn">
+              <ion-icon
+                name="chevron-forward-outline"
+                (click)="increaseDate()"
+              ></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <!-- <form #form="ngForm" (ngSubmit)="handelSubmit(form)"> -->
         <div class="routine-block">
           <ion-row class="routine-heading">
             <ion-col>
@@ -60,7 +60,8 @@
               <div class="routine-list" *ngFor="let list of routineList">
                 <div class="routine-item" *ngIf="list.period == 'morning'">
                   <div class="routine-name">
-                    {{list.name}} ({{list.period}})
+                    {{list.name}}
+                    <!--({{list.period}})-->
                   </div>
                   <div class="routine-checkbox">
                     <input
@@ -88,7 +89,8 @@
               <div class="routine-list" *ngFor="let list of routineList">
                 <div class="routine-item" *ngIf="list.period == 'noon'">
                   <div class="routine-name">
-                    {{list.name}} ({{list.period}})
+                    {{list.name}}
+                    <!--({{list.period}}) -->
                   </div>
                   <div class="routine-checkbox">
                     <input
@@ -116,7 +118,8 @@
               <div class="routine-list" *ngFor="let list of routineList">
                 <div class="routine-item" *ngIf="list.period == 'evening'">
                   <div class="routine-name">
-                    {{list.name}} ({{list.period}})
+                    {{list.name}}
+                    <!--({{list.period}})-->
                   </div>
                   <div class="routine-checkbox">
                     <input
@@ -147,7 +150,8 @@
                   *ngIf="list.period == 'night';else elseNight"
                 >
                   <div class="routine-name">
-                    {{list.name}} ({{list.period}})
+                    {{list.name}}
+                    <!--({{list.period}})-->
                   </div>
                   <div class="routine-checkbox">
                     <input
@@ -164,12 +168,11 @@
             </ion-col>
           </ion-row>
         </div>
-        <br>
-        <br>
-        <br>
-      <!-- </form> -->
-    </ion-grid>
-  </ng-container>
-</ion-content>
+        <br />
+        <br />
+        <br />
+        <!-- </form> -->
+      </ion-grid>
+    </ng-container>
+  </ion-content>
 </form>
-

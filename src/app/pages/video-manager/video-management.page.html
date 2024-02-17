@@ -58,8 +58,7 @@
                 />
               </div>
             </ion-card-header>
-            <ion-card-content
-            (click)="openVideoListModal(list._id,list.name)"
+            <ion-card-content (click)="openVideoListModal(list._id,list.name)"
               ><span class="title">{{list.name}}</span></ion-card-content
             >
             <ion-icon
@@ -75,7 +74,7 @@
           class="note-card"
         >
           <ion-card color="light">
-            <ion-card-header>
+            <ion-card-header class="video-card">
               <div class="card-img">
                 <!-- (click)="previewVideo(list)" -->
                 <!-- <img

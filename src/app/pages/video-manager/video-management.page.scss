@@ -120,7 +120,7 @@
   .title {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    // white-space: nowrap;
     display: block;
   }
 }
@@ -148,7 +148,11 @@
     }
   }
 }
+ion-card-header.video-card {
+  padding-bottom: 2px;
+}
 .videoPlayer {
   width: 100%;
   height: auto;
+  max-height: 64px;
 }
