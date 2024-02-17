@@ -20,6 +20,7 @@
             [ngClass]="{'has-error' : taskForm.get('category').errors && (taskForm.get('category').touched || taskForm.get('category').dirty) }"
           >
             <ion-select
+              *ngIf = "!isFreeBoard"
               placeholder="Select Category"
               formControlName="category"
             >
@@ -82,6 +83,7 @@
       <ion-row>
         <ion-col>
           <div
+          *ngIf = "!isFreeBoard"
             class="form-field"
             [ngClass]="{'has-error' : taskForm.get('duration_type').errors && (taskForm.get('duration_type').touched || taskForm.get('duration_type').dirty) }"
           >
@@ -113,7 +115,9 @@
             class="form-field"
             [ngClass]="{'has-error' : taskForm.get('priority').errors && (taskForm.get('priority').touched || taskForm.get('priority').dirty) }"
           >
-            <div class="label-with-field">
+            <div class="label-with-field"  
+            *ngIf = "!isFreeBoard" >
+              
               <ion-label class="field-label">Priority: </ion-label>
               <ion-select placeholder="Select :" formControlName="priority">
                 <ion-select-option value="HIGH">HIGH</ion-select-option>
@@ -142,7 +146,7 @@
             class="form-field"
             [ngClass]="{'has-error' : taskForm.get('duration_start_date').errors && (taskForm.get('duration_start_date').touched || taskForm.get('duration_start_date').dirty) }"
           >
-            <div class="label-with-field">
+            <div class="label-with-field" *ngIf = "!isFreeBoard"   >
               <ion-label class="field-label">Start Date: </ion-label>
               <ion-input
                 type="date"
@@ -172,7 +176,7 @@
             class="form-field"
             [ngClass]="{'has-error' : taskForm.get('duration_end_date').errors && (taskForm.get('duration_end_date').touched || taskForm.get('duration_end_date').dirty) }"
           >
-            <div class="label-with-field">
+            <div class="label-with-field"    *ngIf = "!isFreeBoard"    >
               <ion-label class="field-label">End Date: </ion-label>
               <ion-input
                 type="date"
@@ -196,7 +200,9 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <div class="form-field">
+          <div class="form-field"
+          *ngIf = "!isFreeBoard" 
+          >
             <input
               placeholder="Start Time"
               formControlName="duration_start_time"

@@ -14,16 +14,19 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  
   
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
       <ion-icon name="add" (click)="openAddEditModal(null)"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
+  
   <ion-grid>
-    <ion-row *ngFor="let foodItem of foodList" class="food-list-item">
+    <ion-row>
+      <ion-input type="text" [(ngModel)]="searchText" (ionChange)="onChangeUpdateSearchedFood()" ></ion-input>
+    </ion-row>
+    <ion-row *ngFor="let foodItem of searchedFood" class="food-list-item">
       <ion-col>
         <div class="food-name" (click)="openAddEditModal(foodItem)">{{ foodItem.name }}</div>
         <p class="food-cal">{{foodItem.calory}} calories</p>

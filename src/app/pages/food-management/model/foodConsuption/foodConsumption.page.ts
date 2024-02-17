@@ -36,6 +36,8 @@ export class FoodConsumptionPageModel implements OnInit {
   public date:string;
   public selected = false;
   public foodOptions = ["Global", localStorage.getItem("adminId")];
+  public searchText:string = '';
+  public searchedFood = []
   constructor(
     private _foodManagementService: FoodManagementService,
     public modalController: ModalController,
@@ -45,20 +47,32 @@ export class FoodConsumptionPageModel implements OnInit {
     private alertController: AlertController
   ) {
     this.getFoodItems();
+    this.searchedFood = this.getSearchedFoodItems();
+  }
+
+  getSearchedFoodItems(){
+    if(this.searchText.trim() === '' ) return this.foodList;
+    return this.foodList.filter((item)=> { return item.name.includes(this.searchText)} );
+    
   }
 
   async getFoodItems(){
     this._foodManagementService.getFoodItems({owner:this.foodOptions[Number(this.selected)]}).subscribe((resp)=>{
       this.foodList = resp.object.response;
-      // console.log(this.foodItems);
-      // console.log(this.foodConsumptionList)
+      console.log(this.foodList);
+      this.searchedFood = this.getSearchedFoodItems();
     })
   }
 
+  
   toggleChanged(){
     this.getFoodItems();
   }
-
+  
+  onChangeUpdateSearchedFood(){
+    console.log("called");
+    this.searchedFood = this.getSearchedFoodItems()
+  }
   
 
   ngOnInit() {

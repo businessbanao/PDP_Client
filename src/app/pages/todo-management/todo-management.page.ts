@@ -39,7 +39,7 @@ export class TodoManagementPage implements OnInit {
 
   public changeDate: any = new Date();
   public formatCurrentDate;
-
+  public isFreeBoard : boolean = false;
 
   constructor(
     private _taskManagementService: TaskManagementService,
@@ -49,7 +49,22 @@ export class TodoManagementPage implements OnInit {
     public actionSheetController: ActionSheetController,
     public modalController: ModalController
   ) {
+    if(this.isFreeBoard){
+      this.dateFilter = '2000-01-01';
+    }else{
     this.dateFilter = this.datePipe.transform(new Date(), "yyyy-MM-dd");
+    }
+
+  }
+
+  toggleChanged(){
+    // this.isFreeBoard = !this.isFreeBoard;
+    if(this.isFreeBoard){
+      this.dateFilter = '2000-01-01';
+    }else{
+       this.dateFilter = this.datePipe.transform(new Date(), "yyyy-MM-dd");
+    }
+    this.ngOnInit();
 
   }
 
@@ -82,6 +97,7 @@ export class TodoManagementPage implements OnInit {
 
     this._taskManagementService.getTask(payload).subscribe(resp => {
       this.detailsList = resp.object.response;
+      console.log(this.detailsList);
     });
   }
 
@@ -124,7 +140,10 @@ export class TodoManagementPage implements OnInit {
 
   async openTaskModal() {
     const modal = await this.modalController.create({
-      component: TododPageModel
+      component: TododPageModel,
+      componentProps:{
+        isFreeBoard: this.isFreeBoard
+      }
     });
     modal.onDidDismiss().then(dataReturned => {
       if (dataReturned) {
@@ -144,7 +163,8 @@ export class TodoManagementPage implements OnInit {
       component: TododPageModel,
       componentProps: {
         editMode: this.isEditMode,
-        data: data
+        data: data,
+        isFreeBoard : this.isFreeBoard
       }
     });
     modal.onDidDismiss().then(dataReturned => {

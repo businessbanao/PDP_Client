@@ -21,7 +21,7 @@ export class TododPageModel implements OnInit {
   public isEditMode: boolean = false;
   public data: any;
   public responseStr: string;
-
+  public isFreeBoard:boolean = false;
   constructor(
     public modalController: ModalController,
     public toast: ToastController,
@@ -84,11 +84,11 @@ export class TododPageModel implements OnInit {
       category: new FormControl("IMP_WORK"),
       priority: new FormControl("MED", Validators.compose([Validators.required])),
       duration_type: new FormControl("day"),
-      duration_start_date: new FormControl(this.formatDate(new Date()), [
+      duration_start_date: new FormControl(this.isFreeBoard?'2000-01-01':this.formatDate(new Date()), [
         Validators.required,
       ]),
       duration_start_time: new FormControl(''),
-      duration_end_date: new FormControl(this.formatDate(new Date()), [
+      duration_end_date: new FormControl(this.isFreeBoard?'2000-01-01':this.formatDate(new Date()), [
         Validators.required,
       ]),
       recurring: new FormControl(),

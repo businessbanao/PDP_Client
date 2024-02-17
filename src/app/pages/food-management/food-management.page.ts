@@ -199,7 +199,7 @@ async openFoodConsumptionAddEdit(data,timeSlot){
     componentProps:{
         data:data,
         timeSlot:timeSlot,
-        foodList:this.foodItems,
+        foodList:[],
         date:this.selectedDate
     }
   });

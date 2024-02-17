@@ -5,6 +5,7 @@
     </ion-buttons>
     <ion-title> Todo Tracker </ion-title>
   </ion-toolbar>
+  <ion-toggle [(ngModel)]="isFreeBoard" (ionChange)="toggleChanged()"></ion-toggle>
 </ion-header>
 
 <ion-content>
@@ -14,7 +15,7 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-grid>
+  <ion-grid *ngIf="!isFreeBoard">
     <ion-row class="border-bottom">
       <ion-col>
         <div class="nav-btns">
@@ -26,7 +27,7 @@
         </div>
       </ion-col>
       <ion-col>
-        <div class="filter-option">
+        <div class="filter-option" >
           <ion-select
             (ionChange)="handleChangeDate(changeDate)"
             placeholder="Select :"
@@ -80,6 +81,7 @@
   <ng-container>
     <ion-item-sliding *ngFor="let task of detailsList">
       <ion-item
+        *ngIf="isFreeBoard? task.status !== 'DONE'  : true"
         (click)="showInfo(task.duration_start_date,task.duration_end_date)"
       >
         <ion-label>
