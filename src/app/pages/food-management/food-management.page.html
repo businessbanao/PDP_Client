@@ -112,7 +112,15 @@
               >
               <div class="food-item">
                 <img
+                  *ngIf="foodItem.foodDetails.imageUrl"
                   src="{{foodItem.foodDetails.imageUrl}}"
+                  width="30"
+                  height="30"
+                  alt=""
+                />
+                <img
+                *ngIf="!foodItem.foodDetails.imageUrl"
+                  src="/assets/img/foodDefault.png"
                   width="30"
                   height="30"
                   alt=""
