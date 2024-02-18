@@ -37,6 +37,13 @@ export class ChapterPageModel implements OnInit {
     this.getChapter();
   }
 
+  handleRefresh(event) {
+    setTimeout(() => {
+     this.ngOnInit();
+      event.target.complete();
+    }, 2000);
+  }
+
   async getChapter(){
     this._courseManagerService.getChapter(this.courseId).subscribe((resp)=>{
       this.chapterList = resp.object.response;

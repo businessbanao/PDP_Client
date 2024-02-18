@@ -132,6 +132,16 @@ export class FoodConsumptionPageModel implements OnInit {
         }, {
           text: 'Ok',
           handler: (data) => {
+            if(data.serving <= 0){ 
+              this.toast.create({
+                message:"minimum serving should be 1",
+                color:'success',
+                duration:2000
+              }).then((t)=>{
+                t.present();
+              })
+              return false;
+             }
             console.log('Confirm Ok', data);
             // this.createFeature(data,id)
             this.foodConsumptionForm.get('serving').setValue(data.serving);

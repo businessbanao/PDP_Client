@@ -37,6 +37,13 @@ export class CourseManagerPage implements OnInit {
     this.getCourse();
   }
 
+  handleRefresh(event) {
+    setTimeout(() => {
+     this.ngOnInit();
+      event.target.complete();
+    }, 2000);
+  }
+
 
   async presentActionSheet(course) {
 

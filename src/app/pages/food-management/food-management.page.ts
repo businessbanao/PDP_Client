@@ -46,6 +46,13 @@ export class FoodManagementPage implements OnInit {
     this.getFoodConsumptionList();
   }
 
+  handleRefresh(event) {
+    setTimeout(() => {
+     this.ngOnInit();
+      event.target.complete();
+    }, 2000);
+  }
+
   mapFoodConsumptionList() {
     // Map food consumption list to include details from food items
     this.foodConsumptionList = this.foodConsumptionList.map((consumptionItem) => {

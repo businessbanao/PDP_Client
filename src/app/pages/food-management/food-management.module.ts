@@ -19,6 +19,7 @@ import { TagInputModule } from "ngx-chips";
 import { FoodManagementService } from "../../providers/food-management.service";
 import { FoodConsumptionPageModel } from "./model/foodConsuption/foodConsumption.page";
 import { FoodConsumptionViewPageModel } from "./model/foodConsumptionView/foodConsumptionView.page";
+import { FoodTab } from "./foodtab/FoodTab";
 
 @NgModule({
   imports: [
@@ -32,7 +33,7 @@ import { FoodConsumptionViewPageModel } from "./model/foodConsumptionView/foodCo
     TagInputModule,
     // CKEditorModule
   ],
-  declarations: [FoodManagementPage,FoodPageModel,FoodConsumptionPageModel,FoodConsumptionViewPageModel],
+  declarations: [FoodManagementPage,FoodPageModel,FoodConsumptionPageModel,FoodConsumptionViewPageModel,FoodTab],
   providers: [FoodManagementService, Camera, File, WebView, FilePath],
   entryComponents: [FoodPageModel,FoodConsumptionPageModel,FoodConsumptionViewPageModel],
 })

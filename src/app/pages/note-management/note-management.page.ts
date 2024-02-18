@@ -42,6 +42,13 @@ export class NoteManagementPage implements OnInit {
     public modalController: ModalController) {
   }
 
+  handleRefresh(event) {
+    setTimeout(() => {
+     this.ngOnInit();
+      event.target.complete();
+    }, 2000);
+  }
+
   ngOnInit() {
     this.getFolders(this.folderId);
     console.log(this.isMove,this.hideFolder);
@@ -148,7 +155,7 @@ export class NoteManagementPage implements OnInit {
       
       const buttons = [
         {
-          text: `Edit Folder`,
+          text: `Rename Folder`,
           role: "destructive",
           icon: "key-outline",
           handler: () => {

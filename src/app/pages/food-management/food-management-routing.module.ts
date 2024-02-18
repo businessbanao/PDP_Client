@@ -2,12 +2,22 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { FoodManagementPage } from "./food-management.page";
+import { FoodTab } from "./foodtab/FoodTab";
 
 const routes: Routes = [
   {
     path: "",
-    component: FoodManagementPage,
+    component: FoodManagementPage
   },
+  {
+    path: "nutrition",
+    component: FoodTab
+  },
+  // {
+  //   path: "",
+  //   component: FoodTab
+  // },
+
 ];
 
 @NgModule({

@@ -80,7 +80,8 @@ export class FoodConsumptionViewPageModel implements OnInit {
         key['calory'] = Math.round(consumption.foodDetails.calory * serving);
 
        }
-
+       
+       if(consumption.foodDetails.nutrition)
        for(let [_key,_value] of Object.entries(consumption.foodDetails.nutrition)){
           if(key[_key]){
             key[_key] += Math.round(_value as number) * serving;

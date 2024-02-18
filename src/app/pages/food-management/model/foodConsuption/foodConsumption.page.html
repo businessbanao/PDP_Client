@@ -24,7 +24,7 @@
   
   <ion-grid>
     <ion-row>
-      <ion-input type="text" [(ngModel)]="searchText" (ionChange)="onChangeUpdateSearchedFood()" ></ion-input>
+      <ion-input type="text" placeHolder="search food" [(ngModel)]="searchText" (ionChange)="onChangeUpdateSearchedFood()" ></ion-input>
     </ion-row>
     <ion-row *ngFor="let foodItem of searchedFood" class="food-list-item">
       <ion-col>

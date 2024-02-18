@@ -67,7 +67,13 @@ export class TodoManagementPage implements OnInit {
     this.ngOnInit();
 
   }
-
+  handleRefresh(event) {
+    setTimeout(() => {
+     this.ngOnInit();
+      event.target.complete();
+    }, 2000);
+  }
+  
   ngOnInit() {
     var now = new Date();
     let nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);

@@ -28,6 +28,13 @@ export class CredentialManagementPage implements OnInit {
     public modalController: ModalController
   ) {}
 
+  handleRefresh(event) {
+    setTimeout(() => {
+     this.ngOnInit();
+      event.target.complete();
+    }, 2000);
+  }
+
   ngOnInit() {
     this.getCredentialItems();
   }
@@ -219,6 +226,15 @@ export class CredentialManagementPage implements OnInit {
             this.presentAlertConfirm(data._id);
             this.getCredentialItems();
           },
+        },
+        {
+          text:"copy",
+          role:'selected',
+          icon:'copy',
+          handler: () => {
+            navigator.clipboard.writeText(data.source);
+          }
+
         },
         {
           text: "Cancel",

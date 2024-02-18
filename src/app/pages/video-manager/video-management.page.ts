@@ -43,6 +43,12 @@ export class VideoManagementPage implements OnInit {
     public toastController: ToastController,
     public modalController: ModalController
   ) {}
+  handleRefresh(event) {
+    setTimeout(() => {
+     this.ngOnInit();
+      event.target.complete();
+    }, 2000);
+  }
 
   ngOnInit() {
     this.getFolders(this.folderId);
