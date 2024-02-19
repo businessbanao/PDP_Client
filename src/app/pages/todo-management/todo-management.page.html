@@ -82,7 +82,7 @@
   </ion-grid>
 
   <ng-container>
-    <ion-item-sliding *ngFor="let task of detailsList">
+    <ion-item-sliding *ngFor="let task of detailsTimeList">
       <ion-item
         *ngIf="isFreeBoard? task.status !== 'DONE'  : true"
         (click)="showInfo(task.duration_start_date,task.duration_end_date)"
@@ -90,8 +90,11 @@
         <ion-label>
           <div style="text-transform: capitalize" class="todo-row">
             <div class="todo-item">
-              <span>{{task.task_name}}</span>
+              <span>{{task.task_id.task_name}}</span>
               <span class="category">{{task.category}} </span>
+            </div>
+            <div>
+              <span>{{task.duration_start_time}} -- {{transform(task.duration_start_time)}}</span>
             </div>
             <span
               *ngIf="task.status == 'CREATED'"

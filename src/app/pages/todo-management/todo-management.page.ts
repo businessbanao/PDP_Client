@@ -5,6 +5,7 @@ import { ActionSheetController, ModalController } from "@ionic/angular";
 import { TododPageModel } from "./model/todo/todo.page";
 import { FormBuilder, FormGroup, FormControl, NgForm } from "@angular/forms";
 import { AlertController } from "@ionic/angular";
+import { TimeManagementService } from "../../providers/time-management.service";
 
 
 
@@ -32,6 +33,7 @@ export class TodoManagementPage implements OnInit {
   public isEditMode: boolean;
   public taskForm: FormGroup;
   public detailsList = [];
+  public detailsTimeList = [];
   public TaskList = [];
   public status = '';
   public priority = '';
@@ -47,7 +49,8 @@ export class TodoManagementPage implements OnInit {
     public alertController: AlertController,
 
     public actionSheetController: ActionSheetController,
-    public modalController: ModalController
+    public modalController: ModalController,
+    public _timeManagementService: TimeManagementService
   ) {
     if(this.isFreeBoard){
       this.dateFilter = '2000-01-01';
@@ -55,6 +58,96 @@ export class TodoManagementPage implements OnInit {
     this.dateFilter = this.datePipe.transform(new Date(), "yyyy-MM-dd");
     }
 
+  }
+
+  dateFormater(inputDate) {
+    let tempDate = new Date(inputDate);
+    let date =
+      tempDate.getDate() < 10 ? "0" + tempDate.getDate() : tempDate.getDate();
+    let month =
+      tempDate.getMonth() + 1
+        ? "0" + (tempDate.getMonth() + 1)
+        : tempDate.getMonth() + 1;
+    let year = tempDate.getFullYear();
+    return isNaN(tempDate.getTime()) ? "" : year + "-" + month + "-" + date;
+  }
+
+  getDatedTimeTask() {
+    let payload = {};
+
+    if (this.status) {
+      payload["status"] = this.status;
+    }
+
+
+    if (this.priority) {
+      payload["priority"] = this.priority;
+    }
+
+    payload["date"] = this.dateFormater(this.changeDate);
+
+
+    this._timeManagementService.getTime(payload).subscribe(resp => {
+      this.detailsTimeList = resp.object.response;
+      // this.detailsTimeList.sort(function (a, b) {
+      //   return a.duration_start_time.localeCompare(b.duration_start_time);
+      // });
+
+      this.detailsTimeList.sort((a, b) => {
+        const timeA = this.convertTo24HourFormat(a.duration_start_time);
+        const timeB = this.convertTo24HourFormat(b.duration_start_time);
+        return timeA.localeCompare(timeB);
+      })
+
+      console.log('time manager',this.detailsTimeList)
+    });
+  }
+  convertTo24HourFormat(timeString: string): string {
+    // Split the input time string into hours, minutes, and period (AM/PM)
+    const timeParts = timeString.split(/:| /);
+    let hours = parseInt(timeParts[0]);
+    const minutes = parseInt(timeParts[1]);
+    const period = timeParts[2];
+  
+    // Convert to 24-hour format
+    if (period === 'PM' && hours !== 12) {
+      hours += 12;
+    } else if (period === 'AM' && hours === 12) {
+      hours = 0;
+    }
+  
+    // Construct the new time string in 24-hour format
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  }
+
+  transform(value: string): string {
+    // Split the input time string into hours, minutes, and period (AM/PM)
+    const timeParts = value.split(/:| /);
+    let hours = parseInt(timeParts[0]);
+    const minutes = parseInt(timeParts[1]);
+    let period = timeParts[2];
+
+    // Handle special case for 11:00 PM
+    if (hours === 11 && period === 'PM') {
+      period = 'AM'; // Change period to AM
+    }else 
+    if (hours === 11 && period === 'AM') {
+      period = 'PM'; // Change period to AM
+
+    } 
+
+    // Add one hour
+    hours = (hours + 1) % 12;
+
+    // If the result is 0, set it to 12
+    if (hours === 0) {
+      hours = 12;
+    }
+
+    // Construct the new time string
+    const newTimeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${period}`;
+
+    return newTimeString;
   }
 
   toggleChanged(){
@@ -65,6 +158,7 @@ export class TodoManagementPage implements OnInit {
        this.dateFilter = this.datePipe.transform(new Date(), "yyyy-MM-dd");
     }
     this.ngOnInit();
+    
 
   }
   handleRefresh(event) {
@@ -100,11 +194,13 @@ export class TodoManagementPage implements OnInit {
       payload["duration_end_date"] = this.formatDate(endtDate);
     }
 
+    this.getDatedTimeTask();
 
-    this._taskManagementService.getTask(payload).subscribe(resp => {
-      this.detailsList = resp.object.response;
-      console.log(this.detailsList);
-    });
+    // this._taskManagementService.getTask(payload).subscribe(resp => {
+    //   this.detailsList = resp.object.response;
+    //   console.log(this.detailsList);
+      
+    // });
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { ApplicationRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Router } from "@angular/router";
 import { SwUpdate } from "@angular/service-worker";
 import { MenuController, Platform, ToastController, ModalController } from "@ionic/angular";
@@ -86,6 +86,7 @@ public newTotalCount =0;
     public modalController: ModalController,
     private backgroundMode: BackgroundMode,
     private UpdateOrderService:UpdateOrderService,
+    private appRef : ApplicationRef,
     
     // public nativeAudio: NativeAudio ,
     // public backgroundMode:BackgroundMode,
