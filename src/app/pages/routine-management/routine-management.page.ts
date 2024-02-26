@@ -34,23 +34,33 @@ export class RoutineManagementPage implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
-  handelSubmit(form: NgForm): void {
-    const formData = form.value;
+  handelSubmit(): void {
+    // const formData = form.value;
     const body: any = {
       userId: localStorage.getItem("adminId"),
       routines: [],
     };
+    console.log(this.selectedDate,this.routineList);
 
-    Object.entries(formData).forEach((data) => {
-      if (data[0] === "date") {
-        body.date = data[1];
-      } else {
-        body.routines.push({
-          routineId: data[0],
-          completed: data[1],
-        });
-      }
+    this.routineList.forEach(routine =>{
+      body.date = this.selectedDate;
+      body.routines.push({
+              routineId: routine._id,
+              completed: routine.completed,
+            });
     });
+    console.log(body);
+
+    // Object.entries(formData).forEach((data) => {
+    //   if (data[0] === "date") {
+    //     body.date = data[1];
+    //   } else {
+    //     body.routines.push({
+    //       routineId: data[0],
+    //       completed: data[1],
+    //     });
+    //   }
+    // });
     this._routineManagementService
       .markDailyRoutineByDateUserId(body)
       .subscribe(async(resp) => {
