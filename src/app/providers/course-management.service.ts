@@ -25,6 +25,20 @@ export class CourseManagementService {
         )
       );
   }
+  deleteCourse(courseId){
+    return this._http
+      .delete(environment.baseUrl + `/api/v1/deleteCourse/${courseId}`)
+      .pipe(
+        tap(
+          (response) => {
+            console.log("get chapter  : successfull");
+          },
+          (error) => {
+            console.log("get chapter  : failed");
+          }
+        )
+      );
+  }
   getChapter(courseId): Observable<any> {
     return this._http
       .get(environment.baseUrl + `/api/v1/ListChapter/${courseId}`)
@@ -72,6 +86,21 @@ export class CourseManagementService {
           },
           (error) => {
             console.log("create CreateChapter : failed");
+          }
+        )
+      );
+  }
+
+  deleteChapter(chapterId){
+    return this._http
+      .delete(environment.baseUrl + `/api/v1/deleteChapter/${chapterId}`)
+      .pipe(
+        tap(
+          (response) => {
+            console.log("get chapter  : successfull");
+          },
+          (error) => {
+            console.log("get chapter  : failed");
           }
         )
       );

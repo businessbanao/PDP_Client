@@ -22,6 +22,7 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { UpdateOrderService } from "./providers/update-order";
 import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
+import { debug } from "console";
 
 @Component({
   selector: "app-root",
@@ -97,6 +98,10 @@ public newTotalCount =0;
     if (!localStorage.getItem('AuthToken')) {
       this.router.navigateByUrl('/login')
     }
+
+    swUpdate.available.subscribe((data)=>{
+      console.log({data});
+    })
 
     this.subscription = this._notificationsService.getData().subscribe((x) => {
       alert("x : " + x);
@@ -387,7 +392,6 @@ public newTotalCount =0;
 
 
   initializeApp() {
-    
     if(this.swUpdate.available){
       this.swUpdate.available.subscribe(() => {
         if (confirm('A new version is available. Load it?'))

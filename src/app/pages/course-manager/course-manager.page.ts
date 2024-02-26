@@ -140,6 +140,15 @@ export class CourseManagerPage implements OnInit {
     await this.modalController.dismiss();
   }
 
+  async deleteCourse(course){
+    const courseId = course._id;
+
+    this._courseManagerService.deleteCourse(courseId).subscribe((data)=>{
+      console.log(data);
+      this.getCourse();
+    });
+  }
+
 
  async previewCourse(list){
     const modal = await this.modalController.create({

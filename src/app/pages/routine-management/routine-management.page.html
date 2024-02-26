@@ -1,178 +1,175 @@
-<form #form="ngForm" (ngSubmit)="handelSubmit(form)" style="height: 92%">
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button style="color: white"></ion-menu-button>
-      </ion-buttons>
-      <ion-title> Routine Tracker </ion-title>
-      <button type="submit" class="top-right-btn">Save</button>
-    </ion-toolbar>
-  </ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Routine Tracker </ion-title>
+    <ion-buttons slot="end">
+      <button type="submit" class="top-right-btn" (click)="handelSubmit(form)">Save</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content style="height: 100%">
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="addRoutineModal()">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addRoutineModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-    <ng-container>
-      <ion-grid>
-        <ion-row class="border-bottom">
+  <ng-container>
+    <ion-grid>
+      <ion-row class="border-bottom">
+        <ion-col>
+          <div class="nav-btns">
+            <ion-icon name="chevron-back-outline" (click)="decreaseDate()"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col>
+          <input type="date" style="border-radius: 5px; padding: 10px" name="date" (change)="getDailyRoutineListByDate($event.target.value)" [(ngModel)]="selectedDate" />
+        </ion-col>
+        <ion-col>
+          <div class="nav-btns right-btn">
+            <ion-icon name="chevron-forward-outline" (click)="increaseDate()"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <!-- Morning Routine -->
+      <div class="routine-block">
+        <ion-row class="routine-heading">
           <ion-col>
-            <div class="nav-btns">
-              <ion-icon
-                name="chevron-back-outline"
-                (click)="decreaseDate()"
-              ></ion-icon>
-            </div>
+            <h2 class="heading">Morning</h2>
           </ion-col>
+        </ion-row>
+        <ion-row>
           <ion-col>
-            <input
-              type="date"
-              style="border-radius: 5px; padding: 10px"
-              name="date"
-              (change)="getDailyRoutineListByDate($event.target.value)"
-              [(ngModel)]="selectedDate"
-            />
-          </ion-col>
-
-          <ion-col>
-            <div class="nav-btns right-btn">
-              <ion-icon
-                name="chevron-forward-outline"
-                (click)="increaseDate()"
-              ></ion-icon>
+            <ion-list>
+              <ion-item-sliding *ngFor="let list of routineList">
+                <ion-item class="routine-item" *ngIf="list.period == 'morning'">
+                  <div class="routine-name">
+                    {{list.name}}
+                  </div>
+                  <div class="routine-checkbox">
+                    <ion-checkbox [(ngModel)]="list.completed"></ion-checkbox>
+                  </div>
+                </ion-item>
+                <ion-item-options side="end">
+                  <ion-item-option color="danger" (click)="deleteItem(list)">
+                    <ion-icon slot="icon-only" name="trash"></ion-icon>
+                  </ion-item-option>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
+            <div *ngIf="checkList(routineList,'morning')">
+              <p class="no_record">No Morning Routines Found</p>
             </div>
           </ion-col>
         </ion-row>
-      </ion-grid>
-      <ion-grid>
-        <!-- <form #form="ngForm" (ngSubmit)="handelSubmit(form)"> -->
-        <div class="routine-block">
-          <ion-row class="routine-heading">
-            <ion-col>
-              <h2 class="heading">Morning</h2>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <div class="routine-list" *ngFor="let list of routineList">
-                <div class="routine-item" *ngIf="list.period == 'morning'">
+      </div>
+
+      <!-- Noon Routine -->
+      <div class="routine-block">
+        <ion-row class="routine-heading">
+          <ion-col>
+            <h2 class="heading">Noon</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-list>
+              <ion-item-sliding *ngFor="let list of routineList">
+                <ion-item class="routine-item" *ngIf="list.period == 'noon'">
                   <div class="routine-name">
                     {{list.name}}
-                    <!--({{list.period}})-->
                   </div>
                   <div class="routine-checkbox">
-                    <input
-                      type="checkbox"
-                      name="{{list._id}}"
-                      [(ngModel)]="list.completed"
-                    />
+                    <ion-checkbox [(ngModel)]="list.completed"></ion-checkbox>
                   </div>
-                </div>
-              </div>
-              <div *ngIf="checkList(routineList,'morning')">
-                <p class="no_record">No Morning Routines Found</p>
-              </div>
-            </ion-col>
-          </ion-row>
-        </div>
-        <div class="routine-block">
-          <ion-row class="routine-heading">
-            <ion-col>
-              <h2 class="heading">Noon</h2>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <div class="routine-list" *ngFor="let list of routineList">
-                <div class="routine-item" *ngIf="list.period == 'noon'">
+                </ion-item>
+                <ion-item-options side="end">
+                  <ion-item-option color="danger" (click)="deleteItem(list)">
+                    <ion-icon slot="icon-only" name="trash"></ion-icon>
+                  </ion-item-option>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
+            <div *ngIf="checkList(routineList,'noon')">
+              <p class="no_record">No Noon Routines Found</p>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+
+
+      <!-- Evening Routine -->
+      <div class="routine-block">
+        <ion-row class="routine-heading">
+          <ion-col>
+            <h2 class="heading">Evening</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-list>
+              <ion-item-sliding *ngFor="let list of routineList">
+                <ion-item class="routine-item" *ngIf="list.period == 'evening'">
                   <div class="routine-name">
                     {{list.name}}
-                    <!--({{list.period}}) -->
                   </div>
                   <div class="routine-checkbox">
-                    <input
-                      type="checkbox"
-                      name="{{list._id}}"
-                      [(ngModel)]="list.completed"
-                    />
+                    <ion-checkbox [(ngModel)]="list.completed"></ion-checkbox>
                   </div>
-                </div>
-              </div>
-              <div *ngIf="checkList(routineList,'noon')">
-                <p class="no_record">No Noon Routines Found</p>
-              </div>
-            </ion-col>
-          </ion-row>
-        </div>
-        <div class="routine-block">
-          <ion-row class="routine-heading">
-            <ion-col>
-              <h2 class="heading">Evening</h2>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <div class="routine-list" *ngFor="let list of routineList">
-                <div class="routine-item" *ngIf="list.period == 'evening'">
+                </ion-item>
+                <ion-item-options side="end">
+                  <ion-item-option color="danger" (click)="deleteItem(list)">
+                    <ion-icon slot="icon-only" name="trash"></ion-icon>
+                  </ion-item-option>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
+            <div *ngIf="checkList(routineList,'evening')">
+              <p class="no_record">No Evening Routines Found</p>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <!-- Night Routine -->
+      <div class="routine-block">
+        <ion-row class="routine-heading">
+          <ion-col>
+            <h2 class="heading">Night</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-list>
+              <ion-item-sliding *ngFor="let list of routineList">
+                <ion-item class="routine-item" *ngIf="list.period == 'night'">
                   <div class="routine-name">
                     {{list.name}}
-                    <!--({{list.period}})-->
                   </div>
                   <div class="routine-checkbox">
-                    <input
-                      type="checkbox"
-                      name="{{list._id}}"
-                      [(ngModel)]="list.completed"
-                    />
+                    <ion-checkbox [(ngModel)]="list.completed"></ion-checkbox>
                   </div>
-                </div>
-              </div>
-              <div *ngIf="checkList(routineList,'evening')">
-                <p class="no_record">No Evening Routines Found</p>
-              </div>
-            </ion-col>
-          </ion-row>
-        </div>
-        <div class="routine-block">
-          <ion-row class="routine-heading">
-            <ion-col>
-              <h2 class="heading">Night</h2>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <div class="routine-list" *ngFor="let list of routineList">
-                <div
-                  class="routine-item"
-                  *ngIf="list.period == 'night';else elseNight"
-                >
-                  <div class="routine-name">
-                    {{list.name}}
-                    <!--({{list.period}})-->
-                  </div>
-                  <div class="routine-checkbox">
-                    <input
-                      type="checkbox"
-                      name="{{list._id}}"
-                      [(ngModel)]="list.completed"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div *ngIf="checkList(routineList,'night')">
-                <p class="no_record">No Night Routines Found</p>
-              </div>
-            </ion-col>
-          </ion-row>
-        </div>
-        <br />
-        <br />
-        <br />
-        <!-- </form> -->
-      </ion-grid>
-    </ng-container>
-  </ion-content>
-</form>
+                </ion-item>
+                <ion-item-options side="end">
+                  <ion-item-option color="danger" (click)="deleteItem(list)">
+                    <ion-icon slot="icon-only" name="trash"></ion-icon>
+                  </ion-item-option>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
+            <div *ngIf="checkList(routineList,'night')">
+              <p class="no_record">No Night Routines Found</p>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+
+    </ion-grid>
+  </ng-container>
+</ion-content>

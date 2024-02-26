@@ -35,6 +35,19 @@ export class RoutineManagementService {
       );
   }
 
+  deleteRoutine(routineId){
+    return this._http.delete(environment.baseUrl + `/api/v1/deleteRoutine/${routineId}`).pipe(
+      tap(
+        (response) => {
+          console.log(" routine  delete : successfull");
+        },
+        (error) => {
+          console.log(" routine delete  : failed");
+        }
+      )
+    )
+  }
+
   getDailyRoutineByDateUserId(userId: any, date: any): Observable<any> {
     return this._http
       .get(environment.baseUrl + `/api/v1/GetDailyRoutineStatusByDateUserId?date=${date}&userId=${userId}`)

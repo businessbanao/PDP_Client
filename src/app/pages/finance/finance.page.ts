@@ -20,6 +20,7 @@ import {
 } from "@ionic-native/file-transfer/ngx";
 import { format } from "highcharts";
 import { PaymentPageModel } from "./model/payment/payment.page";
+import { SwUpdate } from "@angular/service-worker";
 
 @Component({
   selector: "app-finance",
@@ -63,8 +64,14 @@ export class FinancePage implements OnInit {
     public actionSheetController: ActionSheetController,
     public modalController: ModalController,
     private camera: Camera,
-    private transfer: FileTransfer
-  ) { }
+    private transfer: FileTransfer,
+    private swUpdate: SwUpdate,
+
+  ) {
+    swUpdate.available.subscribe((swupdate)=>{
+      console.log({swupdate});
+    })
+   }
 
   ngOnInit() {
     this.finance = this.activatedRoute.snapshot.paramMap.get("id");

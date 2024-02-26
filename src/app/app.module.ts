@@ -9,7 +9,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { ServiceWorkerModule, SwUpdate } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -72,4 +72,16 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
   entryComponents:[OrderIncomingPage]
 })
 
-export class AppModule {}
+export class AppModule {
+  constructor(private swUpdate: SwUpdate){
+    console.log("AppModule");
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.available.subscribe(event => {
+        console.log(event);
+        if (confirm("New version available. Load New Version?")) {
+          window.location.reload();
+        }
+      });
+    }
+  }
+}

@@ -31,7 +31,13 @@ export class ChapterViewPageModel implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.chapter.content=this.chapter.content+' ';
+    if(this.chapter.content === undefined){
+      this.chapter.content = '';
+    }
+  }
+  async toastMessage(msg:string){
+    const t = await this.toastController.create({message: msg,color: 'secondary'});
+    t.present();
   }
 
   async openChapterEdit(){
@@ -53,6 +59,19 @@ export class ChapterViewPageModel implements OnInit {
 
   closeModal(){
     this.modalController.dismiss();
+  }
+
+  async deleteChapter(){
+    const chapterId = this.chapter._id;
+    this._courseManagerService.deleteChapter(chapterId).subscribe((data)=>{
+      console.log(data);
+      if(!((data as {error:boolean}).error)){
+         this.toastMessage("chapter deleted successfully")
+      }else{
+        this.toastMessage("something went wrong while  deleting chapter successfully")
+      }
+      this.closeModal();
+    });
   }
 
 

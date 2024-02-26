@@ -105,6 +105,11 @@ export class RoutineManagementPage implements OnInit {
       });
     }
   }
+  async deleteItem(routine){
+     this._routineManagementService.deleteRoutine(routine._id).subscribe((data)=>{
+        this.ngOnInit();
+     })
+  }
 
   async addRoutineModal() {
     const modal = await this.modalController.create({
