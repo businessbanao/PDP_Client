@@ -36,3 +36,15 @@ div.desc {
   padding-left: 24px;
   list-style: number;
 }
+
+.ck.ck-editor {
+  max-width: 600px !important;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 700px !important;
+}
+
+ck-editor{
+  min-height: 700px !important;
+}

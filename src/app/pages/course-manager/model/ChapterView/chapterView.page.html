@@ -22,10 +22,20 @@
       <ion-icon name="trash-outline"></ion-icon>    
     </ion-fab-button>
   </ion-fab>
+  <ckeditor
+    [config]="this.config"
+   [(ngModel)]="chapter.content"
+   debounce="500"
+    
+    
+ >
+ </ckeditor>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <div [innerHtml]="chapter.content" style="padding: 0 5px"></div>
+       
+        <!-- <div [innerHtml]="chapter.content"  style="padding: 0 5px"></div> -->
+         
       </ion-col>
     </ion-row>
     <ion-row>

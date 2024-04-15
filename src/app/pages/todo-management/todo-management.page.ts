@@ -92,6 +92,7 @@ export class TodoManagementPage implements OnInit {
       // this.detailsTimeList.sort(function (a, b) {
       //   return a.duration_start_time.localeCompare(b.duration_start_time);
       // });
+      
 
       this.detailsTimeList.sort((a, b) => {
         const timeA = this.convertTo24HourFormat(a.duration_start_time);

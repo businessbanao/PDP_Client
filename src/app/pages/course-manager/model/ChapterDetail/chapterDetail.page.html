@@ -15,16 +15,7 @@
     <ion-row class="item-list">
       <ion-col>
         <ckeditor
-          [config]="{
-        toolbar: [
-          { name: 'document', items: ['Source'] },
-          { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
-          { name: 'styles', items: ['Format', 'Font', 'FontSize'] },
-          { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
-          { name: 'colors', items: ['TextColor', 'BGColor'] },
-          { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] }          
-        ]
-      }"
+         [config]="this.config"
           [(ngModel)]="chapter.content"
           debounce="500"
         >

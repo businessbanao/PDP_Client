@@ -30,10 +30,33 @@ export class ChapterViewPageModel implements OnInit {
     private activatedRoute: ActivatedRoute,
   ) {}
 
+  public config: any;
   ngOnInit() {
     if(this.chapter.content === undefined){
       this.chapter.content = '';
     }
+    this.config = this.getConfigOfCKEditor();
+
+  }
+
+  public getConfigOfCKEditor(): any {
+    const toolbarGroups = [
+      // '/',
+      { name: 'insert', groups: ['codesnippet'] }
+    ];
+    // const removeButtons: string = 'Templates,Save,NewPage,Print,Replace,Scayt,SelectAll,Form,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Blockquote,CreateDiv,Language,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,ShowBlocks,About,Checkbox,Find,Preview,Styles,Format,Anchor';
+
+    return {
+      toolbarGroups: toolbarGroups,
+      removeButtons: '',
+      disableNativeSpellChecker: false,
+      ignoreEmptyParagraphValue: true,
+      extraPlugins: "codesnippet",
+      codeSnippet_theme: 'monokai',
+      height:1500,
+      // width:400,
+      codeSnippet_languages: { javascript: 'JavaScript', html: 'html' }
+    };
   }
   async toastMessage(msg:string){
     const t = await this.toastController.create({message: msg,color: 'secondary'});
