@@ -10,6 +10,9 @@ import { NoteManagementService } from "../../../../providers/note-management.ser
 import { ActivatedRoute } from "@angular/router";
 import { CourseManagementService } from "../../../../providers/course-management.service";
 import { ChapterDetailPageModel } from "../ChapterDetail/chapterDetail.page";
+// import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
+// import { HtmlEmbed } from '@ckeditor/ckeditor5-html-embed';
+import HtmlEmbed from '@ckeditor/ckeditor5-html-embed/src/htmlembed';
 
 @Component({
   selector: "app-note-list",
@@ -20,7 +23,7 @@ export class ChapterViewPageModel implements OnInit {
   public chapter;
 
   constructor(
-    public actionSheetController:ActionSheetController,
+    public actionSheetController: ActionSheetController,
     public _courseManagerService: CourseManagementService,
     public modalController: ModalController,
     public toastController: ToastController,
@@ -28,20 +31,55 @@ export class ChapterViewPageModel implements OnInit {
     private _formBuilder: FormBuilder,
     private _noteManagementService: NoteManagementService,
     private activatedRoute: ActivatedRoute,
-  ) {}
+  ) { }
 
   public config: any;
   ngOnInit() {
-    if(this.chapter.content === undefined){
+    if (!this.chapter.content) {
       this.chapter.content = '';
     }
     this.config = this.getConfigOfCKEditor();
+    this.config.readOnly = true;
+    
+  //   this.config.iframe_attributes = function (iframe) {
+  //     var youtubeOrigin = 'https://www.youtube.com'
+
+  //     if (youtubeOrigin.indexOf(iframe.attributes.src) !== -1) {
+  //       return { sandbox: "allow-scripts allow-same-origin" }
+  //     }
+
+  //     return { sandbox: "" };
+  //   }
+
+  //   this.config.iframe_attributes = {
+  //     sandbox: 'allow-scripts allow-same-origin',
+  //     allow: 'autoplay'
+  // }
+  
+  // Defines that embedSemantic should be used (regardless of whether embed is defined).
+// this.config.autoEmbed_widget = 'embedSemantic';
+// this.config.pasteFromWordRemoveFontStyles = false;
+
 
   }
 
   public getConfigOfCKEditor(): any {
     const toolbarGroups = [
+      '/',
+      // { name: 'document', groups: ['mode', 'doctools', 'document','Source'] },
+      // { name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing'] },
+      // { name: 'forms', groups: ['forms'] },
       // '/',
+      // { name: 'clipboard', groups: ['clipboard', 'undo'] },
+      // { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
+      // '/',
+      // { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+      // { name: 'links', groups: ['links'] },
+      // { name: 'styles', groups: ['styles'] },
+      // { name: 'colors', groups: ['colors'] },
+      // { name: 'tools', groups: ['tools'] },
+      // { name: 'others', groups: ['others'] },
+      // { name: 'about', groups: ['about'] },
       { name: 'insert', groups: ['codesnippet'] }
     ];
     // const removeButtons: string = 'Templates,Save,NewPage,Print,Replace,Scayt,SelectAll,Form,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Blockquote,CreateDiv,Language,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,ShowBlocks,About,Checkbox,Find,Preview,Styles,Format,Anchor';
@@ -54,20 +92,19 @@ export class ChapterViewPageModel implements OnInit {
       extraPlugins: "codesnippet",
       codeSnippet_theme: 'monokai',
       height:1500,
-      // width:400,
       codeSnippet_languages: { javascript: 'JavaScript', html: 'html' }
     };
   }
-  async toastMessage(msg:string){
-    const t = await this.toastController.create({message: msg,color: 'secondary'});
+  async toastMessage(msg: string) {
+    const t = await this.toastController.create({ message: msg, color: 'secondary' });
     t.present();
   }
 
-  async openChapterEdit(){
+  async openChapterEdit() {
     const modal = await this.modalController.create({
       component: ChapterDetailPageModel,
       componentProps: {
-         chapter:this.chapter
+        chapter: this.chapter
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
@@ -75,22 +112,22 @@ export class ChapterViewPageModel implements OnInit {
       this._courseManagerService.getCourse();
     });
 
-    return await modal.present();  
+    return await modal.present();
   }
-  
- 
 
-  closeModal(){
+
+
+  closeModal() {
     this.modalController.dismiss();
   }
 
-  async deleteChapter(){
+  async deleteChapter() {
     const chapterId = this.chapter._id;
-    this._courseManagerService.deleteChapter(chapterId).subscribe((data)=>{
+    this._courseManagerService.deleteChapter(chapterId).subscribe((data) => {
       console.log(data);
-      if(!((data as {error:boolean}).error)){
-         this.toastMessage("chapter deleted successfully")
-      }else{
+      if (!((data as { error: boolean }).error)) {
+        this.toastMessage("chapter deleted successfully")
+      } else {
         this.toastMessage("something went wrong while  deleting chapter successfully")
       }
       this.closeModal();

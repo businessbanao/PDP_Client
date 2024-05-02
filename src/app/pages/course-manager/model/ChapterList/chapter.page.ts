@@ -37,6 +37,17 @@ export class ChapterPageModel implements OnInit {
     this.getChapter();
   }
 
+  public bkpchapterList = [];
+  searchChapter(value) {
+    if (value && value.length) {
+      this.chapterList = this.bkpchapterList.filter((obj) => {
+        return obj.name ? obj.name.toLowerCase().includes(value.toLowerCase()) : false;
+      })
+    } else {
+      this.chapterList = JSON.parse(JSON.stringify(this.bkpchapterList))
+    }
+  }
+
   handleRefresh(event) {
     setTimeout(() => {
      this.ngOnInit();
@@ -47,6 +58,7 @@ export class ChapterPageModel implements OnInit {
   async getChapter(){
     this._courseManagerService.getChapter(this.courseId).subscribe((resp)=>{
       this.chapterList = resp.object.response;
+      this.bkpchapterList = JSON.parse(JSON.stringify(resp.object.response));
       console.log(this.chapterList)
     });
   }

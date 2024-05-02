@@ -22,11 +22,12 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <ion-searchbar (ionChange)="searchChapter($event.target.value)"></ion-searchbar>
 
   <div class="container">
     <ion-grid *ngIf="chapterList.length != 0">
       <ion-row *ngFor="let chapter of chapterList" class="chapterList">
-        <ion-col size="9" (click)="openChapterDetails(chapter)">
+        <ion-col style="text-transform: capitalize;" size="9" (click)="openChapterDetails(chapter)">
           {{ chapter.name }}
         </ion-col>
         <ion-col size="3" style="text-align: right; padding-right: 8px">

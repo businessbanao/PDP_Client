@@ -35,7 +35,7 @@
         ></ion-checkbox>
       </ion-col>
     </ion-row> -->
-
+<ion-searchbar (ionChange)="searchCourse($event.target.value)"></ion-searchbar>
     <ion-item-sliding *ngFor="let course of courseList">
       <ion-item (click)="previewCourse(course)">
         <ion-label>

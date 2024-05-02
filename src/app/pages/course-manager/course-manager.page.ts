@@ -20,8 +20,8 @@ export class CourseManagerPage implements OnInit {
 
   public courseList: any = [];
 
-   
-  
+
+
   constructor(
     // private _noteManagementService: NoteManagementService,
     private _courseManagerService: CourseManagementService,
@@ -39,7 +39,7 @@ export class CourseManagerPage implements OnInit {
 
   handleRefresh(event) {
     setTimeout(() => {
-     this.ngOnInit();
+      this.ngOnInit();
       event.target.complete();
     }, 2000);
   }
@@ -92,11 +92,12 @@ export class CourseManagerPage implements OnInit {
   getCourse() {
     this._courseManagerService.getCourse().subscribe((resp) => {
       this.courseList = resp.object.response;
+      this.bkpCourseList = JSON.parse(JSON.stringify(resp.object.response));
       console.log(resp.object.response);
     });
   }
 
- async openAddCourseModal(){
+  async openAddCourseModal() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Create Course',
@@ -106,7 +107,7 @@ export class CourseManagerPage implements OnInit {
           type: 'text',
           placeholder: 'Enter course Name',
         },
-       
+
       ],
       buttons: [
         {
@@ -120,19 +121,19 @@ export class CourseManagerPage implements OnInit {
           text: 'Ok',
           handler: (data) => {
             console.log('Confirm Ok', data);
-             this._courseManagerService.createCourse({...data,userId:localStorage.getItem('adminId')}).subscribe(()=>{
+            this._courseManagerService.createCourse({ ...data, userId: localStorage.getItem('adminId') }).subscribe(() => {
               console.log('Course');
               this.getCourse();
-             });
+            });
           }
         }
       ]
     });
     await alert.present();
-    alert.onDidDismiss().then( ()=>{
+    alert.onDidDismiss().then(() => {
       //  this.getCourse();
     });
-    
+
   }
 
 
@@ -140,40 +141,51 @@ export class CourseManagerPage implements OnInit {
     await this.modalController.dismiss();
   }
 
-  async deleteCourse(course){
+  async deleteCourse(course) {
     const courseId = course._id;
 
-    this._courseManagerService.deleteCourse(courseId).subscribe((data)=>{
+    this._courseManagerService.deleteCourse(courseId).subscribe((data) => {
       console.log(data);
       this.getCourse();
     });
   }
 
 
- async previewCourse(list){
+  async previewCourse(list) {
     const modal = await this.modalController.create({
       component: ChapterPageModel,
       componentProps: {
-         courseId: list._id,
-         courseName:list.name
+        courseId: list._id,
+        courseName: list.name
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
       this._courseManagerService.getCourse();
     });
 
-    return await modal.present();  }
+    return await modal.present();
+  }
 
 
-  async updateCourseStatus(course){
-    console.log("updateCourseStatus",course);
+  async updateCourseStatus(course) {
+    console.log("updateCourseStatus", course);
     const status = course.status;
     const courseId = course._id;
-    console.log(status,courseId);
-    this._courseManagerService.updateCourseStatus(courseId,{status}).subscribe((data)=>{
+    console.log(status, courseId);
+    this._courseManagerService.updateCourseStatus(courseId, { status }).subscribe((data) => {
       console.log(data);
       this.getCourse();
     });
   }
 
+  public bkpCourseList = [];
+  searchCourse(value) {
+    if (value && value.length) {
+      this.courseList = this.bkpCourseList.filter((obj) => {
+        return obj.name ? obj.name.toLowerCase().includes(value.toLowerCase()) : false;
+      })
+    } else {
+      this.courseList = JSON.parse(JSON.stringify(this.bkpCourseList))
+    }
+  }
 }

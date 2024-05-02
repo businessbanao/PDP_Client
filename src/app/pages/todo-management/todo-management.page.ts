@@ -122,6 +122,7 @@ export class TodoManagementPage implements OnInit {
   }
 
   transform(value: string): string {
+    if(!value) return
     // Split the input time string into hours, minutes, and period (AM/PM)
     const timeParts = value.split(/:| /);
     let hours = parseInt(timeParts[0]);
@@ -195,13 +196,13 @@ export class TodoManagementPage implements OnInit {
       payload["duration_end_date"] = this.formatDate(endtDate);
     }
 
-    this.getDatedTimeTask();
+    // this.getDatedTimeTask();
 
-    // this._taskManagementService.getTask(payload).subscribe(resp => {
-    //   this.detailsList = resp.object.response;
-    //   console.log(this.detailsList);
+    this._taskManagementService.getTask(payload).subscribe(resp => {
+      this.detailsList = resp.object.response;
+      console.log(this.detailsList);
       
-    // });
+    });
   }
 
 
