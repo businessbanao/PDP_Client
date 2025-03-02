@@ -14,7 +14,7 @@ import { Camera } from "@ionic-native/camera/ngx";
 import { File } from "@ionic-native/file/ngx";
 import { WebView } from "@ionic-native/ionic-webview/ngx";
 import { FilePath } from "@ionic-native/file-path/ngx";
-// import { CKEditorModule } from 'ng2-ckeditor';
+import { CKEditorModule } from 'ng2-ckeditor';
 import { TagInputModule } from "ngx-chips";
 import { FoodManagementService } from "../../providers/food-management.service";
 import { FoodConsumptionPageModel } from "./model/foodConsuption/foodConsumption.page";
@@ -31,7 +31,7 @@ import { FoodTab } from "./foodtab/FoodTab";
     MatNativeDateModule,
     FoodManagementPageRoutingModule,
     TagInputModule,
-    // CKEditorModule
+    CKEditorModule
   ],
   declarations: [FoodManagementPage,FoodPageModel,FoodConsumptionPageModel,FoodConsumptionViewPageModel,FoodTab],
   providers: [FoodManagementService, Camera, File, WebView, FilePath],

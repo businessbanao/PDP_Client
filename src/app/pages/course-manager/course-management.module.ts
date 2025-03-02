@@ -29,6 +29,7 @@ import { ChapterViewPageModel } from './model/ChapterView/chapterView.page';
     MatNativeDateModule,
     CourseManagementPageRoutingModule,
     TagInputModule,
+    
     CKEditorModule
     
   ],

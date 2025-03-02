@@ -6,36 +6,30 @@
         (click)="closeModal()"
       ></ion-back-button>
     </ion-buttons>
-    <button (click)="editVideo(video)" class="top-right-btn">Edit</button>
+    <!-- <button (click)="editVideo(video)" class="top-right-btn">Edit</button> -->
 
     <ion-title id="top"> </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <section *ngIf="source == 'youtube' ">
+
+ 
   <img *ngIf="video.imageUrl" [src]="video.imageUrl" alt="" />
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{video.name}} </ion-card-title>
-      <img class="img-box" *ngIf="video.images" [src]="video.images" />
-    </ion-card-header>
+ <h1 style="margin-left: 20px">{{video.name}}</h1>
+  <br/> 
+  <iframe style="width: 100%" height="315" [src]="video_url" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-    <ion-card-content>
-      <div innerHtml="{{ video.content }}">{{video.content}}</div>
-    </ion-card-content>
-  </ion-card>
+</section>
 
-  <div class="video-list">
-    <ul>
-      <li *ngFor="let link of video?.links;let i = index">
-        <a [href]="link" target="_blank"> Link {{i+1}}</a>
-      </li>
-    </ul>
-  </div>
+<section>
+  <div style="margin: -52px 0 0 0px;"></div>
+  <iframe style="width: 100%" *ngIf="insta_url" [src]="insta_url"  height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+</section>
+  
+<!-- <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DGojVgjo99D/?igsh=M3VoeXRneW54OXc0" data-instgrm-version="14"></blockquote>
+<script async src="https://www.instagram.com/embed.js"></script> -->
 
-  <!-- <div>
-    <div *ngFor="let link of video?.links; let i = index">
-      <a [href]="link">{{ i }}</a>
-    </div>
-  </div> -->
 </ion-content>

@@ -13,7 +13,7 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <form [formGroup]="taskForm" (ngSubmit)="submit(taskForm)">
-      <ion-row>
+      <ion-row *ngIf="false">
         <ion-col>
           <div
             class="form-field"
@@ -80,7 +80,7 @@
           </span>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="false">
         <ion-col>
           <div
           *ngIf = "!isFreeBoard"
@@ -141,13 +141,13 @@
       </ion-row>
 
       <ion-row>
-        <ion-col>
+        <ion-col >
           <div
             class="form-field"
             [ngClass]="{'has-error' : taskForm.get('duration_start_date').errors && (taskForm.get('duration_start_date').touched || taskForm.get('duration_start_date').dirty) }"
           >
             <div class="label-with-field" *ngIf = "!isFreeBoard"   >
-              <ion-label class="field-label">Start Date: </ion-label>
+              <!-- <ion-label class="field-label">Start Date: </ion-label> -->
               <ion-input
                 type="date"
                 formControlName="duration_start_date"
@@ -170,7 +170,7 @@
           </span>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="false">
         <ion-col>
           <div
             class="form-field"
@@ -198,7 +198,7 @@
           </span>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="false">
         <ion-col>
           <div class="form-field"
           *ngIf = "!isFreeBoard" 

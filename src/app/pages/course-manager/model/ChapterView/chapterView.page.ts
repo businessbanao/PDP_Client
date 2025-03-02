@@ -92,6 +92,7 @@ export class ChapterViewPageModel implements OnInit {
       extraPlugins: "codesnippet",
       codeSnippet_theme: 'monokai',
       height:1500,
+      removePlugins: 'notification,notificationaggregator',
       codeSnippet_languages: { javascript: 'JavaScript', html: 'html' }
     };
   }

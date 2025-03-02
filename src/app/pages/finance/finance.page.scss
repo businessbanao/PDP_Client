@@ -36,7 +36,7 @@
 }
 .trans-date {
   color: #616161;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
 }
 // ion-menu-button {
@@ -160,4 +160,26 @@ input[type="file"]::file-selector-button:hover {
 /* file upload button active state */
 input[type="file"]::file-selector-button:active {
   background-color: #e5e7eb;
+}
+
+.tran-amt{
+  font-size: 22px !important;
+  margin-bottom: 5px;
+}
+
+.tran-des{
+  height: 50px !important;
+  text-transform: capitalize;  /* Capitalizes the first letter of each word */
+  word-wrap: break-word;       /* Allows long words to break and wrap to the next line */
+  overflow-wrap: break-word;   /* Ensures long words break correctly */
+  word-break: break-all;       /* Breaks words at any point if necessary */
+  white-space: normal; 
+  margin-top: 10px;
+}
+
+.sign-tran{
+  
+  margin-top: -70px;
+  position: absolute;
+  margin-left: -30px;
 }

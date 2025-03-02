@@ -275,6 +275,7 @@ export class VideoManagementPage implements OnInit {
       componentProps: {
         video: list,
         folderName: this.folderName,
+        source: this.getSource(list.videoUrl)
       },
     });
     modal.onDidDismiss().then((dataReturned) => {
@@ -283,5 +284,21 @@ export class VideoManagementPage implements OnInit {
 
     // });
     return await modal.present();
+  }
+
+  getSource(url){
+    if(url.includes('youtube')){
+      return  'youtube'
+    }
+
+    if(url.includes('instagram')){
+      return 'instagram'  
+    }
+
+    if(url.includes('facebook')){
+      return 'facebook'  
+    }
+
+    return 'others';
   }
 }

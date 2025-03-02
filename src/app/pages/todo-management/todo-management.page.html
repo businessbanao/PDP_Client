@@ -3,9 +3,12 @@
     <ion-buttons slot="start">
       <ion-menu-button style="color: white"></ion-menu-button>
     </ion-buttons>
-    <ion-title> Todo Tracker </ion-title>
+    <ion-title> Task Planner </ion-title>
+    <ion-buttons slot="end">
+      <ion-label>Board</ion-label>
+      <ion-toggle [(ngModel)]="isFreeBoard" (ionChange)="toggleChanged()"></ion-toggle>
+    </ion-buttons>
   </ion-toolbar>
-  <ion-toggle [(ngModel)]="isFreeBoard" (ionChange)="toggleChanged()"></ion-toggle>
 </ion-header>
 
 <ion-content>
@@ -36,9 +39,9 @@
             placeholder="Select :"
             [(ngModel)]="duration_type"
           >
-            <ion-select-option value="DAY">Day</ion-select-option>
+            <ion-select-option value="DAY">Day View</ion-select-option>
             <!-- <ion-select-option value="WEEK">Week</ion-select-option> -->
-            <ion-select-option value="MONTH">Month</ion-select-option>
+            <ion-select-option value="MONTH">Month View</ion-select-option>
           </ion-select>
           <div class="filter-input">
             <!-- [max]="formatCurrentDate" -->
@@ -91,11 +94,11 @@
           <div style="text-transform: capitalize" class="todo-row">
             <div class="todo-item">
               <span>{{task.task_name}}</span>
-              <span class="category">{{task.category}} </span>
+              <!-- <span class="category">{{task.category}} </span> -->
             </div>
-            <div>
+            <!-- <div>
               <span>{{task.duration_start_time}} -- {{transform(task.duration_start_time)}}</span>
-            </div>
+            </div> -->
             <span
               *ngIf="task.status == 'CREATED'"
               style="color: #1488e3; float: right"

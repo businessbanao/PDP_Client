@@ -269,9 +269,9 @@ export class FinancePage implements OnInit {
     let date =
       tempDate.getDate() < 10 ? "0" + tempDate.getDate() : tempDate.getDate();
     let month =
-      tempDate.getMonth() + 1
+      tempDate.getMonth() < 10
         ? "0" + (tempDate.getMonth() + 1)
-        : tempDate.getMonth() + 1;
+        :  tempDate.getMonth() + 1;
     let year = tempDate.getFullYear();
     if (!isNaN(tempDate.getTime())) {
       return year + "-" + month + "-" + date;

@@ -5,7 +5,9 @@
     </ion-buttons>
     <ion-title> Routine Tracker </ion-title>
     <ion-buttons slot="end">
-      <button type="submit" class="top-right-btn" (click)="handelSubmit()">Save</button>
+      <button type="submit" class="top-right-btn" (click)="handelSubmit()">
+        Save
+      </button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -22,15 +24,27 @@
       <ion-row class="border-bottom">
         <ion-col>
           <div class="nav-btns">
-            <ion-icon name="chevron-back-outline" (click)="decreaseDate()"></ion-icon>
+            <ion-icon
+              name="chevron-back-outline"
+              (click)="decreaseDate()"
+            ></ion-icon>
           </div>
         </ion-col>
         <ion-col>
-          <input type="date" style="border-radius: 5px; padding: 10px" name="date" (change)="getDailyRoutineListByDate($event.target.value)" [(ngModel)]="selectedDate" />
+          <input
+            type="date"
+            style="border-radius: 5px; padding: 10px"
+            name="date"
+            (change)="getDailyRoutineListByDate($event.target.value)"
+            [(ngModel)]="selectedDate"
+          />
         </ion-col>
         <ion-col>
           <div class="nav-btns right-btn">
-            <ion-icon name="chevron-forward-outline" (click)="increaseDate()"></ion-icon>
+            <ion-icon
+              name="chevron-forward-outline"
+              (click)="increaseDate()"
+            ></ion-icon>
           </div>
         </ion-col>
       </ion-row>
@@ -49,12 +63,22 @@
             <ion-list>
               <ion-item-sliding *ngFor="let list of routineList">
                 <ion-item class="routine-item" *ngIf="list.period == 'morning'">
-                  <div class="routine-name">
-                    {{list.name}}
-                  </div>
-                  <div class="routine-checkbox">
-                    <ion-checkbox [(ngModel)]="list.completed"></ion-checkbox>
-                  </div>
+                  <ion-row style="width:100%">
+                    <ion-col>
+                      <div class="routine-name">
+                        {{list.name}}
+                      </div>
+                    </ion-col>
+                    <ion-col></ion-col>
+                    <ion-col></ion-col>
+                    <ion-col>
+                      <div class="routine-checkbox">
+                        <ion-checkbox
+                          [(ngModel)]="list.completed"
+                        ></ion-checkbox>
+                        </div
+                    ></ion-col>
+                  </ion-row>
                 </ion-item>
                 <ion-item-options side="end">
                   <ion-item-option color="danger" (click)="deleteItem(list)">
@@ -82,12 +106,22 @@
             <ion-list>
               <ion-item-sliding *ngFor="let list of routineList">
                 <ion-item class="routine-item" *ngIf="list.period == 'noon'">
-                  <div class="routine-name">
-                    {{list.name}}
-                  </div>
-                  <div class="routine-checkbox">
-                    <ion-checkbox [(ngModel)]="list.completed"></ion-checkbox>
-                  </div>
+                    <ion-row style="width:100%">
+                        <ion-col>
+                          <div class="routine-name">
+                            {{list.name}}
+                          </div>
+                        </ion-col>
+                        <ion-col></ion-col>
+                        <ion-col></ion-col>
+                        <ion-col>
+                          <div class="routine-checkbox">
+                            <ion-checkbox
+                              [(ngModel)]="list.completed"
+                            ></ion-checkbox>
+                            </div
+                        ></ion-col>
+                      </ion-row>
                 </ion-item>
                 <ion-item-options side="end">
                   <ion-item-option color="danger" (click)="deleteItem(list)">
@@ -103,7 +137,6 @@
         </ion-row>
       </div>
 
-
       <!-- Evening Routine -->
       <div class="routine-block">
         <ion-row class="routine-heading">
@@ -116,12 +149,22 @@
             <ion-list>
               <ion-item-sliding *ngFor="let list of routineList">
                 <ion-item class="routine-item" *ngIf="list.period == 'evening'">
-                  <div class="routine-name">
-                    {{list.name}}
-                  </div>
-                  <div class="routine-checkbox">
-                    <ion-checkbox [(ngModel)]="list.completed"></ion-checkbox>
-                  </div>
+                    <ion-row style="width:100%">
+                        <ion-col>
+                          <div class="routine-name">
+                            {{list.name}}
+                          </div>
+                        </ion-col>
+                        <ion-col></ion-col>
+                        <ion-col></ion-col>
+                        <ion-col>
+                          <div class="routine-checkbox">
+                            <ion-checkbox
+                              [(ngModel)]="list.completed"
+                            ></ion-checkbox>
+                            </div
+                        ></ion-col>
+                      </ion-row>
                 </ion-item>
                 <ion-item-options side="end">
                   <ion-item-option color="danger" (click)="deleteItem(list)">
@@ -149,12 +192,22 @@
             <ion-list>
               <ion-item-sliding *ngFor="let list of routineList">
                 <ion-item class="routine-item" *ngIf="list.period == 'night'">
-                  <div class="routine-name">
-                    {{list.name}}
-                  </div>
-                  <div class="routine-checkbox">
-                    <ion-checkbox [(ngModel)]="list.completed"></ion-checkbox>
-                  </div>
+                    <ion-row style="width:100%">
+                        <ion-col>
+                          <div class="routine-name">
+                            {{list.name}}
+                          </div>
+                        </ion-col>
+                        <ion-col></ion-col>
+                        <ion-col></ion-col>
+                        <ion-col>
+                          <div class="routine-checkbox">
+                            <ion-checkbox
+                              [(ngModel)]="list.completed"
+                            ></ion-checkbox>
+                            </div
+                        ></ion-col>
+                      </ion-row>
                 </ion-item>
                 <ion-item-options side="end">
                   <ion-item-option color="danger" (click)="deleteItem(list)">
@@ -169,7 +222,6 @@
           </ion-col>
         </ion-row>
       </div>
-
     </ion-grid>
   </ng-container>
 </ion-content>

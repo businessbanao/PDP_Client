@@ -169,10 +169,10 @@
         </ion-item>
         <div
           *ngIf="inventoryList?.length != 0"
-          style="display: flex; flex-direction: column; padding: 10px"
+          style="display: flex;   padding: 10px"
         >
-          <div class="crAmmount">Total Incoming : {{ totalIncoming }}</div>
-          <div class="drAmmount">Total Outgoing : {{ totalOutgoing }}</div>
+          <div class="crAmmount" style="margin-right: 8rem">Total Incoming  {{ totalIncoming  | number:'1.2-2' }}</div>
+          <div class="drAmmount">Total Outgoing  {{ totalOutgoing |  number:'1.2-2' }}</div>
         </div>
 
         <ion-item-sliding
@@ -184,39 +184,52 @@
             <ion-label>
               <div class="trans-row">
                 <div class="trans-item-desc">
-                  <p
+                  <h3
                     *ngIf="inventory.inventryType == 'debit'"
-                    class="save-later-name"
+                    class="tran-amt"
                     style="text-transform: capitalize; color: red"
                   >
-                    Amount : - {{inventory.amount}}
-                  </p>
-                  <p
+                      {{inventory.amount}}
+                </h3>
+                  <h3
                     *ngIf="inventory.inventryType == 'credit'"
-                    class="save-later-name"
+                    class="tran-amt"
                     style="text-transform: capitalize; color: green"
                   >
-                    Amount : + {{inventory.amount}}
-                  </p>
-                  <span class="trading-price" style="text-transform: capitalize"
-                    >Description : {{inventory.description}}</span
-                  >
-                  <span
-                    class="trading-price trans-date"
-                    style="text-transform: capitalize"
-                    >Date : {{inventory.date | date: 'dd-MMM-yyyy'}}</span
-                  >
+                      {{inventory.amount}}
+              </h3>
+              <div>
+                <span
+                class="trans-date"
+                style="text-transform: capitalize"
+                >{{inventory.date | date: 'dd-MMM-yyyy'}}</span
+              >
+              </div>
+                 <div>
+                  <p class="tran-des" style="text-transform: capitalize"
+                  >{{inventory.description}}</p
+                >
+                 </div>
+
+                 <div>
+                 <img *ngIf="inventory.bank == 'HDFC'" style="height: 20px;" src="https://www.hdfc.com/content/dam/housingdevelopmentfinancecorp/hdfc-ltd-merger/header/hdfc-bank-logo.svg">
+                 <img *ngIf="inventory.bank == 'IDFC'" style="height: 20px;" src="https://www.idfcfirstbank.com/content/dam/idfcfirstbank/images/n1/IDFC-logo-website.svg">
+
+                </div>
+                 
                 </div>
                 <div class="trans-sign">
                   <span
                     *ngIf="inventory.inventryType == 'debit'"
                     style="color: red"
-                    >dr</span
+                    class="sign-tran"
+                    >DR</span
                   >
                   <span
                     *ngIf="inventory.inventryType == 'credit'"
                     style="color: green"
-                    >cr</span
+                    class="sign-tran"
+                    >CR</span
                   >
                 </div>
               </div>

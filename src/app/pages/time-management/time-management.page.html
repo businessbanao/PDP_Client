@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button style="color: white"></ion-menu-button>
     </ion-buttons>
-    <ion-title> Time Tracker </ion-title>
+    <ion-title> Time Management </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -61,29 +61,29 @@
               <span
                 *ngIf="task.task_id.status == 'CREATED'"
                 style="color: #1488e3; float: right"
-                >{{task.task_id.status}}</span
+                >TODO</span
               >
               <span
                 *ngIf="task.task_id.status == 'DONE'"
                 style="color: green; float: right"
-                >&nbsp;{{task.task_id.status}}&nbsp;<img
+                >&nbsp;COMPLETED&nbsp;<img
                   class="done"
                   src="https://static.vecteezy.com/system/resources/previews/016/314/839/original/tick-mark-sign-free-png.png"
               /></span>
               <span
                 *ngIf="task.task_id.status == 'IN_PROGRESS'"
                 style="color: rgb(201, 173, 18); float: right"
-                >{{task.task_id.status}}</span
+                >WORKING ON IT</span
               >
               <span
                 *ngIf="task.task_id.status == 'HOLD'"
                 style="color: rgb(235, 223, 113); float: right"
-                >{{task.task_id.status}}</span
+                >HOLD</span
               >
               <span
                 *ngIf="task.task_id.status == 'BLOCKER'"
                 style="color: rgb(199, 58, 19); float: right"
-                >{{task.task_id.status}}</span
+                >BLOCKED</span
               >
             </h4>
             &nbsp;

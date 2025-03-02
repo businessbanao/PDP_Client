@@ -6,7 +6,8 @@ export const environment = {
   production: true,
   // baseUrl:"//localhost:3000"
   // baseUrl: "http://15.206.67.171:3500",
-  baseUrl: "https://api.pdp-online.shop"
+  // baseUrl: "https://api.pdp-online.shop"
+  baseUrl: "https://api.foxglam.in",
   // baseUrl:"http://a05a282e.ngrok.io"
 };
 

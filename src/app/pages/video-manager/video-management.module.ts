@@ -17,7 +17,7 @@ import { Camera } from "@ionic-native/camera/ngx";
 import { File } from "@ionic-native/file/ngx";
 import { WebView } from "@ionic-native/ionic-webview/ngx";
 import { FilePath } from "@ionic-native/file-path/ngx";
-// import { CKEditorModule } from 'ng2-ckeditor';
+import { CKEditorModule } from 'ng2-ckeditor';
 import { TagInputModule } from "ngx-chips";
 import { VideoManagementService } from "../../providers/video-management.service";
 
@@ -31,7 +31,7 @@ import { VideoManagementService } from "../../providers/video-management.service
     MatNativeDateModule,
     VideoManagementPageRoutingModule,
     TagInputModule,
-    // CKEditorModule
+    CKEditorModule
   ],
   declarations: [
     VideoManagementPage,
